@@ -1,0 +1,32 @@
+# Complied result
+##################
+*.o
+*.so
+stage/
+# Temporary files
+##################
+*.swp
+*.swo
+*~
+# Packages
+##################
+*.7z
+*.dmg
+*.tgz
+*.gz
+*.tar
+*.zip
+*.rar
+# logs and databases
+####################
+*.log
+*.sql
+*.sqlite
+# OS generated files
+####################
+core
+core.*
+ehthumbs.db
+.DS_Store*
+Thumbs.db
+
