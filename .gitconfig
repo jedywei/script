@@ -1,0 +1,89 @@
+[user]
+    name=Jedy Wei
+    email=jedy.wei@advantech.com.tw
+    username=jedy.wei
+[core]
+    editor=vim
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    excludesfile=~/script/.gitignore
+    
+[sendemail]
+    smtpencryption=tls
+    smptserver=smpt.gmail.com
+    smtpuser=jedy.wei@advantech.com
+    smtppass=iam1rock
+    smptserverport=587
+
+[web]
+    browser=google-chrome
+[instaweb]
+    httpd=appache2 -f
+
+[rerere]
+    enabled=1
+    autoupdate=1
+
+[push]
+    default=matching
+
+[color]
+    ui=auto
+
+[color "branch"]
+    current=yellow bold
+    local=green bold
+    remote=cyan bold
+
+[color "diff"]
+    meta=yellow bold
+    frag=magenta bold
+    old=red bold
+    new=green bold
+    whitespace=red reverse
+
+[color "status"]
+    added=green bold
+    changed=yellow bold
+    untracked=red bold
+
+[diff]
+    tool=vimdiff
+
+[difftool]
+    prompt=false
+
+[github]
+    user=jedywei
+    token=iamarock
+
+[gitflow "prefix"]
+    feature=feature-
+    release=release-
+    hotfix=hotfix-
+    support=support-
+    versiontag=v
+
+[alias]
+    a=add
+    aa=add --all
+    ########
+    ap=apply
+    as=apply -stat
+    ac=apply -check
+    #######
+    ama=am --abort
+    amr=am --resolved
+    ams=am --skip
+    #######
+    br=branch
+    bc=rev-parse --abbrev-ref HEAD
+    bu=!git rev-parse --abbrev-ref --symbolic-full-name "${u}"
+    #######
+    ci=commit
+    cia=commit --amend
+    ######
+    co=checkout
+    st=status
+    last='log -l HEAD'
+    unstage='reset HEAD --'
+
