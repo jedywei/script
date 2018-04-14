@@ -12,8 +12,8 @@ fi
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
+if [ -f ~/script/.bash_aliases ]; then
+	. ~/script/.bash_aliases
 fi
 
 [[ $- == *i* ]] && stty -ixon

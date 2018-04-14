@@ -104,6 +104,6 @@ hexall() {
 if [[ $- == *i* ]]; then
     export DISPLAY=172.16.63.1:0.0
     export PS1="[$VIMPROMPT\u@\h \W:${PROJ}]$ "
-    source ~/bproj.sh
+    source ~/script/bproj.sh
 fi
 
