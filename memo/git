@@ -17,4 +17,34 @@ git push origin --delete hotdog
 #----------------------------------------------------------
 git remote update
 
+# List branch, remote and all
+#----------------------------------------------------------
+git br
+git br -r
+git br -a 
+
+# List branch and upstream binding
+#---------------------------------------------------------
+git br -vv
+
+# push all branch to remote
+#---------------------------------------------------------
+git push origin --all
+
+# fetch all branch from remote
+#---------------------------------------------------------
+git fetch --all
+
+# pull all branch from remote. 
+# NOTE: pull will fetch and then merge 
+#--------------------------------------------------------
+git pull -all
+
+
+# push tag to remote site
+#---------------------------------------------------------
+git push --tags
+git push origin <tag_name>
+
+
 
