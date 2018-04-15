@@ -1,0 +1,12 @@
+# Create remote branch by local branch
+-----------------------------------------------------------
+git br hotdog   // local branch
+git co hotdog   // checkout local branch
+git push -u origin hotdog   // create origin/hotdog and push
+
+# Clone local branch by remove branch
+-----------------------------------------------------------
+git br -r       // browse remote branch
+git co origin/hotdog -b hotdog // create local hotdog by remote
+
+
