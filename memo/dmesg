@@ -1,0 +1,21 @@
+# make dmesg multiple boot session
+#-----------------------------------
+1. modify /etc/systemd/journald.conf
+   Storage=persistent
+2. sudo systemctl restart systemd-journald
+3. sudo journalctl --list-boot
+4. sudo journalctl -o short-precise -k -b -1
+
+#  message dump
+#-------------------------------------
+dmesg | less
+dmesg | head -20
+dmesg | tail -20
+
+dmesg | grep -i usb
+
+// clear dmesg buffer logs
+dmesg -c
+
+watch "dmesg | tail -20"
+
