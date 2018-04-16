@@ -1,3 +1,16 @@
+# Initially set up any Git Server
+#----------------------------------------------------------
+cd ~/git
+mkdir test.git
+cd test.git
+git init --bare --shared
+
+#
+# Clone a test.git repostory to your local
+#----------------------------------------------------------
+git clone ssh://jedywei:ok@mac/Users/jedywei/git/test.git
+
+
 # Create remote branch by local branch
 #-----------------------------------------------------------
 git br hotdog   // local branch
