@@ -30,6 +30,22 @@ git push origin --delete hotdog
 #----------------------------------------------------------
 git remote update
 
+git remote set-url origin ssh://jedywei@mac/Users/jedywei/Git/bet.git
+
+# Create new branch 
+#----------------------------------------------------------
+# create new branch on local
+git co -b bagel
+
+# push local branch to remote and add a new branch
+git push -u origin bagel
+
+# pull remote to local
+git pull
+
+# check out new branch
+git co bagel
+
 # List branch, remote and all
 #----------------------------------------------------------
 git br
