@@ -24,7 +24,7 @@
     autoupdate=1
 
 [push]
-    default=matching
+    default=current
 
 [color]
     ui=auto
