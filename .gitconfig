@@ -24,10 +24,17 @@
     autoupdate=1
 
 [push]
-    default=current
+    default=simple
+
+[grep]
+    extendRegexp=true
+    lineNumber=true
 
 [color]
-    ui=auto
+    ui=true
+    branch=auto
+    diff=auto
+    status=auto
 
 [color "branch"]
     current=yellow bold
@@ -48,6 +55,9 @@
 
 [diff]
     tool=vimdiff
+
+[diff "bin"]
+    textconv = hexdump -v -C
 
 [difftool]
     prompt=false
@@ -81,10 +91,14 @@
     #######
     ci=commit
     cia=commit --amend
+    amend=commit --amend
     ######
     co=checkout
     st=status
     last=log -l HEAD
+    #####
+    uncommit=reset HEAD~
+    undo=reset --soft HEAD^
     unstage=reset HEAD --
     ######
     lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
