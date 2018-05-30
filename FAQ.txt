@@ -1,0 +1,21 @@
+1. domain name server issue
+1-1 check routing table and gateway by
+    $route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+172.17.4.0      0.0.0.0         255.255.254.0   U     100    0        0 enp12s0
+
+1-2 check name server
+    cat /etc/resolv.conf
+    dig github.com
+    dig +short github.com
+    nslookup github.com
+
+1-3 restart network
+    $sudo service network restart
+
+1-4 workaround add default gateway
+    $route add default gw <ip address>
+
+
+
