@@ -20,3 +20,5 @@ README
     $cd .vim/bundle/YouCompleteMe
     $./install.sh --clang-completer
 
+7. checkout mediaflow
+    $ git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
