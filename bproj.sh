@@ -26,5 +26,6 @@ fi
 export PS1="[$VIMPROMPT\u@\h \W:${PROJ}]$ "
 export CDPATH=.:${MFPROJ}/core/backyard:${MFPROJ}/platform:${MFPROJ}/core/borderland:${MFPROJ}/core/backyard/great:${MFPROJ}:${MFPROJ}/build:${MFPROJ}/build/staging/proprietary
 
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+#export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/lib64/pkgconfig
 export PATH=${ORG_PATH}:${MFPROJ}/build/staging/proprietary/bin

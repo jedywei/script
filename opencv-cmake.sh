@@ -1,0 +1,1 @@
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_OPENCL=ON ..
