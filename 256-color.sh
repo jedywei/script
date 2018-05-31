@@ -5,8 +5,9 @@
 # and/or modify it under the terms of the Do What The Fuck You Want
 # To Public License, Version 2, as published by Sam Hocevar. See
 # http://sam.zoy.org/wtfpl/COPYING for more details.
- 
+
 for fgbg in 38 48 ; do #Foreground/Background
+    echo "\e[${fgbg};5;<color>m"
     for color in {0..256} ; do #Colors
         #Display the color
         echo -en "\e[${fgbg};5;${color}m ${color}\t\e[0m"
