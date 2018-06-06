@@ -1,0 +1,25 @@
+# ----- REMOVE LINES ABOVE HERE --------------------------
+#
+# This license is valid from Mon Mar 05 03:46:31 UTC 2018.
+#
+# This is license NODELOCKED to HOSTID=74FE4808FAB3;
+# there is no need to run lmgrd for this license.
+#
+#
+# This is a permanent license generated on Mon Mar 05 03:46:31 UTC 2018
+INCREMENT SDAccel xilinxd 2019.01 permanent uncounted 8A0B2A7B2630 \
+VENDOR_STRING=aaronhuang,SDAccel,software,permanent,_177352492_1777494843_210673769_027 \
+HOSTID=74fe4808fab3 ISSUER="Xilinx Inc" START=05-Mar-2018 \
+TS_OK
+#
+#
+# ----------------------------------------------------------------------
+#  The following PACKAGE definition is a REQUIRED part of this license:
+#
+PACKAGE SDAccel xilinxd 2019.01 0B52FBB5BE5B \
+COMPONENTS="PartialReconfiguration Simulation Implementation \
+Analyzer HLS Synthesis ap_opencl" OPTIONS=SUITE
+#
+# ------------------------------------------------------------------------------
+#
+# ----- REMOVE LINES BELOW HERE --------------------------

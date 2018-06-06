@@ -5,6 +5,19 @@ mkdir test.git
 cd test.git
 git init --bare --shared
 
+# Initial local git 
+cd <project>
+git init
+
+# setup remote git link 
+git remote add origin ssh://jedywei@mac/Users/jedywei/Git/<project>.git
+
+# check remote by
+git remote -v 
+
+# set master default upstream 
+git push --set-upstream origin master
+
 #
 # Clone a test.git repostory to your local
 #----------------------------------------------------------
