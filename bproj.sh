@@ -12,7 +12,7 @@ fi
 
 if [[ "$pp" == "M" ]]; then 
     export PROJ=M
-    export MFPROJ=~/mediaflow/v1.5.x
+    export MFPROJ=~/mediaflow/v1.6.x
     echo "Switch project to main trunk"
 elif [[ "$pp" == "B" ]]; then
     export PROJ=B
