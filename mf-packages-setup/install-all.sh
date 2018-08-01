@@ -46,5 +46,12 @@ sudo yum -y install xvidcore-1.3.4-1.x86_64.rpm
 
 sudo yum -y install bzip2-devel.x86_64 
 
+sudo yum -y install boost-devel
+
+sudo yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ git libtool make mercurial pkgconfig zlib-devel
+
+wget http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/y/yasm-1.2.0-4.el7.x86_64.rpm
+sudo yum install yasm-1.2.0-4.el7.x86_64.rpm 
+
 sudo ldconfig
 
