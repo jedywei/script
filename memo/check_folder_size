@@ -1,0 +1,10 @@
+Check Disk Size
+
+$ df -h
+
+$ du -hc --max-depth=1 .
+$ du -hsc *
+$ du -hsc */.
+
+$ du -hs * | sort -h
+
