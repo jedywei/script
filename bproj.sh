@@ -24,7 +24,7 @@ else
 fi
 
 export PS1="[$VIMPROMPT\u@\h \W:${PROJ}]$ "
-export CDPATH=.:${MFPROJ}/core/backyard:${MFPROJ}/platform:${MFPROJ}/core/borderland:${MFPROJ}/core/backyard/great:${MFPROJ}:${MFPROJ}/build:${MFPROJ}/build/staging/proprietary
+export CDPATH=.:${MFPROJ}/core/backyard:${MFPROJ}/platform:${MFPROJ}/core/borderland:${MFPROJ}/core/backyard/great:${MFPROJ}:${MFPROJ}/build:${MFPROJ}/build/staging/proprietary:${MFRPROJ}/core/backyard/forest/utest
 
 #export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/lib64/pkgconfig

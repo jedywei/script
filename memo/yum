@@ -1,0 +1,9 @@
+yum script
+-----------
+
+upgrade kerenl
+- yum info kernel
+- yum upgrade kernel
+- reboot system
+
+
