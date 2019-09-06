@@ -16,6 +16,10 @@ if [ -f ~/script/.bash_aliases ]; then
 	. ~/script/.bash_aliases
 fi
 
+if [ -f /opt/Xilinx/SDx/2017.4/settings64.sh ]; then
+    . /opt/Xilinx/SDx/2017.4/settings64.sh
+fi
+
 [[ $- == *i* ]] && stty -ixon
 
 #export CLICOLOR=1

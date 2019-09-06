@@ -12,7 +12,7 @@ fi
 
 if [[ "$pp" == "M" ]]; then 
     export PROJ=M
-    export MFPROJ=~/mediaflow/v1.5.x
+    export MFPROJ=~/mediaflow/v1.6.x
     echo "Switch project to main trunk"
 elif [[ "$pp" == "B" ]]; then
     export PROJ=B
@@ -24,7 +24,7 @@ else
 fi
 
 export PS1="[$VIMPROMPT\u@\h \W:${PROJ}]$ "
-export CDPATH=.:${MFPROJ}/core/backyard:${MFPROJ}/platform:${MFPROJ}/core/borderland:${MFPROJ}/core/backyard/great:${MFPROJ}:${MFPROJ}/build:${MFPROJ}/build/staging/proprietary
+export CDPATH=.:${MFPROJ}/core/backyard:${MFPROJ}/platform:${MFPROJ}/core/borderland:${MFPROJ}/core/backyard/forest/utest:${MFPROJ}/core/backyard/great:${MFPROJ}:${MFPROJ}/build:${MFPROJ}/build/staging/proprietary
 
 #export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/lib64/pkgconfig
