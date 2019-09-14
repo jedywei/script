@@ -20,6 +20,10 @@ if [ -f /opt/Xilinx/SDx/2017.4/settings64.sh ]; then
     . /opt/Xilinx/SDx/2017.4/settings64.sh
 fi
 
+
+# $- indicate the set option in current shell
+# Only interactive mode shell will disable ixon for vim using Ctrl-S
+# set option can be 'himBH'. 
 [[ $- == *i* ]] && stty -ixon
 
 #export CLICOLOR=1

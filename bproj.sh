@@ -28,5 +28,5 @@ export CDPATH=.:${MFPROJ}/core/backyard:${MFPROJ}/platform:${MFPROJ}/core/border
 
 #export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/lib64/pkgconfig
-export PATH=${ORG_PATH}:${MFPROJ}/build/staging/proprietary/bin
+export PATH=${MFPROJ}/build/staging/proprietary/bin:${ORG_PATH}
 export STAGE=${MFPROJ}/build/staging/proprietary/bin
