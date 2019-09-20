@@ -1,0 +1,12 @@
+--color
+--ignore-dir=.svn
+--ignore-dir=.git
+--ignore-dir=.git
+--ignore-file=is:tags
+--ignore-file=*.tmp
+--ignore-file=*.swp
+--ignore-file=*.a
+--ignore-file=*.so
+--ignore-file=*.mp4
+--ignore-file=*.ts
+

@@ -24,7 +24,7 @@ fi
 # $- indicate the set option in current shell
 # Only interactive mode shell will disable ixon for vim using Ctrl-S
 # set option can be 'himBH'. 
-[[ $- == *i* ]] && stty -ixon
+# [[ $- == *i* ]] && stty -ixon
 
 #export CLICOLOR=1
 #export LSCOLORS=ExFxBxDxCxegedabagacad

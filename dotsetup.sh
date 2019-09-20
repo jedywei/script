@@ -9,6 +9,8 @@ ln -sf script/.bashrc .bashrc
 ln -sf script/.gitignore .gitignore
 ln -sf script/.gdbinit .gdbinit
 ln -sf script/.gitconfig .gitconfig
-ln -sf .vim/.ctags .
+ln -sf .vim/.ctags .ctags
+ln -sf script/.agignore .agignore
+ln -sf script/.ackrc .ackrc
 
 ls -al .bashrc
