@@ -34,3 +34,7 @@ export LS_COLORS
 source ~/script/git-completion.bash
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# source devtoolset-6
+source scl_source enable devtoolset-6
+_
