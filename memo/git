@@ -10,7 +10,11 @@ cd <project>
 git init
 
 # setup remote git link 
+# to my mac
 git remote add origin ssh://jedywei@mac/Users/jedywei/Git/<project>.git
+# to githup
+git remote add origin https://jedywei:71susislove@github.com/jedywei/projs.git
+
 
 # check remote by
 git remote -v 
@@ -22,6 +26,22 @@ git push --set-upstream origin master
 # Clone a test.git repostory to your local
 #----------------------------------------------------------
 git clone ssh://jedywei:ok@mac/Users/jedywei/git/test.git
+
+# for mediaflow project
+git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
+# user: jedy.wei
+# password: 71Susislove
+
+svn ls https://172.20.2.44/svn/pacific/projects/VEGA3311
+svn ls https://172.20.2.44/svn/pacific/projects/VEGA3311/other/pxxc
+
+# for pxxc project
+git svn clone https://172.20.2.44/svn/pacific/projects/VEGA3311/other/pxxc
+# user: Jedy.Wei@advantch.com.tw
+# password: 71Susislove
+
+git svn rebase
+git svn dcommit
 
 
 # Create remote branch by local branch
