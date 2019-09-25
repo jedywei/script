@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#---------------
+# deprecation 
+# please use source <project>/projenv.sh
+#---------------
+
 if [[ "$1" == "" ]]; then
     pp=B
 else
