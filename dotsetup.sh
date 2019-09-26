@@ -57,3 +57,11 @@ ls -al .bashrc
 echo "Success to install dotsetup"
 echo ""
 
+echo "Need to install 'ack' manually by  command as"
+echo "sudo yum install ack"
+echo ""
+echo "Need to install 'ag' manually by command as"
+echo "sudo yum install epel-release the_silver_searcher"
+echo ""
+
+
