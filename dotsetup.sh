@@ -57,11 +57,16 @@ ls -al .bashrc
 echo "Success to install dotsetup"
 echo ""
 
+echo "Need to install 'epel-realease' before 'ack' and 'ag'á
+echo "sudo yum install epel-release"
+echo ""
 echo "Need to install 'ack' manually by  command as"
 echo "sudo yum install ack"
 echo ""
 echo "Need to install 'ag' manually by command as"
-echo "sudo yum install epel-release the_silver_searcher"
+echo "sudo yum install the_silver_searcher"
 echo ""
+echo "Or Intall all components by following command"
+echo "sudo yum install -y epel-release ack the_silver_searcher"
 
 
