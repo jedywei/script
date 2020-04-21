@@ -4,6 +4,7 @@ README
     $git clone https://jedywei:71susislove@github.com/jedywei/script.git
 2. git .vim
     $git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
+
 3. install Vundle.vim by
     $cd .vim
     $./gitvundle.sh
@@ -18,7 +19,7 @@ README
 
 6. Install YCM Clang
     $cd .vim/bundle/YouCompleteMe
-    $./install.sh --clang-completer
+    $./install.py --clang-completer
 
 7. checkout mediaflow
     $ git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
