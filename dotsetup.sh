@@ -69,4 +69,11 @@ echo ""
 echo "Or Intall all components by following command"
 echo "sudo yum install -y epel-release ack the_silver_searcher"
 
+echo ""
+echo "Install git-svn"
+echo "sudo yum insrtall -y git-svn"
+echo ""
+echo "Git clone mediaflow"
+echo "cd ~; mkdir mediaflow; cd mediaflow"
+echo "git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas"
 
