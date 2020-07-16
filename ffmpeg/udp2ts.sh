@@ -19,9 +19,9 @@ burstbits=$((${bitrate}/1000))
 echo "bitrate=${bitrate}"
 echo "burst_bits=${burstbits}"
 
-rm -f list.txt
-for i in $(seq 1 ${loop}); do printf "file '%s'\nfile '%s'\n" ${input1} ${input2} >> list.txt; done
-ffmpeg -re -f concat -i list.txt -c copy -f mpegts -muxrate ${bitrate} -flush_packets 0 -y "udp://${output}?buffer_size=65536&pkt_size=1316&bitrate=${bitrate}&burst_bits=${burstbits}&fifo_size=1200000"
-rm list.txt
+for i in $(seq 1 ${loop}); do 
+ffmpeg -re -i ${input1} -c copy -f mpegts -muxrate ${bitrate} -flush_packets 0 -y "udp://${output}?buffer_size=65536&pkt_size=1316&bitrate=${bitrate}&burst_bits=${burstbits}&fifo_size=1200000"
+ffmpeg -re -i ${input2} -c copy -f mpegts -muxrate ${bitrate} -flush_packets 0 -y "udp://${output}?buffer_size=65536&pkt_size=1316&bitrate=${bitrate}&burst_bits=${burstbits}&fifo_size=1200000"
+done
 
 
