@@ -1,0 +1,54 @@
+$ gdb <program> [core dump]
+$ gdb --args <program> <args...>
+$ gdb --pid <pid>
+
+b <where>
+b <where> if <condition>
+del <breakpoint#>
+enable <breakpoint#>
+disable <breakpoint#>
+
+<where>
+function_name
+line_number
+file:line_number
+
+s           step
+n           next
+finish      until the current function return 
+c           continue
+
+print/format <what>
+p/a         pointer
+p/x         integer, as hexdecimal
+p/t         integer, as binary
+p/c         integer, as character
+p/s         string
+
+x/nfu <address>
+x/10xb       dump 10 bytes as hexdecimal
+x/2w         dump 2 word
+
+display/format <what>
+undisplay <display#>
+
+<what>
+expression
+file_name::variable_name
+function::variable_name
+{type}address                   C type type
+$register                       $esp, $ebp, $eip
+
+handle <signal> <options>
+options: (no)print, (no)stop, (no)pass
+
+dis <where>
+info args
+info b
+info display
+info locals
+info shared library
+info threads
+
+    
+

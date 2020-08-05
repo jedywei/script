@@ -1,0 +1,51 @@
+pkg-config
+-----------
+pkg-config --list-all
+pkg-config --libs json-c
+pkg-config --libs --static json-c
+pkg-config --cflags json-c
+pkg-config --modversion json-c
+pkg-config --exists foo
+
+echo $PKG_CONFIG_PATH
+
+
+check dynamic libraries dependency
+----------------------------------
+readelf -d stage/vega_err_so.ju
+Dynamic section at offset 0x8e00 contains 26 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libbass.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000000f (RPATH)              Library rpath: [/home/jedywei/mediaflow/Boreas/build/staging/proprietary/lib]
+ 0x000000000000000c (INIT)               0x401300
+ 0x000000000000000d (FINI)               0x406584
+    ...
+
+ldd stage/vega_err_so.ju
+	linux-vdso.so.1 =>  (0x00007ffd422fc000)
+	libbass.so.1 => /home/jedywei/mediaflow/Boreas/build/staging/proprietary/lib/libbass.so.1 (0x00007fb61e70a000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007fb61e33c000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007fb61e138000)
+    ...
+
+ldconfig -p
+	p11-kit-trust.so (libc6,x86-64) => /lib64/p11-kit-trust.so
+	libzzipwrap-0.so.13 (libc6,x86-64) => /lib64/libzzipwrap-0.so.13
+	libzzipmmapped-0.so.13 (libc6,x86-64) => /lib64/libzzipmmapped-0.so.13
+	libzzipfseeko-0.so.13 (libc6,x86-64) => /lib64/libzzipfseeko-0.so.13
+    ...
+
+
+dynamic linkers looking for a dyanmic libarary 
+1. directories listed in the 'LD_LIBRARY_PATH'
+2. directories listed in the executable's 'rpath'
+3. directories on the system search path, which consists of the entries in /etc/ld.so.conf plus /lib and /user/lib
+
+// reconfigure dynamic linker run-time bindings
+sudo ldconfig
+
+
+Search 
+Program Library HOWTO
+

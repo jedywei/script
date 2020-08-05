@@ -1,0 +1,13 @@
+find /etc -name '*.mp3'
+find /etc -iname 'Network'                  // ignore case
+find /var/log -iname '*.log' -type f        // file only
+find /var/log -iname 'apache2' -type d      // directory only
+fiid /var -type f -size -50M                // all file size < 50M bytes
+
+find /tmp -type f -atime +30 -print -exec rm -f '{}' \;     // delete file which access date is more than 30 day
+
+
+which ls
+whereis ls
+
+

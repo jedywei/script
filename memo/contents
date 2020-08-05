@@ -1,0 +1,14 @@
+new_setup   - command for set up a new centos enviroment
+lib         - dynamic libary related tools and command
+yum         - yum commands
+git         - git commands
+df          - df and du to check size of folder or disk 
+dmesg       - dmesg and journalctl commands
+ffmpeg      - frequent-use ffmpeg command
+ffmpeg_dev  - ffmpeg devel package installation 
+tmux        - tmux and screen commands
+gdb         - gdb commands
+esc         - escape ansi code 
+find        - find, whereis, which 
+grep        - grep, ag
+

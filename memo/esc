@@ -1,0 +1,21 @@
+Escape ANSI Code
+
+# Colors
+# White
+echo -e "\e[38;5;255m"
+# Red
+echo -e "\e[38;5;197m"
+# Green
+echo -e "\e[38;5;76m"
+# Blue 
+echo -e "\e[38;5;21m"
+# Yellow
+echo -e "\e[38;5;220m"
+
+# Restore Color
+echo -e "\e[0m"
+
+# H position
+echo -e "\e[45G"
+
+

@@ -1,0 +1,14 @@
+grep -n Ubuntu /etc/os-release
+grep -i Ubuntu /etc/os-release          // ingore case
+grep network /etc/*.conf
+grep network /etc/*.conf /etc/ld.conf.d/*
+grep -v Ubuntu /etc/os-release          // not include Ubuntu
+
+grep -r ubuntu /etc/                    // recursive under /etc
+grep -r --include="*.conf" ubuntu /etc/ // only file name is *.conf 
+
+
+ag "string-to-search"
+
+ag "string-to-search" /path/to/directory
+ag -G ".+\.h" "string-to-search" /path/to/directory
