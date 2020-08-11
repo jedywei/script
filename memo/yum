@@ -1,13 +1,10 @@
 yum cheat sheet
 ----------------
-
 (Only RHEL 8)
 Install a module
     - yum module install module_name
-
 View info on a module
     - yum module info module_name
-
 List available modules
     - yum module list
 
@@ -15,35 +12,40 @@ List available modules
 Install software
     - yum group intstall
     - yum install
-
 View software info
     - yum group info
     - yum info
-
 Update software
     - yum update
     - yum upgrade
-
 Upgrade kernel
     1 yum info kernel
     2 yum upgrade kernel
     3 reboot systeam
-
 Configure software repository 
     - subscription-manager repos
     - /etc/yum.repos.d/*.repo
-
 Find package owning file
     - rpm -qf <filename>
     - yum provies <filename-glob>
-
-View software version
+View a software version
     - rpm - q <packagename>
     - yum list installed packagename
-
-View installed software
+View all installed software
     - rpm -qa 
     - yum list installled
+Repositories
+    - yum repolist
+Find packages that provide the queried file
+    - yum provies "*bin/top"
+Serarch package names and description for a term
+    - yum search samba
+Remove a package
+    - yum remove vfspd
+
+--------------------------------------------
+Q 1 : Repodata is over 2 weeks old. Install yum-corn? Or run: yum make case fast
+A     sudo yum clean all ; sudo yum update -y
 
 
 

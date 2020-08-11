@@ -12,3 +12,5 @@ ag "string-to-search"
 
 ag "string-to-search" /path/to/directory
 ag -G ".+\.h" "string-to-search" /path/to/directory
+
+~/.agignore

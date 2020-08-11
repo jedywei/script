@@ -1,0 +1,47 @@
+DNS
+----
+# configuration file
+/etc/hosts
+/etc/resolv.conf
+/etc/nsswitch.conf
+
+# command
+dig
+nslookup
+
+
+mDNS
+----
+#package
+sudo yum install nss-mdns
+sudo yum install avahi
+sudo yum install avahi-tools
+
+sudo systemctl enable --now avahi-daemon.service
+sudo hostnamectl set-hostname d6311-box
+sudo systemctl restart avahi-daemon.service
+sudo systemctl status avahi-daemon.service
+
+
+cat /etc/nsswitch.conf
+    hosts: files mdns4_minimal [NOTFOUND=return] dns myhostname
+/usr/lib64/libnss_mdns.so.2
+           libnss_mdns4.so.2
+           libnss_mdns4_minimal.so.2
+           ...
+
+cat /etc/avahi/avahi-daemon.conf
+cat /etc/mdns.allow
+DNS-SD
+cat /usr/share/avahi/service-types
+
+#avahi-tools
+avahi-resolve [-4 | -6] [-n host-name | -a address]
+    avahi-resolve -n dec-box.local
+    avahi-resolve -4 -a 192.168.0.107
+
+avahi-browse [-r -v] [-a | -D | -b]
+
+
+
+

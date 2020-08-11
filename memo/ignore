@@ -1,0 +1,44 @@
+ignore pattern would be suitful to .gitignore and .agignore
+
+Pattern                     Example Match
+------------------------------------------------------------------------------------------------------------
+**/logs                     logs/debug.log, logs/monday/foo.bar, build/logs/debug/log
+                            --------------------------------------------------------------------------------
+**/logs/debug.log           logs/debug.log, build/logs/debug.log, BUT NOT logs/build/debug.log
+                            --------------------------------------------------------------------------------
+*.log                       debug.log, foo.log, .log, logs/debug.log    
+                            --------------------------------------------------------------------------------
+*.log                       debug.log, trace.log 
+!important.log              BUT NOT important.log, logs/important.log
+                            --------------------------------------------------------------------------------
+*.log                       debug.log, important/trace.log
+!important/*.log            BUT NOT important/debug.log
+trace.*
+                            --------------------------------------------------------------------------------
+/debug.log                  debug.log BUT NOT logs/debug.log
+                            --------------------------------------------------------------------------------
+debug.log                   debug.log, logs/debug.log
+                            --------------------------------------------------------------------------------
+debug?.log                  debug0.log, debug1.log BUT NOT debug10.log
+                            --------------------------------------------------------------------------------
+debug[0-9].log              debug0.log, debug1.log BUT NOT debug10.log
+                            --------------------------------------------------------------------------------
+debug[01].log               debug0.log, debug1.log BUT NOT debug2.log debug01.log
+                            --------------------------------------------------------------------------------
+debug[!01].log              debug2.log BUT NOT debug0.log, debug1.log, debug01.log
+                            --------------------------------------------------------------------------------
+debug[a-z].log              debuga.log, debugb.log BUT NOT debug1.log
+                            --------------------------------------------------------------------------------
+logs                        logs, logs/debug.log, logs/lastest/foo.bar, build/logs, build/logs/debug.log
+                            --------------------------------------------------------------------------------
+logs/                       logs/debug.log, logs/lastest/foo.bar, build/logs, build/logs/debug.log
+                            --------------------------------------------------------------------------------
+logs/                       SHOUDN'T logs/important.log be negated in the example on the left
+!logs/important.log         You can not negate a file that is ignored due to a pattern mattching a directory
+                            --------------------------------------------------------------------------------
+logs/**/debug.log           logs/debug.log, logs/monday/debug.log, logs/monday/pm/debug.log
+                            --------------------------------------------------------------------------------
+logs/*day/debug.log         logs/monday/debug.log, logs/tuesday/debug.log, BUT NOT logs/latest/debug.log
+                            --------------------------------------------------------------------------------
+logs/debug.log              logs/debug.log BUT NOT debug.log build/logs/debug.log
+------------------------------------------------------------------------------------------------------------

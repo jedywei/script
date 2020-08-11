@@ -109,4 +109,8 @@ git push --tags
 git push origin <tag_name>
 
 
+~/.gitignore
+~/.gitconfig
+~/.git-completion.bash
+
 

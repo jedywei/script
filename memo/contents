@@ -11,4 +11,7 @@ gdb         - gdb commands
 esc         - escape ansi code 
 find        - find, whereis, which 
 grep        - grep, ag
+ignore      - .gitignore file pattern
+dns         - Domain Name System related command or information
+netstat     - network CONNECTION, ROUTING TABLE, INTERFACE and MULTICAST statistics
 
