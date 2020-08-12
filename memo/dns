@@ -69,6 +69,15 @@ dig -p 5353 @224.0.0.251 dec-box.local
 dig -p 5353 @224.0.0.251 -x 192.168.0.107
 dig -p 5353 @224.0.0.251 _ssh._tcp.local ptr
 
+firewall allowing for mDNS
+--------------------------
+firewall-cmd --get-default-zone
+sudo firewall-cmd --zone=public --permanent --add-port=5353/udp
+sudo firewall-cmd --zone=public --permanent --add-service=mdns
+sudo firewall-cmd --reload
+sudo firewall-cmd --zone=public --list-all
+
+
 LLMNR
 -----
 Link-Local Multicast Name Resolution / RFC4795
