@@ -1,0 +1,22 @@
+sed : delete one or more lines from a file
+
+Syntax
+sed '{[/]<n>[<string>|<regex>[/]}d' <filename>
+sed '{[/]<adr1>[,<adr2>][/]d' <filename>
+
+/.../ = delimiters
+n = line number
+string = string found in line
+regex = regular expression corresponding to the searched pattern
+add = address of a line (number of pattern)
+d = delete
+
+Example of sed
+
+sed '3d' filename.txt
+sed '/awk/d' filename.txt
+sed '$d' filename.txt       // remove the last line
+sed '/^$/d' filename.txt    // remove empty line
+sed '/./!' filename.txt     // same as above
+sed '7,9d' filename.txt     // remove lines 7 ~ 9
+

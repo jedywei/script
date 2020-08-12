@@ -1,0 +1,51 @@
+systemd and service manager
+
+systemctl [options] comamnd [name...]
+
+systemctl -a        list all units
+systemctl list-units firewalld
+systemctl list-sockets firewalld
+systemctl list-timer firewalld
+
+systemctl start avahi-daemon
+systemctl status avahi-daemon
+systemctl is-active avahi-daemon
+systemctl restart avahi-daemon
+systemctl cat avahi-daemon
+
+systemctl enable avahi-daemon
+systemctl disable avahi-daemon
+
+type
+----
+service
+socket
+device 
+mount
+automount
+swap
+target
+timer
+snapshot
+
+socket/d-bus/filesystem
+
+
+/usr/lib/systemd/system/
+/run/systemd/system/
+/etc/systemd/system/
+
+
+System V Init
+--------------
+runlevel    0       power off
+            1,s     rescue  (single user)
+            2,4     multi-user
+            3       multi-user / Non grphical
+            5       graphical
+            6       reboot
+
+/etc/init.d/daemon [start | stop | restart | status]
+chkconfig daemon [on | off]
+chkconfig --list daemon
+

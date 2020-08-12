@@ -1,0 +1,42 @@
+if [ ! -e filname ]; then
+    echo "filename doesn't exit"
+else
+    echo "filename found"
+fi
+
+-e  file exists
+-d  directory exists
+-f  normal file exists
+-r  user has read permission 
+-s  file exists and not empty
+-w  user has write permission
+-O  user owns the file
+-G  user's group is has acces to the file
+-nt newer than (modification date-time of file)
+-ot older than  for file-to-file comparision
+
+if [ "$1" == "text" ]; then ...
+if [ "$str1" != "$str2" ]; then ...
+if [ -n $str ]; then ...            // true, if $str is not null
+if [ -z $str ]; then ...            // true, if $str is null
+
+if [ $var -eq 0 ]; then             
+if [ $var -ne $var2 ]; then
+if [ $var1 -gt $var2 ]; then
+if [ $var1 -ge $var2 ]; then
+if [ $var1 -lt $var2 ]; then
+if [ $var1 -le $var2 ]; then
+
+[ "${yn}" == "Y" -o "${yn}" == "y" ] && echo OK
+[ "${yn}" == "N" -a ${num} == 1 ] && echo ${num}
+
+
+
+[[ "$1" == "text" ]]
+[[ "ab" == a* ]] && echo "ok"
+[[ && , || ]]
+
+[ exp1 -a exp2 ] == [[ exp1 && exp2 ]] == [ exp1 ] && [ exp2 ] == [[ exp1 ]] && [[ exp2 ]]
+[ exp1 -o exp2 ] == [[ exp1 || exp2 ]] == [ exp1 ] || [ exp2 ] == [[ exp1 ]] || [[ exp2 ]]
+
+

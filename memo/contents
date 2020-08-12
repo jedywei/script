@@ -14,4 +14,11 @@ grep        - grep, ag
 ignore      - .gitignore file pattern
 dns         - Domain Name System related command or information
 netstat     - network CONNECTION, ROUTING TABLE, INTERFACE and MULTICAST statistics
+systemctl   - systemd and service command
+sed         - stream editor for filtering and transforming text
 
+ffmpeg_bqb  - vega ffmpeg command
+
+bash
+bash_$      - input arguments
+bash_if     - if statement

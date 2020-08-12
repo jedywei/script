@@ -5,10 +5,26 @@ DNS
 /etc/resolv.conf
 /etc/nsswitch.conf
 
-# command
-dig
-nslookup
+# commands
+host [-a] [FQDN] [server]
+    host -a dec-box.local 
+    host -a www.google.com 192.168.0.1
+host -l [domain] [server]
+    host -l yahoo.com 192.168.0.1
 
+dig [@server] [FQDN] [type]
+    dig @192.168.0.1 www.google.com
+    dig @192.168.0.1 172.217.27.132
+     
+
+nslookup [FQDN] [server]
+    nslookup www.google.com 192.168.0.1
+    nslookup
+    > set type=any
+    > www.google.com
+
+whois [domain]
+    whois google.com
 
 mDNS
 ----
@@ -37,11 +53,36 @@ cat /usr/share/avahi/service-types
 
 #avahi-tools
 avahi-resolve [-4 | -6] [-n host-name | -a address]
-    avahi-resolve -n dec-box.local
+    avahi-resolve -4 -n dec-box.local
     avahi-resolve -4 -a 192.168.0.107
 
 avahi-browse [-r -v] [-a | -D | -b]
 
+avahi-browse -at            show all services, regardless of the type
+avahi-browse -D             Browse for browsing daomins instead of services
+avahi-browse -b             Dump service type database
+avahi-browse -t _workstation._tcp
+avahi-browse -r -t _workstation._tcp
+
+
+dig -p 5353 @224.0.0.251 dec-box.local
+dig -p 5353 @224.0.0.251 -x 192.168.0.107
+dig -p 5353 @224.0.0.251 _ssh._tcp.local ptr
+
+LLMNR
+-----
+Link-Local Multicast Name Resolution / RFC4795
+
+
+DNS Resource Record (RR)
+------------------------
+SOA     - Start Of Authority
+NS      - Name Server
+A       - Address
+AAAA    - IPv6 Address
+PTR     - FQDN for example mail.twnic.net.tw.
+CNAME   - Canonical Name (Alias name)
+MX      - Mail Exchanger 
 
 
 

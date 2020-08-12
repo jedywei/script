@@ -1,0 +1,28 @@
+$0      - the filename of the current script
+$<n>    - these variables correcspond to the arguments with whcih script ws invoked. 
+$#      - the number of arguments supplied to a script
+$*      - all the argument are double quoted
+$@      - all the argument are individually double quated
+$?      - the exit status of the last command executed
+$$      - the pid of the current shell
+$!      - the pid of the last background command
+
+arr=(Hello World)
+arr[0]=Hello
+arr[1]=World
+
+echo ${arr[0]} ${arr[1]}
+
+${arr[*]}   - all of the items in the array
+${arr[@]}   - all of the items in the array (returns each item as a seperate word)
+${!arr[*]}  - all of the indexs in the array
+${#arr[*]}  - number of items in the array
+${#arr[0]}  - lenght of item zero
+
+item="one two three four"
+items=(${item})
+echo ${items[@]:-2}
+echo ${items[-1]}
+unset 'items[${#items[@]}-1]'
+echo ${items[*]}
+
