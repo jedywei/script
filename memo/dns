@@ -94,4 +94,6 @@ CNAME   - Canonical Name (Alias name)
 MX      - Mail Exchanger 
 
 
-
+macOS
+-----
+dns-sd -B _workstation._tcp 

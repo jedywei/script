@@ -108,9 +108,31 @@ git pull -all
 git push --tags
 git push origin <tag_name>
 
+#rebase and merge
+#----------------------------------------------------------
+git rebase          // 不要對你的 repo 外有副本的 Branch 執行 rebase 
+git merge           // rebase 比 merge 好在重整成線性的commited history 
+
 
 ~/.gitignore
 ~/.gitconfig
 ~/.git-completion.bash
+
+WD - working directory /  (untracked files, or changes not staged for commit)
+Stage - staging area (changed to be committed)
+Repo - repository (commited)
+
+WD      -> Stage    git add
+Stage   -> Repo     git commit
+Stage   -> WD       git reset / git rm --cached  
+Repo    -> WD       git checkout
+Repo    -> Stage    git reset --mixed
+Repo    -> WD       git reset --hard           (older commit ID)
+Repo                git reset --soft HEAD^     (== git commit --amend) 
+
+
+git diff            (WD, Stage)
+git diff head       (WD, Repo) 
+git diff --cached   (Stage, Repo)
 
 
