@@ -15,17 +15,19 @@ systemctl cat avahi-daemon
 
 systemctl enable avahi-daemon
 systemctl disable avahi-daemon
+systemctl cat avahi-daemon
+systemctl reload avahi-daemon
 
 type
 ----
-service
-socket
-device 
-mount
-automount
-swap
-target
-timer
+service             systemd-udevd.service
+socket              dbus.socket
+device              sys-devices-platform-serial8250-tty-ttyS1.device 
+mount               boot.mount
+automount           proc-sys-fs-binfmt_misc.automount
+swap                dev-mapper-centos\x2dswap.swap
+target              bluetooth.target
+timer               systemd-tmpfiles-clean.timer
 snapshot
 
 socket/d-bus/filesystem
@@ -48,4 +50,6 @@ runlevel    0       power off
 /etc/init.d/daemon [start | stop | restart | status]
 chkconfig daemon [on | off]
 chkconfig --list daemon
+service --status-all
+service network start | stop | restart ... 
 

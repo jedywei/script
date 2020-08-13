@@ -1,3 +1,39 @@
+common tools for library
+------------------------
+nm              - list symbols form object files
+readelf         - display information about ELF files
+objdump         - display information from objct files
+ldconfig        - configure dynamic linker run-time bindings, create the MRU shared libraries cache 
+ldd             - print shared library dependencies
+pkg-config      - return metaininformation about installed libraries
+ld.so, ld-linux.so* - dynamic linker/loader
+
+
+** readelf not using BFD, but objdump using BFD
+
+show .dynsym and .dynstr section
+nm -D vega_err.ju
+readelf -s vega_err.ju              // symbols
+readelf --dyn-syms vega_err.ju      // dynamic symbol table
+readelf -d vega_err.ju              // displays the contexts of the file's dynamic section.
+readelf -r vega_err.ju              // the contents of the files' relocation section.
+readelf -S vega_err.ju              // section  
+    == objdump -h vega_err.ju
+readelf -h vega_err.ju              // displays the information contained in the ELF header at the start of the file.
+
+
+ELF file 
+--------
+1. relocatable file  (*.o)
+2. executable file   (vega_err.ju)
+3. shared object file  (*.so)
+
+ELF & BFD
+---------
+ELF     format of Executable an Liniking Format 
+BFD     Binary File Descriptor (ELF, COFF, a.out)
+
+
 pkg-config
 -----------
 pkg-config --list-all
@@ -22,6 +58,7 @@ Dynamic section at offset 0x8e00 contains 26 entries:
  0x000000000000000d (FINI)               0x406584
     ...
 
+/lib64/ld-linux-x86-64.so.2 --list stage/vega_err_so.ju   == 
 ldd stage/vega_err_so.ju
 	linux-vdso.so.1 =>  (0x00007ffd422fc000)
 	libbass.so.1 => /home/jedywei/mediaflow/Boreas/build/staging/proprietary/lib/libbass.so.1 (0x00007fb61e70a000)
@@ -37,15 +74,47 @@ ldconfig -p
     ...
 
 
-dynamic linkers looking for a dyanmic libarary 
-1. directories listed in the 'LD_LIBRARY_PATH'
-2. directories listed in the executable's 'rpath'
-3. directories on the system search path, which consists of the entries in /etc/ld.so.conf plus /lib and /user/lib
+ld.so or ld-linux.so* looking for a dyanmic libarary 
+----------------------------------------------------
+1. directories listed in the executable's 'rpath'
+2. directories listed in the 'LD_LIBRARY_PATH'
+3. The list of directories in the file /etc/ld.so.conf 
+4. /lib and /user/lib
 
 // reconfigure dynamic linker run-time bindings
 sudo ldconfig
 
 
-Search 
-Program Library HOWTO
+ldd and ldconfig
+----------------
+ldd                 - print shared library dependencies
+ldconfig            - configure dynamic linker run-time bindings
+/lib/ld.so          - run-time linker/loader
+/etc/ld.so.conf     - file containing a list of colon, space, tab, newline, or comma-separated directories in which to 
+                      search for libraries
+/etc/ld.so.cache    - an ordered list of libraries found in the /ec/ld.so.conf and /lib, /usr/lib
 
+
+ldd --version       - chek the glibc version
+rpm -q glibc        - check the version of the installed glibc rpm package
+ldd `which netstat` - chech what version of the netstat used libc.so file
+cat `gcc -print-file-name=libc.so`
+/lib64/libc.so.6 --version  
+
+---
+#include <gnu/libc-version.h>
+
+int main(int argc, char *argv[]) {
+  printf("glibc version: %s\n", gnu_get_libc_version());
+}
+
+#if ((__GLIBC__ >=2 ) && (__GLIBC_MINOR__ >= 32))
+#define error_name(aerrno)  strerrorname_np(aerrno)
+#else
+...
+#endif
+---
+
+References
+[1] Program Library HOWTO
+[2] Notes/Work Memo/3-Development/C & Library/Shared Libraries

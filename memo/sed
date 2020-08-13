@@ -20,3 +20,8 @@ sed '/^$/d' filename.txt    // remove empty line
 sed '/./!' filename.txt     // same as above
 sed '7,9d' filename.txt     // remove lines 7 ~ 9
 
+readelf -d `which ld` | grep libbfd | sed -e 's/.*\[\(.*\)\].*/\1/'
+
+ldd $(which gcc) | grep -e 'ld.*\.so' | awk '{ print $1 }'
+
+

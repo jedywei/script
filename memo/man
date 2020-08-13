@@ -1,0 +1,33 @@
+man - an interface to the on-line reference manuals
+
+The table below shows the section numbers of the manual followed by the types of pages they contain.
+
+    1   Executable programs or shell commands / 可執行的程式或是 shell 指令
+    2   System calls (functions provided by the kernel) / 系統呼叫（system calls，Linux 核心所提供的函數）
+    3   Library calls (functions within program libraries) / 一般函式庫函數
+    4   Special files (usually found in /dev) / 特殊檔案（通常位於 /dev）
+    5   File formats and conventions eg /etc/passwd / 檔案格式與協定，如 /etc/passwd
+    6   Games / 遊戲
+    7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7) / 雜項（巨集等，如 man(7)、groff(7)）
+    8   System administration commands (usually only for root) / 系統管理者指令（通常是管理者 root 專用的）
+    9   Kernel routines [Non standard] / Kernel routines（非標準）
+
+
+man 3 printf            // 3 page
+man -k printf           // keyword
+man -f smail            // lookup the manual pages referenced by smail
+man -aw printf          // list printf all pages
+
+
+Key
+---
+space                   next page
+page down               next page
+page up                 previous page
+home                    first page
+end                     last page
+/string                 forward find 'string'
+?string                 backward find 'string'
+n,N                     forward next finding, backward next finding
+q                       quit
+

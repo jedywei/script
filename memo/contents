@@ -15,6 +15,8 @@ netstat     - network CONNECTION, ROUTING TABLE, INTERFACE and MULTICAST statist
 systemctl   - systemd and service command
 sed         - stream editor for filtering and transforming text
 firewall    - firewall daemon and firewall-cmd
+ip          - ip, ethtool, ss, netstat commands
+man         - man command and page defination
 
 udev_eth    - change network interface name by udev comamnd
 
@@ -25,3 +27,4 @@ ffmpeg_bqb  - vega ffmpeg command
 bash
 bash_$      - input arguments
 bash_if     - if statement
+bash_key    - command line editing Ctrl-Key 

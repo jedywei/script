@@ -118,6 +118,8 @@ git merge           // rebase 比 merge 好在重整成線性的commited history
 ~/.gitconfig
 ~/.git-completion.bash
 
+# Working directory
+#---------------------------------------------------------------------
 WD - working directory /  (untracked files, or changes not staged for commit)
 Stage - staging area (changed to be committed)
 Repo - repository (commited)
@@ -126,13 +128,26 @@ WD      -> Stage    git add
 Stage   -> Repo     git commit
 Stage   -> WD       git reset / git rm --cached  
 Repo    -> WD       git checkout
-Repo    -> Stage    git reset --mixed
-Repo    -> WD       git reset --hard           (older commit ID)
-Repo                git reset --soft HEAD^     (== git commit --amend) 
+Repo    -> Nothing  git reset --hard HEAD~5    (5 older than HEAD)
+Repo    -> Stage    git reset --soft HEAD^     (== git commit --amend) 
+Repo    -> WD       git reset --mixed HEAD^
+
+--mixed     the committed files will put back to WD
+--soft      the committed files put back to Stage
+--hard      the committed files throw away
 
 
-git diff            (WD, Stage)
-git diff head       (WD, Repo) 
-git diff --cached   (Stage, Repo)
+
+# diff
+#---------------------------------------------------------------------
+HEAD~n, HEAD^, HEAD, Stage, WD
+
+git diff --cached HEAD^     (HEAD^, Stage)
+git diff --cached HEAD      (HEAD, Stage)
+git diff --cached           == git diff cached HEAD
+git diff                    (Stage, WD)
+git diff head               (HEAD, WD)
+git diff head^              (HEAD^, WD)
+git diff HEAD HEAD~5        (HEAD, HEAD~5)
 
 

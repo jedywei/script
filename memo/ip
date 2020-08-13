@@ -1,0 +1,45 @@
+ip command
+
+ip neigh                                                    arp -a
+ip -s neigh                                                 arp -v
+ip neigh add 192.168.1.1 lladdr 1:2:3:4:5:6 dev eth1        arp -s 192.168.1.1 1:2:3:4:5:6
+ip neigh del 192.168.1.1 dev eth1                           arp -i eth1 -d 192.168.1.1
+ip addr                                                     ifconfig -a
+ip link set eth0 down                                       ifconfig eth0 down
+ip link set eth0 up                                         ifconfig eth0 up
+ip addr add 192.168.1.1/24 dev eth0                         ifconfig eth0 192.168.1.1
+ip addr add 192.168.1.1/24 dev eth0                         ifconfig eth0 netmask 255.255.255.0
+ip link set eth0 mtu 9000                                   ifconfig eth0 mtu 9000
+ip addr add 192.168.1.2/24 dev eth0                         ifconfig eth0:0 192.168.1.2
+ss                                                          netstat
+ss -neopa                                                   netstat -neopa
+ip maddr                                                    netstat -g
+ip route                                                    route
+ip route add 192.168.1.0/24 dev eth0                        route add -net 192.168.1.0 netmask 255.255.255.0 dev eth0
+ip route add default via 192.168.1.1                        route add default gw 192.168.1.1
+
+
+ss -a   show all sockets (listening and non-listening)
+ss -e   show all detailed socket information
+ss -o   show timer information
+ss -n   do not resolve addresses
+ss -p   shwo process using the socket
+
+ethtool -g eth0
+ethtool -i eth0
+ethtool -p eth0
+ethtool -S eth0
+
+arping -I eth0 192.168.1.1
+arping -D -I eth0 192.168.1.1
+
+NetworkManager.service
+/etc/sysconfig/network-scripts/ifcfg-<interface>
+
+nmcli device 
+nmcli connection show
+
+References
+----------
+[1] h dns
+
