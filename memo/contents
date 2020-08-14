@@ -17,6 +17,7 @@ sed         - stream editor for filtering and transforming text
 firewall    - firewall daemon and firewall-cmd
 ip          - ip, ethtool, ss, netstat commands
 man         - man command and page defination
+jq          - command-line JSON processor
 
 udev_eth    - change network interface name by udev comamnd
 

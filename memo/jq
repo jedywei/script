@@ -1,0 +1,45 @@
+jq - Command-line JSON precessor
+
+
+    jq '.foo'
+    jq '.["foo"]'
+           {"foo": 42, "bar": "less interesting data"}
+             => 42
+           {"notfoo": true, "alsonotfoo": false}
+             => null
+
+    jq '.foo?'  Just like .foo, but does not output even an error when . is not an array or an object.
+
+    jq '.["foo"]'
+    jq '.[2]'
+    jq '.[2:4]'
+            ["a","b","c","d","e"]
+              => ["c", "d"]
+            "abcdefghi"
+              => "cd"
+
+    jq '.[:3]'
+            ["a","b","c","d","e"]
+              => ["a","b","c"]
+
+    jq '.[-2:]'
+            ["a","b","c","d","e"]
+              => ["d","e"]
+
+
+
+JSONPath                                    jq
+$.store.book[*].author                      .store.book[].author
+$.author                                    ..|objects.author
+$.store.*                                   .store
+$.store..price                              .store|..|objects.price
+$..book[2]                                  ..|objects|select(has("book")).book[2]
+                                            ..|objects|.book//empty|.[2]
+                                            .store.book[2]
+$..book[@.length-1]                         ..|objects.book[-1]
+$..book[0,1]                                ..|objects.book//empty[0:2]
+                                            .store.book[0:2]
+$..book[?(@.isbn)]                          ..|objects|.book//empty|.[]|select(.isbn)
+                                            .store.book[]|select(.isbn)
+$..book[?(@.price<10)]                      ..|objects|.book//empty|.[]|select(.price < 10)
+                                            .store.book[]|selct(.price < 10)

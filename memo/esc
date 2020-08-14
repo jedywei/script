@@ -1,5 +1,8 @@
 Escape ANSI Code
 
+# CSI - Control Sequence Introducer
+"\e["
+
 # Colors
 # White
 echo -e "\e[38;5;255m"
@@ -12,6 +15,10 @@ echo -e "\e[38;5;21m"
 # Yellow
 echo -e "\e[38;5;220m"
 
+# R G B color
+echo -e "\e[38;2;255;255;255"           // ESC[38;2;R;G;B
+echo -e "\e[48;2;0;0;0"                 // ESC[48;2;R;G;B
+
 # Restore Color
 echo -e "\e[0m"
 
@@ -20,3 +27,49 @@ echo -e "\e[45G"
 
 printf("\033[0m");
 
+# save cursor and restore cursor
+echo -e "\e7"           # save cursor
+echo -e "\e8"           # restore cursor
+echo -e "\e[?25h"
+
+# movement
+\e[2A                   # 2 cursor up
+\e[2B                   # 2 cursor down
+\e[2C                   # 2 cursor forward
+\e[2D                   # 2 cursor back
+\e[2E                   # cursor next line
+\e[2F                   # cursor previous line
+\e[5G                   # move to column 5
+\e[15;7H                # move to x=15, y=7
+\e[0J                   # clear from cursor to end of the screen
+\e[1J                   # clear from cursor to beginning of the screen
+\e[2J                   # clear entire screen; move cursor to upper left
+\e[0K                   # erase to end of the line
+\e[1K                   # erase to beginning of the line
+\e[2K                   # erase entire line
+\e[2S                   # scroll up
+\e[2T                   # scroll down
+
+# SGR select Graphic Rendition
+\e[<code>m              # SGR code
+<code>
+0                       # Reset / Normal
+1,21                    # Bold or increased intensity, Bold off
+2,22                    # Faint or decreased intensity, Normal intensity
+3,23                    # Italic, No Italic
+4,24                    # Underline, Underline off
+5,6,25                  # slow blink, rapid blink, blink off
+30-37,90-97             # set forground color, bright forground color
+38;5;<n>                # set forground color by <n>
+38;2;<r>;<g>;<b>        # set forground color by <r>,<g>,<b>
+40-47,100-107           # set background color, bright background color
+48;5;<n>                # set background color by <n>
+48;2;<r>;<g>;<b>        # set background color by <r>,<g>,<b>
+58;5;<n>                # set underline color by <n>
+58;2;<r>;<g>;<b>        # set underline color by <r>,<g>,<b>
+59                      # reset default underline color
+
+
+Reference
+[1] ~/script/256.sh
+[2] ~/script/colors_and_formatting.sh

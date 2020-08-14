@@ -1,4 +1,7 @@
-regex for bash
+Regular Expression
+
+Bash
+"test program"  "program test"
 
 local dbusr=`dbus-send --system --type=method_call --print-reply --dest=com.acl.dbg_mediaflow / com.acl.mediaflow."$@" 2>&1`
 local pattern="^method return.*string \"(.*)\"$"
@@ -8,38 +11,84 @@ else
     result="Failed"
 fi
 
+egrep -i '\<the\>'
+cat /etc/passwd | sed 's/root/amrood/g'
+awk -e '$1 ~ /p[el]/ {print $0}' colours.txt
 
-ERE Metacharacters
-^ [  ] . $ {  } * (  ) \ + | ? < > 
 
-BRE \( \), \+, \?, \|, \{m, n\}
+== Metacharacters == 
+^ [  ] . $ {  } * (  ) \ + | ? < >      (ERE, PCRE)
+\( \) \+ \? \| \{m, n\}                 (BRE)
 
-Anchors
+egrep == grep -E / bash =~ / C / vim / awk / sed    (ERE)
+grep                                                (BRE)
+grep -P                                             (PCRE)
+
+egrep '^(From|Subject):'    files
+
+== Delimiters ==
+'re'
+/re/
+Modifying Text with regEx
+s/regex/replacement/
+s/\bJeff\b/Jeffrey/
+s/\bJeff\b/Jeff/i
+s
+
+== Anchors == 
 ^       Start of string, or start of line in multiline pattern
-\A      Start of string
 $       End of string, or end of line in multi-line pattern
+\A      Start of string
 \Z      End of string           
-\b      Word boundary           (PERL)
-\B      Not word boundary       (PERL)
-\<      Start of word           (VIM)
-\>      End of word             (VIM)
+\b      Word boundary           (PCRE,egrep,grep)
+\B      Not word boundary       (PCRE,egrep,grep)
+\<      Start of word           (VIM,egrep,grep)
+\>      End of word             (VIM,egrep,grep)
 
-Quantifiers
+
+egrep '\<cat\>' infiles
+
+== Quantifiers == 
 *       0 or more 
 +       1 or more
 ?       0 or 1
-{3}     Exactly 3
-{3,}    3 or more
-{3,5}   3, 4, or 5
+{3}     Exactly 3               (ERE,PCRE)          \{3\}   (BRE)
+{3,}    3 or more               (ERE,PCRE)          \{3,\}  (BRE)
+{3,5}   3, 4, or 5              (ERE,PCRE)          \{3,5\} (BRE)
 
-Groups and Ranges
-.       Any character expcet new line (\n)
-(a|b)   a or b
+== Groups ==
+(a|b)   a or b                  (ERE, PCRE)         \(a\|b\)    BRE
 (...)   Group
 (?:...) Passive (non-capturing) group
+\1      Contents of Group1      r(\w)g\1x       = regex
+
+== Ranges ==
+.       Any character expcet new line (\n)
 [abc]   Range (a or b or c)
 [^abc]  Not (a or b or c)
 [a-q]   Lower case letter from a to q
 [A-Q]   Upper case letter from A to Q
 [0-7]   Digit from 0 to 7
-\x      Group/subpattern number "x"
+
+== Character Classes ==         (PCRE)
+\c      Control character
+\s      White space                                 [:space:]   BRE
+\S      Not white space
+\d      digit                                       [:digit:]   BRE
+\D      Not digit
+\w      Word
+\W      Not word
+\x      Hexadecimal digit                           [:xdigit:]  BRE
+
+Examples
+--------
+g(la|oo)d                   ERE     {glad, good}                  
+A(xyz)+C                    ERE     {AxyzC, AxyzxyzC}                    
+(?:USEDB|USEIPAV2)=no       PCRE    {USEDB=no, USEIPAV2=no}       
+a|b*                        ERE     {ε, a, b, bb, bbb, ...}
+(a|b)*                      ERE     {ε, a, b, aa, ab, ba, bb, aaa, ...}
+(0|(1(01*0)*1))*            ERE     {ε, 0, 00, 11, 000, 011, 110, 0000, 0011, 0110, 1001, 1100, 1111, 00000, ... }
+\b([a-z]+)((?:\s|<[^>]+>)+)(\1\b)
+^(?:[^\e]*\n)+
+^[-+]?[0-9]+(\.[0-9]*)?$
+

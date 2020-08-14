@@ -1,6 +1,8 @@
-sed : delete one or more lines from a file
+sed - stream editor for filtering and transforming text 
 
 Syntax
+sed SCRIPT INPUTFILE...
+sed 's/hello/world/' input.txt > output.txt
 sed '{[/]<n>[<string>|<regex>[/]}d' <filename>
 sed '{[/]<adr1>[,<adr2>][/]d' <filename>
 
@@ -11,14 +13,26 @@ regex = regular expression corresponding to the searched pattern
 add = address of a line (number of pattern)
 d = delete
 
+sed                     (BRE)
+sed -E                  (ERE)
+
 Example of sed
 
 sed '3d' filename.txt
 sed '/awk/d' filename.txt
-sed '$d' filename.txt       // remove the last line
-sed '/^$/d' filename.txt    // remove empty line
-sed '/./!' filename.txt     // same as above
-sed '7,9d' filename.txt     // remove lines 7 ~ 9
+sed '$d' filename.txt                   // remove the last line
+sed '/^$/d' filename.txt                // remove empty line
+sed '/./!' filename.txt                 // same as above
+sed '7,9d' filename.txt                 // remove lines 7 ~ 9
+sed -n 22,29p testfile.txt              // print only line lines from 22 to 29
+sed 's/danger/safety/g' test.txt
+sed 's/danger/safety/2' test.txt
+sed 's/danger/safety/2g' test.txt
+sed '4,9 s/danger/safety/' test.txt
+sed -e 's/.*/testing sed &/' test.txt
+sed -e 's/#.*//;/^$/d' test.txt         // remove all commented line and all empty lines
+sed -E 's/([^:]*).*/\1/' /etc/passwd
+
 
 readelf -d `which ld` | grep libbfd | sed -e 's/.*\[\(.*\)\].*/\1/'
 
