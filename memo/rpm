@@ -1,0 +1,17 @@
+rpm - RPM Package Manager
+
+rpm -qa                     Queries all installed package
+rpm -qa | sort
+rpm -qi jq.x86_64           show information about the package
+yum list installed          list all installed package
+rpm -qa Group="System Environment/Shells"
+rpm -qa -last               shows packages installed sorted by date
+
+rpm -ql yum                 queries for list of file paths
+rpm -qc yum                 queries for list of configure paths
+
+rpm -q --provides yum       queries package that provides yum function
+rpm -q --requires yum       queryies package that requires yum function
+rmp -q --changelog yum      show changes to package
+
+

@@ -1,0 +1,100 @@
+bash loop
+[== for ==]
+for VAR in 1 2 3 4 5 
+do 
+    echo $VAR
+done
+
+for VAR in $(seq 5)
+do
+    echo "Welcome $VAR times"
+done
+
+for i in {1..5}
+do
+    echo "Welcome $i times"
+done
+
+for i in {0..10..2}
+do
+    echo "Welcome $i times"
+done
+
+for i in $(seq 1 2 20)
+do
+    echo "Welcome $i times"
+done
+
+for (( c=1; c<=5; c++ ))
+do
+    echo "Welcome $c times"
+done
+
+for (( ;; )) do ehco "ininite loops [ hit Ctrl-C to stop ]"; done
+
+for f in $(ls /nas/*.pdf)
+do
+    print "File %f"
+done
+
+for i in $@
+do
+    echo "Script arg is $i"
+done
+
+for s in server1 server2 server3
+do 
+    ssh vivek@${s} "uptime"
+done
+
+[== while ==]
+
+x=1
+while [ $x -le 5 ]
+do 
+    echo "Welcome $x times"
+    x=$(( $x + 1 ))
+done
+
+counter=$1
+factorial=1
+while [ $counter -gt 0 ]
+do
+    factorial=$(( $factorial * $counter ))
+    counter = $(( $counter - 1 ))
+done
+echo $factorial
+
+FILE=$1
+exec 3<&0
+exec 0<$FILE
+while read line
+do
+    echo $line
+done
+exec 0<&3
+
+while getopts ae:f:hd:s:qx: option
+do
+    case "${option}"
+    in
+        a) ALARM="TRUE";;
+        e) ADMIN=${OPTARG};;
+        d) DOMAIN=${OPTARG};;
+        f) SERVERFILE=$OPTARG;;
+        s) WHOIS_SERVER=$OPTARG;;
+        q) QUIET="TRUE";
+        x) WARNDAYS=$OPTARG;
+        \?) usage
+            exit 1;;
+    esac
+done
+
+while :
+do
+    echo "ifinite loops [ hit CTRL-c to stop ]"
+done
+
+break; and continue;
+
+
