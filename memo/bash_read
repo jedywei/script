@@ -1,0 +1,109 @@
+read - for user input
+
+[Ask the User for Input]
+-------------
+#!/bin/bash
+# Ask the user for their name
+echo Hello, who am I talking to?
+read varname
+
+echo It\'s nice to meet you $varname
+-------------
+
+[More with read]
+------------
+#!/bin/bash
+# Ask the use for login details
+
+read -p 'Username: ' uservar
+read -sp 'Password: ' passvar
+echo
+echo Thankyou $uservar we now have your login details
+------------
+
+[More variables]
+------------
+#!/bin/bash
+# Demonstrate how read actually works
+
+echo What cars do you like?
+
+read car1 car2 car3
+
+echo Your first car was: $car1
+echo Your second car was: $car2
+echo Your third car was: $car3
+------------
+
+[Reading from STDIN]
+- STDIN     /dev/stdin or /proc/self/fd/0
+- STDOUT    /dev/stdout or /proc/self/fd/1
+- STDERR    /dev/stderr or /proc/self/fd/2
+
+------------
+#!/bin/bash
+# A basic summary of my sales report
+
+echo Here is a summary of the sales data:
+echo ====================================
+echo 
+cat /dev/stdin | cut -d' ' -f 2,3 | sort
+
+
+[here document]
+------------------
+var=$(cat << 'END_HEREDOC'
+abc'asdf"
+$(dont-execute-this)
+foo"bar"''
+END_HEREDOC
+)
+------------------
+def_hdoc() { IFS='\n' read -r -d '' ${1} || true; }
+def_hdoc VAR << 'EOF'
+abc'asdf"
+$(dont-execute-this)
+foo"bar"''
+EOF
+------------------
+Command << HeredocDelimiter
+...
+...
+HeredocDelimiter
+------------------
+# Using Here Doc with '-' symbol to supporess any tab space from each line of here doc text. 
+cat <<-EOF 
+...
+...
+EOF
+------------------
+NAME='John Doe'
+RESPONDENT="the autho of this fine script"
+cato << 'EOF'
+
+Hello, there, $NAME
+Greeting to you, $NAME, from $RESPONDENT
+
+EOF
+------------------
+: << COMMENT
+echo "This line will not echo."
+This is a comment line missing the '#' prefix.
+This is another comment line missing the "#" prefix.
+
+&*@!!++=
+This above line will cause no error message,
+because the Bash interpreter will ignore it.
+COMMENT
+
+
+
+Reference
+[1] Bash Here Document
+
+
+
+
+
+
+

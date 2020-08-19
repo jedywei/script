@@ -1,0 +1,23 @@
+diff and patch
+
+$ diff -u hello_old.c hello_new.c > hello.patch
+
+patch -p[num] < patchfile
+
+$ patch < hello.patch
+
+$ diff -Naur /usr/src/openvpn-2.3.2 /usr/src/openvpn-2.3.4 > openvpn.path
+
+$ patch -p3 < /root/openvpn.path
+
+# backup
+$ patch -b < hello.patch
+
+# dry-run
+$ patch --dry-run < hello.patch
+
+# reverse a patch
+$ patch < hello.patch
+$ patch -R < hello.patch
+
+

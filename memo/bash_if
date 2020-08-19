@@ -1,31 +1,49 @@
+bash if statement and test condition
+
 if [ ! -e filname ]; then
     echo "filename doesn't exit"
 else
     echo "filename found"
 fi
 
--e  file exists
--d  directory exists
--f  normal file exists
--r  user has read permission 
--s  file exists and not empty
--w  user has write permission
--O  user owns the file
--G  user's group is has acces to the file
--nt newer than (modification date-time of file)
--ot older than  for file-to-file comparision
+--------------------------
+if [ <condition> ]; then
+    <comamnds>
+elif [ <condition2> ]; then
+    <commands>
+else
+    <commands>
+fi
 
-if [ "$1" == "text" ]; then ...
-if [ "$str1" != "$str2" ]; then ...
-if [ -n $str ]; then ...            // true, if $str is not null
-if [ -z $str ]; then ...            // true, if $str is null
 
-if [ $var -eq 0 ]; then             
-if [ $var -ne $var2 ]; then
-if [ $var1 -gt $var2 ]; then
-if [ $var1 -ge $var2 ]; then
-if [ $var1 -lt $var2 ]; then
-if [ $var1 -le $var2 ]; then
+-e FILE  FILE exists
+-d FILE  FILE exists and is a directory 
+-f FILE  FILE exists and it's a normal file 
+-s FILE  FILE exists and it's size is greater than zero (ie. it is not empty)
+-w FILE  FILE exists and the write permission is granted
+-r FILE  FILE exists and the read permission is granted
+-x FILE  FILE exists and the execute permission is granted
+-O FILE  FILE exists and user owns the file
+-G FILE  FILE exists and user's group is has access to the file
+-nt FILE newer than (modification date-time of file)
+-ot FILE older than  for file-to-file comparision
+
+!EXPRESSION 
+
+if [ "$1" == "text" ]; then ...; fi
+if [ "$str1" != "$str2" ]; then ...; fi
+if [ -n $str ]; then ...; fi                // true, if $str is not null
+if [ -z $str ]; then ...; fi                // true, if $str is null
+
+if [ INT1 -eq INT2 ]; then ...; fi            
+if [ INT1 -ne INT2 ]; then ...; fi
+if [ INT1 -gt INT2 ]; then ...; fi
+if [ INT1 -ge INT2 ]; then ...; fi
+if [ INT1 -lt INT2 ]; then ...; fi
+if [ INT1 -le INT2 ]; then ...; fi
+
+[ 001 = 1 ]; echo $?    # 1
+[ 001 -eq 1 ]; echo $?  # 0
 
 [ "${yn}" == "Y" -o "${yn}" == "y" ] && echo OK
 [ "${yn}" == "N" -a ${num} == 1 ] && echo ${num}
@@ -39,4 +57,25 @@ if [ $var1 -le $var2 ]; then
 [ exp1 -a exp2 ] == [[ exp1 && exp2 ]] == [ exp1 ] && [ exp2 ] == [[ exp1 ]] && [[ exp2 ]]
 [ exp1 -o exp2 ] == [[ exp1 || exp2 ]] == [ exp1 ] || [ exp2 ] == [[ exp1 ]] || [[ exp2 ]]
 
+new test [[]]               old test []
+------------------          -------------------
+[[ a > b ]]                 [ a \> b ]                  string comparsion
+[[ az < za ]]               [ az \< za ]
+[[ a == a ]]                [ a = a ]
+[[ a = a ]]                 [ a = a ]
+[[ a != b ]]                [ a != b ]
+
+[[ 5 -gt 10 ]]              [ 5 -gt 10 ]                integer cmparsion
+[[ 8 -lt 9 ]]               [ 8 -lt 9 ]
+[[ 3 -ge 3 ]]               [ 3 -ge 3 ]
+[[ 3 -le 8 ]]               [ 3 -le 8 ]
+[[ 5 -eq 05 ]]              [ 5 -eq 05 ]
+[[ 6 -ne 20 ]]              [ 6 -ne 20 ]
+
+[[ -n $var && -f $var ]]    [ -n $var -a -f $var ]      conditional evaluation
+[[ -b $var || -c $var ]]    [ -b $var -o -c $var ]
+[[ $var = img * && ($var = *.png || $var = *.jpg) ]] 
+
+[[ $name = a* ]]
+[[ $(date) =~ ^Fri\ ...\ 13 ]]
 

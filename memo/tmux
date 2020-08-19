@@ -1,1 +1,45 @@
 tmux - terminal mux tool
+------------------------
+
+tmux new
+tmux new -s mysession
+
+tmux kill-session -t mysession
+tmux kill-session -a
+
+tmux ls         
+C-b s           // show all sessions
+
+C-b $           // rename session
+C-b d           // detach from session
+
+tmux a
+tmux a -t mysession
+
+C-b (           // Move to previous session 
+C-b )           // Move to next session
+
+[Windows]
+C-b C           // create window
+C-b ,           // rename current window
+C-b &           // close current window
+C-b p           // previous windows
+C-b n           // next windows
+C-b 0..9        // switch/select window by number
+
+screen - screen manager with VT100/ANSI terminal emulation
+------------------------------------------------------------
+
+screen -S mysession
+screen -ls
+screen -x       // attach to running session
+screen -r mysession     // attach to a running session with name
+screen -d mysession     // deatch a running session
+
+C-a d           // detach
+C-a D D         // detch and logout (quick exit)
+C-a :exit       // exit screen
+C-a C-\         // force-exit screen
+C-a ?           // key bindings help
+
+

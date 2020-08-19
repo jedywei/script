@@ -1,0 +1,19 @@
+curl - transfer a URL
+
+curl [options] [URL ...]
+
+curl -sS -X GET "http://${mediaflow}/hvs/v1.01/channels"
+curl -sS -X GET "http://${mediaflow}/hvs/v1.01/objects/name?id=${chid}&type=channel"
+curl -sS -X PUT -d "stopped" "http://${mediaflow}/hvs/v1.01/channels/${chid}/state"
+curl -sS -X DELETE "http://${mediaflow}/hvs/v1.01/channels/${chid}"
+curl -sS -X POST "http://${mediaflow}/hsv/v1.01/channels" -d @channels/${chname}.json --header "Content-Type: application/json"
+
+curl --version
+
+
+curl -o duck.jpg "https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg"
+
+# Write output to a local file named liked the reomve file we get.
+curl -O "https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg"
+# Contiune/Resume a previous file transfer at the give offset, Use "-C -" to tell curl to automatically find out where/how to resume
+curl -C - -O "https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg"
