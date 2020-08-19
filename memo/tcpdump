@@ -29,8 +29,9 @@ sudo tcpdump [Options] [Expression]
 
 [Expression]
 Expression Type  host, net, port
-Direction        src, dst
-Protocol         tcp, udp, icmp
+Direction        src, dst, src or dst, src and dst
+Protocol         tcp, udp, icmp, ether(fddi, tr), ip, ip6, arp, rarp, decnet, ip proto, ip broadcast, ether multicast, 
+                 ip multicast, ether proto, vlan, gateway
 Combine Filters  and, && / or, || / not, !
 
 tcpdump host 1.1.1.1
