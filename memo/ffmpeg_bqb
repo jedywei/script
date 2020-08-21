@@ -5,10 +5,4 @@ ffmpeg -c:v libvegabqbtrc_h264 -vegabqbtrcdec-params device=0:channel=0:output-n
 ffmpeg -i streamlabs.flv -c:v copy -y streamlabs.ts
 
 
-ffprobe -show_format
-        -show_programs
-        -show_streams
-        -show_error
-        -show_packets
-        -show_frames
 

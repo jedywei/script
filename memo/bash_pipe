@@ -1,0 +1,92 @@
+bash pipe line comman
+
+ls -al /etc | less          # stdout -> less's stdin
+
+cut     - remove sections from each line of files
+grep    - grep, egrep, fgrep - print lines match a pattern
+sort    - sort lines of text files
+wc      - print newline, word, and byte counts for each file
+uniq    - report or omit repeated lines
+tee     - read from stdin and write to a stdout and files
+tr      - translate or delete characters
+col     - filter reverse line feeds from input
+join    - join lines of two files on a common field
+paste   - merge lines of files
+expand  - convert tabs to spaces
+split   - split a file into pieces
+xargs   - build and execute command lines from stdin
+-       - refer stdin as a file input
+| &|    - stdout pipe, stdout + stderr pipe,  cmd1 | cmd2
+> < 2>  - stdin stdout and stderr redirection, cmd1 < file 
+
+[cut]
+echo ${PATH} | cut -d':' -f 5
+echo ${PATH} | cut -d':' -f 3,5
+export | cut -c 12-
+last | cut -d ' ' -f 1
+
+[grep]
+last | grep 'root'
+last | grep -v 'root'
+last | grep 'root' | cut -d ' ' -f 1
+
+[sort]
+cat /etc/passwd | sort
+cat /etc/passwd | sort -t ':' -k 3
+cat /etc/passwd | sort -t ':' -k 3,3
+
+[uniq]
+last | cut -d ' ' -f 1 | sort | uniq
+last | cut -d ' ' -f 1 | sort | uniq -c 
+
+[wc]
+last | grep [a-zA-Z] | grep -v 'wtmp' | grep -v 'reboot' | grep -v 'unknown' | wc -l
+
+[tee]
+last | tee last.list | cut -d ' ' -f 1
+ls -l /home | tee ~/homefile | more
+ls -l /home | tee -a ~/homefile | more
+
+[tr]
+last | tr '[a-z]' '[A-Z]'
+cat /etc/passwd | tr -d ':'
+cat ~/passwd | tr -d '\r' > ~/passwd.linux
+
+[col]
+cat -A /etc/man_db.conf | col -x | cat -A | more
+
+[join]
+join -t ':' /etc/passwd /etc/shadow | head -n 3
+joint -t ':' -1 4 /etc/passwd -2 3 /etc/group | head -n 3
+
+[paste]
+paste /etc/passwd /etc/shadow
+cat /etc/group | paste /etc/passwd /etc/shadow - | head -n 3
+
+[expand]
+grep '^MANPATH' /etc/man_db.conf | head -n 3 | expand -t 6 - | cat -A
+
+[split]
+cd /tmp; spllit-b 300k /etc/services services
+
+[xargs]
+id root
+cat -d ':' -f 1 /etc/passwd | head -n 3 | xargs -n 1 id
+cat -d ':' -f 1 /etc/passwd |xargs -e'sync' -n 1 id
+find /usr/sbin -perm /7000 | xargs ls -l
+
+
+[<, >, <<, >>, 2>, 2>>]
+ls / > ~/rootfile
+find /home -name .bashrc > list_right 2> list_error
+find /home -name .bashrc 2> /dev/null
+find /home -name .bashrc > list 2>&1
+== find /home -name .bashrc &> list
+
+cat > catfile < ~/.bashrc
+cat > catfile << "EOF"
+> This is a test
+> OK now stop
+> EOF
+
+

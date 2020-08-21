@@ -38,4 +38,4 @@ readelf -d `which ld` | grep libbfd | sed -e 's/.*\[\(.*\)\].*/\1/'
 
 ldd $(which gcc) | grep -e 'ld.*\.so' | awk '{ print $1 }'
 
-
+@see also   awk, regex, grep, bash_pipe

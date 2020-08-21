@@ -1,6 +1,8 @@
 $ gdb <program> [core dump]
 $ gdb --args <program> <args...>
 $ gdb --pid <pid>
+$ strace                            -  truace system calls and signals
+$ ulimit -c unlimited
 
 b <where>
 b <where> if <condition>
@@ -50,5 +52,14 @@ info locals
 info shared library
 info threads
 
-    
+-----------------
+strace ls                   # trace the execution of executable
+strace -e open ls           # trace a specific system calls in an Executable using option -e
+strace -e trace=open,read ls /home
+strace -o output.txt ls     # save the trace excution ot a file using option -o
+sudo strace -p 1725 -o firefox_trace.txt
+strace -t -e open ls /home  # print timestamp for each trace output line using option -t
+strace -r ls                # print relative time for system calls using option -r
+strace -c ls /home          # generate statistics report of system calls using option -c
+
 

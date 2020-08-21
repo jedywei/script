@@ -1,2 +1,35 @@
-netstat -utln
+netstat     - print network connections, routing tables, interface statistics, masquerade connecton, and multicast memberships
+
+netstat -a | more                   # list all ports (both listening and non listening ports)
+netstat -at                         # tcp ports
+netstat -au                         # udp ports
+
+netstat -l                          # list only listening ports
+netstat -lt                         # list only listening TCP ports
+netstat -lu                         # list only listening UDP ports
+netstat -lx                         # list only listening UNIX ports
+
+netstat -s                          # show statistics for all ports 
+netstat -st
+netstat -su
+
+netstat -pt                         # show PID/Program Name 
+
+netstat -an                         # don't resolve host, port and user name 
+nesstat -a --numeric-ports
+nesstat -a --numeric-hosts
+nesstat -a --numeric-users
+netstat -utln                       # listing port, udp, tcp and don't resolve host, port and user name
+
+netstat -c                          # print netstat information continuously
+netstat --verbose                   # list non supportive address families in your system 
+
+netstat -r                          # display the kernel routing information 
+netstat -rn                         # ipaddress instead of host name
+
+netstat -ap | grep ssh              # find out on which port a program is running
+netstat -an | grep ':80'            # find out which process is using a particular port
+
+netstat -i                          # show the list of network interfaces
+netstat -ie                         # display extended information on the interfaces (== ifconfig)
 

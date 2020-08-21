@@ -1,0 +1,62 @@
+ffprobe - ffprobe media prober
+
+ffprobe [options] [input_url]
+
+ffprobe - h | grep '-show'
+
+ffprobe -show_format    input_url
+        -show_programs
+        -show_streams
+        -show_error
+        -show_packets
+        -show_packets -show_data
+        -show_frames
+
+        List all functions              Show only the function
+        -------------------             -----------------------
+ffprobe -formats
+        -demuxers                       -h demuxer=demuxer_name
+        -muxers                         -h muxer=muxer_name
+        -devices
+        -codecs
+        -decoders                       -h decoder=decoder_name
+        -encoders                       -h encoder=encoder_name
+        -bsfs
+        -protocols
+        -filters                        -h filter=filter_name
+        -pix_fmts
+        -sample_fmts
+        -layouts
+        -colors
+        -sections                       -h section=section_name
+
+[Example]
+ffprobe -decoders
+ffprobe -h decoder=aac_latm
+        
+-loglevel (-v)      quiet, panic(0), fatal, error, warning, info, verbose, debug, trace(56)
+-hide_bannder
+-print_format json
+-seclect_streams stream_specifier
+
+
+ffprobe -v error -show_format -show_streams ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+ffprobe -v error -show_entries format=size -of default=noprint_wrappers=1 ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+
+[Duration]
+ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+
+[Frame Rate]
+ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of default=noprint_wrappers=1:nokey=1 ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+
+[Resolution]
+ffprobe -v error -select_streams v:0 -show_entries stream=height,width -of csv=s=x:p=0 ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+
+ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration,bit_rate -of default=noprint_wrappers=1 ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+
+[Json]
+ffprobe -v quiet -print_format json -show_format -show_streams ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+
+[Count]
+ffprobe -v error -show_streams -count_frames -count_packets ~/Videos/bbb_sunflower_1080p_60fps_normal.mp4
+

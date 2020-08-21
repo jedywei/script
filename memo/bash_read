@@ -21,6 +21,12 @@ echo
 echo Thankyou $uservar we now have your login details
 ------------
 
+read -p 'Remove all swap file? [Y/n]: ' yn
+case $yn in
+    [Yy]*|"")  rm .*.sw*;;
+    *)  echo "Abort remove";;
+esac
+
 [More variables]
 ------------
 #!/bin/bash

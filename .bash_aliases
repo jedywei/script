@@ -5,7 +5,12 @@
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
     
 rmswp() {
-        rm .*.sw*
+        ls .*.sw*
+        read -p 'remove all swp file [Y/n]: ' answer
+        case $answer in 
+            [Yy]*|"") rm .*.sw*;;
+            *) echo "Abort remove";;
+        esac
 }
     
 calc() {

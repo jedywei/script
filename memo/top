@@ -1,0 +1,30 @@
+sar                 - collect, report, or save system activity information, CPU, Memory, Swap, I/O, Context switch, Net
+sar -b 1 3
+tcpdump             - dump traffic on a network, Net
+nagios              - monitor
+iostat              - iostat report CPU, disk I/O and NFS statistics 
+mpstat              - report processors related statistics
+vmstat              - reports virtual memory statistics
+ps                  - report a snapshot of the current processes
+free                - display amount of free and used memory in the system
+top                 - display all the running process in the system 
+htop                - interactive top
+ntop                - network traffic top
+pmap <pid>          - report memory map of a process
+netstat             - network related information
+iptraf-ng           - IP traffic monitor
+strace              - display the system calls used by the process
+lsof                - list open files
+w                   - show who is logged on and what they are doing
+uptime              - show how long the system has been running
+ss                  - socket statistic
+
+/proc/cmdline       - command line of the commnad
+/proc/environ       - environment variables
+/proc/fd            - contains the file descriptors which is linked to the appropriate files
+/proc/limits        - contains the information about the specific limits to the process
+/proc/mounts        - mount related information
+
+
+
+

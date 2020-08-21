@@ -1,0 +1,57 @@
+Exploring Linux Important files
+
+/boot/vmlinuz       - The Linux Kernel file
+/dev/hda            - Device file for the first IDE HDD 
+/dev/hdc            - Device file for the IDE CD Rom
+/dev/null           - A NULL device
+
+/etc/bashrc         - default and aliases used by bash shell
+/etc/crontab        - A shell script to run specified commands on a predefined time interval.
+/etc/centos-release - CentOS release version
+/etc/exports        - Information of the file system available on network
+/etc/fstab          - Information of Disk Drive and their mount point
+/etc/group          - Information of Security Group
+/etc/grub.conf      - grub bootloader configuration file
+/etc/init.d         - Service startup Script  / REPLACED BY systemd service  and systemctl
+/etc/lilo.conf      - lilo bootloader configuration file
+/etc/hosts          - Information of IP address and corresponding host names
+/etc/hosts.allow    - List of hosts allowed to access services on the local machine
+/etc/hosts.deny     - List of hosts denied to access services on the local machine
+/etc/inittab        - INIT process and ther iteraction at various run level. 
+/etc/issue          - Allow to edit the pre-login message
+/etc/modules.conf   - Configuration files for system modules
+/etc/motd           - motd stands for Message Of The Day, The Message users get upon login.
+/etc/mtab           - Currently mounted blocks information
+/etc/passwd         - Contains password of system users in a shadow file, a security implementation
+/etc/printcap       - Printer information
+/etc/profile        - Bash shell defults
+/ect/profile.d      - Application script, executed after login
+/etc/rc.d           - Information about run level specific script. (Replaced by systemctl)
+/etc/rc.d/init.d    - Run Level initialisation script
+/etc/resolv.conf    - DNS being used by the system
+/etc/securetty      - Terminal list, where root login is possible
+/etc/skel           - Script that populates new user home directory
+/etc/termcap        - An ASCII file that defines the behaviour of Termainal, console and printers
+/etc/X11            - Configuration file of X-Window system
+
+/usr/bin            - Normal user executable commands
+/usr/bin/X11        - Binaries of X Windows system
+/usr/include        - Contains include files used by C program
+/usr/share          - Shared directories of man files, info files, etc
+/usr/lib            - Library files which are required during program compilation
+/usr/sbin           - Commands for super user, for system administration
+
+/proc/cpuinfo       - CPU information
+/proc/filesystems   - File-system information being used currently
+/proc/interrupts    - Information about the current interrupts beging utilised currently
+/proc/ioports       - Contains all the Input/Output addressessed used by devices on the server
+/proc/meminfo       - Memory Usages Information
+/proc/modules       - Currently using kernel module
+/proc/mount         - Mounted File-system information
+/proc/stat          - Detaild statistics of the current system
+/proc/swaps         - swap file information
+
+/version            - Linuex version information
+/var/log/lastlog    - log of last boot process
+/var/log/messages   - log of messages produced by syslog daemon at boot
+/var/log/wtmp       - list login time and duration of each user on the system currently
