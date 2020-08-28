@@ -5,12 +5,21 @@
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
     
 rmswp() {
-        ls .*.sw*
+        ls .*.sw* || return 2
         read -p 'remove all swp file [Y/n]: ' answer
         case $answer in 
             [Yy]*|"") rm .*.sw*;;
             *) echo "Abort remove";;
         esac
+}
+
+rmcore() {
+    ls  core.* || return 2
+    read -p 'remove all core dump file [Y/n]: ' answer
+    case $answer in 
+        [Yy]*|"") rm core.*;;
+        *) echo "Abort remove";;
+    esac
 }
     
 calc() {

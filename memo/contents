@@ -1,3 +1,4 @@
+[common]    -----------------------------------------------------------------------------
 new_setup   - command for set up a new centos enviroment
 lib         - dynamic libary related tools and command
 yum         - yum commands
@@ -16,7 +17,7 @@ man         - man command and page defination
 jq          - command-line JSON processor
 rpm         - RPM Package Manager
 diff        - diff and patch commands
-[Network]   ----------------------------------------------------------------------------
+[network]   ----------------------------------------------------------------------------
 dns         - Domain Name System related command or information
 netstat     - network CONNECTION, ROUTING TABLE, INTERFACE and MULTICAST statistics
 ip          - ip, ethtool, ss, netstat commands
@@ -31,11 +32,6 @@ lspci       - list all PCI devices and dmidecode
 etc         - linux imporant files
 top         - command list for perfomance monitoring, sar, top, ps, netstat, ...
 ipmitool    - utility for controlling IPMI-enabled devices
-[ffmpeg]    ----------------------------------------------------------------------------
-ffmpeg      - frequent-use ffmpeg command
-ffprobe     - frequent-use ffprobe command
-ffmpeg_dev  - ffmpeg devel package installation 
-ffmpeg_bqb  - vega ffmpeg command
 [bash]      ----------------------------------------------------------------------------
 bash_$      - input arguments
 bash_if     - if statement
@@ -45,3 +41,5 @@ bash_arith  - arithmethic operations
 bash_var    - variables
 bash_read   - user input and bash's here document  (cat << EOF ... EOF)
 bash_pipe   - commands for base pipe
+
+[video]

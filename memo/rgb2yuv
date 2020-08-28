@@ -1,0 +1,54 @@
+RGB to YUV Conversion Formulate
+
+// Full-range 8-bit “Rec 601” (SD) conversion:
+R = 1.164384 * y  +  0.000000 * cb  +  1.596027 * cr;
+G = 1.164384 * y  -  0.391762 * cb  -  0.812968 * cr;
+B = 1.164384 * y  +  2.017232 * cb  +  0.000000 * cr;
+
+// SMPTE-range 8-bit “Rec 601” (SD) conversion:
+R = 1.000000 * y  +  0.000000 * cb  +  1.370705 * cr;
+R = 1.000000 * y  -  0.336455 * cb  -  0.698196 * cr;
+R = 1.000000 * y  +  1.732446 * cb  +  0.000000 * cr;
+
+
+// Full-range 10-bit “Rec 601” (SD) conversion:
+R = 1.167808 * y  +  0.000000 * cb  +  1.600721 * cr;
+G = 1.167808 * y  -  0.392915 * cb  -  0.815359 * cr;
+B = 1.167808 * y  +  2.023165 * cb  +  0.000000 * cr;
+
+// SMPTE-range 10-bit “Rec 601” (SD) conversion:
+R = 1.0000008 * y  +  0.000000 * cb  +  1.370705 * cr;
+G = 1.0000008 * y  -  0.336455 * cb  -  0.698196 * cr;
+B = 1.0000008 * y  +  1.732446 * cb  +  0.000000 * cr;
+
+// Full-range 10-bit “Rec 709” (HD) conversion:
+R = 1.167808 * y  +  0.000000 * cb  +  1.798014 * cr;
+G = 1.167808 * y  -  0.213876 * cb  -  0.534477 * cr;
+B = 1.167808 * y  +  2.118615 * cb  +  0.000000 * cr;
+
+// SMPTE-range 10-bit “Rec 709” (HD) conversion:
+R = 1.000000 * y  +  0.000000 * cb  +  1.539648 * cr;
+G = 1.000000 * y  -  0.183143 * cb  -  0.457675 * cr;
+B = 1.000000 * y  +  1.814180 * cb  +  0.000000 * cr;
+
+YUV to RGV Conversion Formulate
+// Full-range 10-bit “Rec 601” (SD) conversion:
+Y  =  0.25604 * r  +  0.50265 * g  +  0.09762 * b;
+Cb = -0.14779 * r  -  0.29014 * g  +  0.43793 * b;
+Cr =  0.43793 * r  -  0.36671 * g  -  0.07122 * b;
+
+// SMPTE-range 10-bit “Rec 601” (SD) conversion:
+Y  =  0.29900 * r  +  0.58700 * g  +  0.11400 * b;
+Cb = -0.17259 * r  -  0.33883 * g  +  0.51142 * b;
+Cr =  0.51142 * r  -  0.42825 * g  -  0.08317 * b;
+
+// Full-range 10-bit “Rec 709” (HD) conversion:
+Y  =  0.18205 * r  +  0.61243 * g  +  0.06183 * b;
+Cb = -0.10035 * r  -  0.33758 * g  +  0.43793 * b;
+Cr =  0.43793 * r  -  0.39777 * g  -  0.04016 * b;
+
+// SMPTE-range 10-bit “Rec 709” (HD) conversion:
+Y  =  0.21260 * r  +  0.71520 * g  +  0.07220 * b;
+Cb = -0.11719 * r  -  0.39423 * g  +  0.51142 * b;
+Cr =  0.51142 * r  -  0.46452 * g  -  0.04689 * b;
+
