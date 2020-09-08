@@ -37,7 +37,6 @@ ipmitool    - utility for controlling IPMI-enabled devices
 top         - command list for perfomance monitoring, sar, top, ps, netstat, ...
 perf        - performance benchmark and memory leaking check
 [bash]      ----------------------------------------------------------------------------
-bash_$      - input arguments
 bash_if     - if statement
 bash_for    - for and while loop
 bash_key    - command line editing Ctrl-Key 

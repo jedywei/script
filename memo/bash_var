@@ -3,7 +3,7 @@ bash varaiables
 Summary
 
 $1,$2,...           The first, second, etc command line arguments to the script
-var=value           To st a value for a variable 'var'. Remember, no spaces on either side of =
+var=value           To set a value for a variable 'var'. Remember, no spaces on either side of =
 Quotes "'           Double will do variable substitution, single will not.
 var=$(command)      Save the output of a command into a variable 'var'.
 export var1         Make the variable var1 available to child processes. (from variable to environment variable)
@@ -33,6 +33,7 @@ $@              - All the arguments supplied to the Bash script. $0 $1 $2 ...
 $*              - All the arguments supplied to the Bash script. $0$IFS$1$IFC$2 ...
 $?              - The exit status of the most recently run process
 $$              - The PID of the current script
+$!              - The PID of the last background command
 $USER           - The username of the user running the script. 
 $HOSTNAME       - The hostname of the machine the script is running on.
 $SECONDS        - The number of seconds time since script was starte. 
@@ -58,13 +59,32 @@ myvar='Hello World'
 newvar="More $myvar"
 newvar='More $myvar'
 
-[Command Subsititution]
+[Shell Result]
 myvar=$(ls /etc | wc -l)
+myvar=`ls /etc | wc-l`
 
 [Exporting Variables]
 var1=blah
 var2=foo
 export var1     # make var1 available to child processes
+
+[Array]
+arr=(Hello World)
+arr[0]=Hello
+arr[1]=World
+
+${arr[*]}   - all of the items in the array
+${arr[@]}   - all of the items in the array (returns each item as a seperate word)
+${!arr[*]}  - all of the indexs in the array
+${#arr[*]}  - number of items in the array
+${#arr[0]}  - lenght of item zero
+
+item="one two three four"
+items=(${item})
+echo ${items[@]:-2}
+echo ${items[-1]}
+unset 'items[${#items[@]}-1]'
+echo ${items[*]}
 
 [${var}]
 path=${PATH}
@@ -83,6 +103,7 @@ username=${username:-root}  # ':-' if ${username} not set or empty string, usern
 username=${username+root}   # '+' if ${username} empty string, username="root"
 username=${username:+root}  # ':+' if ${username} set and not empty, username="root" 
 
+[Variable Substution]
 var=${str=expr}
 var=${str:=expr}
 var=${str?expr}
