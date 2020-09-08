@@ -24,14 +24,18 @@ ip          - ip, ethtool, ss, netstat commands
 curl        - transfer a URL
 tcpdump     - dump traffic on a network
 dig         - DNS lookup utility
+iperf3      - Network performance test
+firewall    - firewall daemon and firewall-cmd
+iptables    - iptables for packet filtering and NAT
 [system]    ----------------------------------------------------------------------------
 systemctl   - systemd and service command
-udev_eth    - change network interface name by udev comamnd
-firewall    - firewall daemon and firewall-cmd
+udev-net    - change network interface name by udev comamnd
 lspci       - list all PCI devices and dmidecode
 etc         - linux imporant files
-top         - command list for perfomance monitoring, sar, top, ps, netstat, ...
 ipmitool    - utility for controlling IPMI-enabled devices
+[benchmark] ----------------------------------------------------------------------------
+top         - command list for perfomance monitoring, sar, top, ps, netstat, ...
+perf        - performance benchmark and memory leaking check
 [bash]      ----------------------------------------------------------------------------
 bash_$      - input arguments
 bash_if     - if statement
@@ -41,5 +45,6 @@ bash_arith  - arithmethic operations
 bash_var    - variables
 bash_read   - user input and bash's here document  (cat << EOF ... EOF)
 bash_pipe   - commands for base pipe
-
-[video]
+[video]     ----------------------------------------------------------------------------
+ffmpeg      - frequent-used ffmpeg command
+ffprobe     - frequent-used ffprobe command

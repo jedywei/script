@@ -5,6 +5,7 @@ nagios              - monitor
 iostat              - iostat report CPU, disk I/O and NFS statistics 
 mpstat              - report processors related statistics
 vmstat              - reports virtual memory statistics
+pidstat             - report statistics for Linux tasks
 ps                  - report a snapshot of the current processes
 free                - display amount of free and used memory in the system
 top                 - display all the running process in the system 
@@ -18,6 +19,13 @@ lsof                - list open files
 w                   - show who is logged on and what they are doing
 uptime              - show how long the system has been running
 ss                  - socket statistic
+
+[memory leaking]
+valgrind --tool=memory --leak-check=full <command and command arguement>
+perf
+pidstat -p 23493 1
+pidstat -p 23493 -r 1
+
 
 /proc/cmdline       - command line of the commnad
 /proc/environ       - environment variables

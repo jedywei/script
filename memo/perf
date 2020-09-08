@@ -1,0 +1,5 @@
+[memory leakage & profile]
+valgrind --tool=memory --leak-check=full <command and command arguement>
+perf
+pidstat -p 23493 1
+pidstat -p 23493 -r 1
