@@ -51,6 +51,8 @@ echo $myvar $avar
 echo 
 sampledir=/etc
 
+var=${1:-root}  - var=$1 or if not $1 set var as root
+
 ls $sampledir
 -------------
 
@@ -86,27 +88,49 @@ echo ${items[-1]}
 unset 'items[${#items[@]}-1]'
 echo ${items[*]}
 
-[${var}]
+[Variable Substution]
 path=${PATH}
+${var#PATTERN}              # remove PATTERN, one # shortest match, two ## longest match
 ${path#/*local/bin:}        # '#' delete left to right '/*local/bin:'
-${path#/*:}                 # '#' longest  '/*:'
-${path##/*:}                # '##' shortest '/*:'
+${path#/*:}                 # '#' shortest  '/*:'
+${path##/*:}                # '##' longest '/*:'
 
-${path%:*bin}               # '%' delete right to left ':*bin', return longest
-${path%%:*bin}              # '%%' delete shortest ':*bin'
+${var%PATTERN}              # remove PATTERN Back of ${var}
+${path%:*bin}               # '%' delete right to left ':*bin', return shortest
+${path%%:*bin}              # '%%' delete longest ':*bin'
 
+${var/PATTERN/REPLACEMENT}  # find and replace
 ${path/sbin/SBIN}           # '/' replace the first 'sbin' by 'SBIN'
 ${path//sbin/SBIN}          # '//' replace all 'sbin' by 'SBIN'
+
+${var,}                     # ${var,} ${var,PATTERN} ${var,,} ${var,,PATTERN}
+${var^}                     # ${var^} ${var^PATTERN} ${var^^} ${var^^PATTERN}
 
 username=${username-root}   # '-' if ${username} not set, username="root"
 username=${username:-root}  # ':-' if ${username} not set or empty string, username="root"
 username=${username+root}   # '+' if ${username} empty string, username="root"
 username=${username:+root}  # ':+' if ${username} set and not empty, username="root" 
 
-[Variable Substution]
-var=${str=expr}
-var=${str:=expr}
-var=${str?expr}
-var=${str:?expr}
+echo ${USER:=foo}           # if USER not set or empty string, display 'foo'
+var=${1:=defaultValue}      # Fail with an error cannot assign in this way
+var=${1:-defaultVAlue}      # Perfect, no error
+${varName?Error varName is not defined}
+${varName:?Error varName is not defined or is empty}
+${1:?"mkjail: Missing operand"}
+_domain="${1:?Usage: mknginxconf domainName}"
+_cmd="${2:? $_message $(cp $_file $HOME/.output)}"  # display an Error Message and Run Command
 
+string=01234567890abcdefgh
+echo ${string:7}            # '7890abcdefgh'
+echo ${string:7:0}          # ''
+echo ${string:7:2}          # '78'
+echo ${string:7:-2}         # '7890abcdef'
+echo ${string:-7}           # 'bcdefgh'
+echo ${string:-7:0}         # ''
+echo ${string:-7:2}         # 'bc'
+echo ${string:-7:-2}        # 'bcdef'
+
+set -- 01234567890abcdefgh
+echo ${1:7}                 # '7890abcefgh'
+echo ${1:7:0}               # ''
 

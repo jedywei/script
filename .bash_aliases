@@ -122,6 +122,18 @@ h() {
     fi
 }
 
+hh() {
+    if [ $# == 0 ]; then
+        echo -e "\e[38;5;220m"
+        cat ~/script/memo/contents | less
+        echo -e "\e[0m"
+    else 
+        echo -e "\e[38;5;255m"
+        cat ~/script/memo/$1 | less
+        echo -e "\e[0m"
+    fi
+}
+
 
 ##
 ## Main

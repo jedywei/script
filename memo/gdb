@@ -62,4 +62,10 @@ strace -t -e open ls /home  # print timestamp for each trace output line using o
 strace -r ls                # print relative time for system calls using option -r
 strace -c ls /home          # generate statistics report of system calls using option -c
 
+[cord dump]
+ulimit -c unlimited
+ulimit -a
 
+man 5 core
+
+cat /proc/sys/kernel/core_pattern

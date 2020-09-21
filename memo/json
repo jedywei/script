@@ -1,0 +1,120 @@
+JSON            - JavaScript Object Notation is a lightweight data-interchange format
+
+[Syntax]
+<json>          := <element>
+<value>         := <object>, <array>, <string>, <number>, true, false, null  
+<object>        := '{' <ws> '}', 
+                   '{' <members> '}'
+<members>       := <member>, 
+                   <member> ',' <members>
+<member>        := <ws> <string> <ws> ':' <element>
+<array>         := '[' <ws> ']', 
+                   '[' <elements> ']'
+<elements>      := <element>, 
+                   <element> ',' <elements>
+<element>       := <ws> <value> <ws>
+<string>        := '"' <characters> '"'
+<characters>    := <none>, 
+                   <character> <characters>
+<character>     := '0020' ~ '10FFFF' - '"' - '\',           # not include " and \
+                   '\' <escape>
+<escape>        := '"', '\', '/', 'b', 'f', 'n', 't', 'u' <hex> <hex> <hex> <hex>
+<hex>           := <digit>, 'A' ~ 'F', 'a' ~ 'f'
+<number>        := <integer> <fraction> <exponent>
+<integer>       := <digit>, 
+                   <onenine> <digits>, 
+                   '-' <digit>, 
+                   '-' <onenine> <digits>
+<digits>        := <digit>, 
+                   <digit> <digits>
+<digit>         := '0', <onenine>
+<onenine>       := '1' ~ '9'
+<fraction>      := <none>, '.' <digits>
+<exponent>      := <none>, 'E' <sign> <digits>, 'e' <sign> <digits>
+<sign>          := <none>, '+', '-'
+<ws>            := <none>, <space> <ws>, <LF> <ws>, <CR> <ws>, <HR> <ws>
+<none>          := 
+<space>         := '0020'
+<LF>            := '000A'
+<CR>            := '000D'
+<HT>            := '0009'
+
+[About Json Escape Character]
+\"      - quotation mark    '0022'
+\\      - back slash        '005c'
+\/      - slash (solidus)   '002f'
+\n      - linefeed          '000a'
+\f      - formfeed          '000c'
+\r      - carrige return    '000d'
+\t      - horizontal tab    '0009'
+
+[Example]
+{
+    "glossary" : {
+        "title" : "example glossary", 
+        "GlossDiv" : {
+            "title" : "S", 
+            "GlossList" : {
+                "GlossEntry": {
+                    "ID" : "SGML", 
+                    "SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
+            }
+        } 
+    }
+}
+
+[Example 2]
+{
+    "menu": {
+        "id": "file",
+        "value": "File",
+        "popup": {
+            "menuitem": [
+                {"value": "New", "onclick": "CreateNewDoc()"},
+                {"value": "Open", "onclick": "OpenDoc()"},
+                {"value": "Close", "onclick": "CloseDoc()"}
+            ]
+        }
+    }
+}
+
+[Example 3]
+{
+    "widget": {
+        "debug": "on",
+        "window": {
+            "title": "Sample Konfabulator Widget",
+            "name": "main_window",
+            "width": 500,
+            "height": 500
+        },
+        "image": {
+            "src": "Images/Sun.png",
+            "name": "sun1",
+            "hOffset": 250,
+            "vOffset": 250,
+            "alignment": "center"
+        },
+        "text": {
+            "data": "Click Here",
+            "size": 36,
+            "style": "bold",
+            "name": "text1",
+            "hOffset": 250,
+            "vOffset": 100,
+            "alignment": "center",
+            "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
+        }
+    }
+}
+
+see also jsonpath jq json

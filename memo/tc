@@ -1,0 +1,24 @@
+tc      - show / manipulate traffic control setting
+
+Traffic Control
+    - shaping           當流量被限制時，它的傳輸速率就被控制在某個值以下。限制值可以大大小於有效頻寬，
+                        這樣可以平滑突發資料流量，使網路更為穩定。SHAPING（限制）只適用於向外的流量。
+    - scheduling        通過排程資料包的傳輸，可以在頻寬範圍內，按照優先順序分配頻寬。SCHEDULING（排程）也只適用於向外的流量。
+    - policing          SHAPING（限制）用於處理向外的流量，而POLICING（策略）用於處理接收到的資料。
+    - dropping          如果流量超過某個設定的頻寬，就丟棄資料包，不管是向內還是向外。
+
+qdisc
+class
+filter
+
+tc qdisc [add|change|replace|link] dev DEV [parent qdisc-id|root] [handle qdisc-id] qdisc [qdisc options]
+tc class [add|change|replace] dev DEV parent qdisc-id [classid class-id] qdisc [qdisc options]
+tc filter [add|change|replace] dev DEV [parent qdisc-id|root] protocol protocol prio priority filtertype [filter options] flowid flow-id
+
+tc [FORMAT] qdisc show [dev DEV]
+tc [FORMAT] class show dev DEV
+tc filter show dev DEV
+
+FORMAT:= -s[tatistics] | -d[details] | -r[aw] | -p[retty]
+
+

@@ -27,6 +27,7 @@ dig         - DNS lookup utility
 iperf3      - Network performance test
 firewall    - firewall daemon and firewall-cmd
 iptables    - iptables for packet filtering and NAT
+tc          - traffic control
 [system]    ----------------------------------------------------------------------------
 systemctl   - systemd and service command
 udev-net    - change network interface name by udev comamnd
@@ -40,8 +41,8 @@ perf        - performance benchmark and memory leaking check
 bash_if     - if statement
 bash_for    - for and while loop
 bash_key    - command line editing Ctrl-Key 
-bash_arith  - arithmethic operations
-bash_var    - variables
+bash_arith  - arithmethic operations (see also bash_bc)
+bash_var    - variables (see also bash_IFS)
 bash_read   - user input and bash's here document  (cat << EOF ... EOF)
 bash_pipe   - commands for base pipe
 [video]     ----------------------------------------------------------------------------

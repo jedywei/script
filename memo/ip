@@ -1,4 +1,9 @@
-ip command
+ip              - show / manipulate routing, devices, policy routing and tunnels
+
+ip [options] object { command | help }
+
+object := {link | addr | route | neigh | rule | monitor | ...}
+command := { add | del | show or list | set ... }
 
 ip neigh                                                    arp -a
 ip -s neigh                                                 arp -v
@@ -18,6 +23,9 @@ ip route                                                    route
 ip route add 192.168.1.0/24 dev eth0                        route add -net 192.168.1.0 netmask 255.255.255.0 dev eth0
 ip route add default via 192.168.1.1                        route add default gw 192.168.1.1
 
+ip link list
+ip addr show
+ip route show
 
 ss -a   show all sockets (listening and non-listening)
 ss -e   show all detailed socket information

@@ -5,6 +5,7 @@ Summary
     $(( expression ))       - Return the result of the expression. (Space is not required)
     ${#var}                 - Return the length of the variable var.
 
+NOTE: bash doesn't support floating point calculation, use 'bc' instead of
 [let]
 let a=5+4
 echo $a
@@ -57,3 +58,5 @@ expr "5 + 4"    # space is required
 expr 5 \* 4     # backslash and space is required
 a=$(expr 10 - 3)
 echo $a         # 7
+
+see also bash_bc

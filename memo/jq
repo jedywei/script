@@ -1,5 +1,14 @@
 jq - Command-line JSON precessor
 
+jq [options] <jq filter> [file...]
+
+-c          compact output
+-n          use 'null' as input
+-s          read (slurp) all inputs into an array, apply filter to it
+-r          output raw strings, not json texts. ("less interesting data" -> less interesting data)
+-M          monochrome output, don't colorize JSON
+-S          sort keys of objects on output
+
 
     jq '.foo'
     jq '.["foo"]'
@@ -27,6 +36,9 @@ jq - Command-line JSON precessor
               => ["d","e"]
 
 
+    jq '.foo,.bar'
+    jq '.foo|.bar'  == jq '.foo.bar'
+
 
 JSONPath                                    jq
 $.store.book[*].author                      .store.book[].author
@@ -43,3 +55,62 @@ $..book[?(@.isbn)]                          ..|objects|.book//empty|.[]|select(.
                                             .store.book[]|select(.isbn)
 $..book[?(@.price<10)]                      ..|objects|.book//empty|.[]|select(.price < 10)
                                             .store.book[]|selct(.price < 10)
+
+
+JQ BASIC FILTERS
+
+.                   identity
+.foo, .foo.bar      object identifier-index
+.foo?               optional object identifier-index
+.["<string>"]       generic object index
+.[2]                array index
+.[10:15]            array/string slice  / .[2:4], .[:3], .[-2:]
+.[]                 array/object value iterator, .[]? like .[], but no errror, if . is not object or array
+,                   comma, input will be fed into both and the two filters
+|                   pipe, the | operator combines two filters by feeding the output from left to right
+                    note: .a.b.c == .a|.b|.c
+()                  parenthesis work as a grouping operator 
+<scalars>           null, number, string, boolean
+<non-scalars>       array, object
+[]                  array construction
+{}                  object construction
+..                  recursive descent. (..|.foo)
+
+ASSIGNMENT
+=                   assignment 
+                    jq '.a=.b' < null > {"a": null}, jq '.a=.b' < {"a" : {"b" : 10}, "b" : 20} > {"a": 20, "b": 20}
+|=                  update-assignment 
+                    jq '(..|select(type=="boolean")) |= if . then 1 else 0 end'
+                    < [true, false, [5, true, [true, [false]], false]] > [1,0,[5,1,[1,[0]], 0]]
++=,-=,*=,/=,%=,//=  '+= 1' == '|= .+1', 'a op=b' == 'a |= . op b'
+
+BUILIN OPERATORS AND FUNCTIONS
++                   10+20=30, "abc" + "def" = "abcdef", [1,2] + [3,4] = [1,2,3,4], {a:1} + {b:2} = {a:1, b:2}
+                    {"k":{"a":2,"b":2}} + {"k":{"a":1,"c":3}} = {"k":{"a":1, "c":3}}
+-                   20-5=15, [1,2,3] - [3] = [1,2]
+* / %               num1 op num2 = num3,  "string"*0=null, "a"*3="aaa", 
+                    {"k":{"a":2,"b":2}} * {"k":{"a":1,"c":3}} = {"k":{"a":1,"b":"2","c":3}}
+                    "a,b,c,d" / "," = ["a","b","c","d"]
+length              null|length=0, "abc"|length=3, [1,2]|length=2, {a:1,b:2,c:3,d:4}|length=4
+                    "\u03bc"|lenght=1
+keys,keys_unsorted  {b:1,a:1,c:3}|keys= ["a","b","c"]
+has(key)            has("foo"), '"foo" as $foo | has($foo)'
+in(obj)             ".[]"|in{"foo":42} = true, [2,0]|in([0,1])=[false,true]
+map(x)              jq 'map(.+1)' == jq '[.[]|.+1]', jq 'map_values(.+1)'
+                    map(x)          == [.[] | x]
+                    map_values(x)   == [.[] |=x]
+path(path_expr)     jq 'path (.a[0].b)' == [ "a", 0, "b" ]
+                    jq '[path(..)]' < {"a": [{"b":1}]} > [[], ["a"], ["a", 0], ["a", 0, "b"]]
+del(path_expr)      removes a key. jq 'del(.foo)', jq 'del(.[2,3])'
+getpath(paths)      jq '[getpath(["a","b"],["a", "c"])]' < {"a":{"b":0, "c":2}} > [0, 2]
+setpath(paths; val) jq 'setpath(["a","b"]; 1)' < null > { "a" : {"b" : 1} }
+                    jq 'setpath([0, "a"]; 1)' < null > [{"a":1}]
+delpaths(paths)     jq 'delpaths([["a", "b"]])' < {"a": {"b":1}, "x": {"y":2}} > {"a": {}, "x": {"y":2}}
+to_entries          jq 'to_entries' < {"a":1, "b":2} > [{"key": "a", "value":1}, {"key":"b", "value": 2}]
+from_entries        jq 'from_entries' < [{"key": "a", "value":1}, {"key":"b", "value": 2}] > {"a": 1, "b": 2}
+with_entries        jq 'with_entries(.key |= "KEY_" + .)' < {"a": 1, "b": 1} > {"KEY_a" : 1, "KEY_b" : 2}
+select(bool_expr)   jq 'map(select(. >= 2))' < [1,5,3,0,7] > [5,3,7]
+                    jq '.[]|select(.id == "second")' < [ {"id":"first", "val":1}, {"id":"second", "val":2} ]
+                        > {"id":"second", "val":2}
+
+
