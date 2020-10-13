@@ -1,0 +1,57 @@
+bc          - an arbitrary precsion calculator language
+
+scale       define how some operations use digits after the decimal point, default scale is 0
+ibase       input number base, default 10
+obase       output number base, default 10
+last
+
+
+
+var=$(echo '6.5/2.7' | bc)
+var=$(echo 'scale=3; 6.5/2.7' | bc)
+var=$(echo 'scale=3; var1=6.5/2.7; var2= 14* var1; var2 *= var1; var2' | bc)
+
+
+Expression
+- expr
+++ var
+-- var
+var ++
+var --
+expr + expr
+expr - expr
+expr * expr
+expr / expr
+expr % expr
+expr ^ expr
+( expr )
+var = expr
+var <op>= expr 
+
+Relational Expressions
+
+expr1 < expr2
+expr1 <= expr2
+expr1 > expr2
+expr1 >= expr2
+expr1 == expr2
+expr1 != expr2
+
+Boolean Expression
+
+! expr
+expr && expr
+expr || expr
+
+
+bc -l       a math librry is preloaded and the default scale is set to 20. And also define following functions
+
+s(x)        - sin(x)
+c(x)        - cos(x)
+a(x)        - atan(x)
+l(x)        - ln(x) (e base)
+e(x)        - e^x
+j(n,x)      - bessel function of integer order n of x
+
+[Example]
+pi=$(echo "scale=10;4*a(1)" | bc -l)

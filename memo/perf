@@ -1,0 +1,61 @@
+[memory leakage & profile]
+valgrind        - a suite of tools for debugging and profiling program
+perf            - performance analysis tools for Linux
+pidstat         - report statistics for Linux tasks
+
+
+valgrind --tool=memory --leak-check=full <command and command arguement>
+
+[perf]
+
+perf list
+cat /proc/sys/kernel/perf_event_paranoid
+    2   -   Disallow kernel profilling for unpriv
+    1   -   Disallow CPU events for unpriv
+    0   -   Disallow raw tracepoint access for unpriv
+    -1  -   Not paranoid at all
+sudo sh -c "echo 0 > /proc/sys/kernel/perf_event_paranoid"
+
+perf top
+perf top -p $pid
+
+perf top -e cache-misses -c 5000
+perf stat --repeat 5 -e cache-misses,cache-references,instructions,cycles ./perf_stat_cache_miss
+
+perf record -e branch-misses:u,branch-instructions:u ./perf_record_example
+perf report
+
+:u user space event
+
+cat /proc/sys/kernel/perf_event_max_sample_rate
+
+
+[pidstat]
+pidstat -p 23493 1
+06:52:35          PID    %usr %system  %guest    %CPU   CPU  Command
+06:52:36        23493    1.00    0.00    0.00    1.00     0  mysqld
+06:52:37        23493    0.00    0.00    0.00    0.00     0  mysqld
+06:52:38        23493    0.00    0.00    0.00    0.00     0  mysqld
+...
+
+pidstat -p 23493 -r 1
+06:58:48          PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command
+06:58:49        23493      0.00      0.00  398876  33468   3.28  mysqld
+06:58:50        23493      0.00      0.00  398876  33468   3.28  mysqld
+06:58:51        23493      0.00      0.00  398876  33468   3.28  mysqld
+...
+
+minflt/s : Minior page fault
+= 又稱soft page fault每秒發生的次數。Minior page fault發生在記憶體有需要的page時，所以無須向磁碟讀取資料。
+
+majflt/s: Major page fault
+= 又稱hard page fault每秒發生的次數。Major page fault發生在連記憶體也找不到需要的page時，所以須向磁碟讀取資料。
+
+VSZ; Virtual Size
+整個工作的虛擬記憶體使用空間(KB)。
+
+RSS: Resident Set Size
+整個工作的實體記憶體(非swap的部分)使用空間(KB)。
+
+%MEM:
+整個工作目前所使用的實體記憶體的比例。

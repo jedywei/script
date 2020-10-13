@@ -1,0 +1,20 @@
+ncat (or nc)        - concatenate and redirect sockets
+
+nc [options...] [hostname] [port]
+
+
+nc -v -n 8.8.8.8 1-1000                     # port scanning with netcat command
+
+nc -v -n google.com 1-1000
+
+nc -l -p 1299                               # create a chat or web server
+
+nc localhost 1299
+
+printf 'HTTP/1.1 200 OK\n\n%s' "$(cat index.html)" | netcat -l 8999
+
+nc -l 1499 > filename.out
+
+nc server.com 1499 (less than) filename.in
+
+

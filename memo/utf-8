@@ -1,0 +1,80 @@
+UTF-8       is a variable-width character encoding used for elecronic communction. 
+
+Defined by the Unicode Standard, the name is erived from 
+Unicode (or Universal Coded Character Set) Transformation Format -- 8bit
+
+
+   00 -     7F  0xxx-xxxx                                   00       ~ 7f 
+   80 -    7FF  110x-xxxx 10xx-xxxx                         c280     ~ dfbf
+  800 -   FFFF  1110-xxxx 10xx-xxxx 10xx-xxxx               e0a080   ~ efbfbf
+10000 - 1FFFFF  1111-0xxx 10xx-xxxx 10xx-xxxx 10xx-xxxx     f0808080 ~ f4bfbfbf
+
+
+ucs-2       unicode 2 byte
+ucs-4       unicode 4 byte
+wcs         wide character string
+mbs         multibytes string
+
+#include <locale.h
+int main()
+{
+    char *locale;
+
+    locale = setlocale(LC_ALL, "");     // to query current locale setting
+    ...
+}
+
+UTF-8
+    . Pro: compatable with existing strings and most existing code
+    . Pro: takes less space
+    . Pro: widely used as an interchange format (e.g. in XML, JSON)
+    . Con: more complex processing, O(n) string indexing
+
+Wide characters (4-byte)    __WCHAR_WIDTH__
+    . Pro: easy to process 
+    . Con: wastes space
+    . Pro/Con: although you can use the syntax:  L"Hello, world."
+      to easily inclue wie-character strings in C programs, the size of wide
+      characters is not consistent across platforms (some incorectly use 2-byte
+      wide characters by -fshort-wchar)
+    . Con: should not be used for output, since spurious zero bytes and other
+      lower-ASCII characters with common meanings (such as '/' and '\n') will 
+      likely be sprinkled thourghout the data.
+Multibyte
+    . Pro: no conversions ever needed on input and output
+    . Pro: built-in C library support
+    . Pro: provides the widest possible internationalization, sicn in rare 
+      cases conversion between local encoings and Unicode does not work well
+    . Con: strings are opaque
+    . Con: perpetuates incompatabilities. For example, there are three major
+      encodings for Russian. If on Russian sens data to another though your
+      program, the recipient will not be able to read the message if his or 
+      her computer is configured for a different Russian encoding. But if
+      your program always converts to UTF-8, the text is effectively normalized 
+      so that it will be widely legible (especially in the future) no matter
+      what encoding it started in. 
+
+
+BOM         byte order mark 
+    The byte order mark is a particular usage of the special Unicode character, 
+U+FEFF BYTE ORDER MARK, whose appearance as a magic number at the start of a text
+stream can signal several things to a program read the text. 
+    . The byte order, or endianness, of the text stream in the cases of 
+      16-bit and 32-bit encodings;
+    . The fact that the text stream's encoding is Unicode, to a high level of 
+      confidence;
+    . Which Unicode character encoding is used.
+
+UTF-8  BOM 0xEF 0xBB 0xBF
+UTF-16 BOM 0xFE 0xFF (BE)   0xFF 0xFE (LE)
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+socat       - multipurpose relay tool
+
+The socat utility is a relay for bidriectional data transfers between tw independent data channels.
+    - files
+    - pipes
+    - devices (serial line, pseudo-terminal, etc)
+    - sockets (unix, ip4, ip6 - raw, udp, tcp)
+    - SSL sockets
+    - proxy CONNECT connections
+    - file descriptors (stdin, etc)
+    - The GUN line editor (readline)
+    - Programs
+
+
+socat [options] <address> <address>         # address [protocol:ip:port]
+
+socat - TCP4:www.example.com:80             # connect to TCP port 80 on the local or remote system
+
+socat TCP4-LISTEN:81 TCP4:192.168.1.10:80   # TCP port forwarder
+
+socat TCP4-LISTEN:81,fork,reuseaddr TCP4:TC:4:192.168.1.10:80   # For multiple connections use fork option
+
+socat TCP-LISTEN:3307,reuseaddr,fork UNIX-CONNECT:/var/lib/mysql/mysql.sock
+
+socat -u TCP4-LISTEN:3334,reuseaddr,fork OPEN:/tmp/test.log,creat,append    # implement a simple network-based message
+
+socat - UDP4-DATAGRAM:224.255.0.1:6666,bind=:6666,ip-add-membership=224.255.0.1:the0
+
+
+

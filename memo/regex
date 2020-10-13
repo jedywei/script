@@ -1,8 +1,6 @@
 Regular Expression
 
-Bash
-"test program"  "program test"
-
+Bash Example
 local dbusr=`dbus-send --system --type=method_call --print-reply --dest=com.acl.dbg_mediaflow / com.acl.mediaflow."$@" 2>&1`
 local pattern="^method return.*string \"(.*)\"$"
 if [[ $dbusr =~ $pattern ]]; then
@@ -11,6 +9,7 @@ else
     result="Failed"
 fi
 
+grep, sed, awk Example
 egrep -i '\<the\>'
 cat /etc/passwd | sed 's/root/amrood/g'
 awk -e '$1 ~ /p[el]/ {print $0}' colours.txt
@@ -20,9 +19,10 @@ awk -e '$1 ~ /p[el]/ {print $0}' colours.txt
 ^ [  ] . $ {  } * (  ) \ + | ? < >      (ERE, PCRE)
 \( \) \+ \? \| \{m, n\}                 (BRE)
 
-egrep == grep -E / bash =~ / C / vim / awk / sed    (ERE)
-grep                                                (BRE)
-grep -P                                             (PCRE)
+RegEx Flavor
+ERE     Extended RegEx      egrep == grep -E | bash =~ | sed -r | C, vim, awk    
+BRE     Basic RegEx         grep, sed                                                
+PCRE    Perl RegEx          grep -P, jq                                             
 
 egrep '^(From|Subject):'    files
 
@@ -40,10 +40,10 @@ s
 $       End of string, or end of line in multi-line pattern
 \A      Start of string
 \Z      End of string           
-\b      Word boundary           (PCRE,egrep,grep)
-\B      Not word boundary       (PCRE,egrep,grep)
-\<      Start of word           (VIM,egrep,grep)
-\>      End of word             (VIM,egrep,grep)
+\b      Word boundary           (PCRE,egrep,GNU BRE)
+\B      Not word boundary       (PCRE,egrep,GNU BRE)
+\<      Start of word           (VIM,egrep,GNU BRE)
+\>      End of word             (VIM,egrep,GNU BRE)
 
 
 egrep '\<cat\>' infiles
@@ -91,4 +91,8 @@ a|b*                        ERE     {ε, a, b, bb, bbb, ...}
 \b([a-z]+)((?:\s|<[^>]+>)+)(\1\b)
 ^(?:[^\e]*\n)+
 ^[-+]?[0-9]+(\.[0-9]*)?$
+
+
+see also
+man perlre
 

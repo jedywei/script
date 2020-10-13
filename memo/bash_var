@@ -3,7 +3,7 @@ bash varaiables
 Summary
 
 $1,$2,...           The first, second, etc command line arguments to the script
-var=value           To st a value for a variable 'var'. Remember, no spaces on either side of =
+var=value           To set a value for a variable 'var'. Remember, no spaces on either side of =
 Quotes "'           Double will do variable substitution, single will not.
 var=$(command)      Save the output of a command into a variable 'var'.
 export var1         Make the variable var1 available to child processes. (from variable to environment variable)
@@ -33,6 +33,7 @@ $@              - All the arguments supplied to the Bash script. $0 $1 $2 ...
 $*              - All the arguments supplied to the Bash script. $0$IFS$1$IFC$2 ...
 $?              - The exit status of the most recently run process
 $$              - The PID of the current script
+$!              - The PID of the last background command
 $USER           - The username of the user running the script. 
 $HOSTNAME       - The hostname of the machine the script is running on.
 $SECONDS        - The number of seconds time since script was starte. 
@@ -50,6 +51,8 @@ echo $myvar $avar
 echo 
 sampledir=/etc
 
+var=${1:-root}  - var=$1 or if not $1 set var as root
+
 ls $sampledir
 -------------
 
@@ -58,34 +61,76 @@ myvar='Hello World'
 newvar="More $myvar"
 newvar='More $myvar'
 
-[Command Subsititution]
+[Shell Result]
 myvar=$(ls /etc | wc -l)
+myvar=`ls /etc | wc-l`
 
 [Exporting Variables]
 var1=blah
 var2=foo
 export var1     # make var1 available to child processes
 
-[${var}]
+[Array]
+arr=(Hello World)
+arr[0]=Hello
+arr[1]=World
+
+${arr[*]}   - all of the items in the array
+${arr[@]}   - all of the items in the array (returns each item as a seperate word)
+${!arr[*]}  - all of the indexs in the array
+${#arr[*]}  - number of items in the array
+${#arr[0]}  - lenght of item zero
+
+item="one two three four"
+items=(${item})
+echo ${items[@]:-2}
+echo ${items[-1]}
+unset 'items[${#items[@]}-1]'
+echo ${items[*]}
+
+[Variable Substution]
 path=${PATH}
+${var#PATTERN}              # remove PATTERN, one # shortest match, two ## longest match
 ${path#/*local/bin:}        # '#' delete left to right '/*local/bin:'
-${path#/*:}                 # '#' longest  '/*:'
-${path##/*:}                # '##' shortest '/*:'
+${path#/*:}                 # '#' shortest  '/*:'
+${path##/*:}                # '##' longest '/*:'
 
-${path%:*bin}               # '%' delete right to left ':*bin', return longest
-${path%%:*bin}              # '%%' delete shortest ':*bin'
+${var%PATTERN}              # remove PATTERN Back of ${var}
+${path%:*bin}               # '%' delete right to left ':*bin', return shortest
+${path%%:*bin}              # '%%' delete longest ':*bin'
 
+${var/PATTERN/REPLACEMENT}  # find and replace
 ${path/sbin/SBIN}           # '/' replace the first 'sbin' by 'SBIN'
 ${path//sbin/SBIN}          # '//' replace all 'sbin' by 'SBIN'
+
+${var,}                     # ${var,} ${var,PATTERN} ${var,,} ${var,,PATTERN}
+${var^}                     # ${var^} ${var^PATTERN} ${var^^} ${var^^PATTERN}
 
 username=${username-root}   # '-' if ${username} not set, username="root"
 username=${username:-root}  # ':-' if ${username} not set or empty string, username="root"
 username=${username+root}   # '+' if ${username} empty string, username="root"
 username=${username:+root}  # ':+' if ${username} set and not empty, username="root" 
 
-var=${str=expr}
-var=${str:=expr}
-var=${str?expr}
-var=${str:?expr}
+echo ${USER:=foo}           # if USER not set or empty string, display 'foo'
+var=${1:=defaultValue}      # Fail with an error cannot assign in this way
+var=${1:-defaultVAlue}      # Perfect, no error
+${varName?Error varName is not defined}
+${varName:?Error varName is not defined or is empty}
+${1:?"mkjail: Missing operand"}
+_domain="${1:?Usage: mknginxconf domainName}"
+_cmd="${2:? $_message $(cp $_file $HOME/.output)}"  # display an Error Message and Run Command
 
+string=01234567890abcdefgh
+echo ${string:7}            # '7890abcdefgh'
+echo ${string:7:0}          # ''
+echo ${string:7:2}          # '78'
+echo ${string:7:-2}         # '7890abcdef'
+echo ${string:-7}           # 'bcdefgh'
+echo ${string:-7:0}         # ''
+echo ${string:-7:2}         # 'bc'
+echo ${string:-7:-2}        # 'bcdef'
+
+set -- 01234567890abcdefgh
+echo ${1:7}                 # '7890abcefgh'
+echo ${1:7:0}               # ''
 

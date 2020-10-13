@@ -1,0 +1,52 @@
+trap            - bash trap command
+
+trap allows you to catch signal and execute code when they occur. 
+
+example
+
+# Example 1
+tmpfile=/tmp/tmpdata
+
+trap "rm -f $tmpfile" EXIT          # run 'rm' command while exit
+
+# Example 2
+function cleanup()
+{
+    # do something clean up
+}
+
+trap cleanup EXIT
+
+#Example 3
+ctrlc_count=0
+function no_ctrlc()
+{
+    let ctrlc_count++
+    echo
+    if [[ $ctrlc_count == 1 ]]; then
+        echo "Stop that."
+    elif [[ $ctrlc_count == 2 ]]; then
+        echo "Once more and I quit."
+    else
+        echo "That's it. I quit."
+        exit
+    fi
+}
+
+trap no_ctrlc SIGINT
+while true
+do
+    echo Sleeping
+    sleep 10
+done
+
+# Example 4
+# Run something important, no Ctrl-C allowed
+trap "" SIGINT
+importmand_command
+
+# Less important stuff fomr here on out, Ctrl-C allowed
+trap - SIGINT
+no_so_important_command
+
+

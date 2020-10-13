@@ -1,0 +1,60 @@
+udev-net        - use udev system to fix up net device name
+
+1. list all network infterface DEVICEs wheterh they're activated or not
+$ls -al /sys/class/net
+
+2. dump net device detail information
+$udevadm info /sys/class/net/eno16777736
+
+3. Create 70-persistent-net.rules as following and copy it to /etc/udev/rules.d/
+
+#net device()
+SUBSYSTEM=="net", ACTION=="add", DEVICES=="?*",KERNEL="0000:00:1f.6",NAME="eth_mm"
+SUBSYSTEM=="net", ACTION=="add", DEVICES=="?*",KERNEL="0000:07:00.0",NAME="eth_stream_1"
+
+** Use PCI BUS address to fix interface name, it can avoid the disadvantage of MAC address or DEV ID
+- It just require a file for same model macheine.
+- Using MAC Address / you need to change th rule file every time. 
+- Using ID/ the device name may mismatch, if a device is hardware faulty.
+
+
+** Note udev is part of systemd service (systemd-udevd)
+$systemctl status systemd-udevd
+
+4. Make network configuration file ifcfg-eth_mm and ifcfg-eth_stream_1 for those devices
+
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=eth_mm
+DEVICE=eth_mm
+ONBOOT=yes
+IPADDR=192.168.0.232
+NETMASK=255.255.255.0
+
+**NOTE, the DEVICE, and NAME should be corrected to the new device name.
+**UUID is useless, it can be removed.
+
+5. Check what network management service you are using.
+$systemctl status NetworkManager
+$systemctl status network
+
+** NOTE: the instance, my system enable Network Manager and disable network.
+
+6. Reboot system to active new net interfae nameing rule.
+
+[Reference]
+[1] Beginners Guide to Udev in Linux -> https://www.thegeekdiary.com/beginners-guide-to-udev-in-linux/
+[2] Linux Network Interface Configuration With udev -> https://packetpushers.net/udev/
+[3] HowTo Change Network Interface Name in Linux Permanently -> https://community.mellanox.com/s/article/howto-change-network-interface-name-in-linux-permanently
+ 
+
+

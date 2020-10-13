@@ -1,0 +1,68 @@
+iptables/ip6tables        - administration tool for IPv4/IPv6 packet filtering and NAT
+
+
+    iptables [-t table] {-A|-C|-D} chain rule-specification
+    iptables [-t table] -N chain
+
+    iptables [-t table] -L [chain [rulename]] [options]
+
+    rule-specification = [matches...] [target]
+    match = -m matchname [per-match-options]
+    target= -j targetname [per-target-options]
+
+
+targetname: ACCEPT / REJECT / DROP / RETURN
+
+Tables: filter / nat / mangle / raw / security
+filtes: INPUT / FORWARD / OUTPUT                                負責過濾進入主機或離開主機、還有經過主機做forward的封包
+nat   : PREROUTING / OUTPUT / POSTROUTING                       負責進行NAT，也就是更改source IP/port或destination IP/port
+mangle: PREROUTING / OUTPUT / INPUT / FORWARD / POSTROUTING
+raw   : PREROUTING / OUTPUT
+security: INPUT / OUTPUT/ FORWARD
+
+
+[Commands]
+-A  --append chain rule
+-C  --check chain rule
+-D  --delete chain rule         delete one or more rules from the selected chain.
+    --delete chain rule_name 
+-I  --insert chain [rule_name] rule
+-R  --replace chain rule_name rule
+-L  --list [chain]
+-S  --list-rules [chain]
+-F  --flush [chain]             == delete all the rules in the chain one by one
+-Z  --zero [chain [rulenum]]    zero the packet and byte counter in all chins, or only the given chain
+-N  --new-chain chain
+-X  --delete-chain [chain]      delete the optional user-defineed chain specifie. (delete rule before the chain)
+-P  --policy chain target
+-E  --rename-chain old-chain new-chain
+
+[Options]
+-4  --ipv4
+-6  --ipv6
+[!] -p, --protocol protocol     one of tcp,udp,udplite,icmp,icmpv6,esp,ah,sctp,mh, "all"
+[!] -s, --src address[/mask][,...]
+[!] -d, --dst address[/mask][,...]
+    -m, --match match
+    -j, --jump target           target ACCEPT, DROP, RETURN. The taret can be a user-defined chain
+    -g, --goto chain
+
+[!] -i, --in-interface name
+[!] -o, --out-interface name
+[!] -f, --fragment
+    -c, --set-counters packets bytes
+
+[Others]
+    -v, --verbose
+    -w, --wait [seconds]
+    -W, --wait-interval [microseconds]
+    -n, --numberic              display IP adresses and port number instead of FQN and service
+    -x, --exact                 display the eact value of the packet and byte counters
+    --ine-numbers               line number to the beginning of each rule
+    --modprobe=command
+
+
+
+sudo iptables -L
+
+
