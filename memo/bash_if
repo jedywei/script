@@ -35,6 +35,29 @@ if [ "$str1" != "$str2" ]; then ...; fi
 if [ -n $str ]; then ...; fi                // true, if $str is not null
 if [ -z $str ]; then ...; fi                // true, if $str is null
 
+
+                        +-------+-------+-----------+
+                VAR is: | unset | empty | non-empty |
++-----------------------+-------+-------+-----------+
+| [ -z "${VAR}" ]       | true  | true  | false     |
+| [ -z "${VAR+set}" ]   | true  | false | false     |
+| [ -z "${VAR-unset}" ] | false | true  | false     |
+| [ -n "${VAR}" ]       | false | false | true      |
+| [ -n "${VAR+set}" ]   | false | true  | true      |
+| [ -n "${VAR-unset}" ] | true  | false | true      |
++-----------------------+-------+-------+-----------+
+
+
+$ BAR=""
+$ [ -n "$BAR" ] && echo true || echo false
+$ unset BAR
+$ [ -n "$BAR" ] && echo true || echo false
+$ BAR="ABC"
+$ [ -n "$BAR" ] && echo true || echo false
+
+
+
+
 if [ INT1 -eq INT2 ]; then ...; fi            
 if [ INT1 -ne INT2 ]; then ...; fi
 if [ INT1 -gt INT2 ]; then ...; fi

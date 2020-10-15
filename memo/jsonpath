@@ -24,20 +24,20 @@ $                               The root object or array
                                 characters such as spaces, or begins with a character other than 
                                 A..Za..z_.
 [n]                             Selects n-th element from an array. Indexs are 0-based.
-[n1,n2,...]                     Selects the n-th elemnt from an array. Indexes are 0-based.
-..<property>                    Recursive descent: Searches for the specified property name
+[n1,n2,...]                 =L  Selects the n-th elemnt from an array. Indexes are 0-based.
+..<property>                =L  Recursive descent: Searches for the specified property name
                                 recursively and returns an array of all values with this property
                                 name. Always returns a list, event if just one proerty is found. 
 *                               Wildcard selects all elements in an object or an array, 
                                 regardless of their names or indexes. For example, 
                                 address.* means all properties of the address object, and
                                 book[*] means all itmes of the book array.
-[start:end]                     Selects array elements from the start index an up to, but not
-[start:]                        including, end index. If end is omitted, selects all elements from 
+[start:end]                 =L  Selects array elements from the start index an up to, but not
+[start:]                    =L  including, end index. If end is omitted, selects all elements from 
                                 start until the end of the array. Returns a list.
-[:n]                            Selects the first n elements of the array. Returns a list.
-[-n:]                           Selects the last n elements of the array. Return a list.
-[?(<expression>)]               Filter expression. Selects all elements in an object or array
+[:n]                        =L  Selects the first n elements of the array. Returns a list.
+[-n:]                       =L  Selects the last n elements of the array. Return a list.
+[?(<expression>)]           =L  Filter expression. Selects all elements in an object or array
                                 that match the specified filter. Return a list.
 [(<expression>)]                Script expression can be used instead of explicit property name
                                 or indexes. An example is [(@.lenght-1)] which selects the last
@@ -46,6 +46,13 @@ $                               The root object or array
 @                               Use in filter expressions to refer to the current node being processed.
 
 
+What is Returned When?
+JsonPath tries to automatically cast the result to the type expected by the invoker.
+
+Following operators always return a list (see =L)
+    -   ..      - a deep scan operator
+    -   ?()     - an filter expression
+    -   [,(,)\] - multiple array indexes
 Filters
 
 $.store.book[?(@.price < 10)]
@@ -97,6 +104,7 @@ empty true                      Matches an empty array or string.
 empty false                     Matches an non-empty array or string. 
                                 [?(@.name empty false)]
                         
+
 
 ----------------------------------------------------------------------------------------------
 XPath               XPath uses path expression to select nodes or node-sets in an XML document. 

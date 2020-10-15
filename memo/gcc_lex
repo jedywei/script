@@ -1,0 +1,173 @@
+Lex                 Lexical analyser. (gnu provide 'flex' - the fast lexical analyser generator)
+
+flex [options] [file]...
+
+flex exampleA.l
+gcc -o esampleA lex.yy.c -lfl
+
+%{
+/* Global and header definitions required */
+%}
+/* Declarations (Optional token definitions) */
+%%
+/* Parsing ruleset definitions */
+%%
+/* Additional C source code */
+
+
+Lex Operators
+\ " [  ] - . < > {  } | (  ) / ^ $
+
+Expression                  Description
+\x                          x, if x is a lex operator
+"xy"                        xy, even if x or y is a lex operator (except \)
+[xy]                        x or y
+[x-z]                       x, y, or z
+[^x]                        any character but x
+.                           any character but new line
+^x                          x at the beginning of a line
+<y>x                        x when lex is in start condition y
+x$                          x at the end of a line
+x?                          optional x
+x*                          0 or more x
+x+                          1 or more x
+x{m,n}                      m ~ n occurences of x
+xx|yy                       either xx or yy
+x |                         the action on x is the action for the next rule
+(x)                         x
+x/y                         x but only if follwed by y
+{xx}                        the translation of xx from the definitions section
+
+--------
+Lex variables
+
+yyin                        FILE *, the input file stream of lex
+yyout                       FILE *, the output file stream of lex
+yytext                      char *, text to match
+yyleng                      length of match
+yylineno                    line number
+
+yylex()                     start analysis
+yywrap()                    stop to analysis if it return 1
+yyless(int n)               
+yymore()
+
+
+--------
+Start conditions
+
+%s  instart
+%x  exstart
+
+%%
+ss              BEGIN instart
+xx              BEGIN exstart
+<instart>abc    BEGIN 0
+<exstart>def    BEGIN 0
+ghi
+
+
+<instart> is an inclusive start condition, then rules with no this start conditions at all will also be active. 
+<exstart> is an exclusive start condition, then the only rules qualified with the start condition will be active. 
+
+
+--------
+%{
+#include <stdio.h>
+%}
+
+%%
+stop        printf("Stop command received\n");
+start       printf("Start command received\n");
+%%
+
+--------
+
+%{
+int wordcount = 0;
+%}
+
+chars [A-za-z\_\'\.\"]
+numbers ([0-9])+
+delim [" "\n\t]
+whitespace {delim}+
+words {chars}+
+%%
+{words}         { wordCount++; /* increase the word count by one */  }
+{whitespace}    { /* do nothing */ }
+{numbers}       { /* one may want to add some processing here */ }
+%%
+
+void main()
+{
+    yylex();    /* start the analysis */
+    printf(" No of words: %d\n", wordCount);
+}
+
+int yywrap()
+{
+    return 1;
+}
+
+----------
+
+%{
+#include <stdio.h>
+%}
+
+%%
+[0-9]+                          printf("Number\n");
+[a-zA-Z_][a-zA-Z_0-9]*          printf("Word\n");
+%%
+
+----------
+%{
+#include <stdio.h>
+%}
+
+%%
+[a-zA-Z_][a-zA-Z_0-9]*          printf("Word ");
+[a-zA-Z0-9\/.-]+                printf("Filename ");
+\"                              printf("Quote ");
+\{                              printf("OpenBrace ");
+\}                              printf("CloseBrace ");
+;                               printf("Semicolon ");
+\n                              printf("\n");
+[ \t]+                          /* ignore withspace */;
+%%
+-------------
+True tokenization
+
+%{
+#include <stdio.h>
+#include <y.tab.h>
+%}
+
+begin       return BEGIN;
+hello       return HELLO;
+thanks      return THANKS;
+end         return END;
+
+Extracting variable data
+
+[0-9]       yylval = atoi(yytext); return NUMBER;
+
+------
+Option
+%option yylineno
+%option reetrant bison-bridge bison-locations
+
+yylex_init(&yyscanner)
+for(;;)
+    token = yylex(YYSTYLE *lvalp, YYLTYPE *llocp, yyscan_t yyscanner);
+yylex_destroy(&yyscanner)
+
+-----
+state = yy_scan_string(str, scanner)      -> yy_delete_buffer(state);
+yy_scan_bytes
+yy_scan_buffer
+
+-----
+void yyerror(YYLTYPE *llocp, yyscan_t yyscanner, char const *msg);
+
+

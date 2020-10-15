@@ -84,6 +84,10 @@ ld.so or ld-linux.so* looking for a dyanmic libarary
 // reconfigure dynamic linker run-time bindings
 sudo ldconfig
 
+Compiler Option for rpath
+-------------------------
+gcc ... -Wl,-rpath=$(RELEASE_TOP)/$(TARGET_PACK)/usr/local/lib:/usr/local/lib/$(TARGET_LIB_EXTRA)
+
 
 ldd and ldconfig
 ----------------

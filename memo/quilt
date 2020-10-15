@@ -1,0 +1,60 @@
+quilt               tool to manage series of patches
+
+quilt command [options]
+or
+quilt -h command
+
+commands
+    add         files       import      pervious    series
+    annotate    fold        mail        push        setup
+    applied     fork        new         refresh     snapshot
+    delete      graph       next        remove      top
+    diff        grep        patches     rename      unapplied
+    edit        header      pop         revert      upgrade
+
+
+Generate new patch
+------------------
+quilt new 0001-<Proper-Patch-Name> // It will generate a patches/ folder and patches/series file
+quilt add log.c         // file you want to modify under this patch. 
+quilt add log.h         // use quilt remove log.h to remove the file from watching
+// After log.c and log.h modifiction, to refesh patch
+quilt refresh           // it will generate the real patch
+
+
+Walk through patches
+---------------------
+quilt series            // 查詢有哪些patches
+quilt top               // 查詢 topmost patch
+quilt applied           // 查詢已經applied那些patches
+quilt unapplied         // 查詢還沒apply那些patches
+quilt next              // 查詢下一個要apply的patch
+
+quilt files             // 查詢目前 patch 中更動的 files or files watched by topmost patch
+
+quilt header            // look up topmost patch's header
+quilt header -a         // append a header description to the topmost patch (ctrl-D to end of editing)
+
+
+Apply to or restore from patches
+---------------------------------
+quilt push              // apply next patch
+quilt push -a           // apply all patch
+
+quilt pop               // undo one applied patch
+quilt pop -a            // undo all patches
+
+
+quilt rename <new-name>     // you can rename the topmost patch
+
+quilt import /tmp/the-patch -P <better-patch-name>  // it insert the imported patch after the topmost patch
+
+quilt delete 04_hyphen-manpage.patch    // remove the patch from series file
+quilt delete -r 04_hyphen-manpage.patch // remove the pathc file and also remove the patch from series file
+
+
+Look up patch by file
+---------------------
+quilt annotate <file>       // Print an annotated listing of the specified file showing which patches modify which lines.
+
+

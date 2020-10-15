@@ -1,0 +1,18 @@
+iproute2        is a aollection of userspace utilities for controlling and monitoring various aspects of network
+
+
+Create a dummy interface
+sudo modprobe -v dummy numdummies=2
+lsmod | grep dummy
+ip link list | grep dummy
+sudo ip link set dummy0 name eth_stream_4
+sudo ip link set dummy1 name eth_stream_5
+sudo ip addr add 192.168.5.120/24 dev eth_stream_4
+sudo ip addr add 172.17.4.210/24 dev eth_stream_4
+
+
+
+
+Reference 
+iproute2 -> https://en.wikipedia.org/wiki/Iproute2
+
