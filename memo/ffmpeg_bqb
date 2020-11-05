@@ -1,0 +1,8 @@
+# transcode flv to ts 1280x720
+
+ffmpeg -c:v libvegabqbtrc_h264 -vegabqbtrcdec-params device=0:channel=0:output-number=1 -i streamlabs.flv -map 0:v -c:v libvegabqbtrc_h264 -vegabqbtrcenc-params input-res=1280x720:input-csp=i420:input-depth=8:profile=main:level-idc=4.1:gop-type=2:open-gop=0:bframes=2:cabac=1:cpb-delay=0:keyint=60:crop-rect=0,0,0,8:rate-ctrl=cbr:bitrate=4000:device=0:channel=0 -y ttt.ts
+
+ffmpeg -i streamlabs.flv -c:v copy -y streamlabs.ts
+
+
+

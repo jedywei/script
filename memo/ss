@@ -1,0 +1,50 @@
+ss          - The socket statistics (ss) command is similar to netstat, in that is used to display useful socket information
+
+ss [options] [ FILTER ]
+
+ss | head -n 5                      # list established connections
+
+ss -lt                              # show listening sockets
+
+ss -pl                              # show processes
+
+ss -n                               # don't resolve service name
+
+ss -r                               # resolve numeric address / ports
+
+ss -l4                              # IPv4 Sockets
+
+ss -l6                              # IPv6 Sockets
+
+ss -lt                              # tcp only
+
+ss -lu                              # udp only
+
+ss -x                               # Unix sockets
+
+ss -ua                              # display all information
+
+ss -ltm                             # show socket memory usage
+
+ss -lti                             # show internal TCP information
+
+ss -s                               # show summary
+
+ss -t state established             # filter based on stat
+                                    # states including [established, syn-recv, syn-sent, fin-wait-1, fin-wait-2,
+                                            time-wait, closed, closed-wait, last-ack, listen, closing]
+
+ss -ltn sport le 500                # filter based on port number   (sport le 500 = port number <= 500)
+                                    # lt (<), gt (>), eq (==), ne (!=), le (<=), ge (>=)
+
+ss -t '( sport = :ssh )'            # use severice name to filter 
+
+ss -tlZ                             # show SELinux Context
+
+ss -v                               # display version
+
+ss -lte                             # show extended information by -e
+
+ss -to                              # show timer information by -o
+
+

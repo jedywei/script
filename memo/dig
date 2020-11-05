@@ -1,0 +1,48 @@
+dig - DNS lookup utility
+
+dig redhat.com
+
+dig redhat.com +nocomments +noquestion +noauthority +noadditional +nostats
+dig redhat.com +noall +answer
+
+dig redhat.com MX +noall +answer
+dig -t MX redhat.com +noall +answer
+
+dig redhat.com NS +noall +answer
+dig -t NS redhat.com +noall +answer
+
+dig redhat.com ANY +noall +answer
+dig -t ANY redhat.com +noall +answer
+
+dig redhat.com +short
+dig redhat.com ns +short
+
+# reverse look-up using dig -x
+dig -x 209.132.183.81 +short
+dig -x 209.132.183.81
+
+# use a specific dns server by using dig @dnsserver
+dig @ns1.redhat.com redhat.com
+
+# buld dns query using dig -f
+vi names.txt
+redhat.com
+centos.org
+
+dig -f names.txt +noall +answer
+
+# cat ~/.digrc
++noall +answer
+
+
+DNS Resource Record (RR)
+------------------------
+SOA     - Start of Authroity
+NS      - Name Server
+A       - Address
+AAAA    - IPv6 Address
+PTR     - FQDN for example mail.twnic.net.tw.
+CNAME   - Canonical Name (Alias Name)
+MX      - Mail Exchanger
+
+

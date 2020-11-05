@@ -1,0 +1,26 @@
+awk, gawk       - pattern scanning and processing lanaguage
+
+awk '/search pattern1/ {Actions} /search pattern2/ {Actions}' file
+
+awk '{print;}' employee.txt
+
+awk '/Thomas/ {print;} /Nisha/' employee.txt
+
+awk '{print $2,$5;}' employee.txt
+awk '{print $2,$NF;}' employee.txt              # $NF is total number of fields in a record
+awk '{print $1, $o;}' employee.txt              # $o represents whole line
+
+awk 'BEGIN {print "Name\tDesignation\tDepartment\tSalary";}
+> {print $2,"\t",$3,"\t",$4,"\t",$NF;}
+> END {print "Report Generated\n --------------";} employee.txt
+
+awk '$1 > 200' employee.txt
+
+awk '$4 ~/Technology/' employee.txt
+
+awk 'BEGIN { count=0;}
+$4 ~ /Technology/ { count++; }
+END { print "Number of employees in Technology Dept =",count;}' employee.txt
+
+
+

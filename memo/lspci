@@ -1,0 +1,44 @@
+lspci - list all PCI devices
+dmidecode - DMI table decode
+
+
+lspci 
+lspci -m            # with "", or Key: Value pair
+lspci -t            # tree
+lspci -v            # -vv, -vvv, detail verbose level
+lspci -n            # display device codes (00:01.0 0604: 8086:1901 (rev 0o5)
+lspci -nn           # 00:01.0 PCI Bridge [0604]: Intel Corporation Skylade PCIe Controller (x16) [8086:1901] (rev 05)
+lspci -s 03:00.0    # lookup a specific device, by bus ID <BUS>:<SLOT>:<FUNC>
+lspci -s 03:        # by <BUS>
+lspci -s :01        # by <SLOT>
+lspci -s :00.0      # by <DEV>.<FUNC>
+lspci -d 1000:0079  # by <VENDER>:<DEVICE>
+lspci -d :0079      # by <DEVICE>
+lspci -d 1000:      # by <VENDER>
+lspci -k            # display kernel drivers
+
+lspci -vm -s 00:00.0
+lspci -v -s 00:00.0
+lspci -nvm -s 00:00.0
+lspci -nnvm -s 00:00.0
+
+lspci -vvv -s 1f:00.0
+
+lspci -vvv -d 1000:
+
+[M30]
+sudo lspci -vvv -d 50c1:
+
+[PLX PCIe bridge]
+sudo lspci -vvv -d 10b5:
+sudo lspci -vnnm -d 10b5:
+sudo lspci -v -d 10b5:
+
+------------------------------------------------
+dmidecode -t        # list all valid type keyword
+dmidecode -t slot 
+
+
+
+
+

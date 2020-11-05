@@ -1,3 +1,8 @@
+git             the stupid content tracker
+
+git <command> [<args>]
+
+
 # Initially set up any Git Server
 #----------------------------------------------------------
 cd ~/git
@@ -108,9 +113,64 @@ git pull -all
 git push --tags
 git push origin <tag_name>
 
+#rebase and merge
+#----------------------------------------------------------
+git rebase          // 不要對你的 repo 外有副本的 Branch 執行 rebase 
+git merge           // rebase 比 merge 好在重整成線性的commited history 
+
 
 ~/.gitignore
 ~/.gitconfig
 ~/.git-completion.bash
 
+# Working directory
+#---------------------------------------------------------------------
+WD - working directory /  (untracked files, or changes not staged for commit)
+Stage - staging area (changed to be committed)
+Repo - repository (commited)
 
+WD      -> Stage    git add
+Stage   -> Repo     git commit
+Stage   -> WD       git reset / git rm --cached  
+Repo    -> WD       git checkout
+Repo    -> Nothing  git reset --hard HEAD~5    (5 older than HEAD)
+Repo    -> Stage    git reset --soft HEAD^     (== git commit --amend) 
+Repo    -> WD       git reset -- HEAD^         (== git reset --mixed HEAD^ )
+
+--          the committed files will put back to WD (it's same as --mixed, but --mixed option id deprecated)
+--soft      the committed files put back to Stage
+--hard      the committed files throw away
+
+
+
+# diff
+#---------------------------------------------------------------------
+HEAD~n, HEAD^, HEAD, Stage, WD
+
+git diff --cached HEAD^     (HEAD^, Stage)
+git diff --cached HEAD      (HEAD, Stage)
+git diff --cached           == git diff cached HEAD
+git diff                    (Stage, WD)
+git diff head               (HEAD, WD)
+git diff head^              (HEAD^, WD)
+git diff HEAD HEAD~5        (HEAD, HEAD~5)
+
+see also git-format-patch, git-diff
+
+# check ignore files or directories
+#---------------------------------------------------------------------
+git status --ignored                                // will display all ignored from .git location
+git clean -ndX                                      // ** will dispaly real ignored files
+git check-ignore -v *                               // will display files in current directory was ignored
+git check-ignore -v $(find . -type f -print)        // will display all files under current directory was ignored
+
+git add -f ignored-file
+
+# clean empty directory
+#----------------------------------------------------------------------
+git clean -f -d
+git help clean
+    -n, --dry-run       - don't actually remove anything, just show what would be done
+    -d                  - remove untracked directries in addition to untracked files
+    -X                  - remove only files ignored by git
+    -f, --force         - force the action

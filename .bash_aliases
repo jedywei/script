@@ -5,7 +5,21 @@
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
     
 rmswp() {
-        rm .*.sw*
+        ls .*.sw* || return 2
+        read -p 'remove all swp file [Y/n]: ' answer
+        case $answer in 
+            [Yy]*|"") rm .*.sw*;;
+            *) echo "Abort remove";;
+        esac
+}
+
+rmcore() {
+    ls  core.* || return 2
+    read -p 'remove all core dump file [Y/n]: ' answer
+    case $answer in 
+        [Yy]*|"") rm core.*;;
+        *) echo "Abort remove";;
+    esac
 }
     
 calc() {
@@ -104,6 +118,18 @@ h() {
     else 
         echo -e "\e[38;5;255m"
         cat ~/script/memo/$1
+        echo -e "\e[0m"
+    fi
+}
+
+hh() {
+    if [ $# == 0 ]; then
+        echo -e "\e[38;5;220m"
+        cat ~/script/memo/contents | less
+        echo -e "\e[0m"
+    else 
+        echo -e "\e[38;5;255m"
+        cat ~/script/memo/$1 | less
         echo -e "\e[0m"
     fi
 }

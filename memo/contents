@@ -1,17 +1,50 @@
+[common]    -----------------------------------------------------------------------------
 new_setup   - command for set up a new centos enviroment
 lib         - dynamic libary related tools and command
 yum         - yum commands
 git         - git commands
 df          - df and du to check size of folder or disk 
 dmesg       - dmesg and journalctl commands
-ffmpeg      - frequent-use ffmpeg command
-ffmpeg_dev  - ffmpeg devel package installation 
 tmux        - tmux and screen commands
 gdb         - gdb commands
 esc         - escape ansi code 
 find        - find, whereis, which 
 grep        - grep, ag
 ignore      - .gitignore file pattern
+sed         - stream editor for filtering and transforming text
+awk         - pattern scanning and pcroessing language
+man         - man command and page defination
+jq          - command-line JSON processor
+rpm         - RPM Package Manager
+diff        - diff and patch commands
+[network]   ----------------------------------------------------------------------------
 dns         - Domain Name System related command or information
 netstat     - network CONNECTION, ROUTING TABLE, INTERFACE and MULTICAST statistics
-
+ip          - ip, ethtool, ss, netstat commands
+curl        - transfer a URL
+tcpdump     - dump traffic on a network
+dig         - DNS lookup utility
+iperf3      - Network performance test
+firewall    - firewall daemon and firewall-cmd
+iptables    - iptables for packet filtering and NAT
+tc          - traffic control
+[system]    ----------------------------------------------------------------------------
+systemctl   - systemd and service command
+udev-net    - change network interface name by udev comamnd
+lspci       - list all PCI devices and dmidecode
+etc         - linux imporant files
+ipmitool    - utility for controlling IPMI-enabled devices
+[benchmark] ----------------------------------------------------------------------------
+top         - command list for perfomance monitoring, sar, top, ps, netstat, ...
+perf        - performance benchmark and memory leaking check
+[bash]      ----------------------------------------------------------------------------
+bash_if     - if statement
+bash_for    - for and while loop
+bash_key    - command line editing Ctrl-Key 
+bash_arith  - arithmethic operations (see also bash_bc)
+bash_var    - variables (see also bash_IFS)
+bash_read   - user input and bash's here document  (cat << EOF ... EOF)
+bash_pipe   - commands for base pipe
+[video]     ----------------------------------------------------------------------------
+ffmpeg      - frequent-used ffmpeg command
+ffprobe     - frequent-used ffprobe command

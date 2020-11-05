@@ -1,0 +1,22 @@
+locale
+
+Display locale information
+locale
+localectl status
+locale -a
+locale -k LC_TIME
+locale -k LC_CTYPE
+locale -k LC_MESSAGEs
+
+Set System Locale
+sudo update-locale LANG=LANG=zh_TW.utf8
+sudo localectl set-locale LANG=zh_TW.utf8
+
+
+sudo update-locale LC_TIME=en_US.utf8
+sudo localectl set-locale LC_TIME=en_US.utf8
+
+
+Set Loacl locale
+export LANG="zh_TW.utf8"
+

@@ -1,0 +1,21 @@
+iftop           - display bandwidth usage on an interface by host
+
+iftop                           # to display basic bandwith usage of the defult interface
+
+sudo iftop -i eth0              # to display bandwith details of a specific router
+
+sudo iftop -n -i eth0           # to stop hostname lookup
+
+sudo iftop -N -i eth0           # to stop the conversion of port number to service
+
+sudo iftop -b                   # to stop the display of bar grap
+
+sudo iftop -t                   # to display the text interface without ncurses
+
+sudo iftop -o source            # to sort output by source address
+
+sudo iftop -o destination       # to sort output by estination address
+
+sudo iftop -L 2 -i eth0         # to specify number of lines to be printed
+
+

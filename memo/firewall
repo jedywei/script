@@ -1,0 +1,73 @@
+check firewall
+	systemctl status iptabales
+	systemctl status firewalld
+
+enable firewall
+    sudo systemctl disable iptables
+    sudo systemctl enable firewalld
+
+zone
+----
+public      公開區域，預設不信任其他電腦與網路，只有被允許的連線才能進入。通常大部分的連線設定都會放在這裡。
+drop        任何往內的封包都會被丟棄，只允許往外傳送的封包。
+block       任何來自於外部的連線都會被阻擋，只允許自己系統主動建立的連線。
+external    公開區域，預設不信任其他電腦與網路，只有被允許的連線才能進入。通常大部分的連線設定都會放在這裡。
+dmz         非軍事區域（demilitarized zone，有點像是放在外頭的危險區域），允許外部的連線進入，但其對內的連線則有限制。
+work        公司內部等工作區域，在此區域中不應該會有惡意的攻擊者。只有被允許的連線可以進入。
+home        家裡頭的網路區域，在此區域中不應該會有惡意的攻擊者。只有被允許的連線可以進入。
+internal    內部網路區域，在此區域中不應該會有惡意的攻擊者。只有被允許的連線可以進入。
+trusted     完全信任的區域，接受所有連線。
+
+commands
+---------
+firewall-cmd --get-zones
+sudo firewall-cmd --list-all-zones
+sudo firewall-cmd --list-all --zone=public
+firewall-cmd --get-services | grep mdns    (cat /etc/services | grep mdns)
+
+# 將 https 服務新增至 public 區域中
+sudo firewall-cmd --zone=public --add-service=https
+# 永久將 https 服務新增至 public 區域中
+sudo firewall-cmd --zone=public --permanent --add-service=https
+# 開啟 tcp 的 8080 連接埠
+sudo firewall-cmd --zone=public --add-port=8080/tcp
+# 永久開啟 tcp 的 8080 連接埠
+sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
+# 開啟 udp 的 4990 至 4999 連接埠
+sudo firewall-cmd --zone=public --add-port=4990-4999/udp
+# 永久開啟 udp 的 4990 至 4999 連接埠
+sudo firewall-cmd --zone=public --permanent --add-port=4990-4999/udp
+# 將 http 服務從 public 區域中移除
+sudo firewall-cmd --zone=public --remove-service=http
+# 永久將 http 服務從 public 區域中移除
+sudo firewall-cmd --zone=public --permanent --remove-service=http
+# 關閉 tcp 的 8080 連接埠
+sudo firewall-cmd --zone=public --remove-port=8080/tcp
+# 永久關閉 tcp 的 8080 連接埠
+sudo firewall-cmd --zone=public --permanent --remove-port=8080/tcp
+# 允許 192.168.0.0/24 使用 http 服務
+firewall-cmd --zone=public \
+  --add-rich-rule 'rule family="ipv4" source address="192.168.0.0/24" service name="http" accept'
+# 永久允許 192.168.0.0/24 使用 http 服務
+firewall-cmd --zone=public \
+  --add-rich-rule 'rule family="ipv4" source address="192.168.0.0/24" service name="http" accept' \
+  --permanent
+# 將 192.168.0.123 列為 public 區域的白名單
+firewall-cmd --zone=public \
+  --add-rich-rule='rule family="ipv4" source address="192.169.0.123" accept'
+# 永久將 192.168.0.123 列為 public 區域的白名單
+firewall-cmd --zone=public \
+  --add-rich-rule='rule family="ipv4" source address="192.169.0.123" accept' \
+  --permanent
+
+# enable mdns service in firewall
+sudo firewall-cmd --zone=public --permanent --add-port=5353/udp
+sudo firewall-cmd --zone=public --permanent --add-service=mdns
+sudo firewall-cmd --reload
+sudo firewall-cmd --zone=public --list-all
+
+
+cat /etc/firewalld/services
+cat /etc/firewalld/firewalld.conf
+
+

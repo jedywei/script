@@ -1,0 +1,87 @@
+systemd and service manager
+
+systemctl [options] comamnd [name...]
+
+systemctl -a        list all units
+systemctl list-units firewalld
+systemctl list-sockets firewalld
+systemctl list-timer firewalld
+
+systemctl start avahi-daemon
+systemctl status avahi-daemon
+systemctl is-active avahi-daemon
+systemctl restart avahi-daemon
+systemctl cat avahi-daemon
+
+systemctl enable avahi-daemon
+systemctl disable avahi-daemon
+systemctl cat avahi-daemon
+systemctl reload avahi-daemon
+
+[type]
+service             systemd-udevd.service
+socket              dbus.socket
+device              sys-devices-platform-serial8250-tty-ttyS1.device 
+mount               boot.mount
+automount           proc-sys-fs-binfmt_misc.automount
+swap                dev-mapper-centos\x2dswap.swap
+target              bluetooth.target
+timer               systemd-tmpfiles-clean.timer
+snapshot
+
+[command]
+list-units [PATTERN...]
+list-sockets [PATTERN...]
+list-timers [PATTERN...]
+start PATTERN...
+stop PATTERN...
+reload PATTERN...
+restart PATTERN...
+try-restart PATTERN...
+reload-or-restart PATTERN...
+reload-or-try-restart PATTERN...
+isolate NAME
+kill PATTERN
+is-active PATTERN...
+is-failed PATTERN...
+status [PATTERN...|PID...]
+show [PATTERN...|JOB...]
+cat PATTERN...
+set-property NAME ASSIGNMENT...
+help PATTERN...|PID...
+reset-failed [PATTERN...]
+list-dependencies [NAME]
+
+list-unit-failes [PATTERN...]
+enable NAME...
+disable NAME...
+reenable NAME...
+preset NAME...
+preset-all
+is-enabled NAME...
+...
+
+
+socket/d-bus/filesystem
+
+
+/usr/lib/systemd/system/
+/run/systemd/system/
+/etc/systemd/system/
+
+
+System V Init
+--------------
+runlevel    0       power off
+            1,s     rescue  (single user)
+            2,4     multi-user
+            3       multi-user / Non grphical
+            5       graphical
+            6       reboot
+
+/etc/init.d/daemon [start | stop | restart | status]
+chkconfig daemon [on | off]
+chkconfig --list daemon
+service --status-all
+service network start | stop | restart ... 
+

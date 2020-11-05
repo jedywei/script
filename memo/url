@@ -1,0 +1,51 @@
+url             Uniform Resource Locator
+
+A URL is a specific type of Uniform Resource Identifier (URI), although many people use the two terms
+interchangeable. URLs occur most commonly to reference web pages (http), but are also used for file
+transfer (ftp), email (mailto), database access (JDBC), and many other applications. 
+
+A typeical URL could have the form "http://www.example.com/index.html", which indicates
+a protocol (http), a hostname (www.example.com), and a filename (index.html)
+
+
+URI syntax
+<uri>               := <scheme>:[//<authority>]<path>[?<query>][#<fraqment>]
+
+
+[Example]
+https://john.doe@www.example.com:123/forum/questions/?tag=networking&order=newest#top
+<scheme>        = https
+<authority>     = john.doe@www.example.com:123 
+    <userinfo>  = john.doe
+    <host>      = www.example.com
+    <port>      = 123
+<path>          = /form/questions/
+<query>         = tag=networking&order=newest
+<fragment>      = top
+
+ldap://[2001:db8::7]/c=GB?objectClass?one
+<scheme>        = ldap 
+<authority>     = [2001:db8::7]
+<path>          = /c=GB
+<query>         = objectClass?one
+
+mailto:John.Doe@example.com
+<scheme>        = mailto
+<path>          = John.Doe@example.com
+
+news:comp.infosystems.www.servers.unix
+<scheme>        = news
+<path>          = comp.infosystems.www.servers.unix
+
+tel:+1-816-555-1212
+<scheme>        = tel
+<path>          = +1-816-555-1212
+
+telnet://192.0.2.16:80/
+<scheme>        = telnet
+<authority>     = 192.168.16:80
+<path>          = /
+
+urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+<scheme>        = urn
+<path>          = oasis:names:specification:docbook:dtd:xml:4.1.2

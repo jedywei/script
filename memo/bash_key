@@ -1,0 +1,23 @@
+Ctrl key for bash command line editing
+
+C-a     Move to the start of the line
+C-e     Move to the end of the line
+A-f     Move forward a word
+A-b     Move backward a word
+C-l     Clear the screen, reprinting the current line at the top
+
+C-k     Delete the text from the current cursor position to the end of line
+A-d     Delete a word
+A-DEL   Backdel a word
+
+C-y     Yank the most recently (Deleted) text back into the buffer at the cursor
+A-y     Yank new to old text back into the buffer
+
+C-p     Previous-history
+C-n     Next-history
+C-r     Recall the last cmman matching the characters you provide 
+A->     Move to the end of the input history
+A-^     Perform history expansion on the current line, for example !cp A-^
+
+C-_     Undo
+

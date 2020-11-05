@@ -1,0 +1,67 @@
+ffmpeg stream specifiers
+
+Selecting streams with the -map option
+
+The -map option is used to choose which streams from the input(s) should be included in the output(s). 
+The -map option can also be used to exclude specific streams with negative mapping.
+
+example
+ffmpeg -i input0.mp4 -i input1.mkv -map 0:0 -map 1:3  output.mp4
+ffmpeg -i input0.mp4 -i input1.mkv -map 0:v:0 -map 1:a:2 output.mp4
+
+input0.mp4
+    Input #0 from input0.mp4
+        Stream #0:0 Video: hevc
+        Stream #0:1 Audio: aac
+
+input1.mkv
+    Input #1 from input1.mkv
+        Stream #1:0         Video: h264
+        Stream #1:1(eng):   Audio: aac
+        Stream #1:2(zho):   Audio: aac
+        Stream #1:3(hin):   Audio: aac
+
+=>
+    Output#0, to output.mp4
+        Stream #0:0         Video: hevc
+        Stream #0:1 (hin):  Audio: aac
+
+
+-map 1:3 => refers to "second input:fouth stream"
+-map 1:a:2 => refers to "second input:audio only:thrid audio stream"
+
+Simple examples
+    . -map 0        from input index #0 (the 1st input) select all streams
+    . -map 1:a      from input index #1 (the 2nd input) select all audio streams
+    . -map 3:s:4    from input index #3 (the 4th input) select subtitle stream index $4 (the fifth subtitle stream)
+    . -map 0 -map -0:s  Will select all streams from input index #0 except subtitles. 
+                    The - indicates negative mappting
+
+Syntax
+    -map [-]<input_file_index>:<stream_type>:<stream_index>[?]
+
+        . A - character before the input_file_index, such as -map -0:v, creates a negative mapping. This
+          excludes streams already selected by a previous map. 
+        . A tailing ?, such as -map 1:a?, will allow the map to be optional. If the map matches no streams the 
+          map wil be ignored instead of failing. Note the mapping will still fail if an invalid input_file_index
+          is used; such as if map refers to an input that does not exist. 
+
+-ignore_unknown
+    ignore input streams with unknown type instead of failing if copying such streams is attempted. 
+-copy_unknown
+    Allow input streams with unknown type ot be copied instead of faileding if copying such streams is attempted. 
+
+
+
+
+
+[Examples]
+Specific language
+    ffmpeg -i input.mkv -map 0:v -map 0:m:lanugange:spa output.mp4
+
+
+
+Reference 
+Selecting streams with the -map optiont -> https://trac.ffmpeg.org/wiki/Map
+
+

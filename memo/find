@@ -1,3 +1,9 @@
+find        - search for files in a directory hierarchy
+which       - shows the full path of (shell) commands
+whereis     - locate the binary, source, and manual page files for a command
+
+
+
 find /etc -name '*.mp3'
 find /etc -iname 'Network'                  // ignore case
 find /var/log -iname '*.log' -type f        // file only
@@ -10,4 +16,16 @@ find /tmp -type f -atime +30 -print -exec rm -f '{}' \;     // delete file which
 which ls
 whereis ls
 
+glob        - globbing pathnames
+---------------------------------
+/etc/glob
+'?'         matches any signle character. (not between brackets)
+'*'         matches any string, including the empty string (not between brackets)
+[list]
+[^list]
+{str1,str2,...}
 
+ls "a*[0-9]*"
+ls "[[:lower:]]*[0-9]*"
+ls init*[a-z]
+ls {"au",[bc]}*

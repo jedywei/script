@@ -1,5 +1,6 @@
-regex for bash
+Regular Expression
 
+Bash Example
 local dbusr=`dbus-send --system --type=method_call --print-reply --dest=com.acl.dbg_mediaflow / com.acl.mediaflow."$@" 2>&1`
 local pattern="^method return.*string \"(.*)\"$"
 if [[ $dbusr =~ $pattern ]]; then
@@ -7,3 +8,91 @@ if [[ $dbusr =~ $pattern ]]; then
 else
     result="Failed"
 fi
+
+grep, sed, awk Example
+egrep -i '\<the\>'
+cat /etc/passwd | sed 's/root/amrood/g'
+awk -e '$1 ~ /p[el]/ {print $0}' colours.txt
+
+
+== Metacharacters == 
+^ [  ] . $ {  } * (  ) \ + | ? < >      (ERE, PCRE)
+\( \) \+ \? \| \{m, n\}                 (BRE)
+
+RegEx Flavor
+ERE     Extended RegEx      egrep == grep -E | bash =~ | sed -r | C, vim, awk    
+BRE     Basic RegEx         grep, sed                                                
+PCRE    Perl RegEx          grep -P, jq                                             
+
+egrep '^(From|Subject):'    files
+
+== Delimiters ==
+'re'
+/re/
+Modifying Text with regEx
+s/regex/replacement/
+s/\bJeff\b/Jeffrey/
+s/\bJeff\b/Jeff/i
+s
+
+== Anchors == 
+^       Start of string, or start of line in multiline pattern
+$       End of string, or end of line in multi-line pattern
+\A      Start of string
+\Z      End of string           
+\b      Word boundary           (PCRE,egrep,GNU BRE)
+\B      Not word boundary       (PCRE,egrep,GNU BRE)
+\<      Start of word           (VIM,egrep,GNU BRE)
+\>      End of word             (VIM,egrep,GNU BRE)
+
+
+egrep '\<cat\>' infiles
+
+== Quantifiers == 
+*       0 or more 
++       1 or more
+?       0 or 1
+{3}     Exactly 3               (ERE,PCRE)          \{3\}   (BRE)
+{3,}    3 or more               (ERE,PCRE)          \{3,\}  (BRE)
+{3,5}   3, 4, or 5              (ERE,PCRE)          \{3,5\} (BRE)
+
+== Groups ==
+(a|b)   a or b                  (ERE, PCRE)         \(a\|b\)    BRE
+(...)   Group
+(?:...) Passive (non-capturing) group
+\1      Contents of Group1      r(\w)g\1x       = regex
+
+== Ranges ==
+.       Any character expcet new line (\n)
+[abc]   Range (a or b or c)
+[^abc]  Not (a or b or c)
+[a-q]   Lower case letter from a to q
+[A-Q]   Upper case letter from A to Q
+[0-7]   Digit from 0 to 7
+
+== Character Classes ==         (PCRE)
+\c      Control character
+\s      White space                                 [:space:]   BRE
+\S      Not white space
+\d      digit                                       [:digit:]   BRE
+\D      Not digit
+\w      Word
+\W      Not word
+\x      Hexadecimal digit                           [:xdigit:]  BRE
+
+Examples
+--------
+g(la|oo)d                   ERE     {glad, good}                  
+A(xyz)+C                    ERE     {AxyzC, AxyzxyzC}                    
+(?:USEDB|USEIPAV2)=no       PCRE    {USEDB=no, USEIPAV2=no}       
+a|b*                        ERE     {ε, a, b, bb, bbb, ...}
+(a|b)*                      ERE     {ε, a, b, aa, ab, ba, bb, aaa, ...}
+(0|(1(01*0)*1))*            ERE     {ε, 0, 00, 11, 000, 011, 110, 0000, 0011, 0110, 1001, 1100, 1111, 00000, ... }
+\b([a-z]+)((?:\s|<[^>]+>)+)(\1\b)
+^(?:[^\e]*\n)+
+^[-+]?[0-9]+(\.[0-9]*)?$
+
+
+see also
+man perlre
+

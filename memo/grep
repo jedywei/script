@@ -1,11 +1,26 @@
-grep -n Ubuntu /etc/os-release
+grep,egrep,fgrep    - print lines matching a pattern
+ag                  - faster grep
+
+grep -n Ubuntu /etc/os-release          // print line number
 grep -i Ubuntu /etc/os-release          // ingore case
 grep network /etc/*.conf
 grep network /etc/*.conf /etc/ld.conf.d/*
 grep -v Ubuntu /etc/os-release          // not include Ubuntu
+grep -w Ubuntu /etc/os-release          // only those lines containing matches that form whole words
+
 
 grep -r ubuntu /etc/                    // recursive under /etc
 grep -r --include="*.conf" ubuntu /etc/ // only file name is *.conf 
+
+grep Matcher Selection 
+-E      ERE regex, interpret PATTERN as ERE pattern
+-F      Fixed string, interpret PATTERN as a list of fixed strings, separated by newlines.
+-G      BRE regex (without -G option, default setting is BRE)
+-P      PCRE (Perl regular expression)
+
+egrep   == grep -E
+fgrep   == grep -F
+
 
 
 ag "string-to-search"

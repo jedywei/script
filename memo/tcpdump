@@ -1,0 +1,176 @@
+tcpdump - dump a traffic on a network
+
+sudo tcpdump -i eth0
+sudo tcpdump -c 1 -X icmp
+sudo tcpdump -r test1.pcap                           # read raw packets from test1.pcap
+
+[Synopsis]
+sudo tcpdump [Options] [Expression]
+
+[Options]
+-A              Print each packet (minus its link level header in ASCII)
+-D              Print the list of the network interfaces available on the system and on whcih tcpdump can capture packets.
+-v, -vv, -vvv   Verbose output level. 
+-q              Less verbose
+-n, -nn         -n Don't convert host address to names, -nn Don't convert protocol and port numbers etc. to names. 
+-t, -tt, -ttt   timestamp (-t no, -tt seconds, -ttt usec, -tttt h:m:s, -ttttt delta)
+-S              Print absolute sequence numbers
+-e              Get the ethernet header as well
+-X, -XX         Print the data of ecah packet in hex and ascii. (-XX show the ethernet header)
+
+-s snaplen      Snarf snaplen bytes of data from each packet rather than the default of 262144 byts. 0 set it to the default. 
+-i interface    Listen to interface. If unspecified tcpdump searches the system interface list for the lowest number. 
+-c count        Exit after receiving count packets
+-C file_size    Save file not larger than file_size. test.pcap, test-1.pcap, test-2.pcap, ...
+-w file.pcap    Write the raw packet to file.pcap
+-E sp@ipaddr algo:scret,...     Decrypt IPSEC traffic by provideing enceyption key
+
+
+
+[Expression]
+Expression Type  host, net, port
+Direction        src, dst, src or dst, src and dst
+Protocol         tcp, udp, icmp, ether(fddi, tr), ip, ip6, arp, rarp, decnet, ip proto, ip broadcast, ether multicast, 
+                 ip multicast, ether proto, vlan, gateway
+Combine Filters  and, && / or, || / not, !
+
+tcpdump host 1.1.1.1
+tcpdump src 1.1.1.1
+tcpdump dst 1.0.0.1
+tcpdump net 192.168.0.0/24
+tcpdump icmp
+tcpdump port 3389
+tcpdump src port 1025 
+tcpdump dst port 389
+tcpdump src port 1025 and tcp
+tcpdump udp and src port 53
+tcpdump portrange 21-23             # port range
+tcpdump less 32                     # pakcet size filter < 32
+tcpdump greater 128                 # packet size filter > 128
+tcpdump src net 192.168.0.0/16 and dst net 10.0.0.0/8 or 172.16.0.0./16
+tcpdump dst 192.168.0.2 and src net and not icmp
+tcpdump src mars and not dst port 22
+tcpdump 'src 10.0.2.4 and (dst port 3389 or 22)'
+
+[Isolate TCP Flags]
+The filter below find these various packet because tcp[13] looks at offset 13 in the TCP header
+tcpdump 'tcp[13] & 4 != 0'          # isolate TCP RST flags
+tcpdump 'tcp[tcpflags] == tcp-rst'
+tcpdump 'tcp[13] & 2 != 0'          # isolate TCP SYN flags
+tcpdump 'tcp[tcpflags] == tcp-syn'
+tcpdump 'tcp[13]=18'                # isolate packets that have both the SYN an ACK flags set.
+tcpdump 'tcp[13] & 13 != 0'         # isolate TCP URG flags
+tcpdump 'tcp[tcpflags] == tcp-urg'
+tcpdump 'tcp[13] & 16 != 0'         # isolate TCP ACK flags
+tcpdump 'tcp[tcpflags] == tcp-ack'
+tcpdump 'tcp[13] & 8 != 0'          # isolate TCP PSH flags
+tcpdump 'tcp[tcpflags] == tcp-psh'
+tcpdump 'tcp[13] & 1 != 0'          # isolate TCP FIN flags
+tcpdump 'tcp[tcpflags] == tcp-fin'
+
+Examples ------------------------------------------------------------------------------------------
+
+[Breaking down the tcpdump command line]
+sudo tcpdump -D             # list the network interfaces available on the system
+sudo tcpdump -i ens37 -nn -s0 -v port 80
+sudo tcpdump -A -s0 port 80
+
+[Capture on Protocol]
+sudo tcpdump -i ens37 udp
+sudo tcpdump -i ens37 proto 17
+
+[Capture Hosts based on IP address]
+sudo tcpdump -i ens37 host 10.10.1.1        # both src and dst
+sudo tcpdump -i ens37 dst 10.10.1.20
+sudo tcpdump -i ens37 src 10.10.1.20
+
+[Write a capture file]
+sudo tcpdump -i ens37 -s0 -w test.pcap
+
+[Line Buffered Mode]
+sudo tcpdump -i ens37 -s0 -l port 80 | grep 'Server:'   # -l force line buffered mode
+
+
+[Extrac HTTP Usr Agents]
+sudo tcpdump -nn -A -s1500 -l | grep 'User-Agent:'
+sudo tcpdump -nn -A -s1500 -l | egrep -i 'User-Agent:|Host:'
+
+[Capture only HTTP GET and POST packets]
+sudo tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'    # Match GET packet
+sudo tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'    # Match POST packet
+
+[Extract HTTP Request URL's]
+sudo tcpdump -s 0 -v -n -l | egrep -i 'POST /|GET /|Host:'
+
+[Extrac HTTP Passwords in POST Requests]
+sudo tcpdump -s 0 -A -n -l | egrep -i 'POST /|pwd=|passwd=|Host:' 
+
+[Find SSH Connections]
+sudo tcpdump 'tcp[(tcp[12]>>2):4] = 0x5353482D'
+
+[Capture Cookies from Server and from Client]
+sudo tcpdump -nn -A -s0 -l | egrep -i 'Set-Cookie|Host:|Cookie:'
+sudo tcpdup -vvAls0 | egrep - 'Set-Cookie|Host:|Cookie:'
+
+[Capture all ICMP packets]
+sudo tcpdump -n icmp
+
+[Show ICMP Packets that are not ECHO/REPLY (standing ping)]
+sudo tcpdump 'icmp[icmptype] != icmp-echo and icmp[icmptype] != icmp-echoreply'
+
+[Capture SMTP/POP3 Email]
+sudo tcpdump -nn -l port 25 | egrep -i 'MAIL FROM|RCPT TO'
+
+[Troubleshooting NTP Query and Response]
+sudo tcpdump dst port 123
+sudo tcpdump -vvAs0 port 123
+
+[Capture SNMP Query and Response]
+onesixtyone 10.10.1.10 public
+sudo tcpdump -n -s0 port 161 and udp
+
+[Capture FTP Credentials and Commands]
+sudo tcpdump -nn -v port ftp or ftp-data
+sudo tcpdump -vvAs0 port ftp or ftp-data
+
+[Rotate Capture Files]
+sudo tcpdump -w /tmp/capture-%H.pcap -G 3600 -C 200     # -G 3600 (3600 sec = 1 hr), -C file_size
+
+[Capture IPv6 Traffic]
+sudo tcpdump -nn ip6 proto 6
+sudo tcpdump -n -r ipv6-test.pcap ip6 proto 17
+
+[Detect Port Scan in Network Traffic]
+sudo tcpdump -nn
+
+[Example Filter Showing Nmap NSE script Testing]
+sudo nmap -p 80 --script=http-enum.nse targetip
+sudo tcpdump -nn port80 | egrep 'GET /'
+
+[Capture Start and End Packets of every non-local host]
+sudo tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0 and not src and dst net localnet'
+
+[Capture DNS Request and Response]
+sudo tcpdump -i ens37 -s0 port 53
+sudo tcpdump -vvAs0 port 53
+
+[Capture HTTP data packets]
+sudo tcpdump 'tcp port 80 and (((ip[2:2]-((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
+
+[Capture with tcpdump and view in Wireshark]
+ssh root@remotesystem 'tcpdump -s0 -c 1000 -nn -w - not port 22' | wireshark -k -i -
+
+[Top Host by Packets]
+sudo tcpdump -nnn -t -c 200 | cut -f 1,2,3,4 -d '.' | sort | uniq -c | sort -nr | head -n 20
+
+[Capture all the plaintext passwords]
+sudo tcpdump port http or port ftp or port smtp or port imap or prot pop3 or port telnet -l -A | egrep -i -B5 'pass=|pwd=|log=|login=|user=|username=|pw=|passw=|passwd=|password=|pass:|user:|username:|password:|login:|pass | user '
+
+[DHCP Example]
+sudo tcpdump -v -n port 67 or 67
+
+
+References
+[1] A tcpdump Tutorial with Examples -  50 Ways to Isolate Traffic https://danielmiessler.com/study/tcpdump/
+[2] Tcpdump Examples - 22 Tactical Commands https://hackertarget.com/tcpdump-examples/
+    

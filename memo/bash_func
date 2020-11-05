@@ -1,0 +1,102 @@
+bash function
+[summary]
+function_name() {
+    <commands>
+}
+
+function function_name {
+    <commands>
+}
+
+#!/bin/bash
+function myfunc1()
+{
+    myresult='some value'
+}
+
+myfunc1
+echo $myresult
+
+#-----------------------
+myfunc1_5()
+{
+    echo Hello $1
+    return 5
+}
+
+myfunc1_5 Mars
+myfunc1_5 Jupiter
+echo There previous function has a return value of $?
+
+#-----------------------
+function myfunc2()
+{
+    local myresult='some value'
+    echo $myresult
+}
+
+result=$(myfunc)    # or result=`myfunc`
+echo $result
+
+#-----------------------
+function myfunc3()
+{
+    local __result=$1
+    local myresult='some value'
+    eval $__result="'$myresult'"
+}
+
+myfunc3 result
+echo $result
+
+#-----------------------
+function myfunc4()
+{
+    local result=$1
+    local myresult='some value'
+    eval $result="'$myresult'"
+}
+
+myfunc4 result
+echo $result
+
+#------------------------
+function myfunc5()
+{
+    local __result=$1
+    local myresult='some value'
+    if [[ "$__result" ]]; then
+        eval $__result="'$myresult'"
+    else
+        echo "$myresult"
+    fi
+}
+
+myfunc5 result
+echo $result
+result=$(myfunc)
+echo $result
+#------------------------
+function assert()
+{
+    local caller=$((${#FUNCNAME[@]}-2))
+    local lineno=${BASH_LINENO[$caller]}
+    local funame=${FUNCNAME[$caller]}
+    local expected="$1"
+    local result="$2"
+
+    if [[ $expected != $result ]]; then
+        echo "Failed"
+        echo "${funame}${lineno} assert expected \"$expected\" but result \"$result\"
+        exit -1
+    fi
+}
+
+#------------------------
+ls()
+{
+    command ls -lh
+}
+
+ls
+

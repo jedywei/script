@@ -1,0 +1,5 @@
+gcc         something for gcc
+
+# dump gcc definition
+echo "" | gcc -E - -dM
+echo "" | gcc -E - -dD -fshort-wchar | grep WCHAR

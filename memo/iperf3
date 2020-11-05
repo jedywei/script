@@ -1,0 +1,72 @@
+iperf3              - perform network throughput tests
+
+iperf3 -s [options]
+iperf3 -c server [options]
+
+-p, --port n
+-f, --format [kmKM]
+-i, --interval n
+-F, --file name
+-A, --affinity n/n,m
+-B, --bind host
+-V, --verbose
+-J, --json
+    --logfile file
+    --forceflush
+-d, --debug
+-v, --version
+
+server
+-s, --server
+-D, --daemon
+-I, --pidfile file
+-1, --one-off
+
+client
+-c, --clent host
+  , --sctp
+-u, --udp
+-b, --bandwidth n[KM]
+  , --fq-rate n[KM]
+-t, --time n
+-n, --bytes n[KM]
+-k, --blockcount n[KM]
+-l, --length n[KM]
+  , --cport port
+-P, --parallel n
+-R, --reverse
+-w, --window n[KM]
+-M, --set-mss n
+-N, --no-delay
+-4, --version4
+-6, --version6
+-S, --tos n 
+-L, --flowlable n
+-X, --xbind name
+  , --nstreams n
+-Z, --zerocopy
+-O, --omit n                    Omit the first n secons of the test, to skip past the TCP slow-start period.
+-T, --title str
+-C, --congestion algo
+  , --get-server-output
+
+[Example]
+iperf3 -s                       Start server on the defualt port
+iperf3 -s -D                    Start server and in daemon mode
+ipeff3 -s -i1 -p 5003           Start UDP server on port 5003, and give 1 sec interval report
+
+client
+iperf3 -c <ip> -i 1 -t 30       Run a 30 secon tests, giving results every 1 second
+iperf3 -c <ip> -i 1 -t 20 -r    Run a test from remotehost to localhost
+iperf3 -c <ip> -i 1 -t 20 -w 32M -P 4   Run a test with 4 parallel streams, and with 32M TCP buffer
+ipref3 -c <ip> -u -i 1 -b 200M  Run a 200Mbps UDP test
+
+ipref3 -c <ip> -i 5 -O 2        Run the test for 2 seconds before collecting result, to allow for TCP slowstart to finish
+iperf3 -Z -c <ip>               Use the sendfile() system call for 'Zero Copy' mode.
+iperf3 -c 192.168.12.12 -T s1 & iperf3 -c 192.168.12.13 -T s2
+                                Run tests to multiple intefaces at once, and label the lines to indicate whic test is which
+ipref3 -c <ip> -J               Output the results in JSON format for easy parsing
+ipref3 -A 4,4 -c <ip>           Set the CPU affinity for the sender, receiver (cores are numbered from 0). 
+                                (== numactl -C 4 iperf3)
+ipref3 -c 10.20.1.20 -A 2,2 -T "1" &; ipref3 -c 10.20.1.20 -p 5400 -A3,3 -T "2"&
+
