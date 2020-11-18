@@ -22,4 +22,23 @@ README
     $./install.py --clang-completer
 
 7. checkout mediaflow
+    $ sudo yum install git-svn
     $ git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
+    user name jedy.wei
+    password  dykhec-3mezke-Gasjoq
+
+8. add sudoers
+    $ chmod +w /etc/sudoers
+    $ vi /etc/sudoers
+    root    ALL=(ALL)       ALL
+    jedywei ALL=(ALL)       NOPASSWD:ALL
+    $ chmod -w /etc/sudoers
+
+9. install gcc 7
+    $ sudo yum install centos-release-scl
+    $ sudo yum install devtoolset-7
+    $ scl enable devtoolset-7 bash
+
+    add 
+    source scl enable devtoolset-7 
+    to .bashrc

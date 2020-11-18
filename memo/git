@@ -89,10 +89,23 @@ git co bagel
 git br
 git br -r
 git br -a 
+git br -d <branch>
+git br -D <branch>
 
 # List branch and upstream binding
 #---------------------------------------------------------
 git br -vv
+
+# switch branch
+#---------------------------------------------------------
+git co <branch>
+git co -b <new branch>
+
+# merge or rebase branch 
+#---------------------------------------------------------
+git merge <commit>
+git merge <branch>
+git rebase <branch>
 
 # push all branch to remote
 #---------------------------------------------------------
@@ -142,6 +155,17 @@ Repo    -> WD       git reset -- HEAD^         (== git reset --mixed HEAD^ )
 --hard      the committed files throw away
 
 
+git uncommit        == reset HEAD~
+git undo            == reset --soft HEAD^
+git unstage         == reset HEAD --
+
+
+# amend
+#---------------------------------------------------------------------
+git ci --amend -m "amend message"
+git cia -m "amend message"
+git amend -m "amend message"
+
 
 # diff
 #---------------------------------------------------------------------
@@ -174,3 +198,12 @@ git help clean
     -d                  - remove untracked directries in addition to untracked files
     -X                  - remove only files ignored by git
     -f, --force         - force the action
+
+# list tracked files
+#----------------------------------------------------------------------
+git ls-files
+
+# debug ignore
+#----------------------------------------------------------------------
+git check-ignore -v <path>
+

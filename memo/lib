@@ -119,6 +119,13 @@ int main(int argc, char *argv[]) {
 #endif
 ---
 
+
+-L, --rpath, --rpath-link different
+------------------------------------------
+-L              search path for linking
+-rpath-link     .so depend library searching path
+-rpath          execute bin depand libary searching path
+
 References
 [1] Program Library HOWTO
 [2] Notes/Work Memo/3-Development/C & Library/Shared Libraries

@@ -1,0 +1,6 @@
+[FFmpeg-devel] libavformat/mpegtsenc: fix incorrect PCR with multiple programs [v3]
+-> https://patchwork.ffmpeg.org/project/ffmpeg/patch/kKG7q2gkiNGRhHDU5scRi1OGdR61amcf-pkujrYC_fCcvyqkWteDmwwVmVyx4Y0sx9sxtNv2RfB256CW4FkEgH00TzThQh458E53miWSHyk=@protonmail.com/
+
+[FFmpeg-devel] libavformat: forced PCR pid in mpegts muxer
+-> https://patchwork.ffmpeg.org/project/ffmpeg/patch/2dCt2zqMjOkrr5MeF1qUbesp00k21yI0TKGcTSiSFgFeJuH6g-7pTE0op1bEUjXQGEGH6LzB3fDDrkB8by4sLXTLn_EH2nhjRAhWihVSZNg=@protonmail.com/
+``

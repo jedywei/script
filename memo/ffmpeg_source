@@ -1,0 +1,16 @@
+
+
+[Send]
+ffmpeg -re -i bbb_265_2160p60_24M_timecode-422-10.ts -c copy -f mpegts -muxrate 26000000 -flush_packets 0 -vframes 1800 -y "udp://192.168.0.208:1937?buffer_size=65536&pkt_size=1316&bitrate=26000000&burst_bits=26000&fifo_size=1200000"
+
+[Receive]
+# allow 1937/udp port
+sudo firewall-cmd --zone=public --permanent --add-port=1937/udp
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-all --zone=public
+
+
+# watch network performance
+watch ifstat
+
+ffmpeg -i "udp://127.0.0.1:1937?buffer_size=65536&pkt_size=1316&fifo_size=1200000" -c copy -f mpegts -y /dev/null

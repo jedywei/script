@@ -75,9 +75,9 @@ arr=(Hello World)
 arr[0]=Hello
 arr[1]=World
 
-${arr[*]}   - all of the items in the array
+${arr[*]}   - all of the items in the array (seperate by IFS)
 ${arr[@]}   - all of the items in the array (returns each item as a seperate word)
-${!arr[*]}  - all of the indexs in the array
+${!arr[*]}  - all of the indexs in the array. 
 ${#arr[*]}  - number of items in the array
 ${#arr[0]}  - lenght of item zero
 

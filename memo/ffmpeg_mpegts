@@ -1,0 +1,2 @@
+
+ffmpeg i ~/Videos/bbb_sunflower_1080p_30fps_noramal.mp4 -map 0:v -c:v copy -map 0:a:0? -c:a copy -map 0:a:2? -c:a copy -map 0:a:3? -c:a copy -streamid 0:213 -streamid 1:240 -streamid 2:241 -streamid 3:242 -metadata service_name='bbb' -mpegts_pmt_start_pid 19 -metadata service_provider='advantech.com.tw' -mpegts_service_id 4 -mpegts_original_network_id 8 -mpegts_transport_stream_id 4 -pcr_period 10 -pat_period 20 -sdt_period 20  -f mpegts -y ./bbb_tmp.ts

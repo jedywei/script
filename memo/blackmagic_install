@@ -1,0 +1,14 @@
+
+$ mkdir blackmagic
+$ cp Blackmagic_Desktop_Video_Linux_11.5.tar.gz blackmagic
+$ cd blackmagic
+$ tar xfz Blackmagic_Desktop_Video_Linux_11.5.tar.gz
+
+# install dkms
+$ sudo yum -y install epel-release
+$ sudo yum -y update
+$ sudo yum --enablerepo epel install dkms
+
+$ cd Blackmagic_Desktop_Video_Linux_10.5.2/rpm/x86_64/
+$ sudo yum install --nogpgcheck desktopvideo-11.5a34.x86_64.rpm 
+$ sudo yum instlal desktopvideo-gui-*.rpm mediaexpress-*.rpm

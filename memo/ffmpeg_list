@@ -1,0 +1,27 @@
+ffmpeg_list
+-----------
+ffmpeg -? topic 
+
+ffmpeg -version     show version
+ffmpeg -buildconf   show build configuration
+
+ffmpeg -formats
+ffmpeg -muxers
+ffmpeg -demuxers
+ffmpeg -devices
+ffmpeg -codecs
+ffmpeg -decoders
+ffmpeg -encoders
+ffmpeg -bsfs
+ffmpeg -protocols
+ffmpeg -filters
+ffmpeg -pix_fmts
+ffmpeg -layouts
+ffmpeg -smaple_fmts
+ffmpeg -colors
+ffmpeg -sources device
+ffmpeg -sink device
+ffmpeg -hwaccels
+
+
+
