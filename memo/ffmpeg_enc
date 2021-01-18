@@ -1,0 +1,10 @@
+ffmpeg video encode knowledge
+-----------------------------
+
+GOP structure (M=3, N=15)
+I BBP BBP BBP BBP BBP I BBP BBP BBP BBP BBP
+  M=3
+  [       N=15       ]
+
+GOP Size = N+1
+

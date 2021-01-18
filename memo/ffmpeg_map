@@ -39,12 +39,24 @@ Simple examples
 
 Syntax
     -map [-]<input_file_index>:<stream_type>:<stream_index>[?]
+    -map <input_file_index>:p:<program_index>
+    -map i:<pid> or -map #<pid>
+    -map m:<key>    // metadata
+    -map u          // ???
 
         . A - character before the input_file_index, such as -map -0:v, creates a negative mapping. This
           excludes streams already selected by a previous map. 
         . A tailing ?, such as -map 1:a?, will allow the map to be optional. If the map matches no streams the 
           map wil be ignored instead of failing. Note the mapping will still fail if an invalid input_file_index
           is used; such as if map refers to an input that does not exist. 
+
+        . stream_type
+            'v'     video / AVMEDIA_TYPE_VIDEO
+            'a'     audio / AVMEDIA_TYPE_AUDIO
+            's'     subtitle / AVMEDIA_TYPE_SUBTITLE
+            'd'     data / AVMEDIA_TYPE_DATA
+            't'     attachment / AVMEDIA_TYPE_ATTACHMENT
+            'V'     video / AVMEDIA_TYPE_VIDEO with nopic == 1 flag
 
 -ignore_unknown
     ignore input streams with unknown type instead of failing if copying such streams is attempted. 

@@ -1,0 +1,146 @@
+json-c API
+-----------
+options of json_object_to_json_string_ext() 
+JSON_C_TO_STRING_PLAIN
+JSON_C_TO_STRING_SPACED
+JSON_C_TO_STRING_PRETTY
+JSON_C_TO_STRING_PRETTY_TAB
+JSON_C_TO_STRING_NOZERO
+JSON_C_TO_STRING_NOSLASHESCAPE
+
+options of json_object_object_add_ex()
+JSON_C_OBJECT_ADD_KEY_IS_NEW
+JSON_C_OBJECT_KEY_IS_CONSTANT
+
+options of json_c_set_serialization_double_format()
+JSON_C_OPTION_GLOBAL
+JSON_C_OPTION_THREAD
+
+
+enum json_type
+---------------
+json_type_null
+json_type_boolean
+json_type_double
+json_type_int
+json_type_object
+json_type_array
+json_type_string
+
+API
+---
+json_object *json_object_get(jobj);
+json_object *json_object_put(jobj);
+
+bool json_object_is_type(jobj, type);
+json_type json_object_get_type(jobj);
+
+//--- to_string
+const char *json_object_to_json_string(jobj);               // == json_object_to_string_ext(jobj, JSON_C_TO_STRING_SPACED)
+const char *json_object_to_json_string_ext(jobj, options); 
+const char *json_object_to_json_string_length(jobj, options, &length);
+
+void json_object_set_userdata(jobj, userdata, delete_fn);   // if delete_fn == NULL, if will call free(userdata)
+void *json_object_get_userdata(jobj);
+
+void json_object_set_serializer(jobj, to_string_fn, userdata, delete_fn); 
+
+//--- json_object
+json_object *json_object_new_object(void);
+int json_object_get_object_length(jobj);        // get size of an object in term of the number of fields it has.
+lh_table *json_object_get_object(jobj);         // get hash table of a jobj
+int json_c_object_sizeof(void);                 // == sizeof(struct json_object)
+
+//--- object add key
+int json_object_object_add(jobj, key, jval);    // refcount of jval will NOT be incremented
+int json_object_object_add_ex(jobj, key, jval, options);    // options can be JSON_C_OBJECT_KEY_IS ... JSON_C_OBJECT_ADD_...
+json_object *json_objec_object_get(jobj, key);  // no refcount will be changed
+json_bool json_object_object_get_ex(jobj, key, &jval);  // return whether or not the key exists
+
+void json_object_object_del(jobj, key);         // the refcount will be decremented for the deleted object
+                                                // if there are no more owners of the value represented by this key.
+//--- foreach
+json_object_object_foreach(jobj, key, jval) { ... }
+json_object_iter it;
+json_object_object_foreachC(jobj,it) { it.key, it.val }
+
+//--- array
+json_object *json_object_new_array(void);
+json_object *json_object_new_array_ext(initial_size);
+
+array_list *json_object_get_array(jobj);
+size_t json_object_array_length(jobj);
+
+void json_object_array_sort(jobj, sort_fn);         // sort_fn(const void *, const void *)
+json_object *json_object_arrray_bsearch(jkey, jobj, sort_fn);
+
+//--- array add
+int json_object_array_add(jobj, jval);      // jval's refcount will NOT be incremented.
+int json_object_array_put_idx(jobj, idx, jval);     // the array size will be automatically be expanded to the size of the idx
+json_object *json_object_array_get_idx(jobj, idx);
+int json_object_array_del_idx(jobj, idx);
+
+int json_object_array_shrink(jobj, empty_slots);    // number of empty slots to leave allocated
+
+//--- prime type 
+json_object *json_object_new_boolean(b);
+json_bool json_object_get_boolean(jval);
+int json_object_set_boolean(jval, b);       // return 1 if value is set correctly, 0 otherwise
+
+json_object *json_object_new_int(i32);
+json_object *json_object_new_int64(i64);
+json_object *json_object_new_uint64(u64);
+int32_t json_object_get_int(jval);
+int64_t json_object_get_int64(jval);
+uint64_t json_object_get_uint64(jval);
+int json_object_get_int_inc(jval, i64);     // return 1 if value is set correctly, 0 otherwise
+int json_object_set_int(jval, i32);         // return 1 if value is set correctly, 0 otherwise
+int json_object_set_int64(jval, i64);       // return 1 if value is set correctly, 0 otherwise
+int json_object_set_uint64(jval, u64);      // return 1 if value is set correctly, 0 otherwise
+
+
+json_object *json_object_new_double(dval);
+json_object *json_object_new_double_s(dval, ds);   // ds is exact serialized representation of the value.
+                                                // for example ds = "12.300000000000001"
+double json_object_get_double(jval);
+int json_object_set_double(jval, dval);     // return 1 if value is set correctly, 0 otherwise
+
+int json_object_double_to_json_string(jval, pb, level, flags);  // pb = struct printbuf, level, and flags no used
+int json_c_set_serialization_double_format(double_fmt, options) // for example fmt="%g", or fmt="%0.2lf"
+                                            // return -1 on errors, 0 on success
+json_object *json_object_new_string(str);
+json_object *json_object_new_string_len(str, slen);
+const char *json_object_get_string(jval);   // if jval's type json_type_null, return NULL
+int json_object_get_string_len(jval);
+int json_object_set_string(jval, str);      // return 1 if value set correctly, 0 otherwise
+int json_object_set_string_len(jval, str, slen);     // return 1 if value set correctly, 0 otherwise
+
+json_object *json_object_new_null(void);
+
+
+//--- compare
+int json_object_equal(jobj1, jobj2);        // return 1, if jobj1 == jobj2 
+                                            // Equality is defined as follows:
+                                            // - json_objects of different types are never equal
+                                            // - json_objects of the same primitive type are equql 
+                                            //      if the c-representation of their value is equal
+                                            // - json-arrays are considered equal if all values at the
+                                            //      same indices are equal (same order)
+                                            // - Complex json_objects are considered equal if all 
+                                            //      contained objects referenced by their key are eequal, 
+                                            //      regardless their order.
+
+
+//--- copy
+int json_object_deep_copy(jsrc, jdst, shallow_copy_fn);
+                                            // json_c_shallow_copy_default
+                                            //      This simplay calls the appropriate json_object_new_<type>()
+                                            //      but not any _useata or _user_delete values
+                                            // return 1 on success, -1 on errors, but never 2.ss
+
+
+
+
+
+
+

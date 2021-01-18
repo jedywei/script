@@ -1,0 +1,167 @@
+PES packet syntax / MPEG2 TS
+-----------------------------
+
+{
+B0      24\ Packet Start Code                           // 00 00 01 (Start Code) 
+B3       8\ Stream ID                                   // See Stream ID Table (1)
+B4      16\ PES Packet Length                           // include this field, unit in bytes 
+            [ Optontional PES HEADER =                  // if Extension Present
+B6       2:   '10'            
+         2:   PES Scrambling Control                    // 00 = not scrambled
+         1:   PES Priority
+         1:   Data Alignment Indicator                  // 1 = PES packet header is immediately followed by the video start code
+         1:   Copyright                                 // 1 = packet contain copyrighted material
+         1\   Original or Copy                          // 1 = original, 0 = copy
+B7       8\   7 Flags                                   // B7 flags (2)
+B8       8\   PES Heaer Data Length
+              [ Optional Fields of 7 Flags =
+        33:     PTS DTS                                 // see PTS DTS flags (3)
+        42:     ESCR                                    // see ES rate
+        22:     ES Rate                                 // 3 Bytes = 1 [ES Rate] 1
+         8:     DSM Trick Mode                          
+         7:     Additional Copy Info                    // 1 Byte  = 1 [additional copy info]
+        16:     Previous PES CRC                        // 2 Bytes = x^16 + x^12 + x^5 + 1
+                [ PES Extension  = 
+         8:       Optonal Fields                        // See PES extension flag
+       128:       PES Private Data
+         8:       Packet Header Field
+         8:       Program Packet Sequence Counter
+        16:       P-STD Buffer
+        16:       PES Extension Field Length            // 2 Bytes = 1 [PES extension field length] [reserved]
+                  PES Extension Field Data
+                ]
+              ]
+       m*8:   Sutffing Bytes (0xFF)
+            ]
+            PES Packet Data Bytes
+}
+
+Stream ID Table (1)
+Stream ID   Stream type                                         Extension present?
+0xBD        Private Stream 1 (non MPEG audio, subpictures)      Yes
+0xBE        Pading Stream                                       No
+0xBF        Private Stream 2 (navigation data)                  No
+0xC0~0xDF   MPEG-1 or MPEG-2 audio stream 0 ~ 31                Yes
+0xE0~0xEF   MPEG-1 or MPEG-2 video steram 0 ~ 15                Yes
+
+B7 flags (2)
+0   b[7:6] PTS DTS flags                    // -> 00=no PTS or DTS, 10 = PTS, 11 = PTS and DTS
+    b[  5] ESCR flag                        // -> ESCR
+    b[  4] ES rate flag                     // -> ES Rate
+    b[  3] DSM trick mode flag              // -> DSM Trick Mode
+    b[  2] additional copy info flag        // -> Additional Copy Info
+    b[  1] PES CRC flag                     // -> Previous PES CRC
+    b[  0] PES extension flag               // -> PES Extension
+
+PTS DTS flags == 10
+PTS = 
+0   b[7:4] '0010'
+    b[3:1] PTS 32..30
+    b[  0] '1'
+1   b[7:0] PTS 29 - 
+2   b[7:1] PTS - 15
+    b[  0] '1'
+3   b[7:0] PTS 14 -
+4   b[7:1] PTS 00
+    b[  0] '1'
+
+PTS DTS flags == 11
+PTS DTS = 
+0   b[7:4] '0011'
+    b[3:1] PTS 32..30
+    b[  0] '1'
+1   b[7:0] PTS 29 - 
+2   b[7:1] PTS - 15
+    b[  0] '1'
+3   b[7:0] PTS 14 -
+4   b[7:1] PTS 00
+    b[  0] '1'
+
+5   b[7:4] '0001'
+    b[3:1] DTS 32..30
+    b[  0] '1'
+6   b[7:0] DTS 29 - 
+7   b[7:1] DTS - 15
+    b[  0] '1'
+8   b[7:0] DTS 14 -
+9   b[7:1] DTS 00
+    b[  0] '1'
+
+ESCR flag = 1
+ESCR = 
+0   b[7:6] '00'
+    b[5:3] ESCR base 32..30
+    b[  2] '1'
+    b[1:0] ESCR base 29..
+1   b[7:0] ESCR base ..
+2   b[7:3] ESCR base ..15
+    b[  2] '1'
+    b[1:0] ESCR base 14..
+3   b[7:0] ESCR base ..
+4   b[7:3] ESCR base ..00
+    b[  2] '1'
+    b[1:0] ESCR ext
+5   b[7:1] ESCR ext
+    b[  0] '1'
+
+PES extension flag (3)
+0   b[  7] PES private data flag                    // -> 128: PES private data
+    b[  6] pack header field flag                   // ->   8: Packet Header Field
+    b[  5] program packet sequence counter flag     // ->   8: Program Packet Sequence Counter (4)
+    b[  4] P-STD buffer flag                        // ->  16: P-STD Buffer (5)
+    b[3:1] '111'
+    b[  0] PES extension flag 2                     // ->   7: PES Extension Field Length + Data
+
+Program Packet Sequence Counter (4)
+0   b[  7] '1'
+    b[6:0] packet sequence counter
+1   b[  7] '1'
+    b[  6] MPEG1_MPEG2 identifier
+    b[5:0] original stuffing length
+
+P-STD buffer flag
+0   b[7:6] '01'
+    b[  5] P-STD buffer scale                       // 0 = 128 bytes, 1 = 1028 bytes
+    b[4:0] P-STD buffer size
+1   b[7:0] P-STD buffer size
+
+
+13818-2 Stream ID
+(Byte 0 ~ Byte 2)   Byte 3
+Start Code Prefix + Stream ID
+00 00 01            
+
+Stream ID
+---------
+00          Picture
+01 - AF     Slice
+B0 - B1     Reserved
+B2          User data
+B3          Sequence Header
+B4          Sequence Error
+B5          Extension
+B6          Reserved
+B7          Sequence End
+B8          Group of Pictures
+B9          Program End (terminate a program stream)
+BA          Pack header
+BB          System Header
+BC          Program Stream Map
+BD          Private Stream 1
+BE          Pading stream 
+BE          Private Stream 2
+C0 - DF     MPEG-1 or MPEG-2 audio stream
+E0 - EF     MPEG-1 or MPEG-2 video stream
+F0          ECM Stream
+F1          EMM Stream
+F2          ITU-T Rec. H.222.0 | ISO/IEC 13818-1 Annex A or ISO/IEC 13818-6 DSMCC stream
+F3          ISO/IEC 13522 stream 
+F4          ITU-T Rec. H.222.1 type A
+F5          ITU-T Rec. H.222.1 type B
+F6          ITU-T Rec. H.222.1 type C
+F7          ITU-T Rec. H.222.1 type D
+F8          ITU-T Rec. H.222.1 type E
+F9          ancillary stream 
+FA - FE     Reserved
+FF          Program Stream Directroy
+

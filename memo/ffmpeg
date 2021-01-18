@@ -2,12 +2,14 @@ ffmpeg relatve help
 
 ffmpeg          this help
 
-ffmpeg_dev      install ffmpeg devel by yum command
+ffmpeg_devel    install ffmpeg devel by yum command
 ffmpeg_list     command option to list codec,muxer,protocol ...
 ffmpeg_map      ffmpeg stream specifier usage
 ffmpeg_source   ffmpeg command to be as a udp video source by ffmpeg copy
 ffmpeg_bqb      ffmpeg command to be bqb encoder or transcoder
-ffmpeg_devel    ffmpeg some kind of patch or enhancment
+ffmpeg_mpegts   ffmpeg mpegts relative knowledge
+ffmpeg_enc      ffmpeg video encode parameter or knowledge
+
 
 ffprobe         ffprobe command usage
 

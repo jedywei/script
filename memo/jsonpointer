@@ -1,0 +1,58 @@
+json pointer
+------------
+JavaScript Object Notation Pointer RFC:6901
+
+JSON Pointer defines a string sytax for identifying a specific value within a JSON document.
+
+Syntax of JSON Pointer
+
+json-pointer    := *( "/" reference-token )
+reference-token := *( unescaped / escaped )
+unescaped       := 0x00-0x2E / 0x30-0x7D / 0x7F-0x10FFFF          ;; 2f (= '/'), 7e (= '~')
+escaped         := "~0" / "~1"              ;; ~0 (= '~')   ~1 (= '/')
+
+array-index     := "0" / ( "1"-"9" *("0"-"9") )
+
+For example, given the JSON document
+jobj = 
+   {
+      "foo": ["bar", "baz"],
+      "": 0,
+      "a/b": 1,
+      "c%d": 2,
+      "e^f": 3,
+      "g|h": 4,
+      "i\\j": 5,
+      "k\"l": 6,
+      " ": 7,
+      "m~n": 8
+   }
+
+jsonPointer(jobj, "");          // the whole document
+jsonPointer(jobj, "/foo");      // [ "bar", "baz" ]
+jsonPointer(jobj, "/foo/0");    // "bar"
+jsonPointer(jobj, "/");         // 0
+jsonPointer(jobj, "/a~1b");     // 1
+jsonPointer(jobj, "/c%d");      // 2
+jsonPointer(jobj, "/e^f");      // 3
+jsonPointer(jobj, "/g|h");      // 4
+jsonPointer(jobj, "i\\j");      // 5
+jsonPointer(jobj, "/k\"l");     // 6
+jsonPointer(jobj, "/ ");        // 7
+jsonPointer(jobj, "m~0n");      // 8
+
+URI Fragment Identifier by encoding it into octets using UTF-8 (RFC 3629)
+
+    #            // the whole document
+    #/foo        ["bar", "baz"]
+    #/foo/0      "bar"
+    #/           0
+    #/a~1b       1
+    #/c%25d      2      ;; %25 = %
+    #/e%5Ef      3      ;; %5E = ^
+    #/g%7Ch      4      ;; %7C = |
+    #/i%5Cj      5      ;; %5C = \
+    #/k%22l      6      ;; %22 = "
+    #/%20        7      ;; %20 = <SPC>
+    #/m~0n       8
+

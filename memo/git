@@ -129,8 +129,12 @@ git push origin <tag_name>
 #rebase and merge
 #----------------------------------------------------------
 git rebase          // 不要對你的 repo 外有副本的 Branch 執行 rebase 
-git merge           // rebase 比 merge 好在重整成線性的commited history 
+$ git co a_branch
+$ git rebase master
 
+git merge           // rebase 比 merge 好在重整成線性的commited history 
+$ git co master
+$ git merge a_branch
 
 ~/.gitignore
 ~/.gitconfig
@@ -151,11 +155,14 @@ Repo    -> Stage    git reset --soft HEAD^     (== git commit --amend)
 Repo    -> WD       git reset -- HEAD^         (== git reset --mixed HEAD^ )
 
 --          the committed files will put back to WD (it's same as --mixed, but --mixed option id deprecated)
+                HEAD / Stage  / WD (NC)
 --soft      the committed files put back to Stage
+                HEAD / Stage (NC) / WD (NC)
 --hard      the committed files throw away
+                HEAD / Stage / WD
 
 
-git uncommit        == reset HEAD~
+git uncommit        == reset HEAD~                  => 
 git undo            == reset --soft HEAD^
 git unstage         == reset HEAD --
 
@@ -180,6 +187,12 @@ git diff head^              (HEAD^, WD)
 git diff HEAD HEAD~5        (HEAD, HEAD~5)
 
 see also git-format-patch, git-diff
+
+# format-patch
+#---------------------------------------------------------------------
+git format-patch -o ~/patches git-svn
+git format-patch -o ~/patches git-svn..442684d
+
 
 # check ignore files or directories
 #---------------------------------------------------------------------
@@ -207,3 +220,30 @@ git ls-files
 #----------------------------------------------------------------------
 git check-ignore -v <path>
 
+# git tag
+#----------------------------------------------------------------------
+git tag big_cats 51d54ff
+git tag big_cats 51d54ff -a -m "Big Cats are comming"
+git tag -d big_cats
+
+
+# git <start point> <since> <branch> <commit> <remote_name> <tag>
+#----------------------------------------------------------------------
+HEAD / HEAD^ / HEAD~n / head / head^ / head~n           <start point>
+8a21b99 / 8a21b997dc1b0ef50b2361c02431f8763bb55ceb      <commit>
+json-c-0-15 / master                                    <branch>
+git-svn / origin/master / origin/HEAD                   <remote_name>
+--since="2020-11-01"                                    <since>
+--before="2020-11-01"
+--after="2020-11-01"
+--since="1 month ago"
+--since="10 minutes ago"
+--since="9am"
+
+# git <revision_range>
+#---------------------------------------------------------------------
+git log --oneline master..git-svn
+
+
+
+# git rev-parse, reflog, git show <revison>

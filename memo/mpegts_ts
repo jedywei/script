@@ -1,0 +1,96 @@
+Transport Packet Stream  (ts packet) of MPEG2 TS
+-------------------------------------------------
+
+TS Packet Size = 188 bytes
+UDP TS packets = 188 * 7 = 1316
+
+TS Packet = 
+{
+        [ TS Header=
+B0      8\ Sync Byte
+B1      1: TEI  Transport Error Inicator
+        1: PUSI Payload Unit Start Indicator
+        1: TP   Transport Priority
+       13\ PID
+B3      2: TSC  Transport Scrambling Control
+        2: AFC  Adaptation Field Control
+        4\ CC   Continuity Counter
+           [ Adaption Field = 
++0      8\   AFL Adaptation Field Length
++1      1:   DI  Diuscontinuity Indicator
+        1:   RAI Random Access Indicator
+        1:   ESPI Elementary Stream Priority Indicator
+        5\   5 Flags
+             [ Optional Fileds I = 
+       42:     PCR
+       42:     OPCR
+        8:     Splice Countdown
+        8:     Transport Private Data Length
+        N:     Transport Private Data
+        8:     Adaptation Field Extension Length
+        3:     3 Flags
+               [ Option Fields II = 
+        1:       Itw_valid Flag
+       15\       Itw Offset
+        2:       
+       22:       Piecewise Rate
+        4:       Splice Type
+       33:       DTS_next_au
+               ]
+             ]
+           ]
+        ]
+        [ TS Payload = 
+        ]
+}
+
+
+
+PID
+---------------------
+0x0000  : PAT
+0x0001  : CAT
+0x0002  : TSDT
+0x0010  : NIT (via PAT)
+0x0011  : SDT, BAT (ST)
+0x0012  : EIT
+0x0013  : RST
+0x0014  : TDT, TOT (ST)
+0x0015  : MIP
+0xXXXX  : PMT
+0x1FFF  : NULL Packet
+
+Table ID
+---------------------
+0x00    : PAT
+0x01    : CAT
+0x02    : PMT
+0x40    : NIT
+0x41    : NIT other
+0x42    : SDT
+0x43    : SDT other
+0x4E    : EIT
+0x70    : TDT
+
+
+
+SI/PSI Section 
+---------------
+Transport Stream
+ [ 47 (.1..PID) (..1xCC) Ptr ....  (Data)] [ 47 .0..PID (..01CC) (Data) ] [47  .1..PID (..11CC) Ptr ... (Data)(next)]
+
+Data + Data + Data = SI/PSI Section
+
+
+PSI : Program Specific Info
+    - MPEG-definied
+    - ISO/IEC 13818-1
+    - TS structure : PAT, PMT
+    - CA : CAT
+
+SI  : Service Information
+    - DVB-defined
+    - ETSI EN 300 468
+    - Private section in MPEG terms
+
+
