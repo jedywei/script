@@ -73,6 +73,9 @@ ldconfig -p
 	libzzipfseeko-0.so.13 (libc6,x86-64) => /lib64/libzzipfseeko-0.so.13
     ...
 
+rpm -ql <package name> to list the files installed by yum or rpm package
+    rpm -ql boost
+
 
 ld.so or ld-linux.so* looking for a dyanmic libarary 
 ----------------------------------------------------

@@ -1,0 +1,61 @@
+svn
+---
+
+
+svn server
+-----------
+https://172.20.2.44/svn/pacific/projects/VEGA3311 <==M30 SDK
+https://172.20.2.44/svn/pacific/projects/hvc8700/trunk/ffmpeg <==FFMPEG (OLD)
+https://172.20.2.44/svn/pacific/projects/ffmpeg/trunk <==FFMPEG (NEW)
+
+user name: jedy.wei
+password: 71Susislove
+
+https://172.20.2.44/svn/pacific/projects/VEGA3311/M30_SDK
+
+User Name : Jedy.Wei@advantech.com.tw
+Passward: 71Susislove
+
+
+common command
+--------------
+$ svn ls  https://172.20.2.44/svn/pacific/projects/VEGA3000
+$ svn co  https://172.20.2.44/svn/pacific/projects/VEGA3000
+
+co - checkout
+up - update
+ci - commit
+add - add file or add folder
+mv - rename
+st - status
+revert -
+info - 
+resolved - 
+diff -
+export -
+cp - create a branch
+import - 
+log - 
+lock -
+unlock -
+delete -
+
+? - New
+A - Add file
+C - Conflict
+D - Deleted
+M - Modified
+U - Updated
+G - Merged
+
+
+
+Check out a single file from SVN
+--------------------------------
+$ svn co https://batman.advantech.com.tw/svn/scm/ncg/hvs-9201/branches/kickstart_build/isolinux/Packages . --depth empty
+$ svn up libevent-2.1.8-2.el7.centos.x86_64.rpm
+
+Check out video clips
+---------------------
+$ svn co https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches video_clips
+
