@@ -9,6 +9,13 @@ List available modules
     - yum module list
 
 -------------------------------------------------------------------------------------
+List all repository
+    - yum repolist
+    - yum repolist -v
+    - yum repolist enabled
+    - yum repolist disabled
+    - yum repolist all
+    - yum list available
 Install software
     - yum group intstall
     - yum install
@@ -37,7 +44,7 @@ View all installed software
 Repositories
     - yum repolist
 Find packages that provide the queried file
-    - yum provies "*bin/top"
+    - yum provides "*bin/top"
 Serarch package names and description for a term
     - yum search samba
 Remove a package
@@ -48,5 +55,8 @@ Q 1 : Repodata is over 2 weeks old. Install yum-corn? Or run: yum make case fast
 A     sudo yum clean all ; sudo yum update -y
 
 
+
+Repositiory Package 
+- EPEL      - Extra Packages for Enterprise Linux (or EPEL) 
 
 

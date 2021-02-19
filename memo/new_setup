@@ -31,7 +31,7 @@ README
     $ chmod +w /etc/sudoers
     $ vi /etc/sudoers
     root    ALL=(ALL)       ALL
-    jedywei ALL=(ALL)       NOPASSWD:ALL
+    jedywei ALL=(ALL)       NOPASSWD: ALL
     $ chmod -w /etc/sudoers
 
 9. install gcc 7

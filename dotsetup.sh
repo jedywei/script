@@ -57,7 +57,7 @@ ls -al .bashrc
 echo "Success to install dotsetup"
 echo ""
 
-echo "Need to install 'epel-realease' before 'ack' and 'ag'á
+echo "Need to install 'epel-realease' before 'ack' and 'ag'"
 echo "sudo yum install epel-release"
 echo ""
 echo "Need to install 'ack' manually by  command as"
