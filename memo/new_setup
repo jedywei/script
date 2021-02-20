@@ -1,9 +1,15 @@
 README
 
 1. git script
+    # OLD authentication
     $git clone https://jedywei:71susislove@github.com/jedywei/script.git
+    # NEW authentication
+    $git clone https://github.com/jedywei/script.git
 2. git .vim
+    # OLD authentication
     $git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
+    # NEW authentication
+    $git clone https://github.com/jedywei/vim.git .vim
 
 3. install Vundle.vim by
     $cd .vim
@@ -14,6 +20,7 @@ README
     $script/dotsetup.sh
 
 5. install vim plugin by
+    $ ln -s .vim/.vimrc .
     $ vim
     $:PluginInstall
 
@@ -27,6 +34,9 @@ README
     user name jedy.wei
     password  dykhec-3mezke-Gasjoq
 
+    $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
+    $ svn co https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches video_clips
+
 8. add sudoers
     $ chmod +w /etc/sudoers
     $ vi /etc/sudoers
@@ -35,6 +45,7 @@ README
     $ chmod -w /etc/sudoers
 
 9. install gcc 7
+    $ gcc --version 
     $ sudo yum install centos-release-scl
     $ sudo yum install devtoolset-7
     $ scl enable devtoolset-7 bash
@@ -42,3 +53,21 @@ README
     add 
     source scl enable devtoolset-7 
     to .bashrc
+
+10. install vim 8.1 from github
+    $ sudo yum install ncurses nurses-devel
+    $ sudo yum install perl-devel pt
+    $ git clone https://github.com/vim/vim.git 
+    $ ./configure --with-features=huge --enable-multibyte --enable-rubyinterp --enable-perlinterp=dynamic --enable-luainterp --enable-python3interp=yes --with-python3-config-dir=/usr/lib/python3.6/site-packages/config
+    $ vi src/auto/comfig.mk
+    CFLAGS = ... -I/usr/lib64/perl5/CORE -Doff64_t=__off64_t
+    ...
+    LIBS= ... -pthread
+    $ make
+    $ sudo make install
+
+    # remove OLD-vim by
+    yum list installed | grep vim
+
+
+
