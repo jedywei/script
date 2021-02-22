@@ -33,8 +33,8 @@ export LS_COLORS
 export DISPLAY=:0.0
 export icloud="~/Library/Mobile\ Documents/com~apple~CloudDocs/"
 
-[-f ~/script/git-completion.bash ] && source ~/script/git-completion.bash
-[-f /etc/default/locale ] && source /etc/default/locale
+[ -f ~/script/git-completion.bash ] && source ~/script/git-completion.bash
+[ -f /etc/default/locale ] && source /etc/default/locale
 
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
