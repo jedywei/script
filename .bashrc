@@ -39,5 +39,5 @@ export icloud="~/Library/Mobile\ Documents/com~apple~CloudDocs/"
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # source devtoolset-7
-which scl_source && source scl_source enable devtoolset-7
+which scl_source > /dev/null 2>&1 && source scl_source enable devtoolset-7
 
