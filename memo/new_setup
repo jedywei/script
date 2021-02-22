@@ -2,31 +2,31 @@ README
 
 1. git script
     # OLD authentication
-    $git clone https://jedywei:71susislove@github.com/jedywei/script.git
+    $ git clone https://jedywei:71susislove@github.com/jedywei/script.git
     # NEW authentication
-    $git clone https://github.com/jedywei/script.git
+    $ git clone https://39be50f1cc5c735256aca4b2e7dc8f2e558660f9@github.com/jedywei/script.git
 2. git .vim
     # OLD authentication
-    $git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
+    $ git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
     # NEW authentication
-    $git clone https://github.com/jedywei/vim.git .vim
+    $ git clone https://39be50f1cc5c735256aca4b2e7dc8f2e558660f9@github.com/jedywei/vim.git .vim
 
 3. install Vundle.vim by
-    $cd .vim
-    $./gitvundle.sh
+    $ cd .vim
+    $ ./gitvundle.sh
 
 4. remove .bashrc and run dotsetup.sh
-    $rm .bashrc
-    $script/dotsetup.sh
+    $ rm .bashrc
+    $ script/dotsetup.sh
 
 5. install vim plugin by
     $ ln -s .vim/.vimrc .
     $ vim
-    $:PluginInstall
+    $ :PluginInstall
 
 6. Install YCM Clang
-    $cd .vim/bundle/YouCompleteMe
-    $./install.py --clang-completer
+    $ cd .vim/bundle/YouCompleteMe
+    $ ./install.py --clang-completer
 
 7. checkout mediaflow
     $ sudo yum install git-svn
@@ -36,6 +36,28 @@ README
 
     $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
     $ svn co https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches video_clips
+
+issue:Error running context: An error occurred during SSL communication  ...
+$ openssl version -d
+OPENSSLDIR: "/etc/pki/tls"
+$ sudo vi /etc/pki/tls/openssl.cnf
+...
+[ default_conf ]
+
+ssl_conf = ssl_sect
+
+[ssl_sect]
+
+system_default = ssl_default_sect
+
+[ssl_default_sect]
+MinProtocol = TLSv1
+CipherString = DEFAULT@SECLEVEL=1
+
+issue: git svn ...  Failed to load module "canberra-gtk-module"
+$ yum info libcanberra-gtk2
+$ sudo yum install libcanberra-gtk2
+
 
 8. add sudoers
     $ chmod +w /etc/sudoers
@@ -66,8 +88,13 @@ README
     $ make
     $ sudo make install
 
-    # remove OLD-vim by
-    yum list installed | grep vim
 
+    # install YCM
+    # refer .vim/YCM.README
+
+
+    # remove OLD-vim by
+    $ yum list installed | grep vim
+    $ sudo yum remove vim-enhanced vim-common vim-filesystem
 
 
