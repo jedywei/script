@@ -8,6 +8,38 @@ View info on a module
 List available modules
     - yum module list
 
+
+rpm package naming convention
+------------------------------
+kexec-tools-2.0.20-14.el8.x86_64
+$ rpm -q kexec-tools
+kexec-tools-2.0.20-14.el8.x86_64
+$ rpm -qi kexec-tools
+Name        : kexec-tools
+Version     : 2.0.20
+Release     : 14.el8
+Architecture: x86_64
+
+Install Date: Mon 22 Feb 2021 01:31:17 PM CST
+Group       : Applications/System
+Size        : 1222009
+License     : GPLv2
+Signature   : RSA/SHA256, Sun 26 Apr 2020 10:17:32 AM CST, Key ID 05b555b38483c65d
+Source RPM  : kexec-tools-2.0.20-14.el8.src.rpm
+Build Date  : Sat 25 Apr 2020 01:07:07 AM CST
+Build Host  : x86-02.mbox.centos.org
+Relocations : (not relocatable)
+Packager    : CentOS Buildsys <bugs@centos.org>
+Vendor      : CentOS
+Summary     : The kexec/kdump userspace component
+Description :
+kexec-tools provides /usr/sbin/kexec binary that facilitates a new
+kernel to boot using the kernel's kexec feature either on a
+normal or a panic reboot. This package contains the /usr/sbin/kexec
+binary and ancillary utilities that together form the userspace
+component of the kernel's kexec feature.
+
+
 -------------------------------------------------------------------------------------
 List all repository
     - yum repolist
@@ -35,6 +67,9 @@ Configure software repository
 Find package owning file
     - rpm -qf <filename>
     - yum provies <filename-glob>
+To list the files installed by a yum package.
+    - rpm -q {full_package_name}    # rpm -q x256-libs
+    - rpm -ql x256-libs.x86_64
 View a software version
     - rpm - q <packagename>
     - yum list installed packagename
@@ -49,6 +84,49 @@ Serarch package names and description for a term
     - yum search samba
 Remove a package
     - yum remove vfspd
+
+
+dnf command
+------------
+$ sudo dnf install https://pkgs.dyn.su/el8/multimedia/x86_64/x265-3.3-7.el8.x86_64.rpm
+
+dnf command return value
+    0:  operation was successful
+    1:  An error occured, which was hanled by dnf.
+    3:  An unknown unhandled error occurred during operation.
+    100:    See check-update
+    200:    There was a problem with acquiring or releasing of locks.
+
+
+" enalbe erel repostory
+$ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+$ sudo dnf config-manager --set-enabled PowerTools
+$ sudo dnf repolist
+$ sudo dnf repolist all                                     // list diabled and enabled repository
+$ sudo dnf config-manager --set-enabled powertools         // 大小寫有分
+
+
+ls /etc/yum.repos.d
+
+
+Grouplist
+---------
+$ dnf grouplist
+$ yum grouplist
+
+dependency checking
+--------------------
+$ dnf deplist <package>
+$ yum deplist <package>
+$ dnf repoquery --requires <package>
+$ dnf repoquery --requires --resolve <package>
+
+
+centos package site
+--------------------
+https://centos.pkgs.org
+
 
 --------------------------------------------
 Q 1 : Repodata is over 2 weeks old. Install yum-corn? Or run: yum make case fast

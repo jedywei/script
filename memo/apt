@@ -1,0 +1,28 @@
+apt cheat sheet
+---------------
+
+$ apt-cache search <package>
+$ apt-get install <package>
+$ apt-get build-dep <package_name>
+$ apt-get remove <package>
+$ apt-get update                    // update package list 
+$ apt-get upgrade [-u]              
+$ apt-get dist-upgrade [-u]         // Danger
+
+$ apt-get check 
+$ apt-get -f install                // fix unmet dependencies
+$ apt-get autoclean                 // removes .deb files for packages that are no longer installed on your system
+$ apt-get clean
+
+
+Remove
+$ apt-get remove <package name>
+$ apt-get purge <package name>              // apt-get remove <package1> <package2>+
+$ apt-get autoremove <package_name>         // remove package and dependencies
+
+Search
+$ apt-cache search <search_term>
+$ apt-cache show <package_name>
+$ dpkg -L <packagee_name>                   // list files in package <package_name>
+$ apt-file search <filename_search_pattern>
+$ apt-cache pkgnames                        // the command 

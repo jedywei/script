@@ -4,12 +4,12 @@ README
     # OLD authentication
     $ git clone https://jedywei:71susislove@github.com/jedywei/script.git
     # NEW authentication
-    $ git clone https://39be50f1cc5c735256aca4b2e7dc8f2e558660f9@github.com/jedywei/script.git
+    $ git clone https://c89deae468a0b4c556c4a519a76db41169f308af@github.com/jedywei/script.git
 2. git .vim
     # OLD authentication
     $ git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
     # NEW authentication
-    $ git clone https://39be50f1cc5c735256aca4b2e7dc8f2e558660f9@github.com/jedywei/vim.git .vim
+    $ git clone https://c89deae468a0b4c556c4a519a76db41169f308af@github.com/jedywei/vim.git .vim
 
 3. install Vundle.vim by
     $ cd .vim
@@ -51,8 +51,14 @@ ssl_conf = ssl_sect
 system_default = ssl_default_sect
 
 [ssl_default_sect]
+.include /etc/crypto-policies/back-ends/opensslcnf.config
+# add ------------
 MinProtocol = TLSv1
 CipherString = DEFAULT@SECLEVEL=1
+#-----------------
+
+# $ export OPENSSL_CONF=/etc/pki/tls/openssl.cnf   <-- not necessary
+
 
 issue: git svn ...  Failed to load module "canberra-gtk-module"
 $ yum info libcanberra-gtk2

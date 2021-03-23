@@ -16,7 +16,9 @@ git init
 
 # setup remote git link 
 # to my mac
-git remote add origin ssh://jedywei@mac/Users/jedywei/Git/<project>.git
+git remote add <shortname> <url>
+$ git remote add origin ssh://jedywei@mac/Users/jedywei/Git/<project>.git
+$ git remote add jedy ssh://jedywei@192.168.0.208/home/jedywei/mediaflow/Boreas
 # to githup
 git remote add origin https://jedywei:71susislove@github.com/jedywei/projs.git
 
@@ -24,8 +26,13 @@ git remote add origin https://jedywei:71susislove@github.com/jedywei/projs.git
 # check remote by
 git remote -v 
 
+# fetch remote
+git fetch <remote>
+
 # set master default upstream 
+git push <remote> <branch>
 git push --set-upstream origin master
+
 
 #
 # Clone a test.git repostory to your local
@@ -107,6 +114,24 @@ git merge <commit>
 git merge <branch>
 git rebase <branch>
 
+Garbage collection
+-------------------
+git gc --prune=now
+
+
+track remote branch
+--------------------
+# 1
+git co -b sf origin/serverfix
+# 2
+git co sf
+git br -u origin/serverfix
+
+remove remote branch
+----------------------
+$ git push jedy --delete jedy/json-c-0-15       // both
+$ git br -rd jedy/json-c-0-15                   // delete only local
+
 # push all branch to remote
 #---------------------------------------------------------
 git push origin --all
@@ -167,6 +192,7 @@ git undo            == reset --soft HEAD^
 git unstage         == reset HEAD --
 
 
+
 # amend
 #---------------------------------------------------------------------
 git ci --amend -m "amend message"
@@ -185,6 +211,7 @@ git diff                    (Stage, WD)
 git diff head               (HEAD, WD)
 git diff head^              (HEAD^, WD)
 git diff HEAD HEAD~5        (HEAD, HEAD~5)
+git diff --staged           (stage, HEAD)
 
 see also git-format-patch, git-diff
 
@@ -247,3 +274,9 @@ git log --oneline master..git-svn
 
 
 # git rev-parse, reflog, git show <revison>
+
+
+issue  (gnome-ssh-askpass:32737): Gtk-WARNING **: cannot open display: error:
+$ cat /etc/profile.d/gnome-ssh-askpass.sh
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+$ unset SSH_ASKPASS

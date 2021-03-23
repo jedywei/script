@@ -19,7 +19,8 @@ readelf -d vega_err.ju              // displays the contexts of the file's dynam
 readelf -r vega_err.ju              // the contents of the files' relocation section.
 readelf -S vega_err.ju              // section  
     == objdump -h vega_err.ju
-readelf -h vega_err.ju              // displays the information contained in the ELF header at the start of the file.
+readelf -h vega_err.ju              // displays the information contained in the ELF header at the start 
+                                       of the file.
 
 
 ELF file 
@@ -43,7 +44,9 @@ pkg-config --cflags json-c
 pkg-config --modversion json-c
 pkg-config --exists foo
 
+
 echo $PKG_CONFIG_PATH
+pkg-config --variable pc_path pkg-config
 
 
 check dynamic libraries dependency
@@ -128,6 +131,17 @@ int main(int argc, char *argv[]) {
 -L              search path for linking
 -rpath-link     .so depend library searching path
 -rpath          execute bin depand libary searching path
+
+
+common tools for library
+------------------------
+nm              - list symbols form object files
+readelf         - display information about ELF files
+objdump         - display information from objct files
+ldconfig        - configure dynamic linker run-time bindings, create the MRU shared libraries cache 
+ldd             - print shared library dependencies
+pkg-config      - return metaininformation about installed libraries
+ld.so, ld-linux.so* - dynamic linker/loader
 
 References
 [1] Program Library HOWTO

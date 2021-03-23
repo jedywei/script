@@ -1,0 +1,53 @@
+configure -- how configuration should work
+-------------------------------------------
+
+- configure
+- autoconf
+- automake
+- config.h
+- config.status
+
+Options
+--srcdir=<dirname>      specify the irectory where sources 
+--prefix                default /usr/local
+--exec_prefix           deafult $(prefix)
+--bindir                $(exec_prefix)/bin
+--sbindir               $(exec_prefix)/sbin
+--libexecdir            $(exec_prefix)/libexec, Most packages install their data under $(libexecdir)/package-name/
+                        within aditional subdirectories thereof, such as 
+                                $(libexecdir)/package-name/machine/version
+--datarootdir           $(prefix)/share
+--datadir               $(prefix)/share
+--synconfdir            $(prefix)/etc
+--sharedstatedir        $(prefix)/com
+--localstatdir          $(prefix)/var
+--runstatedir       
+--includedir            The directory for installing header files to be included by user programs with the C
+                        '#include'. /usr/local/include
+--oldincludedir
+--docdir
+--infodir
+--htmldir
+--dvidir
+--pdfdir
+--psdir
+--libdir                The directory for object files and libraries fo object code
+--lispdir
+--localedir
+--mandir
+--man1dir
+--man2dir
+--manext
+--man1ext
+--man2ext
+
+--build=<buildtype>     --build=i686-pc-linux-gnu
+
+--enable-<feature>[=parameter]
+--with-<package>
+<variable>=value
+
+
+
+
+

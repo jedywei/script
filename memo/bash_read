@@ -85,12 +85,17 @@ EOF
 ------------------
 NAME='John Doe'
 RESPONDENT="the autho of this fine script"
-cato << 'EOF'
+cat << 'EOF'
 
 Hello, there, $NAME
 Greeting to you, $NAME, from $RESPONDENT
 
 EOF
+------------------
+cat <<- EOF > /etc/ld.so.conf.d/libmfx-x86_64.conf
+/usr/local/lib64
+EOF
+
 ------------------
 : << COMMENT
 echo "This line will not echo."

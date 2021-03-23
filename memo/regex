@@ -94,5 +94,5 @@ a|b*                        ERE     {ε, a, b, bb, bbb, ...}
 
 
 see also
-man perlre
+man perlre glob
 

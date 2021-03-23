@@ -1,0 +1,13 @@
+glob pattern 
+------------
+
+*       matches any number of any charactrs including none          Law*
+?       matches any single character                                ?at
+[abc]   matches one character given in the backet                   [CB]at
+[a-z]   matches one character fromt he range given in the bracket   Letter[0-9]
+
+
+Unix-like
+
+[!abc]  matches one charactr that is not given int bracket          [!C]at
+[!a-z]  matches one characgtr that is inot from the range giving in the bracket
