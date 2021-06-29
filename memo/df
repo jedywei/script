@@ -8,3 +8,13 @@ $ du -hsc */.
 
 $ du -hs * | sort -h
 
+$ lsblk
+
+$ lsblk -l 
+
+$ lsblk /dev/sda
+
+dd whole centos disk
+----------------------
+$ ssh jedywei@192.168.1.109 "sudo dd if=/dev/sda conv=sync,noerror bs=128K | gzip -1 -1" | pv | dd of=centos8.img.gz
+

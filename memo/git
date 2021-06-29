@@ -220,6 +220,9 @@ see also git-format-patch, git-diff
 git format-patch -o ~/patches git-svn
 git format-patch -o ~/patches git-svn..442684d
 
+git apply --check 001-Fix-cli-showvminfo.patch
+git apply 001-Fix-cli-showvminfo.patch
+
 
 # check ignore files or directories
 #---------------------------------------------------------------------

@@ -86,7 +86,7 @@ $ sudo yum install libcanberra-gtk2
     $ sudo yum install ncurses ncurses-devel
     $ sudo yum install perl-devel python36-devel
     $ git clone https://github.com/vim/vim.git 
-    $ ./configure --disable-nls --enable-cscope --enable-gui=no --with-tlib=ncurses --without-x --with-features=huge --enable-multibyte --enable-rubyinterp --enable-perlinterp=dynamic --enable-luainterp --enable-python3interp=yes --with-python3-config-dir=$(python3-config --configdir)
+    $ ./configure --disable-nls --enable-cscope --enable-gui=no --with-tlib=ncurses --without-x --with-features=huge --enable-multibyte --enable-rubyinterp --enable-perlinterp=dynamic --enable-luainterp --enable-python3interp=yes --with-python3-config-dir=$(python3-config --configdir) --prefix=/usr
     $ vi src/auto/comfig.mk
     CFLAGS = ... -I/usr/lib64/perl5/CORE -Doff64_t=__off64_t
     ...
@@ -103,4 +103,11 @@ $ sudo yum install libcanberra-gtk2
     $ yum list installed | grep vim
     $ sudo yum remove vim-enhanced vim-common vim-filesystem
 
+11. fix locale issue
+$locale -a
+
+add following to /etc/default/locale
+LC_CTYPE="en_US.utf8"
+LC_ALL="en_US.utf8"
+LANG="en_US.utf8"
 
