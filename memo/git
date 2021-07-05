@@ -42,7 +42,8 @@ git clone ssh://jedywei:ok@mac/Users/jedywei/git/test.git
 # for mediaflow project
 git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
 # user: jedy.wei
-# password: 71Susislove
+# password: 71Susislove   <---XXXXX
+# password: fybsy4-tymxyw-tEvciz    (2021/07/04)
 
 svn ls https://172.20.2.44/svn/pacific/projects/VEGA3311
 svn ls https://172.20.2.44/svn/pacific/projects/VEGA3311/other/pxxc
@@ -279,7 +280,34 @@ git log --oneline master..git-svn
 # git rev-parse, reflog, git show <revison>
 
 
+Trouble Shooting
+==================================================================================
+
 issue  (gnome-ssh-askpass:32737): Gtk-WARNING **: cannot open display: error:
 $ cat /etc/profile.d/gnome-ssh-askpass.sh
 SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
 $ unset SSH_ASKPASS
+
+issue fatal: in unpopulated submodule [angulartest]
+$ git rm --cached angulartest -f
+
+ISSUE: batman VS git-svn 
+>>>>>>>>>>>>>>>>>>>
+running context: An error occurred during SSL communication ...
+$ openssl version -d
+OPENSSLDIR: "/etc/pki/tls"
+$ sudo vi /etc/pki/tls/openssl.cnf
+...
+[ default_conf ]
+
+ssl_conf = ssl_sect
+
+[ssl_sect]
+
+system_default = ssl_default_sect
+
+[ssl_default_sect]
+# after .include .....
+MinProtocol = TLSv1
+CipherString = DEFAULT@SECLEVEL=1
+<<<<<<<<<<<<<<<<<<
