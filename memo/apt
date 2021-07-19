@@ -26,3 +26,12 @@ $ apt-cache show <package_name>
 $ dpkg -L <packagee_name>                   // list files in package <package_name>
 $ apt-file search <filename_search_pattern>
 $ apt-cache pkgnames                        // the command 
+
+
+dpkg
+-----
+$ dpkg -l libsvn-perl
+$ dpkg -L libsvn-perl
+$ dpkg -s libsvn-perl
+
+
