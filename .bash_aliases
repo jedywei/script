@@ -141,7 +141,7 @@ hh() {
 export CDPATH=.:~/script:~/work
 if [[ $- == *i* ]]; then
 #    export DISPLAY=172.16.63.1:0.0
-    export PS1="[$VIMPROMPT\u@\h \W:${PROJ}]$ "
+    export PS1="[$VIMPROMPT\033[38;5;118m\u@\h\033[00m \W:${PROJ}]$ "
     if [[ -f ~/.projsetup.sh ]]; then 
         source ~/.projsetup.sh
     else
