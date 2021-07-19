@@ -21,3 +21,5 @@ $ patch < hello.patch
 $ patch -R < hello.patch
 
 
+# diff two folders
+$ diff -bur folder1/ folder2/

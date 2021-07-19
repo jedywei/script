@@ -28,6 +28,8 @@ $ apt-file search <filename_search_pattern>
 $ apt-cache pkgnames                        // the command 
 
 
+apt                                     yum
+---------------------------             ----------------------------------
 apt-get update <package>                yum update <package>
 apt-cache search <key work>             yum search <key word>
 apt-get install <package>               yum install <package>
@@ -36,5 +38,11 @@ dpkg-list                               rpm -qa
 apt-cache dumpavail                     yum list available
 dpkg -l                                 yum list installed
 dpkg -s <package>                       yum info <packae>
+
+dpkg
+-----
+$ dpkg -l libsvn-perl                   
+$ dpkg -L libsvn-perl
+$ dpkg -s libsvn-perl
 
 
