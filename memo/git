@@ -280,6 +280,17 @@ git log --oneline master..git-svn
 # git rev-parse, reflog, git show <revison>
 
 
+GitHub Authentication
+----------------------------------------------------------------------------------
+github 
+    - Icon/Settings
+    - Developer settings
+    - Personal access tokens
+    - Generate new token
+    
+    url = https://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@github.com/jedywei/script.git
+
+
 Trouble Shooting
 ==================================================================================
 
@@ -292,7 +303,6 @@ issue fatal: in unpopulated submodule [angulartest]
 $ git rm --cached angulartest -f
 
 ISSUE: batman VS git-svn 
->>>>>>>>>>>>>>>>>>>
 running context: An error occurred during SSL communication ...
 $ openssl version -d
 OPENSSLDIR: "/etc/pki/tls"
@@ -310,4 +320,5 @@ system_default = ssl_default_sect
 # after .include .....
 MinProtocol = TLSv1
 CipherString = DEFAULT@SECLEVEL=1
-<<<<<<<<<<<<<<<<<<
+=======
+
