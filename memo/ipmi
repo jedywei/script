@@ -1,0 +1,66 @@
+ipmitool command
+----------------
+
+OVLAN
+export OVLAN="-I lanplus -H 10.10.10.10 -U administrator -P password"
+
+BMC
+export BMC="
+
+
+LAN
+$ipmitool $BMC lan print 1      // show channel 1 LAN setting
+$ipmitool $BMC lan set 1 ipaddr 10.23.2.2
+$ipmitool $BMC lan set 1 netmask 255.255.255.0
+$ipmitool $BMC set 2 defgw ipaddr 255.255.0.254     // channel 4 default gateway
+$ipmitool $BMC set 2 defgw macaddr <macaddr>        // channel 4 geteway mac address
+$ipmitool $BMC set 2 ipsrc dhcp
+$ipmitool $BMC set 2 ipsrc static
+
+SEL
+$ipmitool $BMC sel elist
+$ipmitool $BMC sel clear        // delete all SEL log
+$ipmitool $BMC dlete <ID>       // delete the IDth SEL 
+$ipmitool $BMC time get         // show BMC time
+$ipmitool $BMC time set <time>
+
+Boot
+$ipmitool $BMC chassis boot dev bios
+$ipmitool $BMC chassis boot pxe
+
+
+BMC system 
+$ipmitool $BMC mc info
+$ipmitool $BMC bmc rset cold
+$ipmitool $BMC reset warmBMC
+
+WATCHDOG
+$ipmitool $BMC mc watchdog get
+$ipmitool $BMC watchdog off
+$ipmitool $BMC watchdog reset
+
+User/Account
+$ipmitool $BMC user list chan-id
+$ipmitool $BMC set password <user id> <password>
+$ipmitool $BMC disable <user id>
+$ipmitool $BMC enable <user id>
+$ipmitool $BMC priv <user id> <privilege_level> <channel number> 
+$ipmitool $BMC test <user id> <16|20> <password> 
+
+Channel 
+$ipmitool $BMC channel info
+$ipmitool $BMC channel authcap channel-number privilege
+$ipmitool $BMC channel getaccess channel-number user-id
+$ipmitool $BMC channel setaccess channel-number user-id callin=on ipmi=on link=onprivilege=5
+
+List 
+$ipmitool $BMC sensor list
+$ipmitool $BMC fru list
+$ipmitool $BMC sdr list
+$ipmitool $BMC pef list
+
+Power
+$ipmitool $BMC chassis power off
+$ipmitool $BMC chassis power on
+$ipmitool $BMC chassis power reset
+$ipmitool $BMC chassis power cycle
