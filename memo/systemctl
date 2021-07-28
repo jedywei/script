@@ -85,3 +85,13 @@ chkconfig --list daemon
 service --status-all
 service network start | stop | restart ... 
 
+
+switch default
+---------------
+$ systemctl list-units --type=target --all
+$ systemctl list-dependencies graphical.target
+$ systemctl get-default
+$ systemctl set-default multi-user.target
+$ systemctl isolate multi-user.target
+
+
