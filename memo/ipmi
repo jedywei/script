@@ -5,17 +5,30 @@ OVLAN
 export OVLAN="-I lanplus -H 10.10.10.10 -U administrator -P password"
 
 BMC
-export BMC="
+export BMC="-I serial-basic -D /dev/ttyS1:115200"
+
+
+For vega-7010 BMC, it use KCS (low pin count) to be as host interface. Use
+    $ ipmitool mc info
+
+    OVLAN for vega-7010
 
 
 LAN
 $ipmitool $BMC lan print 1      // show channel 1 LAN setting
 $ipmitool $BMC lan set 1 ipaddr 10.23.2.2
 $ipmitool $BMC lan set 1 netmask 255.255.255.0
+
 $ipmitool $BMC set 2 defgw ipaddr 255.255.0.254     // channel 4 default gateway
 $ipmitool $BMC set 2 defgw macaddr <macaddr>        // channel 4 geteway mac address
 $ipmitool $BMC set 2 ipsrc dhcp
 $ipmitool $BMC set 2 ipsrc static
+
+# Setting MAC address refer VEGA-7010 User Guide (L:/CA33/NCG_NVP/VEGA-7010/SW/BMC/Doc_User_Guide/)
+# unlock
+$ ipmitool raw 0x0c 0x01 0x01 0xc2
+# Setting LAN mac address to 00:0d:94:3b:a2:78
+$ ipmitool lan set 1 macaddr 00:0d:94:3b:a2:78
 
 SEL
 $ipmitool $BMC sel elist
@@ -60,7 +73,14 @@ $ipmitool $BMC sdr list
 $ipmitool $BMC pef list
 
 Power
+$ipmitool $BMC chassis status
 $ipmitool $BMC chassis power off
 $ipmitool $BMC chassis power on
 $ipmitool $BMC chassis power reset
 $ipmitool $BMC chassis power cycle
+
+Power policy
+$ipmitool $BMC chassis policy list
+
+HPM Upgrade
+$ipmitool $OVLAN -z 0xff hpm upgrade ./Image/v01_02_00/vega7010_bmc_01_02_00.hpm activate all force 

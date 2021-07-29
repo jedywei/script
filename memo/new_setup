@@ -5,11 +5,13 @@ README
     $ git clone https://jedywei:71susislove@github.com/jedywei/script.git
     # NEW authentication
     $ git clone https://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@github.com/jedywei/script.git
+    $ git clone https://jedywei@github.com/jedywei/script.git
 2. git .vim
     # OLD authentication
     $ git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
     # NEW authentication
     $ git clone https://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@github.com/jedywei/vim.git .vim
+    $ git clone https://jedywei@github.com/jedywei/vim.git .vim
 
 3. install Vundle.vim by
     $ cd .vim
@@ -19,6 +21,10 @@ README
     $ rm .bashrc
     $ script/dotsetup.sh
 
+4-1. ubuntu install vim
+    $ sudo apt install vim
+    $ vim --version 
+    # check version 
 5. install vim plugin by
     $ ln -s .vim/.vimrc .
     $ vim
@@ -30,6 +36,8 @@ README
 
 7. checkout mediaflow
     $ sudo yum install git-svn
+    # sudo apt install subversion
+    # sudo apt install git-svn
     $ git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
     user name jedy.wei
     password  dykhec-3mezke-Gasjoq
@@ -38,26 +46,54 @@ README
     $ svn co https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches video_clips
 
 issue:Error running context: An error occurred during SSL communication  ...
-$ openssl version -d
-OPENSSLDIR: "/etc/pki/tls"
-$ sudo vi /etc/pki/tls/openssl.cnf
-...
-[ default_conf ]
+# CentOS 
+    $ openssl version -d
+    OPENSSLDIR: "/etc/pki/tls"
+    $ sudo vi /etc/pki/tls/openssl.cnf
+    ...
+    [ default_conf ]
 
-ssl_conf = ssl_sect
+    ssl_conf = ssl_sect
 
-[ssl_sect]
+    [ssl_sect]
 
-system_default = ssl_default_sect
+    system_default = ssl_default_sect
 
-[ssl_default_sect]
-.include /etc/crypto-policies/back-ends/opensslcnf.config
-# add ------------
-MinProtocol = TLSv1
-CipherString = DEFAULT@SECLEVEL=1
-#-----------------
+    [ssl_default_sect]
+    .include /etc/crypto-policies/back-ends/opensslcnf.config
+    # add ------------
+    MinProtocol = TLSv1
+    CipherString = DEFAULT@SECLEVEL=1
+    #-----------------
 
-# $ export OPENSSL_CONF=/etc/pki/tls/openssl.cnf   <-- not necessary
+    # $ export OPENSSL_CONF=/etc/pki/tls/openssl.cnf   <-- not necessary
+
+# Ubuntu
+    $ openssl version -d
+    OPENSSLDIR: "/usr/lib/ssl"
+    $ sudo vi /usr/lib/ssl/openssl.cnf
+    or 
+    $ sudo vi /etc/ssl/openssl.cnf
+    # add to the head of openss.cnf -------------------------------
+    # System default
+    openssl_conf = default_conf    
+
+    # add to the end of openssl.cnf ------------------------------- 
+
+
+    [ default_conf ]
+
+    ssl_conf = ssl_sect
+
+    [ssl_sect]
+
+    system_default = system_default_sect
+
+    [system_default_sect]
+    MinProtocol = TLSv1
+    CipherString = DEFAULT:@SECLEVEL=1
+    #---------------------------------------------------------------
+
 
 
 issue: git svn ...  Failed to load module "canberra-gtk-module"
