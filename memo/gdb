@@ -69,3 +69,8 @@ ulimit -a
 man 5 core
 
 cat /proc/sys/kernel/core_pattern
+
+set core_pattern
+$ mkdir -p /tmp/cores
+$ chmod a+rwx /tmp/cores
+$ sudo sh -c 'echo "/tmp/cores/core.%e.%p" > /proc/sys/kernel/core_pattern'
