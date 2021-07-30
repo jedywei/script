@@ -253,9 +253,12 @@ git check-ignore -v <path>
 
 # git tag
 #----------------------------------------------------------------------
-git tag big_cats 51d54ff
+git tag big_cats 51d54ff                                            // add a tag
 git tag big_cats 51d54ff -a -m "Big Cats are comming"
-git tag -d big_cats
+git tag -d big_cats                                                 // delete a tag
+    
+git push --tags
+git push origin <tag_name>
 
 
 # git <start point> <since> <branch> <commit> <remote_name> <tag>
