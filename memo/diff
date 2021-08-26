@@ -23,3 +23,6 @@ $ patch -R < hello.patch
 
 # diff two folders
 $ diff -bur folder1/ folder2/
+
+$ diff -q folder1/ folder2/                     // the -q switch tells diff to report only when files differ.
+$ diff -qr folder1/ folder2/                    // use the -r switch to read the subdirectories as well like this.

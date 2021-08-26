@@ -1,4 +1,6 @@
 README
+--------------------------------
+sudo apt install -y git subversion git-svn
 
 1. git script
     # OLD authentication
@@ -25,14 +27,22 @@ README
     $ sudo apt install vim
     $ vim --version 
     # check version 
+
 5. install vim plugin by
     $ ln -s .vim/.vimrc .
     $ vim
     $ :PluginInstall
 
+
 6. Install YCM Clang
     $ cd .vim/bundle/YouCompleteMe
     $ ./install.py --clang-completer
+
+for ubuntun
+    $ sudo apt install -y cmake python3-dev build-essential
+    $ cd .vim/bundle/YouCompleteMe
+    $ python3 ./install.py --clang-completer
+
 
 7. checkout mediaflow
     $ sudo yum install git-svn

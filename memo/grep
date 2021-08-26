@@ -22,10 +22,15 @@ egrep   == grep -E
 fgrep   == grep -F
 
 
+ag
+---------------------------
 
 ag "string-to-search"
 
 ag "string-to-search" /path/to/directory
 ag -G ".+\.h" "string-to-search" /path/to/directory
+ag --depth=0 "string-to-searh"                              ## current folder only
+ag -w "word" /path/to/directory                             ## only match whole words
+
 
 ~/.agignore

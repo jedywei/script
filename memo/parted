@@ -1,0 +1,32 @@
+parted  command to create, resize and resuce disk paratitions
+-------------------------------------------------------------
+
+$ sudo lsblk
+
+$ sudo apt install -y parted
+
+enlarge partion
+
+$ sudo parted
+
+(parted) print
+...
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  2097kB  1049kB                     bios_grub
+ 2      2097kB  8592MB  8590MB  ext4
+
+(parted) resizepart
+Partition number? 2
+Warning: Partition /dev/sda2 is being used. Are you sure you want to continue?
+Yes/No? Yes
+End?  [8592MB]? 12288MB
+(parted) print
+...
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  2097kB  1049kB                     bios_grub
+ 2      2097kB  12.3GB  12.3GB  ext4
+
+(parted) quit
+
+$ sudo resize2fs /dev/sda2
+

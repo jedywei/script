@@ -44,8 +44,9 @@ if [ -f .bashrc ]; then
     fi
 fi
 
-cp script/.bashrc .bashrc
+cp script/.bashrc .
 cp script/.projsetup.sh .
+cp .vim/.vimrc .
 ln -sf script/.gitignore .gitignore
 ln -sf script/.gdbinit .gdbinit
 ln -sf script/.gitconfig .gitconfig

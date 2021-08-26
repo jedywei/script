@@ -3,7 +3,7 @@ apt cheat sheet
 
 $ apt-cache search <package>
 $ apt-get install <package>
-$ apt-get build-dep <package_name>
+$ apt-get build-dep <package_name>  // Configure build-dependencies for source packages
 $ apt-get remove <package>
 $ apt-get update                    // update package list 
 $ apt-get upgrade [-u]              
