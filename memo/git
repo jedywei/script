@@ -56,6 +56,13 @@ git svn clone https://172.20.2.44/svn/pacific/projects/VEGA3311/other/pxxc
 git svn rebase
 git svn dcommit
 
+git clone ssh://jedywei@mac/Users/jedywei/github/Ruth.git
+
+# APST PROJECT / M.2 SSD 
+$ svn log -l 4 https://batman.advantech.com.tw/svn/scm/ncg/apst-2000/trunk/mfg-test
+$ export REVISION=
+$ git svn clone -r$REVISION:HEAD https://batman.advantech.com.tw/svn/scm/ncg/apst-2000/trunk/mfg-test apst-2000_mfg
+
 
 # Create remote branch by local branch
 #-----------------------------------------------------------
@@ -117,7 +124,11 @@ git rebase <branch>
 
 Garbage collection
 -------------------
+git gc
 git gc --prune=now
+git gc --agressive --prune=all
+
+git count-objects -v
 
 
 track remote branch
