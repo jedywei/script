@@ -44,7 +44,8 @@ if [ -f .bashrc ]; then
     fi
 fi
 
-ln -sf script/.bashrc .bashrc
+cp script/.bashrc .bashrc
+cp script/.projsetup.sh .
 ln -sf script/.gitignore .gitignore
 ln -sf script/.gdbinit .gdbinit
 ln -sf script/.gitconfig .gitconfig
@@ -65,7 +66,7 @@ echo "sudo yum install ack"
 echo ""
 echo "Need to install 'ag' manually by command as"
 echo "sudo yum install the_silver_searcher"
-echo "sudo apt instlal -y silversearcher-ag"
+echo "sudo apt install -y silversearcher-ag"
 echo ""
 echo "Or Intall all components by following command"
 echo "sudo yum install -y epel-release ack the_silver_searcher"
