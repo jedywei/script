@@ -1,6 +1,12 @@
 README
 --------------------------------
+unbuntu-20 
+sudo su     # passwd root/root
+sudo visudo
+jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
+
 sudo apt install -y git subversion git-svn
+
 1. git script
     # OLD authentication
     $ git clone https://jedywei:71susislove@github.com/jedywei/script.git
@@ -34,8 +40,11 @@ sudo apt install -y git subversion git-svn
 
 
 6. Install YCM Clang
-    $ cd .vim/bundle/YouCompleteMe
-    $ ./install.py --clang-completer
+sudo apt install -y build-essential 
+sudo apt install -y cmake
+sudo apt install -y python3-dev
+    $ cd ~/.vim/bundle/YouCompleteMe
+    $ python3 ./install.py --clang-completer
 
 for ubuntun
     $ sudo apt install -y cmake python3-dev build-essential

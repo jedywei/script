@@ -28,6 +28,9 @@ $ apt-file search <filename_search_pattern>
 $ apt-cache pkgnames                        // the command 
 
 
+reinstall unbuntu-desktop
+$ sudo apt install -y ubuntu-gnome-desktop
+
 apt                                     yum
 ---------------------------             ----------------------------------
 apt-get update <package>                yum update <package>
@@ -37,6 +40,7 @@ apt show <package>                      yum info <package>
 dpkg-list                               rpm -qa 
 apt-cache dumpavail                     yum list available
 dpkg -l                                 yum list installed
+apt list --installed
 dpkg -s <package>                       yum info <packae>
 
 dpkg
