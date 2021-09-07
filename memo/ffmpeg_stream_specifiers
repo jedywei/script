@@ -1,0 +1,53 @@
+ffmpeg stream specifiers
+-------------------------
+
+Example
+---------------------
+-c:a:1      - audio codec
+-b:a:0      - audio bit rate
+
+
+<stream_index>
+    - -threads:1 4  would set the thread count for the second stream to 4
+    - stream_index is used as an additional stream specifier, then is selects stream number <stream_index> from
+      the matching stream.s
+
+<stream_type>[:additional_stream_specifier]
+    - v, V for video, v matches all vieo stream, 'V' only matches video stream which iare not attached pictures, 
+        video thumbnails, or cover arts.
+    - a for audio,
+    - d for data,
+    - t for attachments
+
+
+p:<program_id>[:additional_stream_specifier]
+    - program_id
+
+#<stream_id> or i:<stream_id>
+    - PID in MPEG-TS
+
+m:<key>[:value]
+    - matches streams with the metadata tag key haveing the specified value. If vlaue is not given, matches streams
+        that caontain the given tag with any value.
+
+u
+    - matches streams with usable configuration. 
+
+
+audio filter
+-filter:a:0
+-filter:a:1
+
+auido sampling frequency
+-ar:0 <sample rate>
+-ac:0 <channels>
+-c:a:0 <codec>
+
+
+video frame rate
+-r:2 <fps>
+-fpsmax:0 <fps>
+
+-s:0 <size>     - set frame size
+
+
