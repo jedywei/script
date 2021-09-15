@@ -56,6 +56,13 @@ git svn clone https://172.20.2.44/svn/pacific/projects/VEGA3311/other/pxxc
 git svn rebase
 git svn dcommit
 
+git clone ssh://jedywei@mac/Users/jedywei/github/Ruth.git
+
+# APST PROJECT / M.2 SSD 
+$ svn log -l 4 https://batman.advantech.com.tw/svn/scm/ncg/apst-2000/trunk/mfg-test
+$ export REVISION=
+$ git svn clone -r$REVISION:HEAD https://batman.advantech.com.tw/svn/scm/ncg/apst-2000/trunk/mfg-test apst-2000_mfg
+
 
 # Create remote branch by local branch
 #-----------------------------------------------------------
@@ -117,7 +124,11 @@ git rebase <branch>
 
 Garbage collection
 -------------------
+git gc
 git gc --prune=now
+git gc --agressive --prune=all
+
+git count-objects -v
 
 
 track remote branch
@@ -253,9 +264,12 @@ git check-ignore -v <path>
 
 # git tag
 #----------------------------------------------------------------------
-git tag big_cats 51d54ff
+git tag big_cats 51d54ff                                            // add a tag
 git tag big_cats 51d54ff -a -m "Big Cats are comming"
-git tag -d big_cats
+git tag -d big_cats                                                 // delete a tag
+    
+git push --tags
+git push origin <tag_name>
 
 
 # git <start point> <since> <branch> <commit> <remote_name> <tag>
@@ -280,6 +294,17 @@ git log --oneline master..git-svn
 # git rev-parse, reflog, git show <revison>
 
 
+GitHub Authentication
+----------------------------------------------------------------------------------
+github 
+    - Icon/Settings
+    - Developer settings
+    - Personal access tokens
+    - Generate new token
+    
+    url = https://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@github.com/jedywei/script.git
+
+
 Trouble Shooting
 ==================================================================================
 
@@ -292,7 +317,6 @@ issue fatal: in unpopulated submodule [angulartest]
 $ git rm --cached angulartest -f
 
 ISSUE: batman VS git-svn 
->>>>>>>>>>>>>>>>>>>
 running context: An error occurred during SSL communication ...
 $ openssl version -d
 OPENSSLDIR: "/etc/pki/tls"
@@ -310,11 +334,12 @@ system_default = ssl_default_sect
 # after .include .....
 MinProtocol = TLSv1
 CipherString = DEFAULT@SECLEVEL=1
-<<<<<<<<<<<<<<<<<<
+=======
+
+pull config
+-----------------
+  git config pull.rebase false  # merge (the default strategy)
+  git config pull.rebase true   # rebase
+  git config pull.ff only       # fast-forward only
 
 
-github 
-    - Icon/Settings
-    - Developer settings
-    - Personal access tokens
-    - Generate new token

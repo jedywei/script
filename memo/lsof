@@ -1,0 +1,31 @@
+lsof - list open files
+-----------------------
+
+lsof .vimrc.swp             # list processes and open files which open .vimrc.swp file
+
+lsof -u root                # list processes and open files which usr name is 'root'
+lsof -u root,jedywei
+
+lsof -c dropper             # list files which dropper opened
+
+lsof -u root -c java        # list by user root OR command java 
+lsof -a -u root -c java     # list by user root AND command java
+
+lsof -u ^root               # list by not user root 
+
+lsof -p 14662               # list by pid 14662
+
+lsof -i                     # list all network connection
+
+lsof -i tcp                 # list all tcp connection
+lsof -i udp                 # list all udp link
+
+lsof -i :80                 # list all port 80
+
+lsof -i :smtp
+lsof -i tcp:3642
+lsof -i :1-1024             # list all port 1-1024
+
+lsof -i tcp -s tcp:listen   # list all in LISTEN TCP 
+lsof -i tcp -s tcp:established  # list all established link
+

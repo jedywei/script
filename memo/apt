@@ -3,7 +3,7 @@ apt cheat sheet
 
 $ apt-cache search <package>
 $ apt-get install <package>
-$ apt-get build-dep <package_name>
+$ apt-get build-dep <package_name>  // Configure build-dependencies for source packages
 $ apt-get remove <package>
 $ apt-get update                    // update package list 
 $ apt-get upgrade [-u]              
@@ -26,3 +26,27 @@ $ apt-cache show <package_name>
 $ dpkg -L <packagee_name>                   // list files in package <package_name>
 $ apt-file search <filename_search_pattern>
 $ apt-cache pkgnames                        // the command 
+
+
+reinstall unbuntu-desktop
+$ sudo apt install -y ubuntu-gnome-desktop
+
+apt                                     yum
+---------------------------             ----------------------------------
+apt-get update <package>                yum update <package>
+apt-cache search <key work>             yum search <key word>
+apt-get install <package>               yum install <package>
+apt show <package>                      yum info <package>
+dpkg-list                               rpm -qa 
+apt-cache dumpavail                     yum list available
+dpkg -l                                 yum list installed
+apt list --installed
+dpkg -s <package>                       yum info <packae>
+
+dpkg
+-----
+$ dpkg -l libsvn-perl                   
+$ dpkg -L libsvn-perl
+$ dpkg -s libsvn-perl
+
+
