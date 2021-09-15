@@ -74,3 +74,9 @@ set core_pattern
 $ mkdir -p /tmp/cores
 $ chmod a+rwx /tmp/cores
 $ sudo sh -c 'echo "/tmp/cores/core.%e.%p" > /proc/sys/kernel/core_pattern'
+
+mkdir -p /tmp/cores; chmod a+rwx /tmp/cores; sudo sh -c 'echo "/tmp/cores/core.%e.%p" > /proc/sys/kernel/core_pattern'; ulimit -c unlimited
+
+sudo chmod og+rw /tmp/cores/*; ls -al /tmp/cores
+
+gdb qsvplay /tmp/cores/
