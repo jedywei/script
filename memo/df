@@ -18,3 +18,11 @@ dd whole centos disk
 ----------------------
 $ ssh jedywei@192.168.1.109 "sudo dd if=/dev/sda conv=sync,noerror bs=128K | gzip -1 -1" | pv | dd of=centos8.img.gz
 
+$ fdisk -l
+$ zerofree -v /dev/sdb2
+$ dd if=/dev/sdb bs=512 count=$((16781311+1)) conv=noerror,sync | pv -s $((16781311*512+512)) | gzip -c > apst-2000_mfg_2    0210413.gz
+
+
+df
+sudo lsblk -fm
+sudo parte -ls
