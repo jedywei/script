@@ -7,25 +7,19 @@ jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
 
 sudo apt install -y git subversion git-svn
 
+export gtoken=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
+
 1. git script
-    # OLD authentication
-    $ git clone https://jedywei:71susislove@github.com/jedywei/script.git
-    # NEW authentication
-    $ git clone https://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@github.com/jedywei/script.git
-    $ git clone https://jedywei@github.com/jedywei/script.git
+    $ git clone https://${gtoken}@github.com/jedywei/script.git
+
 2. git .vim
-    # OLD authentication
-    $ git clone https://jedywei:71susislove@github.com/jedywei/vim.git .vim
-    # NEW authentication
-    $ git clone https://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@github.com/jedywei/vim.git .vim
-    $ git clone https://jedywei@github.com/jedywei/vim.git .vim
+    $ git clone https://${gtoken}@github.com/jedywei/vim.git .vim
 
 3. install Vundle.vim by
     $ cd .vim
     $ ./gitvundle.sh
 
 4. remove .bashrc and run dotsetup.sh
-    $ rm .bashrc
     $ script/dotsetup.sh
 
 4-1. ubuntu install vim
@@ -34,15 +28,13 @@ sudo apt install -y git subversion git-svn
     # check version 
 
 5. install vim plugin by
-    $ ln -s .vim/.vimrc .
-    $ vim
+    $ vim .vimrc
     $ :PluginInstall
 
 
 6. Install YCM Clang
-sudo apt install -y build-essential 
-sudo apt install -y cmake
-sudo apt install -y python3-dev
+for centos
+    $ sudo yum install -y cmake
     $ cd ~/.vim/bundle/YouCompleteMe
     $ python3 ./install.py --clang-completer
 
@@ -52,13 +44,29 @@ for ubuntun
     $ python3 ./install.py --clang-completer
 
 
+CentOS7 cmake 2.8.11 issue
+    $ yum info cmake
+    Installed Packages
+    Name        : cmake
+    Arch        : x86_64
+    Version     : 2.8.12.2
+    $ sudo yum install -y wget
+    $ wget -c https://github.com/Kitware/CMake/releases/download/v3.17.0-rc3/cmake-3.17.0-rc3.tar.gz
+tar zxvf cmake-3.17.0-rc3.tar.gz
+    $ tar zxvf cmake-3.17.0-rc3.tar.gz
+    $ cd cmake-3.17.0-rc3/
+    $ ./bootstrap --prefix=/usr/local; make
+    $ sudo make install
+    $ cmake --version
+
+
 7. checkout mediaflow
     $ sudo yum install git-svn
     # sudo apt install subversion
     # sudo apt install git-svn
     $ git svn clone https://batman.advantech.com.tw/svn/scm/ncg/mediaflow/branches/Boreas
     user name jedy.wei
-    password  dykhec-3mezke-Gasjoq
+    password  iam1Rock
 
     $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
     $ svn co https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches video_clips
@@ -128,8 +136,8 @@ $ sudo yum install libcanberra-gtk2
 
 9. install gcc 7
     $ gcc --version 
-    $ sudo yum install centos-release-scl
-    $ sudo yum install devtoolset-7
+    $ sudo yum install -y centos-release-scl
+    $ sudo yum install -y devtoolset-7
     $ scl enable devtoolset-7 bash
 
     add 
@@ -137,11 +145,11 @@ $ sudo yum install libcanberra-gtk2
     to .bashrc
 
 10. install vim 8.1 from github
-    $ sudo yum install ncurses ncurses-devel
-    $ sudo yum install perl-devel python36-devel
+    $ sudo yum install -y ncurses ncurses-devel
+    $ sudo yum install -y perl-devel python36-devel
     $ git clone https://github.com/vim/vim.git 
     $ ./configure --disable-nls --enable-cscope --enable-gui=no --with-tlib=ncurses --without-x --with-features=huge --enable-multibyte --enable-rubyinterp --enable-perlinterp=dynamic --enable-luainterp --enable-python3interp=yes --with-python3-config-dir=$(python3-config --configdir) --prefix=/usr
-    $ vi src/auto/comfig.mk
+    $ vi src/auto/config.mk
     CFLAGS = ... -I/usr/lib64/perl5/CORE -Doff64_t=__off64_t
     ...
     LIBS= ... -pthread
