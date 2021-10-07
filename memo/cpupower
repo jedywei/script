@@ -1,0 +1,96 @@
+cpupower
+--------
+
+shows and sets processor power related values
+
+$ sudo cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+powersave
+
+$ sudo cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 
+
+$ sudo cat /sys/devices/system/cpu/intel_pstate/status 
+active
+
+$ sudo cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver 
+intel_pstate
+
+$ sudo cat /sys/devices/system/cpu/intel_pstate/no_turbo 
+0
+
+install cpupower
+----------------
+$ sudo apt install -y linux-tools-common linux-tools-5.11.0-37-generic
+
+$ dpkg -L linux-tools-common
+
+$ cpupower frequency-info
+analyzing CPU 0:
+  driver: intel_pstate
+  CPUs which run at the same hardware frequency: 0
+  CPUs which need to have their frequency coordinated by software: 0
+  maximum transition latency:  Cannot determine or is not supported.
+  hardware limits: 400 MHz - 4.70 GHz
+  available cpufreq governors: performance powersave
+  current policy: frequency should be within 400 MHz and 4.70 GHz.
+                  The governor "powersave" may decide which speed to use
+                  within this range.
+  current CPU frequency: Unable to call hardware
+  current CPU frequency: 1.35 GHz (asserted by call to kernel)
+  boost state support:
+    Supported: yes
+    Active: yes
+
+$ sudo cpupower frequency-set -g performance
+
+/sys/devices/system/cpu/cpu0/cpufreq
+-------------------------------------
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/base_frequency 
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq 
+$   cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq 
+
+
+
+glances
+--------
+$ sudo apt install -y glances
+$ glances
+press 'f' to watch more sensors
+
+i7z
+---
+$ sudo apt install -y i7z
+$ sudo i7z
+
+Cpu speed from cpuinfo 1689.00Mhz
+cpuinfo might be wrong if cpufreq is enabled. To guess correctly try estimating via tsc
+Linux's inbuilt cpu_khz code emulated now
+True Frequency (without accounting Turbo) 1689 MHz
+  CPU Multiplier 17x || Bus clock frequency (BCLK) 99.35 MHz
+
+Socket [0] - [physical cores=4, logical cores=8, max online cores ever=4]
+  TURBO ENABLED on 4 Cores, Hyper Threading ON
+  Max Frequency without considering Turbo 1788.35 MHz (99.35 x [18])
+  Max TURBO Multiplier (if Enabled) with 1/2/3/4 Cores is  47x/47x/41x/41x
+  Real Current Frequency 4244.87 MHz [99.35 x 42.73] (Max of below)
+        Core [core-id]  :Actual Freq (Mult.)      C0%   Halt(C1)%  C3 %   C6 %  Temp      VCore
+        Core 1 [0]:       3334.03 (33.56x)      1.84    96.4       0       0    48      1.0000
+        Core 2 [1]:       3305.97 (33.27x)      1.73    96.6       0       0    42      1.1775
+        Core 3 [2]:       4033.65 (40.60x)      21.7    48.1       0       0    44      0.6625
+        Core 4 [3]:       4244.87 (42.73x)      19.5    50.9       0       0    42      0.7250
+
+
+
+C0 = Processor running without halting
+C1 = Processor running with halts (States >C0 are power saver modes with cores idling)
+C3 = Cores running with PLL turned off and core cache turned off
+C6, C7 = Everything in C3 + core state saved to last level cache, C7 is deeper than C6
+  Above values in table are in percentage over the last 1 sec
+[core-id] refers to core-id number in /proc/cpuinfo
+'Garbage Values' message printed when garbage values are read
+  Ctrl+C to exit
+
+
+
+
