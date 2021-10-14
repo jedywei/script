@@ -16,13 +16,30 @@ jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
 
 sudo apt install -y git subversion git-svn
 
+
+0. ssh setup
+$ sudo vi /etc/hosts        // add to mac's hosts
+192.168.0.xxx   mfc20
+
+nopwd.sh or ssh-copy-id 
+------------------------
+$ ~/script/nowpwd.sh jedywei@mfc20
+or
+$ ssh-copy-id jedywei@mfc20
+
+
+Copy mac ~/.ssh/id_rsa, ~/ssh/id_rsa.pub to remote site
+----------------------------------------------------------
+$ scp ~/.ssh/id_rsa jedywei@mfc20:~/.ssh
+$ scp ~/.ssh/id_rsa.pub jedywei@mfc20:~/.ssh
+
+# 以下 steps 不需要執行
 $ ssh-keygen -t rsa -b 4096 -C "jedywei@github.com"
     Enter passphrase: <ENTER>
     Enter same passphrase: <ENTER>
 $ eval $(ssh-agent -s)
 $ ssh-add -K ~/.ssh/id_rsa
 PIN: 71susislove
-
 
 1. git script
     $ git clone ssh://git@github.com/jedywei/script.git
@@ -85,6 +102,15 @@ tar zxvf cmake-3.17.0-rc3.tar.gz
 
     $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
     $ svn co https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches video_clips
+
+
+    add /etc/hosts with
+    192.168.0.201   mac
+    $ cd ~; mkdir mediaflow; cd mediaflow
+    $ git clone ssh://jedywei@mac/Users/jedywei/github/Ruth.git
+
+    $ vi ~/.projsetup.sh
+
 
 issue:Error running context: An error occurred during SSL communication  ...
 # CentOS 

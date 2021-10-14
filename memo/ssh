@@ -27,4 +27,49 @@ ssh -vT jedywei@github.com
 ssh -vT git@github.com
  
   
+原理
+-----
+ssh 之所以能保證安全，原因在于它採用了公鑰加密
+1. remote host 收到用戶的登錄請求， 把自己的公鑰發給用戶
+2. 用戶使用這個公鑰，將登錄密碼加密後，發送回來
+3. remote host 用自己的私鑰，解密登錄密碼，如果密碼正確，就同意用戶登錄
+
+中間人攻擊 (Man-in-the-middle attach)
+--------------------------------------
+1。 冒充 remote host, 將偽照的公鑰發給用戶
+2。 因為 ssh 協議沒證書中心 (CA) 公證
+
+口令登錄
+--------
+1。 如果你是第一次登錄 remote host, 系統將會出現下列提示
+$ ssh user@remote-host
+The authenticity of host 'host (12.18.49.21)' can't be estiblished
+
+RSA key fingerprint is 
+98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.
+
+Are you sure you want to continue connecting (yes/no)?
+
+2。這段話的意思是，無法確認 host 主機的真實性，只知道它的公鑰指紋，問你還想繼續連接嗎？
+3。使用者要自行查證公鑰指紋
+4。加入 known hosts (~/.ssh/known_hosts) 
+Warning: Permanently added 'host, 12.18.49.21' (RSA) to the list of known hosts.
+
+然後會要求輸入密碼
+Password: <enter password>
+
+公鑰登錄 (無密碼登錄)
+----------------------
+1。 使用密碼登錄，每次都必須輪入密碼，非常麻煩。 ssh 還提供了公鑰登錄，可以省去輸入密碼的步驟
+2。 將自己的公鑰儲存在 remote host 的主機上 (~/.ssh/authorized_keys)
+    登錄請求時， remote-host 會向用戶發送一段隨機文字
+    用戶用自己的私鑰加密(隨機文字) 再發給 remote-host
+    remote-host 用事先儲存的公鑰解密，如果成功，就允許登錄
+    (注意，這期間並沒有用到 登錄密碼)
+
+$ ssh-keygen
+$ ssh-copy-id user@remote-host
+
+
+
 
