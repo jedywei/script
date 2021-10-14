@@ -1,6 +1,15 @@
 README
 --------------------------------
-unbuntu-20 
+ubuntu-20 partition
+
+    /dev/sda1   ext2    /boot       512MB
+    /dev/sda2   swap                16GB
+    /dev/sda3   ext4    /           64GB
+
+    Device for booting = /dev/sda1
+
+
+ubuntu-20 
 sudo su     # passwd root/root
 sudo visudo
 jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
