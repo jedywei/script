@@ -1,0 +1,30 @@
+ssh
+----
+ 
+ssh key
+ssh key generation
+ssh-agent
+    - a background process manage ssh keys, use ssh-add command to add my SSH key to the agent.
+
+~/.ssh/id_rsa
+~/.ssh/id_rsa.pub
+ 
+1. gen jedywei@github.com key
+$ ssh-keygen -t rsa -b 4096 -C "jedywei@github.com"
+
+2. Start the ssh-agent in the back ground
+$ eval "$(ss-agent -s)"
+  
+3. Add id_rsa to ssh-agent for management
+$ ssh-add -K ~/.ssh/id_rsa
+
+
+
+debugging
+---------
+ssh -vT jedywei@github.com
+ 
+ssh -vT git@github.com
+ 
+  
+
