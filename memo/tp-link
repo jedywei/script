@@ -1,5 +1,6 @@
 tp-link 
 -------
+WAN IP 172.17.4.44
 192.168.0.1 
 jedywei
 71susislove
@@ -9,4 +10,11 @@ jedywei
 192.168.0.220 DE:80:1F:62:D6:A9         jedysiphone
 192.168.0.208 80:E6:50:21:AC:78         mac's vm
 
-192.168.0.102 7C:2A:DB:04:FF:6C         Ukas Phone
+
+port forwording service for SSH
+--------------------------------
+ssh -> ap -> mac
+
+ap WAN Port
+mac LAN IP address / LAN Port 
+protocol 

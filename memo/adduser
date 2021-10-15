@@ -1,0 +1,20 @@
+adduser
+-------
+
+$ adduser jedywei
+$ ls /home
+
+$ groupadd video
+$ groups
+
+$ sudo usermod -a -G video jedywei
+
+# NOTE
+# Primary and supplementary groups for a process are normally inherited from its parent and are usually 
+# unchanged since login. This means that if you change the group database after logging in, groups will 
+# not reflect your changes within your existing login session. Running `groups’ with a list of users 
+# causes the user and group database to be consulted afresh, and so will give a different result.
+
+$ getent group jedywei
+$ getent passwd jedywei
+
