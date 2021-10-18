@@ -1,0 +1,9 @@
+PyQt5
+-----
+- python3.7 above
+- PyQt5 
+- Qt Designer
+
+Qt Designer -> .ui
+pyuci5 -x example.ui -o example_ui.py
+
