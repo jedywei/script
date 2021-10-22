@@ -1,0 +1,39 @@
+ffmp command example
+---------------------
+
+components
+----------
+ffmpeg -filters | grep qsv
+ffmpeg -decoders | grep qsv
+ffmpeg -encoders | grep qsv
+ffmpeg -codecs | grep qsv
+ffmpeg -hwaccels 
+ffmpeg -pix_fmts | grep rgb
+ffmpeg -formats | grep ts
+ffmpeg -devices
+ffmpeg -protocols
+
+NOTE:
+    grep -A1    // after matching 1 additional line
+    grep -B1    // before matching 1 additional line
+
+
+individual componment helps
+----------------------------
+ffmpeg -h filter=vpp_qsv
+ffmpeg -h filter=hwmap
+ffmpeg -h filter=format
+
+qsv decode and sdl output
+--------------------------
+ffmpeg -re -hwaccel qsv -an -c:v h264_qsv -i ~/video_clips/bbb_sunflower_1080p_60fps_normal.mp4 -vf vpp_qsv=format=rgb32,hwdownload,format=rgb32  -f sdl2 "Video"
+ffmpeg -re -hwaccel qsv -an -c:v hevc_qsv -i ~/video_clips/bbb_265_2160p60_24M_timecode-422-10.ts -vf vpp_qsv=format=rgb32,hwdownload,format=rgb32  -f sdl2 "Video"
+
+
+vappi decode and sdl output
+---------------------------
+ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi -i ~/video_clips/bbb_265_2160p60_24M_timecode-422-10.ts -vf scale_vaapi=format=rgb32,hwdownload,format=rgb32 -f sdl2 "video"
+
+ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi -i ~/video_clips/bbb_265_2160p60_24M_timecode-422-10.ts -vf scale_vaapi=format=nv12,hwdownload,format=rgb32 -f sdl2 "video"
+
+

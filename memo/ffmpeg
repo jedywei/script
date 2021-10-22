@@ -2,6 +2,7 @@ ffmpeg relatve help
 
 ffmpeg          this help
 
+ffmp            ffmpeg command line example
 ffmpeg_devel    install ffmpeg devel by yum command
 ffmpeg_list     command option to list codec,muxer,protocol ...
 ffmpeg_map      ffmpeg stream specifier usage
