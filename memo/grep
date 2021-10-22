@@ -12,6 +12,10 @@ grep -w Ubuntu /etc/os-release          // only those lines containing matches t
 grep -r ubuntu /etc/                    // recursive under /etc
 grep -r --include="*.conf" ubuntu /etc/ // only file name is *.conf 
 
+-An     after line
+-Bn     before line
+-Cn     line after and before
+
 grep Matcher Selection 
 -E      ERE regex, interpret PATTERN as ERE pattern
 -F      Fixed string, interpret PATTERN as a list of fixed strings, separated by newlines.
