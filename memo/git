@@ -343,3 +343,7 @@ pull config
   git config pull.ff only       # fast-forward only
 
 
+get a directory commit
+----------------------
+$ git log --oneline -- ffmpeg
+$ git adog -- ffmpeg
