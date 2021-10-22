@@ -1,0 +1,65 @@
+python system 
+--------------
+
+path to load module
+--------------------
+1. PYTHONPATH environment variable
+2. sys.path
+
+import sys
+for p in sys.path: print(p)
+
+currdir; $PYTHONPATH;  <site-package>
+
+
+python debugging
+------------------
+print("qtgui")
+print(__file__)
+print(os.path.basename(__file__))
+print("> %s:%d" % (os.path.basename(__file__), sys._getframe.f_back.f_lineno))
+
+
+try 
+    from . import ui
+    from . import resources
+except ImportError:
+    traceback.print_exc()
+
+
+QtWebKit got deprecated upstream in Qt5.5 and removed in 5.6
+You man want to switch to PyQt5.QtWebEngineWidgets
+
+
+Site-packages is ubiquitous
+---------------------------
+1. site-package is a folder to store the installed python package
+2. every python version has its own site-package. 
+    python3.4, python3.6 has different site-packages folder
+    python3.6.1, python3.6.2 has same site-packages folder
+
+3. every user is able to have its own site-packages folder
+    ~/<somewhere>
+
+4. python and some tools may have their own site-packages
+
+
+Site-packages path
+-------------------
+$ python
+Python 2.7.16
+>>> import sys
+>>> sys.path
+['', '/System/Library/Frameworks/Python.framework/Versiions/2.7/lib/python27.zip','/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7', '/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin', '/System/Library/Framworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac', '/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages', '.../libtk', '../lib-old', '.../lib-dynload', '/Library/Python/2.7/site-packages', '.../2.7/Extras/lib/python', /.../2.7/Extras/lib/python/PyObjC']
+
+$python3
+Python 3.9.6
+>>> import sys
+>>> sys.path
+['', '/usr/local/Cellar/python@3.9/3.9.6/Frameworks/Python.framework/Versions/3.9/lib/python39.zip', '/usr/local/Cellar/python@3.9/3.9.6/Frameworks/Python.framework/Versions/3.9/lib/python3.9', '/usr/local/Cellar/python@3.9/3.9.6/Frameworks/Python.framework/Versions/3.9/lib/python3.9/lib-dynload', '/usr/local/lib/python3.9/site-packages']
+
+$python -m site
+$python3 -m site
+
+
+

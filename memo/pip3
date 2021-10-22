@@ -1,0 +1,52 @@
+pip3 
+------
+pip is a package-management system written in Python used to install and manage software packages
+
+$pip3 install <package>
+# install packages from 
+#   = PyPl (and other indexes) using requirement specifies
+#   = VCS project urls
+#   = Local project directories
+#   = Local or remote source archives
+#   
+#   "requirements files"
+
+$pip3 install quux
+$pip3 install SomePackage==1.0.4
+$pip3 install SomePackage>=1.0.4
+$pip3 install --upgrade SomePackage
+
+$pip3 unistall <package>
+
+$pip3 list
+
+$pip3 list --outdated       // -o
+$pip3 list --uptodate       // -u
+
+$pip3 list --format=freeze
+
+$pip3 show PyQt5
+$pip3 show -v PyQt5         // --verbose
+
+$pip3 check PyQt5           // verify installed packages have compatible dependencies
+
+$pip3 download SomePackage  // download a package and all of its dependencies
+
+$pip3 download \
+    --only-binary=:all: \
+    --platform macosx-10_10_x86_64 \
+    --python-version 27 \
+    --implementation cp \
+    SomePackage
+
+
+$pip3 wheel                 // ?? setuptools
+
+$pip3 hash                  // Compute a hash of a local package archive
+
+$pip3 search PyQt5
+
+$pip3 cache dir
+$pip3 cache list
+$pip3 cache info
+

@@ -1,0 +1,9 @@
+py termermology
+---------------
+
+PyPl
+    - Python Package Index, the offial repository for third-party Python software, contains over 329,000 packages with a wide rage of functionality.
+
+PyPy
+    - is a fast, compliant interpreter of Python2.7 and 3.6. The just-in-time compiler brings a significant speed improvement over CPython but several libraries written in C cannot be used with it. 
+
