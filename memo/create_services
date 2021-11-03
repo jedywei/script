@@ -1,0 +1,36 @@
+create systemctl services
+-------------------------
+
+$ cd /etc/systemd/system
+$ create a file named "your-service.service" and included the following:
+----------------------------------
+[Unit]
+Description=<description about this service>
+
+[Service]
+User=<user e.g. root>
+WorkingDirectory=<directory_of_script e.g. /root>
+ExecStart=<script which needs to be executed>
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+-----------------------------------
+
+For Python specific projects which include virtual environment:
+-----------------------------------
+[Unit]
+Description=<project description>
+
+[Service]
+User=<user e.g. root>
+WorkingDirectory=<path to your project directory containing your python script>
+ExecStart=/home/user/.virtualenv/bin/python main.py
+Restart=always
+# replace /home/user/.virtualenv/bin/python with your virtualenv and main.py with your script
+
+[Install]
+WantedBy=multi-user.target
+-----------------------------------
+
+
