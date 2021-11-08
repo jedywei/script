@@ -1,0 +1,54 @@
+pulseaudio
+----------
+
+/etc/pulse/client.conf
+/etc/pulse/daemon.conf
+/etc/pulse/default.ps
+/etc/pulse/system.pa
+
+~/.config/pulse
+
+systemctl --user status pulseaudio
+systemctl --user status pulseaudio.socket
+
+/usr/lib/systemd/user/pulseaudio.service
+/usr/lib/systemd/user/pulseaudio.socket
+
+
+Commands
+---------
+
+ps -ef | grep pulseaudio
+pulseaudio -h
+pulseaudio --kill           # kill a running daemon
+
+
+pactl info
+pactl list short sinks
+pacmd list-cards
+
+pacmd set-card-profile 0 output:hdmi-stereo
+pacmd info
+pacmd stat
+
+pacmd set-card-profile 0 output:analog-stereo
+
+
+Solution to qsvplay daemon confilt with pulseaudio
+--------------------------------------------------
+pulseaudio will make hw=0,3 busy while running qsvplay daemon
+following make pulseaudio is part of alsa instead to overcontrolling the whole ALSA system, by 
+$ sudo vi /etc/pulse/default.pa
+# change load-module module-alsa-sink to
+# load-module module-alsa-sink device=dmix
+
+reboot
+$ pactil info
+...
+Default Sink: alsa_output.dmix
+Default Source: alsa_output.dmix.monitor
+...
+
+
+see also
+alsa

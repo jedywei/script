@@ -1,8 +1,10 @@
 create systemctl services
 -------------------------
 
-$ cd /etc/systemd/system
-$ create a file named "your-service.service" and included the following:
+1. system directory
+    $ cd /etc/systemd/system
+
+2 create a file named "your-service.service" and included the following:
 ----------------------------------
 [Unit]
 Description=<description about this service>
@@ -32,5 +34,49 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 -----------------------------------
+
+Or 
+-----------------------------------
+[Unit]
+Description=<project description>
+
+[Service]
+User=<user e.g. root>
+WorkingDirectory=<path to your project directory>
+ExecStart=/bin/bash -c 'cd /home/ubuntu/project/ && source venv/bin/activate && python test.py'
+
+[Install]
+WantedBy=multi-user.target
+-----------------------------------
+
+3. Reload the service files to include the new service.
+    $ sudo systemctl daemon-reload
+
+4. Start your service
+    $ sudo systemctl start your-service.service
+
+5. To check the status of your service
+    $ sudo sytemctl status example.service
+
+6. To enable your servie on every reboot
+    $ sudo systemctl enable example.service
+
+7. To disable your service on evvery reboot
+    $ sudo systemctl enable example.service
+
+
+Type=
+    simple
+    forking
+    oneshot     -> mfp_init.service 
+    dbus        -> mfp_demo.service
+    ontify
+    idle
+
+
+See Also
+man systemd.service     -> https://manpages.ubuntu.com/manpages/xenial/en/man5/systemd.service.5.html
+man systemd.unit
+
 
 

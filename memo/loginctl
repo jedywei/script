@@ -1,0 +1,7 @@
+loginctl
+---------
+
+loginctl enable-linger jedywei
+loginctl disable-linger jedywei
+logincal 
+

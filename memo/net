@@ -62,3 +62,5 @@ network:
                   addresses: [ "192.168.1.99/24" ]
 
 
+$ sudo netplan try
+$ sudo netplan apply

@@ -1,5 +1,9 @@
 systemd and service manager
 
+/etc/systemd/sysetm
+/etc/systemd/user
+/etc/systemd/network
+
 systemctl [options] comamnd [name...]
 
 systemctl -a        list all units
@@ -95,3 +99,9 @@ $ systemctl set-default multi-user.target
 $ systemctl isolate multi-user.target
 
 
+systemd-analyze plot > ss.svg
+
+
+see also
+journalctl
+systemd-analyze

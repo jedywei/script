@@ -1,0 +1,9 @@
+journalctl
+-----------
+
+journalctl -u mfp_demo
+journalctl --user -u mfp_demo_user
+
+sudo journalctl --rotate
+sudo journalctl --flush
+sudo journalctl --vacuum-time=1s
