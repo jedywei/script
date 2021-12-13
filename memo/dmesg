@@ -19,3 +19,7 @@ dmesg -c
 
 watch "dmesg | tail -20"
 
+/var/log/boot.log
+/var/log/dmesg
+
+journalctl -b

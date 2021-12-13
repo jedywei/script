@@ -1,0 +1,64 @@
+intel tools
+------------
+intel-gpu-tools / igt-gpu-tools 1.25
+githup: intel-gpu-tools     https://github.com/mkuoppal/intel-gpu-tools
+
+intel_gpu_top           - Display a top-like summary of Intel GPU usage
+intel_gpu_abrt
+intel_gpu_frequency
+intel_gpu_time
+
+intel_reg               - Intel graphics register multitool
+intel_reg_checker
+
+intel_bios_dumper       - Save the Intel video BIOS contents to a file
+intel_audio_dump        - Dump the Intel GPU registers for HDMI audio setup
+intel_framebuffer_dump
+
+intel_gtt               - Dump the contents of an Intel GPU's GTT
+intel_infoframes        - View and change HDMI InfoFrames
+intel_lid               - Poll the values of different reports about laptop lid state
+intel_panel_fitter      - Change the panel fitter settings
+intel_stepping          - Display the stepping information for an Intel GPU
+
+intel_upload_blit_large - Microbenchmark of Intel GPU performance
+intel_upload_blit_large_gtt - Microbenchmark of Intel GPU performance
+intel_upload_blit_large_map - Microbenchmark of Intel GPU performance
+intel_upload_blit_small - Microbenchmark of Intel GPU performance
+
+
+intel_error_decode      - Decode an Intel GPU dump automatically captured by the kernel at the time of an error
+intel_vbt_decode        - Intel Video BIOS Table parser
+intel_opregion_decode
+intel_dump_decode
+intel_firmware_decode
+
+intel_dp_compliance
+amd_hdmi_compliance
+
+intel_guc_logger
+intel_gem_info
+intel_gvtg_test
+intel_perf_counters
+intel-gen4asm           - is a program to compile an assembly language for the Intel 965 Express Chipset.
+intel-gen4disasm
+
+intel_residency
+intel_watermark
+
+intel-gpu-overlay
+intel_backlight
+intel_l3_parity
+
+intel_display_crc
+intel_display_poller
+intel_forcewaked
+
+i915-perf-configs
+i915-perf-control
+i915-perf-reader
+i915-perf-recorder  
+
+igt_stats
+
+intel-virtual-output    - Utility for connecting the Integrated Intel GPU to discrete outputs

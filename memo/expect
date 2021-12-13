@@ -1,0 +1,86 @@
+expect
+------
+
+send 
+expect
+spawn
+interact
+
+#!/usr/bin/expect
+
+command
+-------
+set timeout 30
+set host "101.200.241.109"
+set username "root"
+set password "123456"
+
+spawn bash $username@$host
+expect "*password*" {send "$password\r"}
+interact
+
+
+command
+--------
+spawn ssh [email protected]$ip
+
+mode-action
+------------
+expect {
+    "password" {
+        send "$password\r"
+        exp_continue
+    }
+    eof {
+        send "eof"
+    }
+}
+
+expect "hi" { send "You said hi\n" } "hehe"{ send “Hehe yourself\n" } "bye"{ send “Good bye\n" }
+
+expect {
+    "hi"{ send "You said hi\n"}
+    "hehe"{ send "Hehe yourself\n"}
+    "bye"{ send “Good bye\n"}
+}
+
+expect {
+    "yes/no" { send"yes\n"; exp_continue }
+    "password" { send“magedu\n" }
+}
+
+arguments
+---------
+if { $argc < 3 } {
+    puts "Usage: cmd <host> <username> <password>"
+    exit 1
+}
+
+set ip [lindex $argv 0]
+set user [lindex $argv 1]
+set password [lindex $argv 2]
+
+
+advanced
+---------
+# shell script invoke expect script
+#!/bin/bash
+ip=$1
+user=$2
+password=$3
+
+# expect script start from here
+expect <<EOF
+set timeout 10
+spawn [email protected]$ip
+expect {
+"yes/no" { send"yes\n";exp_continue}
+"password" { send"$password\n" }
+}
+expect "]#" { send"useraddhehe\n" }
+expect "]#" { send "echomagedu|passwd--stdinhehe\n" }
+expect "]#" { send"exit\n" }
+expect eof
+EOF
+
+

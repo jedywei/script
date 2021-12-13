@@ -1,5 +1,12 @@
 udev-net        - use udev system to fix up net device name
 
+udevadm
+--------
+udevadm monitor --kernel --property
+udevadm info /sys/class/net/lo
+
+
+
 1. list all network infterface DEVICEs wheterh they're activated or not
 $ls -al /sys/class/net
 
