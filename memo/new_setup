@@ -9,6 +9,9 @@ ubuntu-20 partition
     Device for booting = /dev/sda1
 
 
+
+git svn
+---------------------------------
 ubuntu-20 
 sudo su     # passwd root/root
 sudo visudo
@@ -17,15 +20,22 @@ jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
 sudo apt install -y git subversion git-svn
 
 
+default ssh setting
+----------------------------------
+sudo apt install -y ssh
+
 0. ssh setup
 $ sudo vi /etc/hosts        // add to mac's hosts
 192.168.0.xxx   mfc20
 
+172.17.4.19     mac         // it's AP's ip address
+192.168.0.201   mac         // it's local ip adddress
+
 nopwd.sh or ssh-copy-id 
 ------------------------
-$ ~/script/nowpwd.sh jedywei@mfc20
+$ ssh-copy-id jedywei@mfc20                 // it's better
 or
-$ ssh-copy-id jedywei@mfc20
+$ ~/script/nowpwd.sh jedywei@mfc20
 
 
 Copy mac ~/.ssh/id_rsa, ~/ssh/id_rsa.pub to remote site

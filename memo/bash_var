@@ -23,6 +23,21 @@ cp $1 $2
 
 echo Details for $2
 ls -lh $2
+
+
+assignment
+----------
+a=124
+let a=16+5
+for a in 7 8 9 11; do ...
+read a
+b=$a
+a=$(ls -l)
+R=$(cat /etc/redha-release)
+arch=$(uname -m)
+[ -z $var ] && var="default"
+
+
 ------------------
 
 [Other Special Variables]

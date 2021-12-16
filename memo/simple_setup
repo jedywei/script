@@ -1,0 +1,136 @@
+Simple Setup
+------------
+1. update apt database and full-upgrade
+--------------------------------------------------------------------------
+$ sudo apt update
+$ sudo apt list available-upgrade
+$ sudo apt full-upgrade
+
+2. ssh install / also git subversion git-svn
+--------------------------------------------------------------------------
+$ sudo apt install -y ssh
+$ sudo apt install -y git subversion git-svn silversearcher-ag
+
+
+// on mac
+$ sudo vi /etc/hosts
+192.168.0.107   p085
+
+$ ssh-copy-id jedywei@p085
+
+$ scp ~/.ssh/id_rsa jedywei@p085:~/.ssh            // for github without password
+$ scp ~/.ssh/id_rsa.pub jedywei@p085:~/.ssh
+
+// on p085
+$ sudo vi /etc/hosts
+172.17.4.19     mac
+# 192.168.0.201 mac
+
+3. sudo without password
+--------------------------------------------------------------------------
+$ sudo visudo
+jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
+
+4. jedy's github environment
+--------------------------------------------------------------------------
+$ git clone ssh://git@github.com/jedywei/script.git
+$ git clone ssh://git@github.com/jedywei/vim.git .vim
+$ cd .vim; ./gitvundle.sh; cd -
+$ ~/script/dotsetup.sh
+        
+5. vim check version and YCM
+$ sudo apt install -y vim
+$ vim --version 
+$ vim .vimrc
+# remember to unmark Plugin 'Valloric/YouCompleteMe' and reload .vimrc again
+:PluginInstall
+
+$ sudo apt install -y cmake python3-dev build-essential
+$ cd ~/.vim/bundle/YouCompleteMe
+$ python3 ./install.py --clang-completer
+$ cd -
+
+5. Ruth project
+--------------------------------------------------------------------------
+$ cd ~; mkdir mediaflow; cd mediaflow
+$ git clone ssh://jedywei@mac/Users/jedywei/github/Ruth.git
+$ cd ~; cp script/.projsetup.sh .
+$ vi ~/.projsetup.sh
+
+6. locale
+--------------------------------------------------------------------------
+$ locale -a
+$ sudo vi /etc/default/locale
+LC_ALL="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+LANG="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+
+
+7. resetup netplan
+--------------------------------------------------------------------------
+$ ip addr
+
+$ sudo netplan generate
+$ sudo vi /etc/netplan/01-network-manager-all.yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+      eth0:
+          match:
+              macaddress: "74:fe:48:58:a7:4e"
+          set-name: eth0
+          dhcp4: false
+          addresses: [ "192.168.1.99/24" ]
+      eth1:
+          match:
+              macaddress: "74:fe:48:58:a7:4f"
+          set-name: eth1
+          dhcp4: true
+
+
+$ sudo netplan try
+$ sudo netplan apply
+
+$ sudo reboot; ssh p085        // reboot p085 ssh, and ssh again
+
+8. build up Ruth project
+--------------------------------------------------------------------------
+$ cd ~/mediaflow/Ruth
+$ ./install_all_ubuntu20_packages.sh
+$ make
+
+
+9. enter multi-user.target
+--------------------------------------------------------------------------
+$ sudo systemctl set-default multi-user.target
+$ sudo systemctl isolate multi-user.target
+
+
+10. svn-git test
+--------------------------------------------------------------------------
+$ openssl version -d
+OPENSSLDIR: "/usr/lib/ssl"
+
+$ sudo vi /usr/lib/ssl/openssl.cnf
+# add to the head of openss.cnf -------------------------------
+# System default
+openssl_conf = default_conf    
+
+# add to the end of openssl.cnf ------------------------------- 
+[ default_conf ]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+MinProtocol = TLSv1
+CipherString = DEFAULT:@SECLEVEL=1
+#---------------------------------------------------------------
+
+$ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
+// username jedy.wei
+// password iam1Rock
+

@@ -1,0 +1,46 @@
+alsa
+----
+Advaneced Linux Sound Architecture
+-> https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture
+
+
+alsa utils
+-----------
+alsactl
+amixer / alsamixer
+aconnect / aseqview
+aplay
+arecord
+speaker-test
+
+aplay
+-----
+aplay -l
+aplay -L
+
+speaker-test -D hw:0,3 -c 2
+
+
+hda-intel
+----------
+$ lspci | grep Audio
+00:1f.3 Audio device: Intel Corporation Device a0c8 (rev 20)
+
+
+modprobe snd_hda_intel
+modinfo snd_hda_intel
+
+service
+-------
+systemctl status alsa-restore
+systemctl status alsa-state
+
+proc
+----
+/proc/asound/version
+/proc/asound/card0
+/proc/asound/cards
+/proc/asound/devices
+
+
+ls /proc/asound/card0

@@ -13,6 +13,19 @@ NETMASK=255.255.255.0
 BROADCAST=10.0.0.255
 GATEWAY=10.0.0.1
 
+
+systemd-networkd.service
+------------------------
+sudo systemctl list-units target=service
+man 5 systemd.network
+sudo vi /etc/systemd/network/50-dhcp.network 
+[Match]
+Name=enp9s0
+
+[Network]
+DHCP=yes
+
+
 ubuntun 18.04
 --------------
 sudo vi /etc/network/interfaces

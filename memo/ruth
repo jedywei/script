@@ -1,0 +1,14 @@
+ruth project environment setting up
+------------------------------------
+1. dinningroom/deploy
+$ ./deploy_etc.sh
+$ ./mfp_usermode.sh
+
+
+2. copy video_clips
+  cd ~; mkdir video_clips
+// on mac
+$ rsync -r -P -e ssh ~/work/video_clips p085:~/video_clips
+// $ scp -r mac:~/work/video_clips video_clips
+
+2. 
