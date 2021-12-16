@@ -4,7 +4,14 @@ perf            - performance analysis tools for Linux
 pidstat         - report statistics for Linux tasks
 
 
+[valgrind]
 valgrind --tool=memory --leak-check=full <command and command arguement>
+
+# on ubuntu
+valgrind --tool=memcheck --leak-check=full <command and command arguement>
+
+# for example
+sudo valgrind --tool=memcheck --leak-check=full $(which x12)
 
 [perf]
 
