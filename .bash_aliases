@@ -137,6 +137,20 @@ hh() {
 }
 
 
+spec() {
+    if [ $# == 0]; then
+        echo -e "\x1B[38;5;220m"
+        cat ~/script/spec/contents
+        echo -e "\x1B[0m"
+    else
+        echo -e "\x1B[38;5;255m"
+        cat ~/script/spec/$1
+        echo -e "\x1B[0m"
+    fi
+}
+   
+
+
 ##
 ## Main
 ##

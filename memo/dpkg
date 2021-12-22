@@ -10,7 +10,7 @@ The .deb format is the Debian binary package file format. It is understood since
 
 environment
 ------------
-$ mkdir -p ~/build-deb/try/DEBIAN
+$ mkdir -p ~/build-deb/try/debian
 $ cd ~/build-deb
 $ vi try/DEBIAN/control
 Package: try
@@ -43,7 +43,36 @@ $ dpkg --contents try.deb   // -c
 
 test 
 ----
-$ sudo dpkg -i try.deb      // --install
-$ dpkg -l try               // --list
-$ dpkg -s try               // --status
-$ dpkg -L try               // --listfiles 
+$ dpkg -b vegahd_0.9-1_amd64        // --build
+$ dpkg -I vegahd_0.9-1_amd64.deb    // --info
+$ dpkg -f vegahd_0.9-1_amd64.deb    // --field
+$ dpkg -c vegahd_0.9-1_amd64.deb    // --contents
+
+$ sudo dpkg -i vegahd_0.9-1_amd64.deb          // --install
+$ sudo apt -f install 
+$ dpkg -l vegahd                    // --list
+$ dpkg -s vegahd                    // --status
+$ dpkg -L vegahd                    // --listfiles 
+$ sudo dpkg -r vegahd               // --remove
+
+
+$ sudo apt install ./vegahd_0.9-1_amd64.deb
+$ sudo apt install --reinstall ./vegahd_0.9-1_amd64.deb
+
+fixup
+-----
+$ sudo dpkg --configure -a
+$ sudo apt -f install
+$ ls /var/lib/dpkg/info/vegahd.postinst 
+$ ls /var/lib/dpkg/info/vegahd.postrm
+$ sudo rm /var/lib/dpkg/info/vegahd.post{inst,rm}
+
+packages
+- build-essential
+- devscripts            // sudo apt install devscripts
+- dh_make               // sudo apt install dh-make
+- bzr-builddeb          // sudo apt install bzr-builddeb
+
+.dsc    - source package
+.deb    - binary package
+

@@ -1,0 +1,82 @@
+HDR Video
+-----------
+#video#hdr#hdr10#hlg#dobly
+
+HDR - High dynamic range
+
+
+Formats
+-------
+HDR10
+    - CTA (Consumer Technology Association) / CES
+    - 2015
+    - Free Royality
+    - PQ
+    - 10 bit
+    - Peak Luminance / 10,000 nits / Contents 1,000~4,000 nits
+    - Color primaries / Rec.2020 / Contents DCI-P3
+    - Static Metadata
+    - Backward compatibility : None
+    - PQ10 format is same as HDR10 without the metadata
+
+
+Dolby Vision
+    - Dolby
+    - 2014
+    - Proprietary
+    - PQ (in most profilies) / SDR (in profiles 4, 8.2, 9) / HLG (in profile 8.4)
+    - 10 bit or 12 bit
+    - Peak Luminance / 10,000 nits / Cntents at least 1,000, 4,000 nits common
+    - Color primaries / Rec.2020 / Contents as least DCI-P3
+    - Static Metadata / Dynamic (Automaticaly generated, Manually generated trims)
+    - Dependent on profile / None / SDR / HDR10 / HLG / UHD Blu-ray
+    - all profiles suppot the same Dolby Vision dynamic metadata
+
+HDR10+
+    - Samsung
+    - 2017
+    - Free (for content company), Yearly license (for manufacturer)
+    - PQ
+    - 10 bit (or more)
+    - Peak Luminance / 10,000 nits / Contents 1,000 ~ 4,000 nits
+    - Color primaries / Rec.2020 / Contents DCI-P3
+    - Static Metadata / Dynamic (Manually generated trims)
+    - Backwark compatibility : HDR10
+
+HLG10
+    - NHK and BBC
+    - 2015
+    - Free Royality
+    - HLG
+    - 10 bit
+    - Peak luminance / variable / Contents 1,000 nits common
+    - Color primaries / Rec.2020 / Contents DCI-P3
+    - Metadata: None
+    - Backward compatibility: SDR displays supporting Rec.2020 (such as UHD-TV)
+
+SDR
+    - Maximum luminance level of arround 100 nits
+    - Rec.709/sRGB gamut
+
+
+
+* Transfer function
+    - Linear    / sRGB and Rec.709
+    - Gamma     / Rec.601, Rec.709, Rec.2020
+    - Logarithmic
+    - HDR       / PQ (Perceptual quantizer) - Rec.2100 / HLG
+
+* Color primary
+    - Color space
+    - Gamut / Ghromaticity space
+
+* nits
+    = cd/m^2   / candela per sqare metre
+    - The unit is based on the candelar, the SI unit of luminous intensity
+
+* What difference between Rec.2100 and Rec.2020
+    - Rec.2100 define HDR
+    - Rec.2020 define only color sapce
+    - Rec.2100 = Rec.2020 + HDR
+
+* What difference between HDR and Chromaticity

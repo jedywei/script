@@ -1,0 +1,73 @@
+dpkg tool Advanced
+-------------------
+
+4. Packaging New Software
+-> https://packaging.ubuntu.com/html/packaging-new-software.html
+
+$ wget http://ftp.ntua.gr/mirror/gnu/hello/hello-2.10.tar.gz
+
+
+2. Getting Set Up
+2.1 Instal basic packaging software
+$ sudo apt install gnupg pbuilder ubuntu-dev-tools apt-file
+    - gnupg - GNU privacy Guard to create a cryptograhpic key
+    - pbuilder - a tool to do reproucible builds of a package in a clean and isolated environment
+    - ubuntu-dev-tools - (and devscripts)
+    - apt-file  - provides an easy way to find the binary pakcage the contains a given file
+
+2.1.1 Create your GPG key
+$ gpg --gen-key
+jedywei
+jedy.wei@advantech.com.tw
+iamarock
+
+gpg: key 5A5D3877D4C21442 marked as ultimately trusted
+pub   rsa3072 2021-12-20 [SC] [expires: 2023-12-20]
+      296B48FC81F9F8E13325BA2E5A5D3877D4C21442
+uid                      jedywei <jedy.wei@advantech.com.tw>
+sub   rsa3072 2021-12-20 [E] [expires: 2023-12-20]
+
+$ gpg --send-keys --keyserver keyserver.ubuntu.com 5A5D3877D4C21442
+
+2.1.2 Create your SSH key
+$ ssh-keygen -t rsa
+
+2.1.3 Set up pbuilder
+
+# focal = ubuntu 20.04, refer appendix A
+$ pbuilder-dist focal create
+
+
+2.2 Get set up to work with Launchpad
+
+
+
+Appendix A
+--------------------------------------------------------------
+cat /etc/debina_version
+From 10.04 up to 21.04
+Ubuntu            Debian  
+21.10  impish     bullseye/ sid   - 11
+21.04  hirsute    bullseye/ sid   
+20.10  groovy     bullseye/ sid
+20.04  focal      bullseye/ sid
+19.10  eoan       buster  / sid   - 10
+19.04  disco      buster  / sid
+18.10  cosmic     buster  / sid
+18.04  bionic     buster  / sid
+17.10  artful     stretch / sid   - 9
+17.04  zesty      stretch / sid
+16.10  yakkety    stretch / sid
+16.04  xenial     stretch / sid
+15.10  wily       jessie  / sid   - 8
+15.04  vivid      jessie  / sid
+14.10  utopic     jessie  / sid
+14.04  trusty     jessie  / sid
+13.10  saucy      wheezy  / sid   - 7
+13.04  raring     wheezy  / sid
+12.10  quantal    wheezy  / sid
+12.04  precise    wheezy  / sid
+11.10  oneiric    wheezy  / sid
+11.04  natty      squeeze / sid   - 6
+10.10  maverick   squeeze / sid
+10.04  lucid      squeeze / sid

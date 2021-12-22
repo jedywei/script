@@ -1,0 +1,88 @@
+tar suffix and command
+-----------------------
+
+.tar
+    $ tar cvf FileName.tar DirName
+    $ tar xvf FileName.tar
+
+.gz
+    $ gzip FileName
+    $ gunzip FileName.gz
+    $ gzip -d FileName.gz
+
+.tar.gz
+    $ tar zcvf FileName.tar.gz DirName
+    $ tar zxvf FileName.tar.gz
+
+.bz
+    $ bzip2 -d FileName.bz
+    $ bunzip2 FileName.bz
+
+.tar.bz
+    $ tar jxvf FileName.tar.bz
+
+.bz2
+    $ bzip2 -z FileName
+    $ bzip2 -d FileName.bz2
+    $ bunzip2 FileName.bz2
+
+.tar.bz2
+    $ tar jcvf FileName.tar.bz2 DirName
+    $ tar jxvf FileName.tar.bz2
+
+
+.tar.bz2 (parallel)
+    $ tar -I lbzip2 -cvf FileName.tar.bz2 DirName
+
+.xz
+    $ xz -z FileName
+    $ xz -d FileName.xz
+
+.tar.xz
+    $ tar Jcvf FileName.tar.xz DirName
+    $ tar Jxvf FileName.tar.xz
+
+.Z
+    $ compress FileName
+    $ uncompress FileName.Z
+
+.tar.Z
+    $ tar Zcvf FileName.tar.Z DirName
+    $ tar Zxvf FileName.tar.Z
+
+.tgz or
+    $ tar zcvf FileName.tgz FileName
+    $ tar zxvf FileName.tgz
+
+.tar.tgz
+    $ tar zcvf FileName.tar.tgz FileName 
+    $ tar zxvf FileName.tar.tgz
+
+.7z
+    $ 7z a FileName.7z FileName
+    $ 7z a FileName.7z FileName -pPASSWORD
+    $ 7z x FileName.7z
+
+.zip
+    $ zip -r FileName.zip DirName
+    $ unzip FileName.zip
+
+.rar
+    $ rar a FileName.rar DirName
+    $ rar e FileName.rar
+    $ unrar e FileName.rar
+    $ rar x FileName.rar DirName
+
+.lha
+    $ lha -a FileName.lha FileName
+    $ lha -e FileName.lha
+
+.zst
+    $ zst FileName
+    $ zstd -d FileName.zst
+
+.tar.zst
+    $ tar -I zst -cvf FileName.tar.zst DirName
+    $ tar -I zst -cvf FileName.tar.zst File1 File2
+    $ tar -I zstd -xvf FileName.tar.zst
+
