@@ -1,0 +1,24 @@
+dmidecode
+---------
+
+$ sudo dmidecode -t processor
+$ sudo dmidecode -t memory
+$ sudo dmidecode -t bios
+$ sudo dmidecode -t 0
+
+$ sudo dmidecode -t
+
+
+0: bios
+1: system
+2: baseboard
+3: chassis
+4: processor
+5: memory
+7: cache
+8: connector
+9: slot
+
+$ sudo dmidecode -s system-uuid
+=
+$ sudo cat /sys/class/dmi/id/product_uuid

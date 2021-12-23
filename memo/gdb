@@ -85,3 +85,9 @@ gdb qsvplay /tmp/cores/
 $ cat /var/log/apport.log
 $ sudo service apport stop
 
+$ gdb ffmpeg -c /var/lib/apport/coredump/core.*
+
+
+// disable apport by
+$ sudo vi /etc/default/apport
+enabled=0
