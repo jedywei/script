@@ -1,0 +1,149 @@
+HDMI Specification
+--------------------
+2021/05/21 by Jedy Wei
+
+HDMI - High-Definition Multimedia Interface 
+     - audio / video interface for transmitting uncompressed video data and compressed or uncompressed digital audio data
+     - HDMI-compliant source dvice 
+
+EIA/CEA-861 standards - CEA EDID
+    - 861B revision
+    - 861D July 2006    (HDMI 1.3)
+    - 861E / 861F June 4, 2013  (HDMI 1.4)
+    - 861F new Ultra HD and windescreen video format and additional colorimetry schemes. (HDMI 2.0)
+    - CTA-861G Novermber 2016 (HDMI2.1b)
+
+EDID - Extended Display Identification Data
+
+EIA/CEA-861 Standard resolution and timings
+VIC Name        DAR     PAR     Pixel   V       H       H-Active    V-Active    H-Total     V-Total     Field Rate
+                                (MHz)   (Hz)    (kHz)                                                   (Hz)
+5   1080i       16:9    1:1     74.25   60      33.75   1920        540         2200        562.5       60
+16  1080p       16:9    1:1     148.5   60      67.5    1920        1080        2200        1125        60
+46  1080i60     16:9    1:1     148.5   119.88/ 67.5    1920        540         2200        562.5       120
+                                        120  
+97  2160p60     16:9    1:1     594     60      135.0   3840        2160        4400        2250        60
+    
+
+HDMI Communication Channel
+    - DDC   (Display Data Channel)
+    - TMDS  (Transition-Minimized Differential Signaling)
+    - CEC   (Consumer Electronics Control) 
+    - Audio Return Channel
+
+HDMI HDCP - High-bandwidth Digital Content Protection
+
+HDMI 2.0 - September 4,2013
+    - 18.0 Gbps maximum banwith
+    - 4K video at 60Hz with 24bit/px color depth
+    - Rec.2020 color space 
+    - Up to 32 audio channels
+    - Up to 1536 kHz audio sample frequecy
+    - 4:2:0 chroma subsampling
+    - 21:9 aspcet ratio
+
+HDMI 2.0a - April, 2015
+    - HDR video with static metaata
+
+HDMI 2.0b - March, 2016
+    - HDR10 
+    - HLG (Hybird Log-Gamma)
+
+=> https://web.archive.org/web/20160106223845/http://www.hdmi.org/manufacturer/hdmi_2_0/hdmi_2_0_faq.aspx#146
+What are the 4K formats supported by HDMI2.0?
+            8bit        10bit       12bit       16bit
+--------------------------------------------------------------
+4K@24       RGB         RGB         RGB         RGB
+4K@25       4:4:4       4:4:4       4:4:4       4:4:4
+4K@30                               4:2:2
+--------------------------------------------------------------
+4K@50       RGB                             
+4K@60       4:4:4                   4:2:2 
+            4:2:0       4:2:0       4:2:0       4:2:0
+
+
+HDMI Source and Sink
+---------------------
+Video Signal: (TDMS, R, G, B, Clock, Sync)
+    Source => TDMS => Sink
+EDID
+    Source <= DDC <= Sink
+Control
+    Source <= CEC => Sink
+
+Infoframe (32 Bytes)
+---------------------
+AVI Infoframe - Auxiliary Video Information
+Audio Inforframe
+
+
+TypeA and TypeB
+----------------
+TypeA can only transfit the signal in the specification
+TypeB is not limeited
+
+
+InfoFrame
+----------
+- AVIInfoFrame
+- AudioInfoFrame
+
+AVIInfoFrame - Auxiliary Video Information (AVI) 
+Header  PacketType=0x02, Version=0x04, Length = 0x0e (14)
+Packet  PB0   CheckSum
+        PB1     Y2  Y1  Y0  A0  B1  B0  S1  S0
+        PB2     C1  C0  M1  M0  R3  R2  R1  R0
+        PB3     ITC EC2 EC1 EC0 Q1  Q0  SC1 SC0
+        PB4   Rsvd  <-      VIC [6:0]        ->
+        PB5     YQ1 YQ0 CN1 CN0 PR3 PR2 PR1 PR0
+        PB6     Line Number of End of Top Bar   (ETB)
+        PB7                 " 
+        PB8     Line Number of Start of Bottom Bar (SBB)
+        PB9                 "
+        PB10    Pixel Number of End of Left Bar (ELB)
+        PB11                "
+        PB12    Pixel Number of Start of Right Bar (SRB)
+        PB13                "
+
+
+    Y2,Y1,Y0    RGB or YCbCr indicator  (000=RGB, 001=YCbCr422, 010=YCbCr444, 011=YCbCr420)
+    A0          Active information Present (1= R3..R0 present)
+    B1,B0       Bar info data valid (01=VBarInfo, 10= HBarInfo, 11=V&HBarInfo)
+    S1,S0       Scan information (01=Overscaned dipslay, 10=underscaned display)
+    C1,C0       Colorimetry (00=No data, 01=SMPTE 170M, 10=ITU-R BT.709, 11= see EC2..EC0)
+    M0,M1       Picture Aspect Ratio (PAR, 00=No data, 01=4:3, 10=16:9)
+    R3..R0      Active Format Aspect Ratio (8= same as PAR, 9=4:3, A=16:9, B=14:9)
+    ITC         IT content (PB5 CN bits valid)
+    EC[2:0]     (000=xvYCC601, 001=xvYCC709,010=sYCC601,011=opYCC601, 100=opRGB, 101=BT.2020 YCbCr,
+                 110=BT.2020 R'G'B' or YCbCr, 111=See ACE[3:0])
+    Q[1:0]      (00=Default, 01=Limited Range, 10=Full Range)
+    SC1,SC0     (00= non-uniform scaling, 01=HScale, 10=Vscale, 11=H,VScale)
+    VIC[6:0]    Video Format Indentification Code
+    YQ[1:0]     YCC Quantization Range 
+    CN[1:0]     IT=1, 00=Graphics, 01=Photo, 10=Cinema, 11=Game
+    PR[3:0]     Pixel Repetition Factor (0=once, 1=x2, 2=x3, 3=x4, 4=x5, 5=x6, 6=x7, 7=x8, 8=x9, 9=x10)
+
+
+
+AudioInfoFrame
+Header  PacketType=0x84, Version=0x01, Length= 0x0a (10)
+        PB0    CheckSum
+        PB1     CT3 CT2 CT1 CT0 Rsv CC2 CC1 CC0
+        PB2     ----------  SF2 SF1 SF0 SS1 SS0
+        PB3     <Format depends on coding type>
+        PB4     CA7 CA6 CA5 CA4 CA3 CA2 CA1 CA0
+        PB5     DMI LSV[3:0]        ----------
+        PB6 ...
+        PB10
+
+    CC[0:2]     Channel Count
+    CT[0:3]     Coding Type
+    SS[0:1]     Sample Size
+    SF[0:2]     Sample Frequency
+    CA[0:7]     Channel/Speaker Allocation
+    LSV[0:3]    Level Shift Value (for Downmixing)
+    DM_INH      Downmix Inhibit
+
+
+
+

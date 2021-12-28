@@ -1,0 +1,21 @@
+history
+--------
+
+hi
+history 
+
+hi 5
+
+!!  last command
+!-5 expand to the command that was “n” number of commands before the current command in history.
+
+!vi 
+
+dos key
+-------
+<up>
+<down>
+<C-p>       page up
+<C-n>       page down
+<C-r>       search
+<C-a>       

@@ -1,0 +1,106 @@
+udev
+-----
+
+udev    -> /dev
+uevent  -> udev
+udev read   /etc/udev/rules.d/*.rules
+    - $udevadm control reload_rules
+    or 
+    - /etc/init.d/boot.udev reload
+
+uevent / MODALIAS=usb:v046DpC03Ed2000dc00dsc00dp00ic03isc01ip02
+
+$ udevadm monitor
+$ udevadm monitor --env
+$ udevadm info -q all -n /dev/sda1
+
+
+
+udev rule example
+
+#console
+KERNEL=="console", MODE="0600", OPTIONS="last_rule"
+
+# serial devices
+KERNEL=="ttyUSB*", ATTRS{product}=="[Pp]alm*Handheld*", SYMLINK+="pilot"
+
+# printer 
+SUBSYSTEM=="usb", KERNEL=="lp*", NAME="usb/%k", SYMLINK+="usb%k", GROUP="lp"
+
+# kernel firmware loader
+SUBSYSTEM=="firmware", ACTION=="add", RUN+="firmware.sh"
+
+
+Comparison
+==, !=
+
+Assignment
+=       key = value
++=      key = key + value
+:=      key := value
+
+Variable
+%r, $root               = /dev
+%p, $devpath            = DEVPATH
+%k, $kernel             = KERNEL
+%n, $number             = device number
+%N, $tempnode           = device tempary name
+%M, $major              = MAJOR
+%m, $minor              = MINOR
+%s{attributes}, ${attributes}       = sysfs attribute
+%E{variable}, $attr{variable}       = environment variable
+%c $result              = PROGRAM output
+%%                      = % character
+$$                      = $ character
+
+Key to match
+------------
+ACTION                  = add, remove, or change
+DEVPATH                 = /devices/pci0000:00/0000:00:02.0/drm/card0
+KERNEL                  = "card0"           (device core name)
+SUBUSYSTEM              = drm   
+ATTR{attr}              = ATTR{vendor}=="On[sS]tream"
+KERNELS
+SUBSUSTEMS
+DRIVERS
+ATTRS{attr}
+ENV{key}                = ENV{ID_BUS}=="ieee1394"
+PROGRAM                 
+RESULT
+
+
+Key to assign
+-------------
+NAME                    
+SYMLINK
+OWNER, GROUP, MODE
+ATTR{attr}
+ENV{key}
+RUN
+LABEL 
+GOGO
+IMPORT{class}           = class { program, file, parent }
+WAIT_FOR_SYSFS          = WAIT_FOR_SYSFS="ioerr_cnt"
+OPTIONS
+                        - last_rule
+                        - ignore_device
+                        - ignore_remove
+                        - all_partitions
+
+list all device
+$ tree /dev
+
+files for udev
+---------------
+/sys/*                  - udev use the information to build node under /dev
+/dev/*                  - copy from /lib/udev/devices/*
+
+/etc/udev/udef.conf     - udev main configuration
+/etc/udev/rules.d/*     - udev event rutls
+/lib/udev/devices/*     - static /dev contain
+/lib/udev/*             - library for udev rules
+
+
+
+
+

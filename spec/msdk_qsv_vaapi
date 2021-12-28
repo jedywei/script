@@ -1,0 +1,114 @@
+mediasdk vs qsv vs vaapi
+------------------------
+
+mediasdk
+    - Intel Media SDK provides an API to access hardware-accelerated video decode, encode and filtering on
+        Intel platforms with integrated graphics. 
+    - Last version v1.35
+
+qsv
+    - Inte Quick Sync Video is Intel's brand for its dedicated video encoding and decoding hardware core. Quick Sync
+        was introduced with the Sandy Bridge CPU microarchitecture on 9 Jan 2011 and has been found on the die of
+        Intel Cpus ever since. 
+    - Version 6 (Kaby Lake, Coffee Lake, Whiskey Lake, Coment Lake)
+    - Version 8 (Tiger Lake, Rocket Lake)
+
+vaapi
+    - Video Acceleration API (VA-API) is an open source API that allows applications such as VLC media player or 
+        GStreamer to use hardware video acceleration capabilities, usually provided by the GPU. It is implemented
+        by the free and open-source library libva, combined with a hardware-specific driver, usually provided 
+        togther with the GPU driver.
+
+    - $ vainfo
+    - support Intel QSV, AMDGPU-PRO, but not NVidia
+
+
+Media SDK API
+-------------
+sample_decode
+    - It demonstrates how to use SDK API to create a sample console application that performs decoding of various 
+        video compression
+
+metrics_monitor
+    - Metrics Monitor is a user space shared library for Linux which provies application access to a number of metrics
+        from the GPU kernel mode river to aid in understanding the state of the Intel GPU for Media workloads.
+
+Use Media SDK via popular frameworks:
+    - FFmpeg via ffmpeg-qsv plugins
+
+
+use derived data instead of sw copy to improve the performance
+---------------------------------------------------------------
+-> https://github.com/Intel-Media-SDK/MediaSDK/issues/1550
+-> Jul26, 2019
+-> fulinjie and dmitryermilov
+
+MSDK memory (by dmitryermilov)
+    - MSDK can produce either system or video memory.
+    - 1) app initializeds MSK to produce video memory, Application get video memory and 
+        2) maps(vaDeriveImage/vaMapBuffer) it to system memory.
+    - 1) app initializes MSDK to produce system memory, MSDK internally decodes to video memory and then internally
+        2) makes copy from video memory to system memory. It can be done by 
+            sw copy("vaDeriveImage -> vaMapBuffer -> memcpy -> vaUnmapBuffer -> vaDestroyImage)", or
+            GPUCopy. Application
+        3) gets system memory.
+
+CSC / the performance problem due to CSC (by dmitryermilov)
+    - decode -> CSC -> file dump    / pipeline memory shared between decoer and VPP should be video memory
+                                      memory outputted by VPP should system memory (produced by GPUCopy)
+    ?? IOPattern=MFC_IOPATTERN_OUT_VIDEO_MEMORY     (decoder)
+    ?? IOPattern=MFC_IOPATTERN_IN_VIDEO_MEMORY | MFX_IOPAATTERN_OUT_SYSTEM_MEMORY (VPP)
+
+ffmpeg vaapi or qsv issue
+    - Same issue exists in ffmpeg vaapi as well, and could also be addressed by eliminating the copy from 
+        derived data (mapped) to destination data. 
+
+
+format performance impact (by fulinjie)
+    - For Tiled format (like NV12), gpu copy may have the best performance, since Tiled format data in video
+        memory woulbe accessed slowly if we use deriveImage/Mapbuffer simply.
+    - For Linear format (like rgb32), derive/map and then access the linear data in video memory may have
+        the best performance, since linear data in video memory has no difference compared with copying them 
+        ito system memory.
+
+fulinjie two ffmpeg-qsv patches
+    - fulinjie/ffmpeg@b0c99fb
+        - derive_surface_to_frame -> frame->data[0] = surface->Data.Y, ....
+    - fulinjie@c19a421
+        - msdk / _studio/shared/src/libmfx_core_vaapi.cpp / map video output to destination (avoid SwCopy)
+
+
+ffmpeg -hwaccel qsv -c:v h264_qsv -i Nature.h264 -vf scale_qsv=format=rbg32,hwdownload,format=rgb32 -f rawvideo -y /dev/null
+    - KBL Reults:
+        - pipeline 1: -f null : 97 fbp
+        - pipeline 2: -f rawvideo /dev/null : 55 fps
+        - before these patches: about 50+ fps
+        - and the reason is that there is extra memory copy in raw_encode for pipeline 2 to copy data from AVFrame to 
+            AVPacket for file dump
+    - APL Results:
+        - pipeline 1:  -f null  : 57
+        - pipeline 2:  -f rawvieo /dev/null: 57
+
+    - libva improvement (dmitryermilov suggestion)
+        - We need to make libva map to system memory provided by app. Currently libva doesn't provide such API.
+    - is there the same issue (false impression) in sample_decode? (fulinjie question)
+        Customers may bake sample_decode as the benchmark and require a matched performance for ffmpeg-qsv
+
+    Conclusion (by fulinjie)
+        1. If directly map access is slow, use gpu copy could get the best performance
+        2. If directly map access is quick, use mapped memory and avoid additional memcopy could get the best performance.
+
+
+GTT vs. VRAM
+-------------
+做过图形研究的TX应该都了解GTT和VRam，GTT表示显卡可以访问的CPU主存，VRam表示显存。 为什么要将这两者进行比较呢？ 
+因为对于软件来说，GTT和VRam的地位是对等的，当软件中(比如mesa驱动中)需要分配内存时，其可以选择在内存上分配(分配
+标志设置为GTT相关的标记)，也可以选择在显存上分配(分配标志设置为VRam相关的标记), 对于软件来说，使用GTT或VRam并
+没有功能上的影响，通常情况下，任意选哪种都没有问题。 有影响的只是：
+
+    - 性能。 对于显卡，通常来说，显示需要的内存在VRam上分配，性能可能会更好，因为相关内存上的内容最终可能都会拷贝
+        到framebuffer中去，而在显存内存区域之间的拷贝，显然比内存到显存之间的拷贝性能更好。
+    - Cache一致性等问题。 对于部分硬件，Cache一致性问题可能是很多问题的根源，特别在涉及到CPU和GPU之间的同步和并发
+        访问时。 CPU和GPU对于GTT和VRam的访问，可能会涉及到一些硬件的细节和特性，比如WC(Write Commbined)和
+        UC(Uncached)特性，这些细节的处理，在非X86架构上尤其重要，特别是在驱动中，需要时刻考虑这些问题。
+
