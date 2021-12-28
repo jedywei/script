@@ -1,0 +1,193 @@
+alsa
+----
+aplay
+arecord
+amixer
+
+
+alsa proc
+----------
+$ ls /proc/asound
+card0/  cards  devices  hwdep  modules  oss/  PCH/  pcm  seq/  timers  version
+
+$ cat /proc/asound/cards
+ 0 [PCH            ]: HDA-Intel - HDA Intel PCH
+                      HDA Intel PCH at 0x6001110000 irq 131
+$ cat /proc/asound/devices
+  1:        : sequencer
+  2: [ 0- 0]: digital audio playback
+  3: [ 0- 0]: digital audio capture
+  4: [ 0- 3]: digital audio playback        hw:0,3
+  5: [ 0- 7]: digital audio playback        hw:0,7
+  6: [ 0- 8]: digital audio playback        hw:0,8
+  7: [ 0- 9]: digital audio playback        hw:0,9
+  8: [ 0-10]: digital audio playback
+  9: [ 0-11]: digital audio playback
+ 10: [ 0-12]: digital audio playback
+ 11: [ 0-13]: digital audio playback
+ 12: [ 0-14]: digital audio playback
+ 13: [ 0-15]: digital audio playback
+ 14: [ 0-16]: digital audio playback
+ 15: [ 0- 0]: hardware dependent
+ 16: [ 0- 2]: hardware dependent
+ 17: [ 0]   : control
+ 33:        : timer
+
+$ cat /proc/asound/modules
+ 0 snd_hda_intel
+
+$ cat /proc/asound/pcm
+00-00: ALC233 Analog : ALC233 Analog : playback 1 : capture 1
+00-03: HDMI 0 : HDMI 0 : playback 1
+00-07: HDMI 1 : HDMI 1 : playback 1
+00-08: HDMI 2 : HDMI 2 : playback 1
+00-09: HDMI 3 : HDMI 3 : playback 1
+00-10: HDMI 4 : HDMI 4 : playback 1
+00-11: HDMI 5 : HDMI 5 : playback 1
+00-12: HDMI 6 : HDMI 6 : playback 1
+00-13: HDMI 7 : HDMI 7 : playback 1
+00-14: HDMI 8 : HDMI 8 : playback 1
+00-15: HDMI 9 : HDMI 9 : playback 1
+00-16: HDMI 10 : HDMI 10 : playback 1
+
+<card>-<device> : <id> : <name> : <sub-streams>
+
+$ ls /proc/asound/PCH
+codec#0  eld#2.10  eld#2.14  eld#2.18  eld#2.21  eld#2.25  eld#2.5  eld#2.9  pcm10p  pcm14p  pcm7p
+codec#2  eld#2.11  eld#2.15  eld#2.19  eld#2.22  eld#2.26  eld#2.6  id       pcm11p  pcm15p  pcm8p
+eld#2.0  eld#2.12  eld#2.16  eld#2.2   eld#2.23  eld#2.3   eld#2.7  pcm0c    pcm12p  pcm16p  pcm9p
+eld#2.1  eld#2.13  eld#2.17  eld#2.20  eld#2.24  eld#2.4   eld#2.8  pcm0p    pcm13p  pcm3p
+
+$ cat /proc/asound/PCH/pcm3p/info           pcm7p               pcm8p                   pcm9p
+card: 0
+device: 3                                   -> 7                -> 8
+subdevice: 0
+stream: PLAYBACK
+id: HDMI 0                                  -> HDMI 1           -> HDMI 2               -> HDMI 3
+name: HDMI 0                                -> HDMI 1           -> HDMI 2               -> HDMI 3
+subname: subdevice #0
+class: 0
+subclass: 0
+subdevices_count: 1
+subdevices_avail: 1
+
+$ cat /proc/asound/card0/pcm3p/sub0/info
+card: 0
+device: 3
+subdevice: 0
+stream: PLAYBACK
+id: HDMI 0
+name: HDMI 0
+subname: subdevice #0
+class: 0
+subclass: 0
+subdevices_count: 1
+subdevices_avail: 1
+
+$ ls /proc/asound/card0/pcm3p/sub0
+hw_params  info  prealloc  prealloc_max  status  sw_params
+
+$ cat /proc/asound/card0/pcm3p/sub0/status 
+state: RUNNING
+owner_pid   : 1472
+trigger_time: 4830.390456257
+tstamp      : 0.000000000
+delay       : 21761
+avail       : 312
+avail_max   : 16539
+-----
+hw_ptr      : 226400
+appl_ptr    : 248140
+
+$ cat /proc/asound/card0/pcm3p/sub0/{hw_params,sw_params}
+
+$ cat /proc/asound/PCH/codec#2
+Codec: Intel Tigerlake HDMI
+Address: 2
+AFG Function Id: 0x1 (unsol 0)
+Vendor Id: 0x80862812
+Subsystem Id: 0x80860101
+Revision Id: 0x100000
+No Modem Function Group found
+Default PCM:
+    rates [0x0]:
+    bits [0x0]:
+    formats [0x0]:
+Default Amp-In caps: N/A
+Default Amp-Out caps: N/A
+
+....
+
+$ cat /proc/asound/timers
+G0: system timer : 4000.000us (10000000 ticks)
+P0-0-0: PCM playback 0-0-0 : SLAVE
+P0-0-1: PCM capture 0-0-1 : SLAVE
+P0-3-0: PCM playback 0-3-0 : SLAVE
+P0-7-0: PCM playback 0-7-0 : SLAVE
+P0-8-0: PCM playback 0-8-0 : SLAVE
+P0-9-0: PCM playback 0-9-0 : SLAVE
+P0-10-0: PCM playback 0-10-0 : SLAVE
+P0-11-0: PCM playback 0-11-0 : SLAVE
+P0-12-0: PCM playback 0-12-0 : SLAVE
+P0-13-0: PCM playback 0-13-0 : SLAVE
+P0-14-0: PCM playback 0-14-0 : SLAVE
+P0-15-0: PCM playback 0-15-0 : SLAVE
+P0-16-0: PCM playback 0-16-0 : SLAVE
+
+
+
+asound.conf
+------------
+# alsa-lib configuration file
+/usr/share/alsa/alsa.conf
+    # pre-load the configuration files
+    ->  load
+        /etc/asound.conf
+        ~/.asoundrc
+
+    # defaults
+    ...
+    defaults.ctl.card 0
+    defaults.pcm.card 0
+    defaults.pcm.device 0
+    defaults.pcm.subdevice -1
+    ...
+    defaults.pcm.surround21.card defaults.pcm.card
+    defaults.pcm.surround21.device defaults.pcm.device
+
+    # PCM interface
+
+    pcm.default cards.pcm.default
+    pcm.front cards.pcm.front
+    ...
+    pcm.hw {
+        @args [ CARD DEV SUBDEV ]
+        @args.CARD {
+            type string
+            default {
+                @func getenv 
+                vars [
+                    ALSA_PCM_CARD
+                    ALSA_CARD
+                ]
+                default {
+                    @func refer
+                    name defaults.pcm.card
+                }
+            }
+        @args.DEV {
+            type integer
+            default {
+                @func igetenv
+                vars [
+                    ALSA_PCM_DEVICE
+                ]
+                default {
+                    @func refer
+                    name defaults.pcm.defice
+                }
+            }
+        }
+        ...
+    }
+
