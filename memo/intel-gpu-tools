@@ -1,0 +1,73 @@
+intel-gpu-tools usage memo
+---------------------------
+Installation
+$ sudo yum install intel-gpu-tools
+$ rpm -ql intel-gpu-tools
+$ sudo yum install cpuid
+
+Get cpu info
+---------------
+$ lscpu
+$ cat /proc/cpuinfo
+$ cpuid
+$ sudo dmidecode --type processor
+
+
+inetl-gpu-tools command list
+-----------------------------
+intel_reg_dumper
+intel_reg_snapshot
+intel_reg_read
+intel_reg_write
+intel_reg_checker
+
+gem_userptr_benchmark
+intel-gpu-overlay
+intel-virtual-output
+intel_audio_dump
+intel_backlight
+intel_bios_dumper
+intel_bios_reader
+intel_display_poller
+intel_dpio_read
+intel_dpio_write
+intel_dump_decode
+intel_error_decode
+intel_forcewaked
+intel_framebuffer_dump
+intel_gpu_abrt
+intel_gpu_time
+intel_gpu_top
+intel_gtt
+intel_infoframes
+intel_iosf_sb_read
+intel_iosf_sb_write
+intel_l3_parity
+intel_lid
+intel_opregion_decode
+intel_panel_fitter
+intel_perf_counters
+intel_reg_checker
+intel_sprite_on
+intel_stepping
+intel_upload_blit_large
+intel_upload_blit_large_gtt
+intel_upload_blit_large_map
+intel_upload_blit_small
+intel_vga_read
+intel_vga_write
+
+
+
+intel_reg_dumper
+-----------------
+$ sudo intel_reg_dumper
+
+
+$ sudo intel_reg_snapshot > d0.reg
+$ sudo intel_reg_dumper d0.reg
+or 
+$ sudo intel_reg_dumper -d 2a d0.reg
+
+$ sudo intel_reg_checker
+

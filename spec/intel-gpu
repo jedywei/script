@@ -1,0 +1,67 @@
+Intel GPU
+---------
+
+Micro-          Graphics                                       
+Architecture    Gen    Brand            Brand Core              Add support for .... 
+-----------------------------------------------------------------------------------------------------------
+Westmere        5.5    HD               i3/5/7-xxx              MPEG-2, H.264 decode
+Sandy Bridge    6      HD3000/2000      i3/5/7-2000             VC-1 decode; H.264 encode
+Ivy Bridge      7      HD4000/2500      i3/5/7-3000             JPEG decode; MPEG-2 encode
+Bay Trail       7      HDGrphics        N/A                     -
+Haswell         7.5    HD5000/Iris Pro  i3/5/7-4000             -
+Broadwell       8      Iris Pro 6200    i3/5/7-5000             VP8 decode
+Braswell        8      HDGraphics       N/A                     H.265 decode, JPEG, VP8 encode
+                                            
+Skylake         9      HD510/Iris540    i3/5/7-6000             H.265 encode
+Apollo Lake     9      HD 500,505       N/A                     VP9, H.265 Main10 decode
+                                            
+Kaby Lake       9.5    HD610, Iris Plus i3/5/7-7000             VP9 profile 2 decode; VP9, H.265 Main10 encode
+Whiskey Lake    9.5    UHD620           i3/5/7-8000U      
+Coffee Lake     9.5    UHD630,Iris Plus i3/5/7/9-8000     
+                                        i3/5/7/9-9000     
+Gemini Lake     9.5                         
+                                            
+Cannon Lake     10                          
+                                            
+Ice Lake        11     UHD, Iris Plus   i3/5/7-10xx(N)Gx  
+Rocket Lake     11                          
+                                            
+Tiger Lake      12     Iris Xe, UHD     i3/5/7-11xx(N)Gx  
+Alder Lake      12                          
+
+* CherryView and VallyView is the GPU for Intel Atom family
+* DDI - Intel Digital Display Interface / Skylake 推出後將 VGA 淘汰，全面採用 DDI
+
+
+Intel Core i5-11300H Processor
+------------------------------
+CPU Spec
+    Cores       4
+    Threads     8
+    Bus Speed   4GT/s
+Memory Spec
+    Size        64GB
+    Type        DDR4-3200, LPDDR4x-4267
+    Channels    2
+GPU Spec
+    Processor   Intel Iris Xe Graphics
+    Freq        1.30GHz
+    Output      eDP 1.4b, MPIP-DSI 2.0, DP 1.4, HDMI 2.0b
+    EU          80
+    HDMI        4096x2304@60Hz      // 24bits per pixel & 60Hz
+    DP          7680x4320@60Hz
+    eDP         4096x2304@60Hz
+    DirectX     12.1
+    OpenGL      4.6
+    OpenCL      2.0
+    VSE         2                   // Multi-Format Codec Engines
+    QSV         Yes
+    Clear       Yes                 // Intel Clear Video HD Technology
+    # Display   4
+    Device ID   0x9a49
+
+Intel Clear Video HD Technology
+---------------------------------
+Intel® Clear Video HD Technology, like its predecessor, Intel® Clear Video Technology, is a suite of image decode and processing technologies built into the integrated processor graphics that improve video playback, delivering cleaner, sharper images, more natural, accurate, and vivid colors, and a clear and stable video picture. Intel® Clear Video HD Technology adds video quality enhancements for richer color and more realistic skin tones.
+
+

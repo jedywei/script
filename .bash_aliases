@@ -165,6 +165,13 @@ if [[ $- == *i* ]]; then
     source ~/script/prompt.sh
 fi
 
+alias hi=history
+alias hiag='history | ag'
+export HISTCONTROL=ignoreboth
+shopt -s histverify
+
+
 # mac terminal title
 #echo -n -e "\033]0;$(hostname):/$(basename $(pwd))\007"
+
 

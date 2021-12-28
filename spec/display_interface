@@ -1,0 +1,105 @@
+Display Interface
+-----------------
+1. MIPI
+2. HDMI
+3. DPMST
+4. EDID
+
+
+about MIPI
+---------------------------------------------------------------
+DCS         Display Command Set
+DBI         Display Bus Interface
+DPI         Display Pixel Interface (Display Parrallel Interface)
+DSI         Display Serial Inteerace
+CSI         Camera Serial Interface
+
+about DPMST
+----------------------------------------------------------------
+DisplayPort Multi-Stream Transport (MST)
+https://www.tripplite.com/products/multi-stream-transport-mst-hub-technology
+What is Multi Stream Transport (MST)
+First introduced in the DisplayPort 1.2 standard, Multi-Stream Transport allows multiple displays to be connected to a 
+single DP port on a desktop PC or laptop. It does this by combining multiple video singls into a single stream 
+(a process known as multiplexing) and sending it over a DisplayPort cable to a device that unbundles the single. The
+"unbundling" device might be an MST Hub or a series of "daisy-chained" MST monitors. 
+
+
+about HDMI
+----------------------------------------------------------------
+HDMI
+    - EIA/CEA-861 video format standards 
+    - compressed and uncompressed LPCM audio
+    - auxiliary data
+    - VESA EDID
+    - CEC (Consumer Electronics Control) capability
+    - DDC (SCL, SDA) Display Data Channel (for HDCP)
+    - DVI-HDCP
+    - ARC / HEC  Audio Return Channel / HDMI Ethernet Channel
+    - TMDS (Transition-Minimized Differential Signaling) Data 2 ~ Data 1 Clock [+ Shield - ]
+    - version 1.4 support for 4096x2160 at 24Hz, 3840x2160 at 24, 25, and 30Hz. stereoscopic 3D
+    -         1.4a mandatory 3D format
+    - version 2.0  HDMI UHD. 18.0Gps 4K@60 24 bit/px color depth. Rec2020 color space, up to 32 audio channels, 1536 kHz
+              2.0a HDR (High Dynamic Range) video with static metadata
+              2.0b HDR10, CTA-861.3 specification. CTA-861-G HLG (Hybrid Log-Gamma)
+              2.1  4K 120Hz, 8K 120Hz. 48 Gbps. up to 10K 120Hz
+                   HDR (scene-by-scene or even a frame-by-frame basis)
+                   DSC (Display Stream Compression) 1.2
+                   HFR (High Frame Rate) 
+                   eARC (Enhanced Audio Return Channel)
+                   ALLM (Auto Low Latency Mode)
+    - Color Format Support, RGB, YCbCr444, YCbCr422, YCbCr420
+    - Color Depth Support, 8 bpc, 10 bpc, 12 bpc, 16 bpc. (24, 30, 36, 48 bit/pixel)
+    - Color Space Support, SMPTE 170M, ITU-R BT.601, ITU-R BT.709, sRGB, xvYCC, sYCC601, AdobeYCC60, AdobeRGB, ITU-R BT.2020
+    - Audio Sample Rate : 192 max, Sample size : 16-24, Audio Channel, 8 (1.4) -> 32 (2.0)
+
+    Video Format
+        720p    1280x720    @30, @60, @120
+        1080p   1920x1080   @30, @60, @120, @144, @240
+        1440p   2560x1440   @30, @60, @75, @120, @144, @240
+        4K      3840x1260   @30, @60, @75, @120, @144, @240
+        5K      5120x2880   @30, @60, @75, @120
+        8K      7680x4320   @30, @60, @120
+
+    - Type A, B, C, D, E connector
+        - A Standard
+        - B Dual-Link
+        - C Mini
+        - D Micro
+        - E Automotive Connection System
+
+
+
+about EDID
+-------------------------------------------------------
+Extened Display Identification Data
+https://en.wikipedia.org/wiki/Extended_Display_Identification_Data
+
+EDID - EDID structure versions range from v1.0 to v1.4, 128-byte structures.
+    v2.0 defined a new 256-byte struct but it has been deprecated an replaced by v1.3 which supported multiple extension
+    blocks.
+
+E-EDID - Enhanced EDID was instroduced a the same time as E-DDC; it introdueced EDID structure version 1.3 which supports
+    multiple extensions blocks. 
+
+GTF - Generalized Timing Formula
+        h-blanking, v-blanking intervals, h-frequency, v-frequency, pixel clock rate, h/v sync polarity (+hsync, -vsync)
+CVT - Coordinated Video Timings
+        CVT / CVT-RB / CVT-R2 / CEA-861-F
+
+EDID structure, version 1.4
+[0-19]      Header information
+[20-24]     Basic display parameters
+[25-34]     Chromaticity coordiantes
+[35-37]     Established timing bitmap
+            720x480@70HZ ..... 1152x870@75Hz
+[38-53]     Standard timing information
+[54-71]     Descriptor-1, 18 byte Descriptors
+[72-89]     Descriptor-2, 18 byte Descriptors
+[90-107]    Descriptor-3, 18 byte Descriptors
+[108-125]   Descriptor-4, 18 byte Descriptors
+[126]       Number of extens to follow. 0 if no extensions.
+[127]       Checksum. Sum of all 128 bytes should equal 0
+
+EIA/CEA-861 extension block
+

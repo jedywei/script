@@ -1,0 +1,500 @@
+DRM Overview
+-------------
+- DRM KMS
+- DRM display mode
+- DRM API
+- list all mesa
+
+DRM KMS
+---------------------------------------------------------------------------
+DRM - Direct Rendering Manager - is a subsystem of the Linux kernel responsible for interfacing with GPUs of modern video cards.  DRM exposes an API that user space programs can use to send commands and data to the GPU, and perform operations such as configuring the mdoe setting of the display. DRM was first develped as the kernel space component of the X Server's Direct Rendering Infrastructure, [1] but since then it has been used by other grpahic stack alternatives such as Wayland. 
+
+
+DRM GEM
+    Graphics Execution Manager
+    -> Framebuffer managing
+    -> Memory sharing objects
+    -> Memory synchronization
+
+DRM KMS
+    Kernel Mode-Setting. 
+    -> Display mode setting 
+    Since then, the scope of DMR has been expaned over the years to cover more functionality previously handled by user space programs, such as framebuffer managing and mode setting, memory sharing objects and memory synchronization. [4][5] Some of these expansions had carried their own specific names, such as Graphics Execution Manager (GEM) or Kernel Mode-Setting (KMS), and the teminology prevails when the functionality they provide is specifically alluded. But they are really parts of the whole kernel DRM subsystem. 
+
+VOP (Video Output Processor) / HDMI / eDP drivers
+CRTC / Encoder / Connector
+
+- CRTC
+    1 DPMS (Display Power Manage System) crtc_funcs->dpms
+    2 framebuffer -> LCDCTiming (crtc_funcs->mode_set)
+    3 crtc_funcs->page_flip
+    4 crtc_funcs->gamma_set
+
+- Encoder
+    1 DPMS (crtc_funcs->dpms)
+    2 VOP -> LCDC Timging HDMI TMDS / .. (encoder_funcs->mode_set)
+- Connector
+    1 Hotplug status
+    2 Panel's EDID
+
+
+----------------------------------------------------------------------------------------------
+                    Application (such as Xserver)
+----------------------------------------------------------------------------------------------
+                |     |                                      |
+    libdrm      |     | direct ioctl drm                     |  normal fb ctrl / ioctl, mmap
+                |     V                                      V
+-----------------------------------------------------------------------------------------------
+|       /dev/dri/cardX       |                 |         |  /dev/fb0    |         |
+------------------------------                 |         ----------------         |
+                                               |            FrambeBuffer          |
+            DRM CORE                           |                                  | 
+                                               |       fp_ops(fb_ioctl, set_par,  |
+                                               |           pan_display ...)       |
+                                               -----------------------------------
+------------------------------------------------------------------------------------------------
+
+   GEM              CRTC            ENCODER                     CONNECTOR
+manage dma          dpms              dpms                        dpms
+   buffer       manage plane        mode set                    get modes
+                   mode set                                     check mode
+                   page flip                                  get connector status
+-----------------------------------------------------------------------------------------------
+
+
+https://blog.csdn.net/dearsq/article/details/78394388?utm_medium=distribute.pc_relevant_download.none-task-blog-BlogCommendFromBaidu-1.nonecase&dist_request_id=&depth_1-utm_source=distribute.pc_relevant_download.none-task-blog-BlogCommendFromBaidu-1.nonecas
+
+
+
+
+DRM Userland interfaces
+-----------------------
+The DRM core exports several interfaces to application, generally-intended to be used through corresponding libdrm wrapper function. 
+    External Interfaces:
+        - memory mapping
+        - context management
+        - DMA operations
+        - AGP management
+        - vblank control
+        - fence management 
+        - memory management
+        - output management
+    Render nodes
+        - primvary node /dev/dri/card<N>
+            - The primary node provides all legacy operations and historically was the only interface used by userspace. 
+        - render node /dev/dri/renderD<N>
+            - the DRM API required unprivileged clients to authenicate to a DRM-Master prior to getting GPU access. 
+            - to avoid this step and to grant client GPU access without authenticating, render nodes were introduced. 
+            - No modesetting or privileged ioctls can be issued on render nodes.
+            - No ioctls except PRIME-related ioctls will be allowed on this node
+                - Expecially GEM_OPEN will be explicitly prohibited. 
+                - Render nodes are designed to avoid the buffer-leaks. which occur if client guess the flink names
+                  or mmap offsets on the legacy interface. 
+                - ioctls with DRM_RENDER_ALLOW so render clients can use them.
+            - A running graphics server which authenticates clients on the privileged primary/legacy node is no longer required.
+                - Instead, a client can open the render node and is immediately granted GPU access.
+                - Communication between clients (o servers) is done via PRIME. 
+                - FLINK form render node to legacy node is not supported. New clients must not use the insecure FLINK interface.
+            - Dropping all modeset/global ioctl, render nodes asl drop the DRM-Master concept. 
+                - There is no reason to associate render cleint with a DRM-Master as they are independent of any graphics server.
+
+
+
+
+<<<<<<< Updated upstream
+=======
+drmdevice
+-------------------------------------------
+$sudo $(which drmdevice)
+
+modeprint
+-------------------------------------------
+$sudo $(which modeprint) i915
+$sudo $(which modeprint) nouveau
+
+modetest 
+-------------------------------------------
+Connectors
+id 95                  DP-1
+id 104                 HDMI-A-1
+id 110                 DP-2
+id 116                 HDMI-A-2
+id 120-> CTRC 119      DP-3                    // igfx VGA connector
+
+modetest -M nouveau -e
+modetest -M i915 -e
+
+
+# module nouveau
+Connectors
+id 73                   DVI-D-1
+id 75->CTRC 76          HDMI-A-3    mode 1920x1080 ...
+id 77->CTRC 78          DP-4        mode 3840x2160 ...
+
+# colorbar output,    should diable x11 drm master (or enter text mode)
+$ sudo ./modetest -M i915 -s 120:1920x1080          // igfx VGA
+$ sudo ./modetest -M nouveau -s 75:1920x1080        // nVidia HDMI
+$ sudo ./modetest -M nouveau -s 77:3840x2160        // nVidia DP-1
+
+
+path
+$ ls /usr/lib64/dri
+i965_dri.so  kms_swrast_dri.so  r600_dri.so      swrast_dri.so      vmwgfx_dri.so
+iris_dri.so  nouveau_dri.so     radeonsi_dri.so  virtio_gpu_dri.so
+
+$ ls /dev/dri
+by-path  card0  card1  renderD128  renderD129
+
+$ ls /lib/modules/$(uname -r)/kernel/drivers/gpu/drm
+amd  bochs   drm_kms_helper.ko.xz  drm_ttm_helper.ko.xz   gma500  i915     nouveau  radeon     ttm  virtio  vmwgfx
+ast  cirrus  drm.ko.xz             drm_vram_helper.ko.xz  i2c     mgag200  qxl      scheduler  udl  vkms
+
+$ sudo ls /sys/kernel/debug/dri
+0  1  128  129
+
+$ sudo ls /sys/kernel/debug/dri/0
+clients		     i915_ddb_info	   i915_fbc_status	       i915_guc_log_level	 i915_runtime_pm_status
+crtc-0		     i915_display_info	   i915_fifo_underrun_reset    i915_guc_log_relay	 i915_shared_dplls_info
+crtc-1		     i915_dmc_info	   i915_forcewake_domains      i915_guc_stage_pool	 i915_shrinker_info
+crtc-2		     i915_dp_mst_info	   i915_forcewake_user	       i915_hpd_short_storm_ctl  i915_spr_wm_latency
+DP-1		     i915_dp_test_active   i915_frequency_info	       i915_hpd_storm_ctl	 i915_sr_status
+DP-2		     i915_dp_test_data	   i915_frontbuffer_tracking   i915_huc_load_status	 i915_sseu_status
+DP-3		     i915_dp_test_type	   i915_gem_drop_caches        i915_ipc_status		 i915_swizzle_info
+...
+sudo cat /sys/kernel/debug/dri/0/name
+i915 dev=0000:00:02.0 unique=0000:00:02.0
+
+$ sudo ls /sys/kernel/debug/dri/1
+clients  crtc-1  crtc-3  DVI-D-1      gem_names  internal_clients  pstate  strap_peek
+crtc-0	 crtc-2  DP-4	 framebuffer  HDMI-A-3	 name		   state   vbios.rom
+
+$ sudo cat /sys/kernel/debug/dri/1/name
+nouveau dev=0000:01:00.0 unique=0000:01:00.0
+
+$ sudo ls /sys/kernel/debug/dri/128
+clients  framebuffer  gem_names  internal_clients  name  state
+
+$ sudo cat /sys/kernel/debug/dri/128/name
+i915 dev=0000:00:02.0 unique=0000:00:02.0
+
+$ sudo ls /sys/kernel/debug/dri/129
+clients  framebuffer  gem_names  internal_clients  name  pstate  state	strap_peek  vbios.rom
+
+$ sudo cat /sys/kernel/debug/dri/129/name
+nouveau dev=0000:01:00.0 unique=0000:01:00.0
+
+DRM display mode
+----------------------------------------------------------------------------
+struct drm_display_mode {
+     int clock;                 // pixel clock in kHz
+     int hdisplay;              // horizontal display size = width
+     int hsync_start;           // horizontal sync start
+     int hsync_end;             // horizontal sync end
+     int htotal;                // horizontal total size
+     int hskew;                 // horizontal skew ?!
+     int vdisplay;              // vertical display size
+     int vsync_start;           // vertical sync start
+     int vsync_end;             // vertical sync end    
+     int vtotal;                // vertical total size
+     int vscan;                 // vertical scan ?!
+     int flags;                 // Sync and timing flags
+     int width_mm;              // addressable size of the output in mm 
+     int height_mm;             // addressable size of the output in mm
+
+     int crtc_<display_mode>    // <display_mode> will be  clock, hdisplay, hsync_start ...  vtotal;
+
+     int vrefresh;              // in Hz, vertical refresh rate, for debug output in human readable form
+     int hsync;                 // in kHz, horizontal refresh rate, for debug output in human readalbe form
+     enum hdmi_picture_aspect picture_aspect_ratio;
+}
+
+flags
+------
+DRM_MODE_FLAG_<name>, <name> can be
+PHSYNC / NHSYNC -- horizontal sync is active high / low
+PVSYNC / NVSYNC -- vertical sync is active high / low
+INTERLACE       -- mode is interlaced
+DBLSCAN         -- mode uses doublescan
+CSYNC           -- mode uses composite sync
+PCSYNC / NCSYNC -- composite sync is active high / low
+HSKEW           -- hskew provided
+BCAST        
+PIXMUX
+DBLCLK          -- double-clocked mode
+CLKDIV2         -- half-clocked mode
+
+3D flags
+--------
+DRM_MODE_FLAG_3D_<name>, <name> can be
+NONE            -- normal, non-3D mode
+FRAME_PACKING   -- 2 full frames for left and right
+FIELD_ALTERNATIVE   -- interleaved like fields
+LINE_ALTERNATIVE    -- interleaved lines
+SIDE_BY_SIDE_FULL   -- side-by-side full frames
+L_DEPTH             -- ?
+L_DEPTH_GFX_GFX_DEPTH -- ?
+TOP_AND_BOTTOM      -- frame split into top an boottom parts
+SIDE_BY_SIDE_HALF   -- frame split inot left and right parts
+
+
+DRM API
+----------------------------------------------------------------------------
+libdrm/xf86drmMode.h
+
+structure
+drmModeRes      (fbs[], crtcs[], encoders[], min_width, max_width, min_height, max_height)
+drmModeModeInfo (clock , hdisplay, hsync_start, hsync_end, htotal, hskew, 
+                         vdisplay, vsync_start, vsync_end, vtotal, vskew, 
+                         vrefresh, 
+                         flags, type, name)
+drmModeFB       (fb_id, width, height, pitch, bpp, depth, handle)
+drmModePropertyBlobRes (id, lenght, data[])
+drmModePropertyRes (prop_id, flags, name[], count_value, values[], count_enums, enums[], count_blobs, blob_ids[])
+
+drmModeCrtc     (crtc_id, buffer_id, x, y, width, height, mode_valid, modeInfo, gama_size)
+drmModeEncoder  (encoder_id, encoder_type, crtc_id, possible_crtcs, possible_clones)
+    encoder_type    : DRM_MODE_ENCODER_<x>
+            <x>     : DAC       for VGA and analog on DVI-I/DVA-A
+                    : TMDS      for DVI, HDMI and DisplayPort, eDP
+                    : LVDS      for display panels
+                    : TVDAC     for TV output (Composite, S-Video, Component, SCART)
+                    : VIRTUAL   for virutal machine displays
+                    : DSI       for MIPI DSI
+                    : DPMST     for special fake encoders used to allow multiple DP MST streams to share one physical encoder
+                    : DPI       for MIPI DPI
+drmModeConnector (connector_id, encoder_id, connector_type, connector_type_id, connection, mmWidth, mmHeight, subpixel, 
+                  count_modes, modesInfo, count_props, props[], prop_values[])
+    connector_type  : DRM_MODE_CONNECTOR_<x>
+            <x>     : Unknown
+                    : VGA
+                    : DVII
+                    : DVID
+                    : DVIA
+                    : Composite
+                    : SVIDEO
+                    : LVDS
+                    : Component
+                    : 9PinDIN
+                    : DisplayPort
+                    : HDMIA
+                    : HDMIB
+                    : TV
+                    : eDP
+                    : VIRTUAL
+                    : DSI       for Display Serial Interface (MIPI)
+                    : DPI       for Parallel Display Interface (up to 24-bit RGB interface)
+drmModePlane    (count_formats, formats[], plane_id, crtc_id, fb_i, crtc_x, crtc_y, x, y, possible_crtcs, gamma_size)
+drmModePlaneRes (count_planes, planes[])
+
+function
+drmModeFreeModeInfo
+drmModeFreeResource
+drmModeFreeFB
+drmModeFreeCrtc
+drmModeFreeConnector
+drmModeFreeEncoder
+drmModeFreePlane
+drmModeFreePlaneResources
+
+drmModeGetResources(fd)
+drmModeGetFB(fd, buffer_id)
+drmModeAddFB(fd, width, height, depth, bpp, pitch, bo_handle, buf_id[])
+drmModeAddFB2(fd, width, height, pixel_format, bo_handles[4], pitches[4], offsets[4], buf_id, flags)
+drmModeAdFB2WithModifiers(fd, width, height, pixel_format, bo_handels[4], pitches[4], offsets[4], modifier[4], 
+                    buf_id, flags)
+drmModeRmFB(fd, bufferId)
+drmModeDirtyFB(fd, bufferId, clips, num_clips)
+
+drmModeGetCrtc(fd, crtcId)
+drmModeSetCrtc(fd, crtcId, bufferId, x, y, connector, int count, drmModeModeInfoPtr mode)
+
+drmModeSetCursor(fd, crtcId, bo_handle, widht, height)
+drmModeSetCursor2(fd, crtcId, bo_handle, with, height, hot_x, hot_y)
+drmModeMoveCursor(fd, crtcId, x, y)
+
+drmModeGetEncoder(fd, encoder_id)
+drmModeGetConnector(fd, connectorId)
+drmModeGetConnectorCurrent(fd, connectorId)
+drmModeAttachMode(fd, connectorId, mode_info)
+drmModeDetachMode(fd, connectorId, mode_info)
+
+drmModeGetProperty(fd, propertyId)
+drmModeFreeProperty(fd, proopertyId)
+drmModeGetPropertyBlob(fd, blob_id)
+drmModeFreePropertyBlob(ptr)
+
+drmModeConnectorSetProperty(f, connector_id, property_id, value)
+drmCheckModesettingSupported(busid)
+
+drmModeCrtcSetGamma(fd, crtc_id, size, red[], gree[], blue[])
+drmModeCrtcGetGamma(fd, crtc_id, size, red[], gree[], blue[])
+drmModePageFlip(fd, crtc_id, fb_id, flags, user_data)
+drmModePageFlipTarget(fd, crtc_id, fb_id, flags, user_data, target_vblank)
+
+drmModeGetPlaneResources(fd)
+drmModeGetPlane(fd, plane_id)
+drmModeSetPlane(fd, plane_id, crtc_id, fb_id, flags, crtc_x, crtc_y, crtc_w, crtc_h, src_x, src_y, src_w, src_h)
+
+drmModeObjectGetProperties(fd, object_id, object_type)
+drmModeFreeObjectProperties(ptr)
+drmModeObjectSetProperty(fd, object_id, object_type, property_id, value)
+
+drmModeAtomicAlloc()
+drmModeAtomicDuplicate
+drmModeAtomicMerge
+drmModeAtomicFree
+drmModeAtomicGetCursor
+drmModeAtomicSetCursor
+drmModeAtomicAdProperty
+drmModeAtomicCommit
+drmModeCreatePropertyBlob
+drmModeDestroyPropertyBlob
+
+drmModeCreateLease
+drmModeListLessess
+drmModeGEtLease
+drmModeRevokeLease
+
+fd = open("/dev/dri/card0", O_RDWR | O_CLOEXEC)
+
+
+build libdrm
+------------
+# 不要 install 自已 build libdrm， 有可能跟 mesa 原生的 dri dirver 不相容
+# 需要 modetest modeprint 時 -> cp modetest /usr/local/bin
+-> MESA-LOADER: : failed to open nouveau (search paths /usr/lib64/dri)
+-> failed to open /usr/lib64/dri/nouveau_dri.so: /usr/lib64/dri/nouveau_dri.so: undefined symbol: amdgpu_cs_query_reset_state2
+
+$ git clone https://github.com/grate-driver/libdrm.git
+$ sudo dnf install meson
+$ sudo dnf install libpciaccess-devel
+$ meson libdrm build/
+$ ninja -C build/
+$ ninja -C build/ test
+$ sudo ninja -C build/ install
+
+$ ninja -C build/ uninstall
+
+
+
+list all mesa
+-------------------------------------------------------------------------------------------
+$ yum list | grep mesa
+$ yum list installed | grep mesa
+mesa-dri-drivers.x86_64                            20.1.4-1.el8                                  @AppStream   
+mesa-filesystem.x86_64                             20.1.4-1.el8                                  @AppStream   
+mesa-libEGL.x86_64                                 20.1.4-1.el8                                  @AppStream   
+mesa-libEGL-devel.x86_64                           20.1.4-1.el8                                  @appstream   
+mesa-libGL.x86_64                                  20.1.4-1.el8                                  @AppStream   
+mesa-libGLU.x86_64                                 9.0.0-15.el8                                  @AppStream   
+mesa-libgbm.x86_64                                 20.1.4-1.el8                                  @AppStream   
+mesa-libgbm-devel.x86_64                           20.1.4-1.el8                                  @powertools  
+mesa-libglapi.x86_64                               20.1.4-1.el8                                  @AppStream   
+mesa-libxatracker.x86_64                           20.1.4-1.el8                                  @AppStream   
+
+$ yum list installed | grep drm
+libdrm.x86_64                                      2.4.101-1.el8                                 @AppStream
+libdrm-devel.x86_64                                2.4.101-1.el8                                 @appstream
+
+
+$ rpm -ql mesa-dri-drivers
+/usr/lib64/dri/i965_dri.so
+/usr/lib64/dri/iris_dri.so
+/usr/lib64/dri/kms_swrast_dri.so
+/usr/lib64/dri/nouveau_dri.so
+/usr/lib64/dri/r600_dri.so
+/usr/lib64/dri/radeonsi_dri.so
+/usr/lib64/dri/swrast_dri.so
+/usr/lib64/dri/virtio_gpu_dri.so
+/usr/lib64/dri/vmwgfx_dri.so
+/usr/share/drirc.d
+/usr/share/drirc.d/00-mesa-defaults.conf
+
+$ rpm -ql mesa-libGL
+/usr/lib64/libGLX_mesa.so.0
+/usr/lib64/libGLX_mesa.so.0.0.0
+/usr/lib64/libGLX_system.so.0
+
+$ rpm -ql mesa-libgbm
+/usr/lib64/libgbm.so.1
+/usr/lib64/libgbm.so.1.0.0
+
+$ rpm -ql mesa-libgbm-devel
+/usr/include/gbm.h
+/usr/lib64/libgbm.so
+/usr/lib64/pkgconfig/gbm.pc
+
+$ rpm -ql libdrm
+/usr/lib/udev/rules.d/91-drm-modeset.rules
+/usr/lib64/libdrm.so.2
+/usr/lib64/libdrm.so.2.4.0
+/usr/lib64/libdrm_amdgpu.so.1
+/usr/lib64/libdrm_amdgpu.so.1.0.0
+/usr/lib64/libdrm_intel.so.1
+/usr/lib64/libdrm_intel.so.1.0.0
+/usr/lib64/libdrm_nouveau.so.2
+/usr/lib64/libdrm_nouveau.so.2.0.0
+/usr/lib64/libdrm_radeon.so.1
+/usr/lib64/libdrm_radeon.so.1.0.1
+/usr/lib64/libkms.so.1
+/usr/lib64/libkms.so.1.0.0
+/usr/share/libdrm
+/usr/share/libdrm/amdgpu.ids
+
+drivers
+------------------------------------------------
+Package : mesa-dri-drivers.x86_64
+/usr/lib64/dri/nouveau_dri.so
+
+Package : xorg-x11-drv-<vendor>.x86_64  for example xorg-x11-drv-nouveau.x86_64
+/usr/lib64/xorg/modules/drivers/nouvead_drv.so
+/usr/lib64/xorg/modules/drivers/intel_drv.so
+
+Package : libdrm.x86_64
+/usr/lib64/libdrm.so
+/usr/lib64/libdrm_amdgpu.so
+/usr/lib64/libdrm_intel.so
+/usr/lib64/libdrm_nouveau.so
+/usr/lib64/libdrm_radeon.so
+/usr/lib64/libkms.so
+/usr/share/libdrm/amdgpu.ids
+
+Package : intel media driver
+/usr/local/lib/dri/iHD_drv_video.so
+
+
+about drmModePropertyPtr
+-------------------------
+struct _drmModeProperty {
+    uint32_t    prop_id;
+    uint32_t    flags;
+    char        name[];
+    int         count_values;
+    uint64_t    *values;        /* store the blob lengths */
+    int         count_enums;
+    struct drm_mode_property_enum *enum;
+    int         count_blobs;
+    uint32_t    *blob_ids;      /* store the blob IDs */
+}
+
+flags: 
+#define DRM_MODE_PROP_PENDING   (1<<0)
+#define DRM_MODE_PROP_RANGE     (1<<1)
+#define DRM_MODE_PROP_IMMUTABLE (1<<2)
+#define DRM_MODE_PROP_ENUM      (1<<3) /* enumerated type with text strings */
+#define DRM_MODE_PROP_BLOB      (1<<4)
+
+
+device and proc
+----------------
+// device
+$ ls /dev/dri/card0
+
+// class
+$ ls /sys/class/drm
+
+// proc, also see i915_debugfs
+$ sudo ls /sys/kernel/debug/dri/0
+
+
+
