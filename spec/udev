@@ -43,10 +43,11 @@ Variable
 %r, $root               = /dev
 %p, $devpath            = DEVPATH
 %k, $kernel             = KERNEL
-%n, $number             = device number
-%N, $tempnode           = device tempary name
+%n, $number             = device number, the kernel number of the device. sda3 has a "kernel number" of '3'
+%N, $tempnode           = device name, the kernel name
 %M, $major              = MAJOR
 %m, $minor              = MINOR
+%b                      = the bus id fo the device
 %s{attributes}, ${attributes}       = sysfs attribute
 %E{variable}, $attr{variable}       = environment variable
 %c $result              = PROGRAM output

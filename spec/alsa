@@ -134,6 +134,61 @@ P0-14-0: PCM playback 0-14-0 : SLAVE
 P0-15-0: PCM playback 0-15-0 : SLAVE
 P0-16-0: PCM playback 0-16-0 : SLAVE
 
+/dev/snd
+--------
+/dev/snd
+├── by-path
+│   └── pci-0000:00:1f.3 -> ../controlC0
+├── controlC0
+├── hwC0D0
+├── hwC0D2
+├── pcmC0D0c
+├── pcmC0D0p
+├── pcmC0D10p
+├── pcmC0D11p
+├── pcmC0D12p
+├── pcmC0D13p
+├── pcmC0D14p
+├── pcmC0D15p
+├── pcmC0D16p
+├── pcmC0D3p                116,4
+├── pcmC0D7p                116,5
+├── pcmC0D8p                116,7
+├── pcmC0D9p                116,8
+├── seq
+└── timer
+
+
+hda audio over hdmi summary
+----------------------------
+1. driver snd-hda-intel
+    - position_fix parameter is useless for hw:0,3, hw:0,7 mapping
+2. hw:0,3, and hw:0,7 ... mapping is only related to active hdmi port
+        hdmi-1 active           hw:0,3
+        hdmi-2  -
+        hdmi-3  -
+        hdmi-4 active           hw:0,7
+
+3. /proc/asound/card/codec#0
+    Node 0x0a [pin complex]     - hdmi-1
+         0x0b                     hdmi-2
+         0x0c                     hdmi-3
+         0x0d                     hdmi-4
+
+4. /proc/asound/card0/eld#2.9        -> HDMI-1
+                      eld#2.12       -> HDMI-2
+                      eld#2.15       -> HDMI-3
+                      eld#2.18       -> HDMI-4
+
+5. /proc/asound/card0/pcm3p/sub0/info
+                                /status
+                                /hw_params
+
+6. need to design hda_open, hda_close, hda_write, hda_info
+    - using shadow name as hda-1 -> hdmi-1 -> hw:0,3 , hda-2 -> hdmi-2 -> hw:0,7
+    - x12 will maintain hda-n map to real hw:0,m
+    - hda_idle more than 30msec will close the real device
+
 
 
 asound.conf
