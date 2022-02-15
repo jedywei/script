@@ -91,3 +91,19 @@ $ gdb ffmpeg -c /var/lib/apport/coredump/core.*
 // disable apport by
 $ sudo vi /etc/default/apport
 enabled=0
+
+core dump test
+--------------
+$ sleep 30
+Ctrl-\              # send SIGQUIT or
+kill -QUIT $PID
+kill -ABRT $PID
+
+ubuntu gdb core with apport
+---------------------------
+cat /var/log/apport.log
+
+ls -al /var/lib/apport/coredump
+
+gdb qsvplay -c /var/lib/apport/coredump/
+
