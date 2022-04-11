@@ -6,7 +6,13 @@ $ sudo apt update
 $ sudo apt list available-upgrade
 $ sudo apt full-upgrade
 
-2. ssh install / also git subversion git-svn
+2. sudo without password
+--------------------------------------------------------------------------
+$ sudo visudo
+%sudo  ALL=(ALL:ALL) ALL                        // NOTE NOPASSWD line should be under %sudo 
+jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
+
+3. ssh install / also git subversion git-svn
 --------------------------------------------------------------------------
 $ sudo apt install -y ssh
 $ sudo apt install -y git subversion git-svn silversearcher-ag
@@ -26,10 +32,6 @@ $ sudo vi /etc/hosts
 172.17.4.19     mac
 # 192.168.0.201 mac
 
-3. sudo without password
---------------------------------------------------------------------------
-$ sudo visudo
-jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
 
 4. jedy's github environment
 --------------------------------------------------------------------------
