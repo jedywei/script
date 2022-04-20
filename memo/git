@@ -346,4 +346,17 @@ pull config
 get a directory commit
 ----------------------
 $ git log --oneline -- ffmpeg
+$ git log .
+$ git log --raw .
 $ git adog -- ffmpeg
+
+if you accidentally did
+-----------------------
+$ git rm -rf .
+
+and removed all, you can recover it doing this.
+$ git st
+$ git reset HEAD .
+$ git co -- .
+
+

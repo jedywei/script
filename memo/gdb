@@ -62,6 +62,12 @@ strace -t -e open ls /home  # print timestamp for each trace output line using o
 strace -r ls                # print relative time for system calls using option -r
 strace -c ls /home          # generate statistics report of system calls using option -c
 
+
+[signals]
+info signals SIG32
+handle SIG32 nostop
+
+
 [cord dump]
 ulimit -c unlimited
 ulimit -a
@@ -91,3 +97,19 @@ $ gdb ffmpeg -c /var/lib/apport/coredump/core.*
 // disable apport by
 $ sudo vi /etc/default/apport
 enabled=0
+
+core dump test
+--------------
+$ sleep 30
+Ctrl-\              # send SIGQUIT or
+kill -QUIT $PID
+kill -ABRT $PID
+
+ubuntu gdb core with apport
+---------------------------
+cat /var/log/apport.log
+
+ls -al /var/lib/apport/coredump
+
+gdb qsvplay -c /var/lib/apport/coredump/
+
