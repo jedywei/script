@@ -100,7 +100,7 @@ $ sudo reboot; ssh p085        // reboot p085 ssh, and ssh again
 8. build up Ruth project
 --------------------------------------------------------------------------
 $ cd ~/mediaflow/Ruth
-$ ./install_all_ubuntu20_packages.sh
+$ ./scripts/install_all_packages.sh
 $ make
 
 
