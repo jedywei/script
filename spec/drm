@@ -237,6 +237,13 @@ TOP_AND_BOTTOM      -- frame split into top an boottom parts
 SIDE_BY_SIDE_HALF   -- frame split inot left and right parts
 
 
+
+magic
+------
+1. drm client GET_MAGIC, pass the token to drm master
+2. drm master AUTH-MAGIC token to DRM device
+
+
 DRM API
 ----------------------------------------------------------------------------
 libdrm/xf86drmMode.h
@@ -352,7 +359,7 @@ drmModeDestroyPropertyBlob
 
 drmModeCreateLease
 drmModeListLessess
-drmModeGEtLease
+drmModeGetLease
 drmModeRevokeLease
 
 fd = open("/dev/dri/card0", O_RDWR | O_CLOEXEC)
@@ -497,4 +504,45 @@ $ ls /sys/class/drm
 $ sudo ls /sys/kernel/debug/dri/0
 
 
+xf86drm.h
+----------
+// X server only
+drmAddMap
+drmRmMap
+drmAddBufs
+drmMarkBufs
+drmCreateContext
+drmDestrotyContext
+drmCreateDrawable
+drmDestroyDrawable
+
+drmCrtcGetSequence
+drmCrtcQueeuSequence
+
+drmWaitVBlank
+drmHandelEvent
+
+
+// unpriviledge
+drmGetMap
+drmGetClient
+drmGetStats         _drmStats   -> statistic
+
+// authenticated client
+drmMap
+drmUnmap
+drmGetBufInfo
+drmMapBufs
+drmUnmapBufs
+drmDMRA
+drmFreeBufs
+drmGetLock
+drmUnlock
+drmFinish
+
+// convert between GEM handles and DMA-BUF file descriptors
+drmPrimeHandleToFD (int fd, uint32_t handle, uint32_t flags, int *prime_fd)
+drmPrimeFDToHandle(int fd, int prime_fd, unit32_t *handle)
+
+// Syncobj
 

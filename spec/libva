@@ -1,0 +1,41 @@
+vaapi
+-----
+
+vaCreteSurfaces
+vaDestroySurfaces
+vaCreateBuffer
+vaCreateBuffer2
+vaMapBuffer
+vaUnmapBuffer
+vaDestoryBuffer
+vaAcquireBufferHandle
+vaReleaseBufferHandle
+
+
+ffmpeg/libavutil/hwcontext_vaapi.c::vaapi_pool_alloc
+    vaCreateSurfaces(display, rt_format, with, height, &surfice_id, 1, attributes, nb_attributres)
+
+ffmpeg/libavutil/hwcontext_vappi.c:;vaapi_map_frame
+    vaSyncSurface(display, surface_id);
+    // real map
+    vaDeriveImage(display, surface_id, &map->image)
+    // copy map
+    vaCreateImage(display, image_format, with, height, &map->image)
+    vaGetImage(display, surface_id, 0, 0, width, height, map->image.image_id)
+    vaMapBuffer(display, map->image.buf, &address)
+
+
+drm_intel
+---------------------
+
+m_bufmgr = drm_intel_bufmgr_gem_init(drm_fd, 4096);
+bo = drm_intel_bo_gem_create_from_prime(m_bufmgr, handle, mem_size)
+drmModAdFB(drm_fd, width, height, 24, 32, pitchees, handle, &fb_fd)
+drm_intel_bo_unreference(bo)
+
+...
+drm_intel_bufmgr_destroy(m_bufmgr)
+    
+
+
+

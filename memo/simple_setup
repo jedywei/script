@@ -1,16 +1,23 @@
 Simple Setup
 ------------
-1. update apt database and full-upgrade
---------------------------------------------------------------------------
-$ sudo apt update
-$ sudo apt list available-upgrade
-$ sudo apt full-upgrade
 
-2. sudo without password
+1. sudo without password
 --------------------------------------------------------------------------
 $ sudo visudo
 %sudo  ALL=(ALL:ALL) ALL                        // NOTE NOPASSWD line should be under %sudo 
 jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
+
+2. update apt database and full-upgrade
+--------------------------------------------------------------------------
+$ sudo apt update                               // only update package index /etc/apt/sources.list
+$ sudo apt list available-upgrade
+$ sudo apt full-upgrade                         // install the newest versions of all packages by /etc/apt/sources.list
+
+disalbe automatic upgrade
+$ cat /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic:Upate-Package-Lists "0";
+APT::Periodic::Download-Upgradeable-Packages "0";
+APT::Periodic::AutocleanInterval "0";
 
 3. ssh install / also git subversion git-svn
 --------------------------------------------------------------------------
@@ -67,6 +74,7 @@ LC_ALL="en_US.UTF-8"
 LC_CTYPE="en_US.UTF-8"
 LANG="en_US.UTF-8"
 LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
 
 
 7. resetup netplan
@@ -100,11 +108,11 @@ $ sudo reboot; ssh p085        // reboot p085 ssh, and ssh again
 8. build up Ruth project
 --------------------------------------------------------------------------
 $ cd ~/mediaflow/Ruth
-$ ./install_all_ubuntu20_packages.sh
+$ ./scripts/install_all_packages.sh
 $ make
 
 
-9. enter multi-user.target
+9. enter multi-user.target (Optional)
 --------------------------------------------------------------------------
 $ sudo systemctl set-default multi-user.target
 $ sudo systemctl isolate multi-user.target

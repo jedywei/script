@@ -157,3 +157,5 @@ echo "${B[@]}"        # bar a  b c
 echo "${B[1]}"        # a  b c
 echo "${C[@]}"        # bar a  b c 42
 echo "${C[@]: -2:2}"  # a  b c 42 # The space before the - is necesssary
+
+@see also bash_array

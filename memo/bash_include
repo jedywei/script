@@ -1,0 +1,58 @@
+!/bin/bash
+
+cY="\e[38;5;220m"
+cG="\e[38;5;154m"
+cR="\e[38;5;196m"
+cW="\e[38;5;12m"
+cN="\e[0m"
+pass=$cG"Pass"$cN
+failed=$cR"Failed"$cN
+expect="^no setting$"
+npass=0
+nfail=0
+
+function summarize2()
+{
+    title=$1
+    local lpass=$2
+    local lfail=$3
+
+    if [[ $nfail != 0 ]]; then
+        printf "${cW} %-60.60s ${cG}%d Pass${cW} / ${cR}%d Failed ${cN}\n" "$title" $lpass $lfail
+    else 
+        printf "${cW} %-60.60s ${cG}%d Pass${cW} / ${cW}%d Failed ${cN}\n" "$title" $lpass $lfail
+    fi
+}
+function summarize()
+{
+    echo 
+    echo -e $cW"-- Summary --------------------------------------------------------------------------"
+    summarize2 "$@"
+    echo -e $cW"-------------------------------------------------------------------------------------"
+}
+
+function test()
+{
+    local item="${cG}$ $@${cN}"
+    local text=""
+    if [[ "$failed_and_abort" == "yes" ]]; then
+        echo -e ${item}
+        text=$(unbuffer "$@" 2>&1 | tee /dev/tty)
+    else
+        text=$("$@" 2>&1)
+    fi
+    if [[ ${text} =~ ${expect} ]]; then 
+        echo -ne ${item}
+        echo -e " ..................................................................................\e[85G" ${pass} "\e[0K"
+        npass=$((npass+1))
+    else 
+        echo -e ${item}
+        echo -e "...................................................................................\e[85G" ${failed} "\e[0K"
+        nfail=$((nfail+1))
+        if [[ $failed_and_abort == "yes" ]]; then
+            echo -e $cR"Expected pattern '${expect}'"$cN
+            exit -1
+        fi
+    fi
+    expect="^no setting$"
+} 

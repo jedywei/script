@@ -1,0 +1,4 @@
+sudo sh -c 'echo 0xff > /sys/module/drm/parameters/debug'
+sudo $(which djconn)
+
+

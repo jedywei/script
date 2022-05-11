@@ -25,6 +25,7 @@ grep Matcher Selection
 egrep   == grep -E
 fgrep   == grep -F
 
+vainfo | egrep '(libva|vainfo)'
 
 ag
 ---------------------------

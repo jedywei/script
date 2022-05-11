@@ -1,0 +1,78 @@
+bash array
+----------
+subscript array
+associative array
+
+subscript array
+----------------
+declare -a arr
+arr=(value value2 value3)
+
+${arr[*]}   - all of the items in the array (seperate by IFS)
+${arr[@]}   - all of the items in the array (returns each item as a seperate word)
+${!arr[*]}  - all of the indexs in the array. 
+${#arr[*]}  - number of items in the array
+${#arr[0]}  - lenght of item zero
+
+item="one two three four"
+items=(${item})
+echo ${items[@]:-2}
+echo ${items[-1]}
+unset 'items[${#items[@]}-1]'
+echo ${items[*]}
+
+associative array
+-----------------
+!/bin/bash
+
+# declare
+declare -A mymap
+
+# assignment
+mymap[foo]=bar
+k=baz
+mymap[$k]=quux
+
+
+echo ${mymap[foo]}
+echo ${mymap[baz]}
+
+# loop by key
+for k in  "${!mymap[@]}"; do
+    echo mymap[$k] '->' ${mymap[$k]};
+done
+
+# loop by index
+keys=("${!mymap[@]}")
+for (( i=0; i < ${#mymap[@]}; i++ )); do
+    key=${keys[$i]}
+    echo mymap[$i] $key '->' ${mymap[$key]}
+done
+
+# size of array
+echo \#mymap = ${#mymap[@]}
+
+# testing
+echo -n foo '-> '
+if [ ${mymap[foo]+_} ]; then
+    echo found
+else   
+    echo not found
+fi     
+       
+echo -n missing '-> '
+if [ ${mymap[missing]+_} ]; then
+    echo found
+else   
+    echo not found
+fi     
+
+# delete key
+unset mymap[baz]
+echo baz '->' ${mymap[baz]}
+
+# clear all
+unset mymap
+declare -A mymap
+echo foo '->' ${mymap[foo]}
+

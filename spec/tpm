@@ -1,0 +1,62 @@
+tpm - Trusted Platform Module
+------------------------------
+
+What is a TPM
+    - cryptographic processor
+    - NOT an accelertor!
+        believe it or not, TPMs are slow "by design"
+
+    - key generator
+    - encryption descryption / signature engine
+    - hash generator (digest + HMAC)
+
+    TPM2.0
+        - RSA 1024/2048
+        - ECC P256/BN256
+        - SHA-1
+        - SHA-256
+
+platform: ubuntu 20.04 LTE
+package
+    tpm2-tools
+        v4.1.1
+        This package contains a set of tools to use with TPM 2.0 chips,
+        for common tasks and features provided by the hardware; such as
+        for doing basic key management, attestation, encryption and signing.
+    tss2
+        v 1045-1.2
+        IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
+         TSS2 is a user space Trusted Computing Group's Software Stack (TSS) for
+         TPM 2.0.  It implements the functionality equivalent to the TCG TSS
+         working group's ESAPI, SAPI, and TCTI layers (and perhaps more) but with
+         a hopefully far simpler interface.
+         .
+         It comes with about 80 "TPM tools" that can be used for rapid prototyping,
+         education and debugging.
+
+device
+------
+$ ls /dev/tpm*
+/dev/tpm0  /dev/tpmrm0
+
+
+command
+-------
+tpm2_hash
+tpm2_sign
+tpm2_verifysignature
+tpm2_clear
+tpm2_nvreadpublic
+
+
+-> https://tpm2-software.github.io/2021/02/17/Protecting-secrets-at-TPM-interface.html
+This tutorial demonstrates a method to protect application secrets on the TPM
+    - The application secret is sealed to a trusted TPM device whose identity is known to be valid.
+    - The TPM device and the CPU are bound with a secret. The authorization policy for the sealing 
+        object is made dependent on the secret. This offers protection against the attacker ability 
+        to transplant the TPM to an attacker controlled CPU to retrieve the secrets.
+    - Inhibit the attacker ability to retrieve or replay any of the secrets used for the provisioning 
+        and the application-secrets on the CPU<==>TPM interface.
+
+
+
