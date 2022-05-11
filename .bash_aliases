@@ -166,8 +166,8 @@ if [[ $- == *i* ]]; then
 fi
 
 alias hi=history
-alias ha='history | ag'
-export HISTCONTROL=ignoreboth
+alias hg='history | ag'
+export HISTCONTROL=erasedups
 shopt -s histverify
 
 
