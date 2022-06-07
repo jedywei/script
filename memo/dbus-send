@@ -1,0 +1,8 @@
+dbus-send example
+------------------
+dbus=com.acl.x12 
+interface=com.acl.x12.interface
+method=x12RotateLog
+args="int32:1250 string:'hello world'"
+dbus-send --system --type=method_call --print-reply --dest=${dbus} / ${interface}.${method} ${args}
+

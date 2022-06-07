@@ -113,3 +113,30 @@ ls -al /var/lib/apport/coredump
 
 gdb qsvplay -c /var/lib/apport/coredump/
 
+
+stop apport and enable systemd-coredump
+---------------------------------------
+sudo systemctl stop apport
+sudo systemctl mask --now apport
+sudo apt install systemd-coredump
+
+#Verify this changed the core pattern to a pipe to systemd-coredump
+sysctl kernel.core_pattern
+
+$ ls /var/lib/systemd/coredump/
+
+# Reproduce the crash.
+sudo killall -s SIGSEGV x12
+
+# List collected dumps
+coredumpctl
+
+# Invoke debugger on the latest one
+sudo coredumpctl gdb
+
+# systemd >=239 the gdb verb was renamed debug. Also, select core by PID.
+sudo coredumpctl debug 5809
+
+# In GDB, the basic thing to get is a stck trace. Ask the developer what else they went.
+(gdb) thread apply all bt
+

@@ -360,3 +360,82 @@ $ git reset HEAD .
 $ git co -- .
 
 
+git log
+------------------------
+$ git log -p 
+$ git log -p -2
+
+$ git log --stat 
+$ git log --stat -2
+
+$ git log --grep avout_tune
+
+
+check out a specific commit
+----------------------------
+$ git co f127fbcf
+$ git br
+* (HEAD detached at f127fbcf)
+..
+
+$ git switch master
+
+$ git br f1 f127fbcf            // create a new branch 'f1' at f127fbcf commit
+$ git co f1                     // check branch f1
+
+$ git switch master
+$ git br -d f1
+
+$ git br tune avout_tune        // avout_tune is a tag
+$ git co tune
+
+or 
+$ git co -b tune avout_tune
+
+
+see the changes between two commits
+------------------------------------
+git diff master 6ca9bbff
+
+git diff avout_tune develop
+
+git diff HEAD HEAD^
+git diff HEAD HEAD~5
+
+HEAD^ == HEAD~1
+master^^ == master~2
+
+* ed489 (HEAD -> master) 
+* da985
+* c10b9
+* b325c
+* a47c3 (maint)
+
+stage (Stage index)
+wd    (Wokring Directory)
+
+$ git diff HEAD         (HEAD -> wd)
+$ git diff              (stage -> wd)
+$ git diff --staged     (HEAD -> stage)
+$ git diff maint        (maint -> wd)
+$ git diff b325c        (b325c -> wd)
+$ git diff da985 b325c  (da985 -> b325c)
+
+
+$ git diff 4498441d HEAD -- twovideo.c          // diff only twovideo.c file
+
+check a file from previous commit
+----------------------------------
+$ git co HEAD^ -- <filename>
+
+here  '--'  Do not interpret any more arguments a options
+
+
+git reset vs git co <commit>
+----------------------------
+$ git reset --soft HEAD^
+$ git reset --hard HEAD^
+$ git reflog
+
+$ git co HEAD^
+

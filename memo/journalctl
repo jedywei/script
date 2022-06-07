@@ -5,6 +5,8 @@ sudo journalctl -e -u mfp_demo              // jump to end of journal
 sudo journalctl -f -u mfp_demo              // follow
 journalctl -e --user -u mfp_demo_user
 
+sudo journalctl --no_pager -u gatekeeper > gatekeeper.log
+
 sudo journalctl --rotate
 sudo journalctl --flush
 sudo journalctl --vacuum-time=1s

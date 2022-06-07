@@ -1,0 +1,14 @@
+npm a java script package manager
+---------------------------------
+
+$ man npm
+
+$ npm version
+
+$ npm i <package>           # install
+$ npm un <package>          # uninstall package
+$ npm up <package>          # update package
+
+$ npm list -g --depth=0     # list globally installed package
+$ npm list
+
