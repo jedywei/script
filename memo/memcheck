@@ -1,0 +1,160 @@
+memory leakage
+---------------
+[valgrind]
+valgrind --tool=memory --leak-check=full <command and command arguement>
+
+# on ubuntu
+valgrind --tool=memcheck --leak-check=full <command and command arguement>
+
+# for example
+sudo valgrind --tool=memcheck --leak-check=full $(which x12)
+
+valgrind --tool=memcheck --leak-check=full --track-fds=yes --suppressions=blackmagic.supp <command>
+
+valgrind --tool=memcheck -leak-check=full -track-origins=yes  <command>
+
+check leakage only
+------------------
+--undef-value-errors=no
+--num-callers=20
+--track-origins=yes
+
+Valgrind Document
+https://valgrind.org/docs/manual/index.html
+
+
+Memory lost
+-----------
+    - definitely lost: 真的 memory leak 了
+    - indirectly lost: 間接的 memory leak，structure 本身發生 memory leak，而內部的 member 如果是 allocate 
+                       的出來的，一樣會 memory leak，但是只要修好前面的問題，後面的問題也會跟著修復。
+    - possibly lost: allocate 一塊記憶體，並且放到指標 ptr，但事後又改變 ptr 指到這會計一體的中間 
+    - still reachable: 程式結束時有未釋放的記憶體，不過卻還有指標指著，通常會發生在 global 變數
+
+
+Interpreting Memcheck's output
+--------------------------------
+1. Most error messages look like
+  ==19182== Invalid write of size 4
+  ==19182==    at 0x804838F: f (example.c:6)
+  ==19182==    by 0x80483AB: main (example.c:11)
+  ==19182==  Address 0x1BA45050 is 0 bytes after a block of size 40 alloc'd
+  ==19182==    at 0x1B8FF5CD: malloc (vg_replace_malloc.c:130)
+  ==19182==    by 0x8048385: f (example.c:5)
+  ==19182==    by 0x80483AB: main (example.c:11)
+
+    - There is a lot of information in each error message; read it carefully.
+    - The 19182 is the process ID; it's usually unimportant.
+    - The first line ("Invalid write...") tells you what kind of error it is. Here, the program wrote to 
+        some memory it should not have due to a heap block overrun.
+    - Below the first line is a stack trace telling you where the problem occurred. Stack traces can get 
+        quite large, and be confusing, especially if you are using the C++ STL. Reading them from the bottom 
+        up can help. If the stack trace is not big enough, use the --num-callers option to make it bigger.
+    - The code addresses (eg. 0x804838F) are usually unimportant, but occasionally crucial for tracking down weirder bugs.
+    - Some error messages have a second component which describes the memory address involved. This one shows 
+        that the written memory is just past the end of a block allocated with malloc() on line 5 of example.c.
+
+2. Memory leak messages look lik
+  ==19182== 40 bytes in 1 blocks are definitely lost in loss record 1 of 1
+  ==19182==    at 0x1B8FF5CD: malloc (vg_replace_malloc.c:130)
+  ==19182==    by 0x8048385: f (a.c:5)
+  ==19182==    by 0x80483AB: main (a.c:11)
+
+    The stack trace tells you where the leaked memory was allocated. Memcheck cannot tell you why the memory 
+    leaked, unfortunately. (Ignore the "vg_replace_malloc.c", that's an implementation detail.)
+
+    There are several kinds of leaks; the two most important categories are:
+    - "definitely lost": your program is leaking memory -- fix it!
+    - "probably lost": your program is leaking memory, unless you're doing funny things with pointers 
+        (such as moving them to point to the middle of a heap block).
+
+
+
+Invalid Memory Access
+----------------------
+==60019== Memcheck, a memory error detector
+==60019== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==60019== Using Valgrind-3.9.0 and LibVEX; rerun with -h for copyright info
+==60019== Command: ./mem_test
+==60019==
+==60019== Invalid write of size 2
+==60019==    at 0x4005AB: main (mem_test.c:9)
+==60019==  Address 0x51f4044 is 0 bytes after a block of size 4 alloc'd
+==60019==    at 0x4C2C857: malloc (vg_replace_malloc.c:291)
+==60019==    by 0x400595: main (mem_test.c:8)
+==60019==
+==60019== Invalid read of size 4
+==60019==    at 0x4005D1: main (mem_test.c:14)
+==60019==  Address 0x51f40a0 is 13 bytes after a block of size 3 alloc'd
+==60019==    at 0x4C2C857: malloc (vg_replace_malloc.c:291)
+==60019==    by 0x4005C4: main (mem_test.c:13)
+==60019==
+==60019== Invalid read of size 4
+==60019==    at 0x4005F7: main (mem_test.c:18)
+==60019==  Address 0x51f4090 is 0 bytes inside a block of size 3 free'd
+==60019==    at 0x4C2B75D: free (vg_replace_malloc.c:468)
+==60019==    by 0x4005F2: main (mem_test.c:15)
+==60019==
+==60019== Invalid free() / delete / delete[] / realloc()
+==60019==    at 0x4C2B75D: free (vg_replace_malloc.c:468)
+==60019==    by 0x400618: main (mem_test.c:21)
+==60019==  Address 0x51f4090 is 0 bytes inside a block of size 3 free'd
+==60019==    at 0x4C2B75D: free (vg_replace_malloc.c:468)
+==60019==    by 0x4005F2: main (mem_test.c:15)
+
+
+錯誤一：Invalid write of size 2，試圖寫入一個非法的區域，valgrind 還好心告訴你這個地方是在 mem_test.c:6 allocate 出來的 memory 之後的 3 byte，通常遇到這種情況都是忘記檢查 buffer 的 size 就去用。
+錯誤二：Invalid read of size 4，試圖讀取一個非法的區域。
+錯誤三：Invalid read of size 4，讀取的區域已經被 free 了，free 的位置 valgrind 也幫你指出來 mem_test.c:12。
+錯誤四：Invalid free，也就是 free 一個不存在的地方，或是 double free
+
+
+Conditional jump or move
+------------------------
+遇到 Conditional jump or move depends on uninitialised value(s) 的錯誤
+可能是用了沒有結束字元 (Null-terminated string) 的字串
+
+有一種錯誤不太好找，如 A function 用到用到 B function 產生出來的 memory，對於系統本身並無任何違法，但卻會造成程式出現不預期的值。
+
+對於 local variable 的存取如果超過範圍，還有可能造成 stack corrupt，然後噴出這類的錯誤：
+
+如果不想 show possibly lost，可以加下面的參數
+3.9版 --show-leak-kinds=definite
+3.7版 --show-possibly-lost=no
+
+另外 file descriptor 開了沒關也可以偵測，只要加上 --track-fds=yes 
+
+之前有遇過 valgrind 在 ubuntu 12.04 一直有錯誤訊息，記得要安裝額外的套件 sudo apt-get install libc6-dbg
+12.04 - Valgrind does debug error - Ask Ubuntu
+
+
+valgirnd tool=<toolname> are
+-----------------------------
+cachegrind and callgrind    - to do cache and call-grap function profiling
+helgrind and drd            - to o thread error and data-race detection
+massif and dhat             - to do dynamic heap usage analysis
+
+
+
+valgrind
+---------
+[valgrind]
+valgrind --tool=memory --leak-check=full <command and command arguement>
+
+# on ubuntu
+valgrind --tool=memcheck --leak-check=full <command and command arguement>
+
+# for example
+sudo valgrind --tool=memcheck --leak-check=full $(which x12)
+
+valgrind --tool=memcheck --leak-check=full --track-fds=yes --suppressions=blackmagic.supp <command>
+
+valgrind --tool=memcheck -leak-check=full -track-origins=yes  <command>
+
+check leakage only
+------------------
+--undef-value-errors=no
+--num-callers=20
+--track-origins=yes
+--show-leak-kinds=reachable
+

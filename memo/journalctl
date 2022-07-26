@@ -10,3 +10,6 @@ sudo journalctl --no_pager -u gatekeeper > gatekeeper.log
 sudo journalctl --rotate
 sudo journalctl --flush
 sudo journalctl --vacuum-time=1s
+
+
+SEE: boot

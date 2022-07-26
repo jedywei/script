@@ -3,9 +3,7 @@ Simple Setup
 
 1. sudo without password
 --------------------------------------------------------------------------
-$ sudo visudo
-%sudo  ALL=(ALL:ALL) ALL                        // NOTE NOPASSWD line should be under %sudo 
-jedywei ALL=(ALL:ALL)   NOPASSWD: ALL
+sudo sh -c 'echo "jedywei ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/jedywei'
 
 2. update apt database and full-upgrade
 --------------------------------------------------------------------------
@@ -19,26 +17,50 @@ APT::Periodic:Upate-Package-Lists "0";
 APT::Periodic::Download-Upgradeable-Packages "0";
 APT::Periodic::AutocleanInterval "0";
 
+
+$ sudo apt install -y linux-image-5.15.0-1010-intel-iotg linux-headers-5.15.0-1010-intel-iotg
+$ sudo apt install -y linux-modules-5.15.0-1010-intel-iotg linux-modules-extra-5.15.0-1010-intel-iotg
+$ sudo reboot
+$ uname -a 
+
 3. ssh install / also git subversion git-svn
 --------------------------------------------------------------------------
 $ sudo apt install -y ssh
-$ sudo apt install -y git subversion git-svn silversearcher-ag
 
 
 // on mac
+-------------------------------------------------------------------------
 $ sudo vi /etc/hosts
 192.168.0.107   p085
 
-$ ssh-copy-id jedywei@p085
+export targetM=p085
+$ ssh-copy-id jedywei@$targetM
+// enter 'iamarock'
 
-$ scp ~/.ssh/id_rsa jedywei@p085:~/.ssh            // for github without password
-$ scp ~/.ssh/id_rsa.pub jedywei@p085:~/.ssh
+$ scp ~/.ssh/id_rsa jedywei@$targetM:~/.ssh            // for github without password
+$ scp ~/.ssh/id_rsa.pub jedywei@$targetM:~/.ssh
 
-// on p085
+# on p085
+-------------------------------------------------------------------------
+$ sudo sh -c 'echo "jedywei ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/jedywei'
+
+$ sudo apt install -y git subversion git-svn silversearcher-ag
+
 $ sudo vi /etc/hosts
 172.17.4.19     mac
 # 192.168.0.201 mac
 
+change hostname
+$ sudo hostnamectl hostname p085
+
+# add groups
+$ groups
+jedywei adm cdrom sudo audio dip video plugdev render lxd
+
+$ sudo usermod -a -G adm,cdrom,sudo,audio,dip,video,plugdev,render,lxd jedywei
+
+# enlarge volume disk
+$ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
 
 4. jedy's github environment
 --------------------------------------------------------------------------
@@ -48,7 +70,7 @@ $ cd .vim; ./gitvundle.sh; cd -
 $ ~/script/dotsetup.sh
         
 5. vim check version and YCM
-$ sudo apt install -y vim
+// $ sudo apt install -y vim
 $ vim --version 
 $ vim .vimrc
 # remember to unmark Plugin 'Valloric/YouCompleteMe' and reload .vimrc again
@@ -76,6 +98,8 @@ LANG="en_US.UTF-8"
 LC_NUMERIC="en_US.UTF-8"
 LC_TIME="en_US.UTF-8"
 
+6-1 timezone
+$ sudo timedatectl set-timezone Asia/Taipei
 
 7. resetup netplan
 --------------------------------------------------------------------------

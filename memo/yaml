@@ -1,0 +1,72 @@
+ yaml
+    * YAML - 
+    * list of key/value pairs, hash, directory
+    * begin with ---, end with ...
+    * all members of a list are lines beginning at the same indentation level starting with a "- " (a dash and a space)
+
+    For example
+---
+# A list of tasty fruits
+- Apple
+- Orange
+- Strawberry
+- Mango
+...
+
+     * A dictionary is represented a simple "key: value" form (the colon must be followed by a space):
+    For example
+# An employee record
+martin:
+  name: Martin D'vloper
+  job: Developer
+  skill: Elite
+
+     * More complicated data structures are possible, such as lists of dictionaries, dictionaries whose values are lists
+            or a mix of both:
+
+# Employee records
+- martin:
+  name: Martin D'vloper
+  job: Developer
+  skills: 
+    - python
+    - perl
+    - pascal
+- tabitha:
+    name: Tabitha Bitumen
+    job: Developer
+    skills:
+      - lisp
+      - fortran
+      - erlang
+
+      * Dictonaries an lists can also be represented in a abbreviated form if you really want to:
+---
+martin: {name: Martin D'vloper, job: Developer, skill: Elite}
+frutes: ['Apple', 'Orange', 'Strawberry', 'Mango']
+
+      * boolean value     (lower case 'true' or 'false' for boolean values in dictionaries if you wan to be compatible with 
+                             defalut yamllint options.)
+create_key: yes
+need_agent: no
+knows_oop: True
+likes_emacs: TRUE
+uses_cvs: false
+
+      * | or > Values can span multiple lines using | or >. 
+
+include_newlines: |
+            exactly as you see
+            will appear these three
+            lines of poetry
+
+fold_newlines: >
+            this is really a
+            single line of text
+            despite appearances
+
+
+use yamllint
+$ yamllint autoinstall/user-data-v2
+
+# yamllint disable-line rule:line-length

@@ -18,3 +18,6 @@ $ sudo usermod -a -G video jedywei
 $ getent group jedywei
 $ getent passwd jedywei
 
+NOTE
+The adduser command creates a new user and additional information about the user, directories, and a password. 
+The useradd command is used for creating a new user or for modifying the existing user. 

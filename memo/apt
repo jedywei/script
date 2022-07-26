@@ -27,9 +27,17 @@ $ dpkg -L <packagee_name>                   // list files in package <package_na
 $ apt-file search <filename_search_pattern>
 $ apt-cache pkgnames                        // the command 
 
+deb package schema
+------------------
+<package-name>_<version>-<release-number>_<architecture>
+for example
+coreutils_8.30-3ubuntu2_amd64
+
 
 reinstall unbuntu-desktop
+----------------------------------------------
 $ sudo apt install -y ubuntu-gnome-desktop
+
 
 apt                                     yum
 ---------------------------             ----------------------------------
@@ -37,6 +45,7 @@ apt-get update <package>                yum update <package>
 apt-cache search <key work>             yum search <key word>
 apt-get install <package>               yum install <package>
 apt show <package>                      yum info <package>
+dpkg-dep --info ./<package>
 dpkg-list                               rpm -qa 
 apt-cache dumpavail                     yum list available
 dpkg -l                                 yum list installed
@@ -49,4 +58,29 @@ $ dpkg -l libsvn-perl
 $ dpkg -L libsvn-perl
 $ dpkg -s libsvn-perl
 
+Fix broken dependencies
+-----------------------
+$ sudo apt -f install
+$ sudo dpkg --configure -a
+$ sudo apt -f install
+
+
+Fix missing and broken packages
+-------------------------------
+$ sudo apt update --fix-missing
+$ sudo apt install -f
+1. update the repository index
+    $ sudo apt update
+2. clean out the local repository
+    $ sudo apt clean
+3. remove all the unnecessary packages that are no longer needed
+    $ sudo apt autoremove
+
+4. Check repository
+sudo apt-get check
+
+
+check installed or not
+----------------------
+apt list --installed | grep <package>
 

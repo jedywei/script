@@ -439,3 +439,15 @@ $ git reflog
 
 $ git co HEAD^
 
+
+reduce local git repository
+---------------------------
+git gc
+git gc --aggressive
+git prune
+git gc --aggressive --prune=now
+
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+
+

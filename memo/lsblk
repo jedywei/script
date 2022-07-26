@@ -1,0 +1,57 @@
+lsblk
+
+$ lsblk
+nvme0n1                   259:0    0 238.5G  0 disk
+├─nvme0n1p1               259:1    0     1G  0 part /boot/efi
+├─nvme0n1p2               259:2    0     2G  0 part /boot
+└─nvme0n1p3               259:3    0 235.4G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0   100G  0 lvm  /
+
+$ sudo vgdisplay
+  --- Volume group ---
+  VG Name               ubuntu-vg
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               235.42 GiB
+  PE Size               4.00 MiB
+  Total PE              60268
+  Alloc PE / Size       25600 / 100.00 GiB
+  Free  PE / Size       34668 / 135.42 GiB
+  VG UUID               XlxAPE-pEBu-pQ17-qfAV-1Q4M-z4ZA-pL2eMw
+
+$ sudo lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/ubuntu-vg/ubuntu-lv
+  LV Name                ubuntu-lv
+  VG Name                ubuntu-vg
+  LV UUID                0tPWyK-xFbT-VMZ5-P823-VF3b-ZE2i-h05pVM
+  LV Write Access        read/write
+  LV Creation host, time ubuntu-server, 2022-07-25 12:28:24 +0800
+  LV Status              available
+  # open                 1
+  LV Size                100.00 GiB
+  Current LE             25600
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           253:0
+
+$ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+  Size of logical volume ubuntu-vg/ubuntu-lv changed from 100.00 GiB (25600 extents) to 235.42 GiB (60268 extents).
+  Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+
+
+
+
+
