@@ -1,0 +1,72 @@
+pixfmts pixel format relative
+------------------------------
+- 4cc               fourcc  'C','8',' ',' ' will be mark as C8__
+- ffmpeg            AV_PIX_FMT_{name}               / for example AV_PIX_FMT_NV12       != 4cc
+- drm               DRM_FORMAT_{name}               / for example DRM_FORMAT_NV12       == 4cc
+- drmbo             DBO_{4CC}                       / for example DBO_NV12              == 4cc
+- vaapi             VA_FOURCC_{4CC}                 / for example VA_FOURCC_NV12        == 4cc
+- mediasdk(mfx)     MFX_FOURCC_{4CC}                / for example MFX_FOURCC_NV12       == 4cc
+- cairo             CAIRO_FORMAT_{name}             / for example CAIRO_FORMAT_ARGB32   != 4cc
+- pxxc              PXX_{4CC}                       / for example PXX_NV12              == 4cc
+- sdl               SDL_PIXELFORMAT_{name}          / for example SDL_PIXELFORMAT_NV12  != 4cc
+- deck link
+- bqb sdk
+
+
+NOTE:
+1.  {name}  use arbitry name as suffix for naming pixel format, for example _RGB565 for DRM_FORMAT_RGB565
+2.  {4CC}   use 4CC name as suffix for naming  pixel format, for example _RG16 for DBO_RGB16
+3.  == 4cc  use MAKE_FOURCC(A,B,C,D) as defination of the format, for example DRM_FORMAT_NV12 == MAKE_FOURCC('N','V','1','2)
+4.  != 4cc  use arbitry number as the defination of the format, for example AV_PIX_FMT_NV12 == 123
+
+format = MAKE_FOURCC(A,B,C,D)           == (A << 0) | (B << 8) | (C << 16) | (D << 24)
+nv12   = MAKE_FOURCC('N','V','1','2')
+
+NOTE: _ means ' ', a space character
+
+4cc   ffmpeg        drmbo   drm             cairo
+----- ---------     ------- --------------- ----------- 
+                                            _A8         [7:0] 8bit alpha
+                                            _A1         [0] 1 bit alpha
+RG16  _RGB565       =       _RGB565         _RGB16_565  [15:0] R:G:B=5:6:5 LE   (packed)
+XR24  _0RGB         =       _XRGB8888       _RGB24      [31:0] x:R:G:B LE   
+XB24  _0BGR         =       _XBGR8888                   [31:0] x:B:G:R LE   
+AR24  _ARGB         =       _ARGB8888       _ARGB32     [31:0] A:R:G:B LE   
+AB24  _ABGR         =       _ABGR8888                   [31:0] A:B:G:R LE   
+XR30                =       _XRGB2101010    _RGB30      [31:0] x:R:G:B=2:10:10:10 LE    
+XB30                =       _XBGR2101010                [31:0] x:B:G:R=2:10:10:10 LE    
+AR30                =       _ARGB2101010                [31:0] A:R:G:B=2:10:10:10 LE    
+AB30                =       _ABGR2101010                [31:0] A:B:G:R=2:10:10:10 LE    
+XR4H                =       _XRGB16161616F              [63:0] x:R:G:B=16:16:16:16 LE   
+XB4H                =       _XGBR16161616F              [63:0] x:B:G:R=16:16:16:16 LE   
+AR4H  _BGRA64BE     =       _ARGB16161616F              [63:0] A:R:G:B=16:16:16:16 LE   
+AB4H  _RGBA64BE     =       _ABGR16161616F              [63:0] A:B:G:R=16:16:16:16 LE   
+
+
+NV12  =             =       _NV12                       [8:0] Y / [15:0] Cr:Cb  LE      plane x2 420
+YUYV  _YUYV422      =       _YUYV                       [31:0] Cr0:Y1:Cb0:Y0=8:8:8:8 LE 422
+YVYU                =       _YVYU                       [31:0] Cb0:Y1:Cr0:Y0=8:8:8:8 LE 422
+UYVY  _UYVY422      =       _UYVY                       [31:0] Y1:Cr0:Y0:Cb0=8:8:8:8 LE 422
+VYUY                =       _VYUY                       [31:0] Y1:Cb0:Y0:Cr0=8:8:8:8 LE 422
+XYUV                =       _XYUV8888                   [31:0] x:Y:Cb:Cr=8:8:8:8 LE     444
+XV30                =       _XVYU2101010                [31:0] A:Cr:Y:Cb=2:8:8:8 LE     444
+XV36                =       _XVYU12_16161616            [63:0] x:0:Cr:0:y:0:Cb:0=12:4:12:4:12:4:12:4 LE     444
+XV48                =       _XVYU16161616               [63:0] x:Cr:Y:Cb=16:16:16:16 LE 444
+Y210  _Y210LE       =       =                           [63:0] Cr0:0:Y1:0:Cb0:0:Y0:0=10:6:10:6:10:6:10:6 LE 422
+Y212                =       =                           [63:0] Cr0:0:Y1:0:Cb0:0:Y0:0=12:4:12:4:12:4:12:4 LE 422
+Y216                =       =                           [63:0] Cr0:Y1:Cb0:Y0=16:16:16:16 LE 422
+P010  _P010LE       =       =                           [15:0] Y:0=10:6 / [31:0] Cr:x:Cb:x=10:6:10:6 LE  plane x2 420
+P012                =       =                           [15:0] Y:0=12:4 / [31:0] Cr:x:Cb:x=12:4:12:4 LE  plane x2 420
+P016  _P016LE       =       =                           [15:0] Y / [31:0] Cr:Cb=16:16 LE plane x2 420
+
+V210
+V010
+
+NV21  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 420
+NV16  =                     =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 422
+NV61                        =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 422
+NV24  =                     =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 444
+NV42  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 444
+    
+C8__  _PAL8         =       =                           [8:0] color index
+

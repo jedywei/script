@@ -450,4 +450,10 @@ git gc --aggressive --prune=now
 git reflog expire --expire=now --all
 git gc --prune=now --aggressive
 
+show files change of a commit
+-----------------------------
+git show --stat --oneline 
+git show --stat --oneline <commit>
+git show --stat --oneline HEAD^^..HEAD
+
 

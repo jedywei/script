@@ -28,7 +28,26 @@ $ uname -a
 $ sudo apt install -y ssh
 
 
-// on mac
+# on p085  adduser
+-------------------------------------------------------------------------
+$ sudo adduser jedywei
+
+$ sudo sh -c 'echo "jedywei ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/jedywei'
+
+# add groups
+$ groups
+jedywei vega adm cdrom sudo audio dip video plugdev render lxd
+
+$ sudo usermod -a -G adm,vega,cdrom,sudo,audio,dip,video,plugdev,render,lxd jedywei
+
+# change hostname
+$ sudo hostnamectl hostname p085
+
+# enlarge volume disk
+$ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+$ sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv 
+
+# [ on MAC ] 
 -------------------------------------------------------------------------
 $ sudo vi /etc/hosts
 192.168.0.107   p085
@@ -40,27 +59,14 @@ $ ssh-copy-id jedywei@$targetM
 $ scp ~/.ssh/id_rsa jedywei@$targetM:~/.ssh            // for github without password
 $ scp ~/.ssh/id_rsa.pub jedywei@$targetM:~/.ssh
 
+
 # on p085
 -------------------------------------------------------------------------
-$ sudo sh -c 'echo "jedywei ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/jedywei'
-
 $ sudo apt install -y git subversion git-svn silversearcher-ag
 
 $ sudo vi /etc/hosts
 172.17.4.19     mac
 # 192.168.0.201 mac
-
-change hostname
-$ sudo hostnamectl hostname p085
-
-# add groups
-$ groups
-jedywei adm cdrom sudo audio dip video plugdev render lxd
-
-$ sudo usermod -a -G adm,cdrom,sudo,audio,dip,video,plugdev,render,lxd jedywei
-
-# enlarge volume disk
-$ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
 
 4. jedy's github environment
 --------------------------------------------------------------------------

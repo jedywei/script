@@ -84,3 +84,19 @@ check installed or not
 ----------------------
 apt list --installed | grep <package>
 
+
+list reposoistoris
+------------------
+$ cat /etc/apt/sources.list
+$ ls /etc/apt/sources.list.d
+
+$ grep -r --include '*.list' '^deb ' /etc/apt/sources.list*
+
+$ sudo apt-cache policy
+
+what is apt update?
+-------------------
+The apt update comman is used to upate the apt packages inex. The apt packages index is a database
+that sotres the list of software packeages from the repository.
+
+
