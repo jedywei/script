@@ -11,6 +11,7 @@ pixfmts pixel format relative
 - sdl               SDL_PIXELFORMAT_{name}          / for example SDL_PIXELFORMAT_NV12  != 4cc
 - deck link
 - bqb sdk
+- ndi               NDIlib_FourCC_type_{4CC}        / for example NDIlib_FourCC_type_NV112          / pixfmts_ndi
 
 
 NOTE:

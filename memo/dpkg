@@ -76,3 +76,17 @@ packages
 .dsc    - source package
 .deb    - binary package
 
+
+dpkg installation
+-----------------
+// install 
+$ dpkg -i <package>.deb
+
+
+// unpack and config
+$ dpkg --unpack <package>.deb
+$ dpkg --configure <pakcage>.deb
+
+// remove
+$ dpkg -r <package>
+$ dpkg -P <package>

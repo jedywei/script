@@ -1,0 +1,92 @@
+cairo api
+----------
+
+cairo_surface_t *surf = cairo_image_surface_create_for_data(
+    dboPixels(dbo), CAIRO_FORMAT_ARGB32, dbo->width, dbo->height, dbo->pitches[0]);
+
+Drawing -----------------------
+cairo_t
+    cairo_create(), cairo_reference(), cairo_destroy(), cairo_status(), cairo_save(), cairo_restor(), ...
+    cairo_set_source(), ...
+    cairo_set_operator()
+
+
+CAIRO_OPERATOR_{op} op = CLEAR, SOURCE, DEST, DEST_{ OVER, IN, OUT, ATOP,}, XOR, ADD, SATURATE, MULTIPLY, SCREEN, ...
+
+cairo_path_t
+    cairo_copy_path(), cairo_new_path(), ...
+
+cairo_pattern_t
+    cairo_pattern_create_rgb(), 
+
+cairo_region_t
+    cairo_region_create(), cairo_region_create_rectangle(), cairo_region_create_rectangles(), ...
+
+Fonts --------------------------
+cairo_font_face_t
+cairo_scaled_font_t
+cairo_font_options_t
+
+
+Surfaces -----------------------
+cairo_device_t 
+cairo_surface_t
+
+
+Utilities ----------------------
+cairo_matrix_t
+Error handline
+    cairo_status_t  / CAIRO_STATUS_SUCCESS, _NO_MEMORY, ....
+    cairo_status_to_string(), cairo_debug_reset_static_data()
+Version Information
+    cairo_version(), cairo_version_string()
+
+
+NOUNS: destination / source / mask / path / context
+
+destination / an array of pixels. (image memory, SVG, PDF, PNG, ...)
+    - surface
+    - canvas
+
+source / paint
+    - paint  (solid color, translucent color, patern, and also surface)
+    - transparency information - alpha channel 
+
+mask / controls where you apply the source to the destination.
+    - draw / stamp the source to the destination. 
+    - mask allos, the source is copied, anywhere the mask disallows, nothing happens.
+
+path / part of mask and part of context
+
+context / keeps track of evverything that verbs affect. 
+    - one source, one destination, and one mask
+    - track ... line width, style, font face, size, and more
+    - trask the path which is turned into a maks by drawing verbs.
+    - cairo_t
+        - tied to a specific surface (destination)
+
+VERBS: stroke / fill / show text, glyphs / paint / mask 
+
+cairo_stroke() / takes a virtual pen along the path. 
+cairo_fill() 
+cairo_show_text() 
+    - shortcut for creating a path with cairo_text_path()
+    - and then using cairo_fill() to transfer it. 
+cairo_paint() / uses a mask that transfers the entire source to the destinatin. 
+    - consider it no mask. 
+cairo_mask() / 
+    - cairo_set_source(cr, linpat)
+    - cairo_mask(cr, radpat)
+
+
+Creating path
+    cairo_move_to(), cairo_line_to(), cairo_rel_line_to()
+    cairo_arc(), cairo_arc_negative()
+    cairo_curve_to(), cairo_rel_curve_to()
+    cairo_close_path(cr)
+
+
+
+
+
+

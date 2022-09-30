@@ -1,0 +1,89 @@
+edid format
+------------
+hex dump(data=0x5652552cca10, len=256)
+0000:   00 FF FF FF FF FF FF 00.  10 AC C2 40 50 33 33 31    ...........@P331
+0010:   32 19.01 03.80 46 28 78   EA.EF 95 A3 54 35 B5 26    2....F(x....T5.&
+0020:   0F 50 54.A5 4B 00.D1 00   D1 C0 B3 00 A9 40 81 80    .PT.K........@..
+0030:   81 00 71 4F E1 C0.08 E8   00 30 F2 70 5A 80 B0 58    ..qO.....0.pZ..X
+0040:   8A 00 BA 89 21 00 00 1E.  00 00 00 FF 00 50 50 59    ....!........PPY
+0050:   35 46 35 43 41 31 33 33   50 0A.00 00 00 FC 00 44    5F5CA133P......D
+0060:   45 4C 4C 20 55 50 33 32   31 36 51 0A.00 00 00 FD    ELL UP3216Q.....
+0070:   00 1D 4B 1F 8C 3C 00 0A   20 20 20 20 20 20.01.06.   ..K..<..      ..
+
+0080:   02 03 3B F1 55 61 60 5F   5E 5D 10 1F 20 05 14 04    ..;.Ua`_^].. ...
+0090:   13 12 11 03 02 16 15 07   06 01 23 09 1F 07 83 01    ..........#.....
+00A0:   00 00 6D 03 0C 00 10 00   00 3C 20 00 60 01 02 03    ..m......< .`...
+00B0:   67 D8 5D C4 01 78 C8 03   E2 0F 03 08 E8 00 30 F2    g.]..x........0.
+00C0:   70 5A 80 B0 58 8A 00 BA   89 21 00 00 1E 04 74 00    pZ..X....!....t.
+00D0:   30 F2 70 5A 80 B0 58 8A   00 BA 89 21 00 00 1E 02    0.pZ..X....!....
+00E0:   3A 80 18 71 38 2D 40 58   2C 45 00 BA 89 21 00 00    :..q8-@X,E...!..
+00F0:   1E 00 00 00 00 00 00 00   00 00 00 00 00 00 00 66    ...............f
+
+
+                           header: 00 ff ff ff ff ff ff 00                                  0x00 - 0x07 /  8
+    vendor/product identification: 10 ac c2 40 50 33 33 31 32 19                            0x08 - 0x11 / 10
+     edid struct version/revision: 01 03                                                    0x12 - 0x13 /  2
+basic display parameters/features: 80 46 28 78 ea                                           0x14 - 0x18 /  5
+            color characteristics: ef 95 a3 54 35 b5 26 0f 50 54                            0x19 - 0x22 / 10
+              established timings: a5 4b 00                                                 0x23 - 0x25 /  3
+   standard timing identification: d1 00 d1 c0 b3 00 a9 40 81 80 81 00 71 4f e1 c0          0x26 - 0x35 / 16
+                detailed timing 0: 08 e8 00 30 f2 70 5a 80 b0 58 8a 00 ba 89 21 00 00 1e    0x36 - 0x47 / 18
+                detailed timing 1: 00 00 00 ff 00 50 50 59 35 46 35 43 41 31 33 33 50 0a    0x48 - 0x59 / 18
+                detailed timing 2: 00 00 00 fc 00 44 45 4c 4c 20 55 50 33 32 31 36 51 0a    0x5a - 0x6b / 18
+                detailed timing 3: 00 00 00 fd 00 1d 4b 1f 8c 3c 00 0a 20 20 20 20 20 20    0x6c - 0x7d / 18
+                       extensions: 01                                                       0x7e - 0x7e /  1
+                         checksum: 06                                                       0x7f - 0x7f /  1
+
+
+Monitor
+  Model name............... DELL UP3216Q
+  Manufacturer............. DEL
+  Product code............. 16578
+  Module serial number..... 825439056
+  Serial number............ PPY5F5CA133P
+  Manufacture date......... 2015, ISO week 50
+  EDID revision............ 1.3
+  Input signal type........ Digital                     [ Digital, Analog ]
+  Bit depth ............... 6                           [ 6, 8, 10, 12, 14, 16, reserved ]
+  Video Interface ......... undefined                   [ HDMIa, HDMIb, MDDI, DisplayPort ]
+  Display type............. RGB 4:4:4 + YCbCr 4:4:4     [ RGB444, RGB444+YCbCr444, RGB444+YCbCr422, RGB444+YCbCr444+YCbCr422]
+  Screen size.............. 700 mm x 400 mm (31.7 in)
+  Power management......... Active off, Suspend, Standby  
+  Extension blocks......... 1
+
+Color characteristics
+  Default color space...... Non-sRGB                    [ sRGB, Non-sRGB ]
+  Display gamma............ 2.20
+  Red chromaticity......... Rx 0.140 - Ry 0.080
+  Green chromaticity....... Gx 0.210 - Gy 0.210
+  Blue chromaticity........ Bx 0.150 - By 0.060
+  White point (default).... Wx 0.063 - Wy 0.079
+
+Timing characteristics
+  Horizontal scan range.... 31 - 140 kHz
+  Vertical scan range...... 29 - 75 Hz
+  Video bandwidth.......... 600 MHz
+  GTF standard............. Not Supported               [ Supported, Not Supported ]
+  Preferred timing......... Yes
+  Native/preferred timing.. 3840x2160p at 60Hz (16:9)
+    Modeline............... "3840x2160" 594.000 3840 4016 4104 4400 2160 2168 2178 2250 +hsync +vsync
+
+Standard timings supported
+   720 x  400p @ 70Hz - IBM VGA
+   640 x  480p @ 60Hz - IBM VGA
+   640 x  480p @ 75Hz - VESA
+   800 x  600p @ 60Hz - VESA
+   800 x  600p @ 75Hz - VESA
+  1024 x  768p @ 60Hz - VESA
+  1024 x  768p @ 75Hz - VESA
+  1280 x 1024p @ 75Hz - VESA
+  1920 x 1200p @ 60Hz - VESA STD
+  1920 x 1080p @ 60Hz - VESA STD
+  1680 x 1050p @ 60Hz - VESA STD
+  1600 x 1200p @ 60Hz - VESA STD
+  1280 x 1024p @ 60Hz - VESA STD
+  1280 x  800p @ 60Hz - VESA STD
+  1152 x  864p @ 75Hz - VESA STD
+  2048 x 1152p @ 60Hz - VESA STD
+
+

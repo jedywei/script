@@ -457,3 +457,18 @@ git show --stat --oneline <commit>
 git show --stat --oneline HEAD^^..HEAD
 
 
+list all tags
+-------------
+git tag
+
+diff a file with tag
+---------------------
+git diff <tag> -- <file>
+$ git diff mfpgo_v1.1-0 -- postinst
+git diff <commit> -- <file>
+$ git diff 66204c7c -- postinst
+
+grep log 
+---------
+git log -g --grep="<pattern>"
+

@@ -99,4 +99,11 @@ what is apt update?
 The apt update comman is used to upate the apt packages inex. The apt packages index is a database
 that sotres the list of software packeages from the repository.
 
+disable need restart
+---------------------
+ubunut 22.04. needrestart.conf default "interactive" mode
+$ sudo vi /etc/needrestart/needrestart.conf
+...
+#$nrconf{restart} = 'i';
+$nrconf{restart} = 'l';
 
