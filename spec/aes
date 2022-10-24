@@ -1,0 +1,44 @@
+aes
+---
+AES - Audio Engineering Society
+- digital audio 
+
+AES3        - AES standard for digital audio engineering - Serial transmission format 
+                for two-channel linearly represented digital audio data
+            - exchange Digital Audio signals between professional audio devices
+                - 2 channels 
+                - PCM
+                - transmission media including 
+                    - balanced lines (XLR),  
+                    - unbalanced lines 
+                    - and optical fiber (S/PDIF)
+                    - BNC connector
+            - DAT format 48kHz
+            - CD format 44.1kHz
+
+
+            Audio Blocks  [ AB ][ AB ][ AB ] .....
+            192 Frames    [ 0 ][ 1 ][ 2 ] ....  [191]
+            2 subframes   [A][B] [A][B] ...
+            32 time slots [0][1][2][3]... [31]
+
+            0-3     Preamble
+            4-7     Auxiliary sample or Audio sample
+            8-27    Audio sample 
+            28 V    Validity
+            29 U    User data
+            30 C    Channel status
+            31 P    Parity
+
+AES11       - AES recommended practice for digital audio engineering - Synchronization of 
+                digital audio equipment in studio operations.
+AES47       - AES3 over Asynchronous Transfer Mode (ATM)
+AES51       - Transmission of ATM cells over Ethernet physical layer
+AES53
+AES67       - audio over IP
+
+AES/EBU - Audio Engineering Society / European Broadcasting Union
+
+AES3 = IEC 60958 = Consumer-grade S/PDIF
+
+

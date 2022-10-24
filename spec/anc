@@ -1,0 +1,68 @@
+anc
+----
+ancillary data
+HANC    - horizontal ancillary data     / embedded audio / timecode ?
+VANC    - veritcal ancillary data       / Closed caption / VPID
+
+
+HD-SDI
+
+Video:              Location Fixed, Format Specified (SMPTE-292M / 274M, ...)
+Audio:  16 Channel, Location Fixed in ANC Data Space (SMPTE-299M) 
+Timecode:           Location Fixed in ANC (SMPTE-291M)
+Captions:           Location Fixed in ANC (SMPTE-299M)
+AFD:                Location Fixed in ANC (SMPTE-2016M)
+Dolby Metadata:     Location Fixed in ANC (SMPTE-2020M)
+
+
+
+Audio
+------
+SMPTE-272M for SD
+SMPET-299M for HD and 3G
+    - SD / HD standards provide up to 16 channels of PCM audio 
+    - 3G allows up to 32 channels
+    - typicall encodes in AES3 format
+
+
+Timecode
+--------
+- LTC
+- VITC
+- RP188
+
+
+Captions
+--------
+- EBUTelext / OP-42 / OP-47 / ST-2031       - subtitles
+- CEA608/CEA708     Closed Captions
+- ARIB B37          cpations
+
+Does HDMI support closed captions?
+    - HDMI cables, cannot carry closed cpations. They can only carry captions after they've been decoded and
+      made a visible part of the video signal. So, for all sources connected to your TV by HDMI cables, you
+      MUST decode them at the player, recorder, set-top or converter box. 
+
+
+
+AFD
+---
+Active Format Description
+    - is a standard set of codes that can be sent in the MPEG video stream or in the basebase SDI video signal
+      that carries information about their apsect ratio and other active picture caharacteristics. 
+- aspect ratio matching
+
+Dolby Metadata
+---------------
+- SMPTE-337M / SMPTE-2020M
+
+Packet format
+-------------
+0x000,0x3FF,0x3FF
+DID         - Data Identifier
+SDID        - Secondary Data Identifier
+(DBN         - Data Block Number)
+DC          - Data Count
+UDW[0 - 255]- User Data Words
+CS          - Checksum
+

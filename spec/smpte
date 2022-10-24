@@ -1,0 +1,23 @@
+smpte
+-----
+
+SMPTE 259M-1997         10-Bit 4:2:2 Component and 4Fsc Composite Digital Signals -- Serial Digital Interface
+SMPTE 272M-2004         Formatting AES Audio and Auxilliary Data into Digital Video Ancillary Data Space
+SMPTE 291M-1998         Ancillary Data Packet
+SMPTE 274M-2003         1920x1080 Image Sample Structure, Digital Representation and Digital Timing 
+                        Reference Sequences for Multiple Picture Rates
+SMPTE 292M-1996         Bit-Serial Digital Interface for High-Definition Television Systems
+SMPET 2022-2
+SMPTE 2022-7            Seamless Protection Switching of RTP Datagrams
+SMPTE 2038-2008         Carriage of Ancillary Data Packets in an MPEG-2 Transport Stream
+SMPTE 2059-2:2015       SMPTE Profile for Use of IEEE-1588 Precision Time Proctocol in Professinal Broadcast Applications
+SMPTE 2081-1:2015       12Gb/s Signal/Data Serial Interface -- Electrical
+SMPTE 2082-10:2015      2160-line Source Image and Ancillary Data Mapping for 12G-SDI
+SMPTE 2010-2008         Vertical Ancillary Data Mapping of ANSI/SCTE 104 Messages
+
+
+ANSI/SCTE 104           Automation System to Compression System Communications API
+ANSI/SCTE 35            Digital Program Insertion Cueing Message for Cable
+
+
+----

@@ -1,0 +1,58 @@
+NAL
+---
+NAL     - Network Abstraction Layer
+
+
+NALU    - NAL Unit
+RBSP    - Raw Byte Sequence Payload
+SODB    - String Of Data Bits
+
+* RBSP = SODB + TRAIL 
+
+
+    [NALU][RBSP][NALU][RBSP][NALU][RBSP                    ][NALU][RBSP                      ] ...
+    [   SPS    ][   PPS    ][ Coded Slice of an IDR Picture][ Coded slice of an non-IDR Pic. ] ...
+                            /                              \
+                           /                                \
+                          [Slice Header][Slice Data          ]
+                                        /                    \
+                                       [MB][MB][MB][MB] ...[MB]
+                                          
+                                    [MB]=[Mb_type][Mb_pred][ Coded_residual ]
+
+  
+    [M][NAL][M][NAL][M][NAL]
+
+    M - synchronization marker
+
+    [NAL] = [Header][RBSP]
+
+    NAL-type
+     5  Slice Layer IDE
+     6  SEI 
+     7  SPS
+     8  PPS
+     9  AU
+    10  EOS
+    11  EOF
+    12  filler
+
+
+
+
+    [SPS][PPS][IDR][SLICE][SLICE][SLICE][....]
+
+    [SLICE] = [Slice Header][ Slice Data ]
+
+    Slice-type
+    0   P-slice
+    1   B-slice
+    2   I-slice
+    3   SP-slice 
+    4   SI-slice
+    5 .. 9
+
+
+    [MB] = [Type][PredictionType][CPB][QP][DATA                  ]
+
+
