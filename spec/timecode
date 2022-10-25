@@ -1,0 +1,48 @@
+Timecode
+--------
+Timecode  (in the post processing)
+    This is used to synchronize multiple devices and media both audio and video on a meta level. 
+Genlock (live feed)
+    Sync live camera in phase. 
+
+SMPTE12M
+SMPTE RP188
+SMPTE RP196
+
+HH:MM:SS:FF         NDF mode (Non Drop Frame)
+HH:MM:SS;FF         DF mode (Drop Frame)
+
+30/1001             Every 1 minute need to drop 2 frames 
+
+
+Timecode Setup
+---------------
+Master
+    Free-Run Timecode
+        - Free Run
+        - Free Run Auto Mute
+        - Free Run Jam Once
+    Record Run Timecode
+    24h Run
+        - 24h Run Auto Mute
+
+Slave
+    Ext-TC
+        - Ext-TC
+        - Ext-TC Auto-Rec
+        - Ext-TC / Cont
+        - Ext-TC Audo-Rec/Cont
+
+
+Frame Rate
+    . 24 frame/sec (film, ATSC, 2k, 4k 6k)
+    . 25 frame/sec (PAL, Europe, Uruguay, Argentina, Australia)
+    . 29.97 30/1001 frame/sec (NTSC, American System, ATSC, PAL-M)
+    . 30 frame/sec (ATSC)
+
+
+- Drop Frame
+- Non-drop frame
+
+Jam-sync
+

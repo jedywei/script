@@ -1,0 +1,118 @@
+Color chromaticity 
+-------------------
+CIE 1931 Color Space
+    - S 420nm - 440 nm   ~ B
+    - M 530nm - 540 nm   ~ G
+    - L 560nm - 580 nm   ~ R
+    -> LMS Color space
+CIE XYZ color space
+    - Y is the luminance
+    - Z is quasi-equal to blue
+    - X is a mix of the three  CIE RGB curves
+
+Rec.601
+    - SDTV
+    - ITU-R Recommendation BT.601
+    - BT.601
+    - CCIR 601
+
+    - Signal format     YCbCr 8bit   (16~235)
+    - Primary chromaticites
+        xW  = 0.3127
+        yW  = 0.3290
+        xR  = 0.640
+        yR  = 0.330
+        xG  = 0.290
+        yG  = 0.600
+        xB  = 0.150
+        yB  = 0.060
+
+
+Rec.709
+    - HDTV
+    - Rec.709 / BT.709, ITU 709
+
+    - Resolution 1920x1080
+    - Frame rates
+        - 24/P, 24/PsF, 23.976/P, 23.976/PsF
+        - 50/P, 25/P, 25/PsF, 50/I (25 fps)
+        - 60/P, 59.94/P, 30/P, 30/PsF, 29.97/P, 29.97/PsF, 60/I (30 fps), 59.97/I (29.97 fps)
+
+    - Primary chromaticites
+        xW  = 0.3127
+        yW  = 0.3290
+        xR  = 0.640
+        yR  = 0.330
+        xG  = 0.290
+        yG  = 0.600
+        xB  = 0.150
+        yB  = 0.060
+
+Rec.2020
+    - UHDTV
+    - SDR   // Standard Dynamic Range
+    - WCG   // Wide Color Gamut
+    - HDR (Rec.2100)
+
+    - Resolution    3840x2160 (4K), 7680x4320 (8K)
+    - Frame rate
+        - 120p, 119.88p
+        - 100p
+        - 60p, 59.94p
+        - 50p
+        - 30p, 29.97p
+        - 25p
+        - 24p, 23.97p
+
+    - Primary chromaticites
+        xW  = 0.3127
+        yW  = 0.3290
+        xR  = 0.708
+        yR  = 0.292
+        xG  = 0.170
+        yG  = 0.797
+        xB  = 0.131
+        yB  = 0.046
+
+
+Rec.2100
+    - BT.2100
+    - HDR-TV    // High Dynamic Range
+    - PQ        // Perceptual Quantizer
+    - HLG       // Hybrid Log-Gamma
+    - instead of the traditional "gamma" previously used for SDR-TV
+
+
+    - Primary chromaticites
+        xW  = 0.3127
+        yW  = 0.3290
+        xR  = 0.708
+        yR  = 0.292
+        xG  = 0.170
+        yG  = 0.797
+        xB  = 0.131
+        yB  = 0.046
+
+
+
+Transfer Function
+    - Transfer functios used in videos and decribing the relationship between "Electrical Signal", "Scene Light" and 
+        "Displayed Light".
+        - OETP      opto -> electronic transfer function
+        - EOTF      electro -> optical transfer function
+        - OOTF      opto -> optical transfer function
+
+    - Linear    
+        - sRGB
+    - Gamma
+        - Rec.601, Rec.709, Rec.2020
+    - Logarithmic
+        - S-Log         / sony DC
+        - Cannon Log    / Canon DC
+        - Arri Log
+    - HDR
+        - PQ    Dobly up to 10,000 cd/m^2
+        - HLG   NHK, BBC    
+                - lower half of the signal use gamma curve
+                - upper half of the signal use logarithmic curve
+

@@ -138,9 +138,9 @@ hh() {
 
 
 spec() {
-    if [ $# == 0]; then
+    if [ $# == 0 ]; then
         echo -e "\x1B[38;5;220m"
-        cat ~/script/spec/contents
+        ls ~/script/spec
         echo -e "\x1B[0m"
     else
         echo -e "\x1B[38;5;255m"

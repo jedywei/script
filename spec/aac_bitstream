@@ -1,0 +1,132 @@
+AAC bitstream format
+---------------------
+Advanced Audio Coding format
+
+- AAC is a variable bitrate (VBR) block-based codec where each block decodes to 1024 time-domain samples. 
+- Each frame stand alone and does not depend on previous frames
+- AAC includes a variety of profiles
+    . low complexity (LC): reported to be the simplest (Apple iTunes files)
+    . main (MAIN): LC profile with backwards prediction
+    . sample-rate scalability (SRS): submitted by Sony and reportedly similar to ATRAC/3
+    . long trem prediction (LTP): main profile with forward prediction
+    . high efficiency (HE, HE-AAC, aacPlus): uses Spectral Band Replication (SBR) and may use Parametric Streo (PS)
+        . aacPlus (a.k.a AAC+) decoder Note: aacPlus v1 is AAC + SBR, aacPlus v2 is AAC + SBR + PS.
+    . FAAD refers to another profile named LD, possibly the same as SRS
+    . provisions all over the libfaad source for error recovery (ER)
+
+
+- ADTS and ADIF headers
+- LATM and LOAS packaging
+
+Setup Data (2 bytes, or 5 bytes)
+-----------
+5 : object type                 (0: NULL, 1: AAC Main, 2: AAC LC, 3: AAC SSR, 4: AAC LTP, 5: SBR, 6: AAC Scalable, ...)
+4 : frequency index             (0: 96K,  1: 88.2K     2: 64K     3: 48K      4: 44.1K    5: 32K  6: 24K ....)
+if ( freqnency index == 15 )
+    24 : frequency
+4 : channel configuration       (0: AOT,  1: mono      2: L/R     3: C/L/R    4: C/L/R/B  5: ....)
+1 : frame length flag           (0: 1024 samples,  1: 960 samples )
+1 : dependsOnCoreCoder
+1 : extensionFlag
+
+For Example
+x11 x90
+0001 0001 1001 0000
+2    /   3/   2/
+
+
+
+ADTS header
+-----------
+adts_fixed_header() = 28 bits 
+12:     syncword                            = xFFF
+1:      ID                                  (0: MPEG-4  1: MPEG-2)
+2:      layer                               (00 always)
+1:      protection_absent                   (1: no CRC,  0: CRC)
+2:      profile                             (MPEG2 = 0: main, 1: LC, 2: SSR, 3: reserved, MPEG4 = same as object type)
+4:      sampling_frequency_index            (same as setup data)
+1:      private_bit                         
+3:      channel_configuration
+1:      original_copy
+1:      home
+
+adts_variable_header(0 = 28 bits
+1:      copyright_identification_bit
+1:      copyright_identification_start
+13:     aac_frame_length                    (include adts header and aac bitstream)
+11:     adts_buffer_fullness
+2:      number_of_raw_data_blocks_in_frame  (n+1 aac frames)
+
+ADIF header
+-----------
+32:     adif_id                             = 'ADIF'
+1:      copyright_id_present
+72:     copytright_id
+1:      original_copy
+1:      home
+1:      bitstream_type                      (0: CBR, 1: VBR)
+23:     bitrate 
+4:      num_program_config_elements
+20:     buffer_fullness
+VAR:    program_config_element
+
+
+
+Frame And Syntax Elements
+--------------------------
+AAC raw data -> a series of variable length AAC frames
+AAC frames: 
+3: first element type (0: SCE, 1: CPE, 2: CCE, 3: LFE, 4: DSE, 5: PCE, 6: FIL, 7: END)
+  
+This is an example layout for a 5.1 audio stream:
+
+    SCE CPE CPE LFE END     
+
+    SCE -> Center, 
+    CPE -> Left/Right, 
+    CPE -> surround Left/Right
+    LEF -> low frequency effect
+
+Decoding Process
+----------------
+ics = individual channel stream, the basic audio unit that FAAD2 is concerned with
+ms  = any parameter with this in its name deals with mid/side coding
+sfb = probably something to do with scale factors
+swb = scalefactor window band
+is  = intensity stereo
+-----------------------------------------------------------------------------------
+max_sfb
+num_swb
+num_window_groups
+num_windows
+window_sequence
+window_group_length[8]
+window_shape
+scale_factor_grouping
+section_sfb_offse[8][8*15]
+swb_offst
+section_codebook[8][15*8]
+section_start[8][15*8]
+section_end[8][15*8]
+sfb_codebook[8][15*8]
+number_sections[8]                  // number of sectioins in a group
+global_gain
+scale_factors[8][51]                // FAAD2 comment: [0..255]?
+ms_mask_present
+ms_used[MAX_WINDOW_GROUP][MAX_SFB]  // dimensions = [8][51]
+noise_used
+pulse_data_present
+tns_data_present
+gain_control_data_present
+predictor_data_present
+pulse_info pulse
+tns_info tns
+ data structures for main profile, document later
+ data structures for LTP, document later
+ data structures for SSR, document later
+ data structures for error resilience, document later
+
+ Decoding AAC END
+ -----------------
+ An AAC END syntax element has no extra bits. It does not denote the end of the entire stream, only the end of an encoded frame.
+

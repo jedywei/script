@@ -1,23 +1,84 @@
-smpte
+SMPTE
 -----
+The Society of Motion Picture And Television Engineers
 
-SMPTE 259M-1997         10-Bit 4:2:2 Component and 4Fsc Composite Digital Signals -- Serial Digital Interface
+
+SMPTE 125M-1995         Component Video Signal 4:2:2 - Bit-Parallel Digital Interface
+
+
+SMPTE 259M-1997         10-Bit 4:2:2 Component and 4fsc Composite Digital Signals -- Serial Digital Interface
+SMPTE 267M-1995         Bit-Parallel Digital Interface -- Component Video Signal 4:2:2 16x9 Aspect Ratio
 SMPTE 272M-2004         Formatting AES Audio and Auxilliary Data into Digital Video Ancillary Data Space
-SMPTE 291M-1998         Ancillary Data Packet
+
+SMPTE 274M-1995
+SMPTE 274-1998
 SMPTE 274M-2003         1920x1080 Image Sample Structure, Digital Representation and Digital Timing 
                         Reference Sequences for Multiple Picture Rates
+
+SMPTE 291M-1998         Ancillary Data Packet
 SMPTE 292M-1996         Bit-Serial Digital Interface for High-Definition Television Systems
-SMPET 2022-2
-SMPTE 2022-7            Seamless Protection Switching of RTP Datagrams
+SMPTE 293M-1996         720x483 Active Line at 59.94-Hz Progressive Scan Production - Digital Representation
+SMPTE 294M-1997         720x483 Active Line at 59.94-Hz Progressive Scan Production - Bit-Serial Interface
+SMPTE 296M-2001         1280x720 Progressive Image Sample Structure - Analog an Digital Rrepresentation and Analog Interface
+SMPTE 298M-1997         Universal Labels for Unique Identification 
+SMPTE 299M-2004         24-Bit Digital Audio Format for SMPTE 292M Bit-Serial Interface
+SMPTE 352M-2001         Video Playload Identification for Digital Television Interfaces
+SMPTE 372M              Dual Link 292M Interface for 1920x1080 Picture Raster
+SMPTE 424M-2006         3 Gbs Signal/Data Serial Interface
+SMPTE 425M-2006         3 Gbs Signal/Data Serial Interface - Source Image Format Mapping
+                        274M, 291M, 292M, 296M, 299M, 352M, 372M, RP188
+SMPTE 425M-2008
+
+
+
+SMPTE 305.2M-2000       Serial Data Transport Interface
+SMPTE 314M-1999         Data Structure for DV-Based Audio, Data and Compressed Video - 25 and 50Mb/s
+SMPTE 315M-1999         Camera Positioning Information Conveyed by Ancillary Data Packets
+SMPTE 334M-2000         Vertical Ancillary Data Mapping for Bit-Serial Interface
+SMPTE 348M-2000         High Data-Rate Serial Data Transport Interface (HD-SDTI)
+
+SMPTE RP165-1994        Error Detection Checkwords and Status Flags for Use in Bit-Serial Digital Interfaces for Television
+SMPTE RP168-2002        Definition of Vertical Interval Switching Point for Synchronous Video Switching
+
+
+SMPTE 2016-3-2007       Veritical Ancillary Data Mapping of Active Format Desctription and Bar Data
+SMPTE 2020-1:2014       Format of Audio Metadata and Description of the Asynchronous Serial Bitstream Transport
+SMPTE 2020-2:2014       Vertical Ancillary Data Mapping of Audio Metadata -- Method A
+SMPTE 2020-3:2014       Vertical Ancillary Data Mapping of Audio Metadata -- Method B
+SMPTE 2022-4:2011       Unidirectional Transport of Non-Piecewise Constant Variable Bit Rate MPEG-2 Streams on IP Network
+SMPTE 2022-5:2012       Forward Error Correction for High Bit Rate Media Transport Over IP Networks
+SMPTE 2022-5:2013       Forward Error Correction for Transport of High Bit Rate Media Signal over IP Networks (HBRMT)
+SMPET 2022-6:2012       Transport of High Bit Rate Media Signals over IP Networks (HBRMT)
+SMPTE 2022-7:2013       Seamless Protection Switching of SMPTE ST 2022 IP Datagrams
+
+
 SMPTE 2038-2008         Carriage of Ancillary Data Packets in an MPEG-2 Transport Stream
+SMPTE 2059-1:2015       Generation an Alignment of Interface Signals to the SMPTE Epoch
 SMPTE 2059-2:2015       SMPTE Profile for Use of IEEE-1588 Precision Time Proctocol in Professinal Broadcast Applications
 SMPTE 2081-1:2015       12Gb/s Signal/Data Serial Interface -- Electrical
 SMPTE 2082-10:2015      2160-line Source Image and Ancillary Data Mapping for 12G-SDI
 SMPTE 2010-2008         Vertical Ancillary Data Mapping of ANSI/SCTE 104 Messages
+SMPTE 2110-10:2017      Professional Media Over Managed IP Networks: System Timing and Definitions
+SMPTE 2110-20:2017      Professional Media Over Managed IP Networks: Uncompressed Active Video
+SMPTE 2110-21:2017      Professional Media Over Managed IP Networks: Traffic Shaping and Delivery Timing for Video
+SMPTE 2110-30:2017      Professional Media Over Managed IP Networks: PCM Digital Audio
 
+
+
+
+-----
 
 ANSI/SCTE 104           Automation System to Compression System Communications API
 ANSI/SCTE 35            Digital Program Insertion Cueing Message for Cable
 
+MISB ST 1402            MPEG-2 Transport of Compressed Motion Imagery and Metadata
 
 ----
+ANSI/EIA 608-1994       Recommended Practice for Line 21 Data Service
+EIA-708-B               Digital Television Closed Captioning (DTVCC)
+ITU-R BT.656-4          Interfaces for Digital Compontent Video Signals in 525-Line and 625-Line Television Systemts
+                        Operating at the 4:2:2 Level of Recommendation ITU-R BT.601
+ITU-R BT.709-6          Parameter values for the HDTV standards for production and international programme exchange
+ITU-R BT.2020-2         Parameter values for ultra-high definition television systems for production and international 
+                        programme exchagen
+

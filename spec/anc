@@ -1,4 +1,4 @@
-anc
+ANC
 ----
 ancillary data
 HANC    - horizontal ancillary data     / embedded audio / timecode ?
@@ -47,6 +47,7 @@ Does HDMI support closed captions?
 
 AFD
 ---
+SMPTE-2016-3
 Active Format Description
     - is a standard set of codes that can be sent in the MPEG video stream or in the basebase SDI video signal
       that carries information about their apsect ratio and other active picture caharacteristics. 
@@ -58,11 +59,89 @@ Dolby Metadata
 
 Packet format
 -------------
-0x000,0x3FF,0x3FF
-DID         - Data Identifier
+ADF = [0x000,0x3FF,0x3FF]   - Ancillary Data Flag
+- type 1    used for embedded audio
+DID         - Data Identifier >= 0x80
+DBN         - Data Block Number
+- type 2
+DID         - Data Identifier < 0x80
 SDID        - Secondary Data Identifier
-(DBN         - Data Block Number)
+-
 DC          - Data Count
 UDW[0 - 255]- User Data Words
 CS          - Checksum
+
+ANC Type1 DID
+-------
+00(200)     -   Unefined Data                           S291M
+80(180)     -   Packet Marked for Deletion              S291M
+88(288)     -   Start Packet                            S291M
+84(284)     -   End Packet                              S291M
+F4(1F4)   VANC  Error Detection Handling                RP165
+FF(2FF)   HANC  SD Group 1 Audio Data Packet            S272M
+FD(1FD)   HANC  SD Group 2 Audio Data Packet            S272M
+FB(1FB)   HANC  SD Group 3 Audio Data Packet            S272M
+F9(2F9)   HANC  SD Group 4 Audio Data Packet            S272M
+FE(1FE)   HANC  SD Group 1 Extended Audio Data Packet   S272M
+FC(2FC)   HANC  SD Group 2 Extended Audio Data Packet   S272M
+FA(2FA)   HANC  SD Group 3 Extended Audio Data Packet   S272M
+F8(1F8)   HANC  SD Group 4 Extended Audio Data Packet   S272M
+EF(1EF)   HANC  SD Group 1 Control Audio Data Packet    S272M
+EE(2EE)   HANC  SD Group 2 Control Audio Data Packet    S272M
+ED(2ED)   HANC  SD Group 3 Control Audio Data Packet    S272M
+EC(1EC)   HANC  SD Group 4 Control Audio Data Packet    S272M
+E7(2E7)   HANC  HD Group 1 Audio Data Packet            S299M
+E6(1E6)   HANC  HD Group 2 Audio Data Packet            S299M 
+E5(1E5)   HANC  HD Group 3 Audio Data Packet            S299M
+E4(2E4)   HANC  HD Group 4 Audio Data Packet            S299M
+E3(1E3)   HANC  HD Group 1 Control Audio Data Packet    S299M
+E2(2E2)   HANC  HD Group 2 Control Audio Data Packet    S299M
+E1(2E1)   HANC  HD Group 3 Control Audio Data Packet    S299M
+E0(1E0)   HANC  HD Group 4 Control Audio Data Packet    S299M
+F0(2F0) H/VANC  Camera Position Information             S315M
+
+
+ANC Type2 DID
+DID SDID    DC
+00  00      xx  Undefined Data                          S291M
+04  10      xx  8-Bit Application                       S291M
+80  00      xx  Packet Marked for Deletion              S291M
+88  00      xx  Start Packet                            S291M
+84  00      00  End Packet                              S291M
+08  08      80  MPEG Recording Data                     S353
+40  01      2A  SDTI Transport                          S305M
+40  02     var  HD-SDTI Transport                       s348
+40  04       -  Link Encryption Message 1
+40  05       -  Link Encryption Message 2
+40  06       -  Link Encryption Metadata
+41  01      04  Payload Identification                  S352M
+41  05      08  AFD and Bar Data                        S2016-3
+41  06      60  Pan Scan Data                           S2016-4
+41  07     var  ANSI/SCTE 104 Message                   RP2010
+41  08     var  DVB/SCTE VBI Data                       S2031
+43  01     var  Inter Station Control Data              ITU-R
+43  02     var  Subtitling Distribution Packet          RDD8
+43  03     var  Transport of ANC Packet                 RDD8
+44  04     var  KLV Metadata VANC                       RP214
+44  14     var  KLV Metadata HANC                       RP214
+44  44     var  Package of UMID Data                    RP223
+45  01     var  Compressed Audio Metadata               S2020-1
+45  02     var  Compressed Audio Metadata               S2020
+45  03     var  Compressed Audio Metadata               S2020
+45  04     var  Compressed Audio Metadata               S2020
+45  05     var  Compressed Audio Metadata               S2020
+45  06     var  Compressed Audio Metadata               S2020
+45  07     var  Compressed Audio Metadata               S2020
+45  08     var  Compressed Audio Metadata               S2020
+45  09     var  Compressed Audio Metadata               S2020
+50  01     var  WSS Data                                RDD8
+51  01     var  Film Codes in VANC                      RP215
+60  60      10  Timecode (ATC) in VANC                  S12M
+61  01     var  Closed Caption (EIA-708-B)              S334M
+61  02      03  Closed Caption (EIA 608)                S334M
+62  01     var  Program Description (DTV)               S334M
+62  02     var  Data Broadcast (DTV) VANC               S334M
+62  03     var  VBI Data in VANC Space                  RP208
+64  64      08  Timecode (LTC) HANC                     RP196
+64  7F      09  Timecode (VITC) HANC                    RP196
 
