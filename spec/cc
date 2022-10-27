@@ -1,0 +1,122 @@
+closed caption
+---------------
+
+What is the difference between CEA-608 captions and CEA-708 captions?
+
+                            CEA-708                                                 CEA-608
+                        ---------------------------------------------------     ------------------------------------
+Standard                for digital TV                                          for analogue TV
+
+Transmission            Embedded in MPEG-2 streams                              Enocoded in Line 21 of the TV signal
+
+Campatibility           Can only be transmitted on digital TV                   Can be transmitted on analogoue and digital TV
+
+Text appearance         3 text sizes and 8 font sizes are supported             The text size and font are fixed
+                        64 text colours and 64 background colours with
+                        various background opacity and drop shadowed text       The text colour is white and background is black
+
+
+Caption position        Can be repositioned if they overlap important           Fixed
+                        visual information
+
+Languages Supported     Any Language                                            7 languages: French, German, Italian, Dutch,
+                                                                                English, Portuguese, or Spanish
+
+Number of captions      Multilingual captions                                   Only 2 languages at a time
+
+
+
+EIA/CEA-608
+-------------
+    - Line 21
+    - 480 bps for maximum of 32 characters per line per caption
+    - maximum 4 caption, CC1, CC2, CC3, CC4
+    - 3 Character set : basic, special, exended
+    - two basic char, one special char, or one extended char
+    - Two-byte command
+
+
+                            15     8 7      0
+    - NULL pad              P0000000 P0000000
+    - XDS metadata          P000CLAS P000TYPE
+    - US Character Set      P Char 1 P Char 2           0x20 ~ 0x7F
+    - Special US C Set      P001C001 P011CHAR           0x30 ~ 0x3F     C=Channel
+    - W Europeren C Set     P001C01S P01 CHAR           0x20 ~ 0x3F     S=Char Set 
+    - N W Norpak C Set      P001C111 P010CSET           0x24 ~ 0x2A     CSET=Character Set
+                                                        24=Standard, 25=Double Hiehgt, 26=Decoder S1, 27=Decoder S2
+                                                        28=China GB2312 29= Korean KS C 5601 2A= Loadable
+
+    - Control Command       P001 Row P1RAttrU           R=Row Indicator, Attr=Text Attribute, U=Underline
+                            P001C0RR P1N0StyU
+                            P001C0RR P1N1CurU
+
+        0x14 0x20   Resume caption loading (Start buffered caption text)
+        0x14 0x21   Backspace (overwrite last char)
+        0x14 0x22   Alarm off (unused)
+        0x14 0x23   Alarm on (unused)
+        0x14 0x24   Delete to end of row (clear line)
+        0x14 0x25   Roll up 2 (scroll size)
+        0x14 0x26   Roll up 3 (scroll size)
+        0x14 0x27   Roll up 4 (scroll size)
+        0x14 0x28   Flashes caption on (0.25 seconds once per second)
+        0x14 0x29   Resume direct captioning (start caption text)
+        0x14 0x2A   Text restart (start non-caption text)
+        0x14 0x2B   Resume text display (resume non-caption text)
+        0x14 0x2C   Erase display memory (clear screen)
+        0x14 0x2D   Carriage return (scroll lines up)
+        0x14 0x2E   Erase non displayed memory (clear buffer)
+        0x14 0x2F   End of caption (display buffer)
+        0x17 0x21   Tab offset 1 (add spacing)
+        0x17 0x22   Tab offset 2 (add spacing)
+        0x17 0x23   Tab offset 3 (add spacing)
+
+EIA/CEA-708
+------------
+
+    CDP = Caption Distribution Packet
+
+    0   CDP_ID 0                                0x96
+    1   CDP_ID 1                                0x69
+    2   cdp_data_count                          0x4E
+    3   cdp_framing_rate / reserved             0x4F
+    4   TaDbSiSsScSeCcRr                        Ta=timecode_added, Db=data_block_added, Si=service_info_added, 
+                                                Ss=service_info_start, Sc=service_info_changed Se=service_info_end
+                                                Cc=contains_captions, Rr=reserved
+    5   cdp_counter 0
+    6   cdp_counter 1
+    7   cdp_data_section                        0x72
+    8   user_data_type_structure
+    ...
+    X   user_data_type_structure
+   X+1  cdp_footer_section                      0x74
+   X+2  cdp_counter 0
+   X+3  cdp_counter 1
+   x+4  cdp_checksum
+
+
+    user_data_type_structure
+    0   EmCcAd[cc_count]                        if cc_count = N
+    1   em_data
+    2   cc_data_pkt 1
+    3
+    4
+    5   cc_data_pkt 2
+    ...
+   3N   cc_data_pkt N
+  3N+1
+  3N+2
+
+    cc_data_pkt
+    0   [mark bit][cc_valid][cc_type]           cc_type will be filed-1, field-2, DTVCC_DATA, DTVCC_START
+    1   cc_data_1                               EIA-608 byte 1 / DTVCC
+    2   cc_data_2                               EIA-608 byte 2 / DTVCC
+
+    DTVCC
+    0   [sequence_number][packet_size]
+    S*2 packet_data
+
+
+
+
+
+

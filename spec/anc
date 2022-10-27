@@ -6,7 +6,7 @@ VANC    - veritcal ancillary data       / Closed caption / VPID
 
 
 HD-SDI
-
+-----------------------------------------
 Video:              Location Fixed, Format Specified (SMPTE-292M / 274M, ...)
 Audio:  16 Channel, Location Fixed in ANC Data Space (SMPTE-299M) 
 Timecode:           Location Fixed in ANC (SMPTE-291M)
@@ -24,17 +24,45 @@ SMPET-299M for HD and 3G
     - 3G allows up to 32 channels
     - typicall encodes in AES3 format
 
+Payload ID
+----------
+SMPTE-352M
+    DID=41, SDID=01, D4=4, Byte1, Byte2, Byte3, Byte4, DC
+
+    - Byte1     Video payload standard
+    - Byte2     frame rate and line scanning
+    - Byte3     sampling structure  (422i_4:3, 422i_16:9, ... 422p_16:9, ..)
+    - Byte4     special options (8-bit, 10-bit, 12-bit)
+
+525i field-1    Line 13
+525i field-2    Line 276
+..
+720p            Line 13
+1125i filed-1   Line 10
+1125i filed-2   Line 572
+1125p           Line 18
+    
 
 Timecode
 --------
-- LTC
-- VITC
-- RP188
+- LTC               Transported as a serial (analogue audio) signal independent of any video signal.            
+- VITC              Inserted in an active line within the VBI of an analogue vidoe signal.
+- D-VITC            Similar to the VITC inserted in an active line within the VBI of a digital video signal.
+- ATC           
+
+Standard            DID     DBN/SDID    DC      Time Code Type          Remark
+RP196               64h     64h         8h      HANC LTC                No longer listed!
+                    64h     7Fh         9h      HANC VITC   
+
+SMPTE 291M          F5h     00h         8h      LTC                     Specification Unknown!
+RP188/ SMPTE 12M-2  60h     60h        10h      ATC                     RP188 led to different implementations!
+
 
 
 Captions
 --------
-- EBUTelext / OP-42 / OP-47 / ST-2031       - subtitles
+SMPTE 334M 
+- EBUTeltext / OP-42 / OP-47 / ST-2031       - subtitles
 - CEA608/CEA708     Closed Captions
 - ARIB B37          cpations
 
@@ -42,6 +70,13 @@ Does HDMI support closed captions?
     - HDMI cables, cannot carry closed cpations. They can only carry captions after they've been decoded and
       made a visible part of the video signal. So, for all sources connected to your TV by HDMI cables, you
       MUST decode them at the player, recorder, set-top or converter box. 
+
+Standard            DID     SDID        DC                              
+EIA-708-B           61h     01h         var     EIA-708-B CDP
+EIA-608             61h     02h         3       Line, EIA-608 data (2 words)
+Program Description 62h     01h         var
+Data Broadcast DTV  62h     02h         var
+VBI data            62h     03h         var
 
 
 
@@ -51,7 +86,23 @@ SMPTE-2016-3
 Active Format Description
     - is a standard set of codes that can be sent in the MPEG video stream or in the basebase SDI video signal
       that carries information about their apsect ratio and other active picture caharacteristics. 
-- aspect ratio matching
+- afd
+    - box_16x9
+    - box_14x9
+    - box_16x9_center
+    - full_frame
+    - full_frame_alt
+    - 16x9_center
+    - 14x9_center
+    - 4x3_with_alt_14x9_center
+    - 16x9_with_alt_14x9_center
+    - 16x9_with_alt_4x3_center
+- aspect ratio 
+    - Aspect_4x3
+    - Aspect_16x9
+- bar
+    - Top/Bottom
+    - Left/Right
 
 Dolby Metadata
 ---------------
@@ -77,6 +128,7 @@ ANC Type1 DID
 80(180)     -   Packet Marked for Deletion              S291M
 88(288)     -   Start Packet                            S291M
 84(284)     -   End Packet                              S291M
+F0(2F0) H/VANC  Camera Position Information             S315M
 F4(1F4)   VANC  Error Detection Handling                RP165
 FF(2FF)   HANC  SD Group 1 Audio Data Packet            S272M
 FD(1FD)   HANC  SD Group 2 Audio Data Packet            S272M
@@ -98,8 +150,14 @@ E3(1E3)   HANC  HD Group 1 Control Audio Data Packet    S299M
 E2(2E2)   HANC  HD Group 2 Control Audio Data Packet    S299M
 E1(2E1)   HANC  HD Group 3 Control Audio Data Packet    S299M
 E0(1E0)   HANC  HD Group 4 Control Audio Data Packet    S299M
-F0(2F0) H/VANC  Camera Position Information             S315M
-
+A7        HANC  Audio data in HANC (3G) G5              S299-2
+A6        HANC  Audio data in HANC (3G) G6              S299-2
+A5        HANC  Audio data in HANC (3G) G7              S299-2
+A4        HANC  Audio data in HANC (3G) G8              S299-2
+A3        HANC  Audio data in HANC (3G) G5 Control      S299-2
+A2        HANC  Audio data in HANC (3G) G6 Control      S299-2
+A1        HANC  Audio data in HANC (3G) G7 Control      S299-2
+A0        HANC  Audio data in HANC (3G) G8 Control      S299-2
 
 ANC Type2 DID
 DID SDID    DC
@@ -110,38 +168,57 @@ DID SDID    DC
 84  00      00  End Packet                              S291M
 08  08      80  MPEG Recording Data                     S353
 40  01      2A  SDTI Transport                          S305M
-40  02     var  HD-SDTI Transport                       s348
-40  04       -  Link Encryption Message 1
-40  05       -  Link Encryption Message 2
-40  06       -  Link Encryption Metadata
+40  02     var  HD-SDTI Transport                       S348
+40  04       -  Link Encryption Message 1               S427
+40  05       -  Link Encryption Message 2               S427
+40  06       -  Link Encryption Metadata                S427
+40  fe       -  uin64_t litte endian frame counter      KLABS
 41  01      04  Payload Identification                  S352M
 41  05      08  AFD and Bar Data                        S2016-3
 41  06      60  Pan Scan Data                           S2016-4
 41  07     var  ANSI/SCTE 104 Message                   RP2010
 41  08     var  DVB/SCTE VBI Data                       S2031
-43  01     var  Inter Station Control Data              ITU-R
+41  09       -  MPEG TS packets in VANC                 S2056
+41  0a       -  Stereoscopic 3D Frame Comptible Packing and Signaling       S2068
+41  0b       -  Lip Sync data as specified by ST2604-1  S2064-2
+41  0c       -  Extended HDR/WCG for SDI                S2108-1
+43  01     var  Inter Station Control Data              ITU-R BT.1685
 43  02     var  Subtitling Distribution Packet          RDD8
 43  03     var  Transport of ANC Packet                 RDD8
+43  05       -  Acquistion Metadata Sets for Video Camera Parameters        ARIB RT-B29
 44  04     var  KLV Metadata VANC                       RP214
 44  14     var  KLV Metadata HANC                       RP214
 44  44     var  Package of UMID Data                    RP223
 45  01     var  Compressed Audio Metadata               S2020-1
-45  02     var  Compressed Audio Metadata               S2020
-45  03     var  Compressed Audio Metadata               S2020
-45  04     var  Compressed Audio Metadata               S2020
-45  05     var  Compressed Audio Metadata               S2020
-45  06     var  Compressed Audio Metadata               S2020
-45  07     var  Compressed Audio Metadata               S2020
-45  08     var  Compressed Audio Metadata               S2020
-45  09     var  Compressed Audio Metadata               S2020
+45  02     var  Compressed Audio Metadata               S2020-1
+45  03     var  Compressed Audio Metadata               S2020-1
+45  04     var  Compressed Audio Metadata               S2020-1
+45  05     var  Compressed Audio Metadata               S2020-1
+45  06     var  Compressed Audio Metadata               S2020-1
+45  07     var  Compressed Audio Metadata               S2020-1
+45  08     var  Compressed Audio Metadata               S2020-1
+45  09     var  Compressed Audio Metadata               S2020-1
+46  01       -  Two Frame Marker in HANC                S2051
 50  01     var  WSS Data                                RDD8
 51  01     var  Film Codes in VANC                      RP215
-60  60      10  Timecode (ATC) in VANC                  S12M
-61  01     var  Closed Caption (EIA-708-B)              S334M
-61  02      03  Closed Caption (EIA 608)                S334M
-62  01     var  Program Description (DTV)               S334M
-62  02     var  Data Broadcast (DTV) VANC               S334M
+51  53       -  Remote Control 
+5f  dc       -  ARIB Captioning - Mobile                ARIB STD-B37
+5f  dd       -  ARIB Captioning - Analog                ARIB STD-B37
+5f  de       -  ARIB Captioning - SD                    ARIB STD-B37
+5f  df       -  ARIB Captioning - HD                    ARIB STD-B37
+60  60      10  Timecode (ATC) in VANC                  S12M-2/RP188
+60  61       -  Timecode for High FRame Rate Signals    S12M-3
+60  62       -  Generic Time Lable                      S2103
+61  01     var  Closed Caption (EIA-708-B)              S334M-1
+61  02      03  Closed Caption (EIA 608)                S334M-1
+61  03       -  Word System Teletext Desription Packet  S334
+61  04       -  Subtitling Data Essence (SDE)           S334
+61  05       -  ARIB Captioning - HD                    S334
+61  06       -  ARIB Captioning - SD                    S334
+61  07       -  ARIB Captioning - Analog                S334
+62  01     var  Program Description (DTV)               S334M/RP207
+62  02     var  Data Broadcast (DTV) VANC               S334M-1
 62  03     var  VBI Data in VANC Space                  RP208
-64  64      08  Timecode (LTC) HANC                     RP196
-64  7F      09  Timecode (VITC) HANC                    RP196
+64  64      08  Timecode (LTC) HANC (Deprecated)        RP196
+64  7F      09  Timecode (VITC) HANC (Deprecated)       RP196
 
