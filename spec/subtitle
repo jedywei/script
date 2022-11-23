@@ -1,0 +1,47 @@
+Subtitle Format
+---------------
+Open Subtitles
+    .pac            Compressed PAC
+    .890            890 File Format
+    .stl            EBU file format
+    .stl            EBU for ARTE
+    .txt            Plai ASCII including Unicode UTF-8 and UTF-16
+    .rtf;.doc;.docx Rich Text Format files
+    .xls            Excel Workbook files
+    .txt            Win2020 ASCII file
+    .smi;sami       Webcast -- Windows Media Player SAMI
+    .smil           QuickTime Text and .SMIL files
+    .xml            CineCanvas XML-based subtitles for DLP Cinema projection systems
+    .xml            DCDM (SMPTE 428-7-2007) XML Subtitles
+    .srt            SubRip
+    .sub            MicroDVD
+    .vtt            Web Video Text Tracks – WebVTT 
+    .cap;.txt       Videotron Lambda
+    .sub            SUB File Format
+    .das            DAS File
+    .txt            Softitler TXT file
+    .ovt            OVR File Format
+    .xml;dfxp;ttml  TimedText (TTML XML)
+    .itt            Apple® iTunes® Timed Text 
+    .dfxp;.xml;.ttml    Netflix Timed Text (NFLX-TT) 
+    .xml            EBU Timed Text (EBU-TT) 
+    .ssa;ass        SubStation Alpha SSA/ASS
+    .sif            Swift Interchange File 
+
+Closed Captioning
+    .onl            CPC-715 Online Caption Format
+    .cin            Captions Inc. Files
+    .scc            Scenarist Closed Caption Format
+    .cap            Cheetah CAP
+    .asc            Cheetah ASC
+    .cap            NCI Captions 
+    .ult            Ultech ULT Captions
+    .tds            TDS Captions 
+    .ecf            ECF Captions
+    .txt            ProCap Closed Captions
+    .flc            NCI Timed Roll Up Captions
+    .mcc            MCC CEA-708 Closed Captions
+    .xml            SMPTE-TT Captions with tunnel CEA-608 data 
+
+ffmpeg subtitle
+    ffmpeg -codecs

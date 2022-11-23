@@ -45,6 +45,7 @@ SMPTE-352M
 
 Timecode
 --------
+SMPTE ST 12M-2
 - LTC               Transported as a serial (analogue audio) signal independent of any video signal.            
 - VITC              Inserted in an active line within the VBI of an analogue vidoe signal.
 - D-VITC            Similar to the VITC inserted in an active line within the VBI of a digital video signal.
@@ -86,6 +87,8 @@ SMPTE-2016-3
 Active Format Description
     - is a standard set of codes that can be sent in the MPEG video stream or in the basebase SDI video signal
       that carries information about their apsect ratio and other active picture caharacteristics. 
+    - bar data information is used to signal the precise unused areas of active video when the active image does not 
+      completely fill the picture area. 
 - afd
     - box_16x9
     - box_14x9
@@ -104,6 +107,10 @@ Active Format Description
     - Top/Bottom
     - Left/Right
 
+                    DID     SDID        DC                                                      CS
+                    41h     05          08  AFD,Rev2,Rev3,BarF,BarDataV1_16bit,BarDataV2_1b6bit 
+
+
 Dolby Metadata
 ---------------
 - SMPTE-337M / SMPTE-2020M
@@ -121,6 +128,10 @@ SDID        - Secondary Data Identifier
 DC          - Data Count
 UDW[0 - 255]- User Data Words
 CS          - Checksum
+
+      9        0
+DID = NP[ DID8 ]        DID8= b7:b0,  P= even parity of DID8, N= not P
+CS  = Checksum(DID ~ UDW[N]) = SUM(Bit[8:0](DID...UDW[N])) + NOT b8
 
 ANC Type1 DID
 -------
