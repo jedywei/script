@@ -11,10 +11,14 @@ PA16                                        _PA16       [15:0] Y/ [31:0] Cr:Cb=1
                                             _YV12       [7:0] Y/ [7:0] Cr / [7:0] Cb plane x3   420
                                             _I420       [7:0] Y/ [7:0] Cb / [7:0] Cr plane x3   420
 RG16  _RGB565       =       _RGB565                     [15:0] R:G:B=5:6:5 LE   (packed)
-XR24  _0RGB         =       _XRGB8888       _BGRX       [31:0] x:R:G:B LE   
-XB24  _0BGR         =       _XBGR8888       _RGBX       [31:0] x:B:G:R LE   
-AR24  _ARGB         =       _ARGB8888       _BGRA       [31:0] A:R:G:B LE   
-AB24  _ABGR         =       _ABGR8888       _RGBA       [31:0] A:B:G:R LE   
+XR24  _BGR0         =       _XRGB8888       _BGRX       [31:0] x:R:G:B LE
+XB24  _RGB0         =       _XBGR8888       _RGBX       [31:0] x:B:G:R LE
+RX24  _0BGR         =       _RGBX8888                   [31:0] R:G:B:x LE
+BX24  _0RGB         =       _BGRX8888                   [31:0] B:G:R:x LE
+AR24  _BGRA         =       _ARGB8888       _BGRA       [31:0] A:R:G:B LE
+AB24  _RGBA         =       _ABGR8888       _RGBA       [31:0] A:B:G:R LE
+RA24  _ABGR         =       _RGBA8888                   [31:0] R:G:B:A LE
+BA24  _ARGB         =       _BGRA8888                   [31:0] B:G:R:A LE
 XR30                =       _XRGB2101010                [31:0] x:R:G:B=2:10:10:10 LE    
 XB30                =       _XBGR2101010                [31:0] x:B:G:R=2:10:10:10 LE    
 AR30                =       _ARGB2101010                [31:0] A:R:G:B=2:10:10:10 LE    
@@ -41,7 +45,9 @@ P010  _P010LE       =       =                           [15:0] Y:0=10:6 / [31:0]
 P012                =       =                           [15:0] Y:0=12:4 / [31:0] Cr:x:Cb:x=12:4:12:4 LE  plane x2 420
 P016  _P016LE       =       =                           [15:0] Y / [31:0] Cr:Cb=16:16 LE plane x2 420
 
-V210
+V210                                                   [127:0] x:Y5:Cr4:Y4.x:Cb4:Y3:Cr2.x:Y2:Cb2:Y1.x:Cr0:Y0:Cb0
+                                                               2:10: 10:10.2: 10:10: 10.2:10: 10:10.2: 10:10: 10
+                                                               LE plane x2 422
 V010
 
 NV21  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 420

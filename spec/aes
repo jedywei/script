@@ -41,4 +41,16 @@ AES/EBU - Audio Engineering Society / European Broadcasting Union
 
 AES3 = IEC 60958 = Consumer-grade S/PDIF
 
+AES3 aka AES/EBU for professional use
+S/PDIF           for consumer products
+
+Difference AES3 S/PDIF
+            
+        Interface   Connector   Impedance   Output Level    Max Output  Max Current Cable   Max Distance
+AES3    Balanced    XLR-3       110 ohms    2-7 Vp-p        7 Vp-p      64mA        STP     100m
+AES3    Balanced    CAT 5       110 ohms    2-7 Vp-p        7 Vp-p      64mA        CAT 5   400m
+AES3id  Unbalanced  BNC         75 ohms     1.0 Vp-p        1.2 Vp-p    1.6mA       Coax    1000m
+S/PDIF  Unbalanced  RCA         75 ohms     0.5 Vp-p        0.6 Vp-p    8mA         Coax    10m
+
+
 

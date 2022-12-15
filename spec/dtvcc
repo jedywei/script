@@ -1,0 +1,41 @@
+DTVCC Interpretation Layer
+--------------------------
+
+Caption Components
+    - Caption Screen
+    - Caption Windows
+    - Caption Pens
+    - Caption Text
+    - Caption Synchronization
+
+DTVCC Command Set
+Windows
+    CW0, ..., CW7 80~87     SetCurrentWindow                window ID
+    DF0, ..., DF7 98~9F     Define Window (6 parms)         window ID,priority, 
+                                                            anchor point, relative pos, anchor vertical,
+                                                            anchor horizontal, row count, column count, 
+                                                            row lock, column lock, visible, window style ID
+                                                            pen style ID
+    CLW 88                  ClearWindows                    window map
+    DLW 8C                  DeleteWindows                   window map
+    DSW 89                  DisplayWindows                  window map
+    HDW 8A                  HideWindows                     window map
+    TGW 8B                  ToggleWindows                   window map
+    SWA 97                  SetWindowAttributes (4 parms)   justify, print direction, scroll ddirection, wordwrap,
+                                                            display effect, effect direction, effect speed, fill color
+                                                            fill opacity, border type, border color 
+
+Pen
+    SPA 90                  SetPenAttributes (2 parms)      pen size, font, text tag, offset, italics, underine, edge type
+    SPC 91                  SetPenColor (3 parms)           fg color, fg opacity, bg color, bg opacity, edge color
+    SPL 92                  SetPenLocation (2 parms)        row, <column
+
+Synchronization
+    DLY 8D                  Delay                           tenths of seconds
+    DLC 8E                  DelayCancel
+    RST 8F                  Reset
+
+
+
+
+

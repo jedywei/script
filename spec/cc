@@ -1,0 +1,174 @@
+closed caption
+---------------
+
+What is the difference between CEA-608 captions and CEA-708 captions?
+
+                            CEA-708                                                 CEA-608
+                        ---------------------------------------------------     ------------------------------------
+Standard                for digital TV                                          for analogue TV
+
+Transmission            Embedded in MPEG-2 streams                              Enocoded in Line 21 of the TV signal
+
+Campatibility           Can only be transmitted on digital TV                   Can be transmitted on analogoue and digital TV
+
+Text appearance         3 text sizes and 8 font sizes are supported             The text size and font are fixed
+                        64 text colours and 64 background colours with
+                        various background opacity and drop shadowed text       The text colour is white and background is black
+
+
+Caption position        Can be repositioned if they overlap important           Fixed
+                        visual information
+
+Languages Supported     Any Language                                            7 languages: French, German, Italian, Dutch,
+                                                                                English, Portuguese, or Spanish
+
+Number of captions      Multilingual captions                                   Only 2 languages at a time
+
+
+
+Possible CC
+------------
+    1. CEA-608 (VBI)
+    2. CEA-608 (ANC)
+    3. CEA-608 (708)
+    4. CEA-708
+
+EIA/CEA-608
+-------------
+    - Line 21
+    - 480 bps for maximum of 32 characters per line per caption
+    - maximum 4 caption, CC1, CC2, CC3, CC4
+    - 3 Character set : basic, special, exended
+    - two basic char, one special char, or one extended char
+    - Two-byte command
+
+
+                            15     8 7      0
+    - NULL pad              P0000000 P0000000
+    - XDS metadata          P000CLAS P000TYPE
+    - US Character Set      P Char 1 P Char 2           0x20 ~ 0x7F
+    - Special US C Set      P001C001 P011CHAR           0x30 ~ 0x3F     C=Channel
+    - W Europeren C Set     P001C01S P01 CHAR           0x20 ~ 0x3F     S=Char Set 
+    - N W Norpak C Set      P001C111 P010CSET           0x24 ~ 0x2A     CSET=Character Set
+                                                        24=Standard, 25=Double Hiehgt, 26=Decoder S1, 27=Decoder S2
+                                                        28=China GB2312 29= Korean KS C 5601 2A= Loadable
+
+    - Control Command       P001 Row P1RAttrU           R=Row Indicator, Attr=Text Attribute, U=Underline
+                            P001C0RR P1N0StyU
+                            P001C0RR P1N1CurU
+
+        0x14 0x20   Resume caption loading (Start buffered caption text)
+        0x14 0x21   Backspace (overwrite last char)
+        0x14 0x22   Alarm off (unused)
+        0x14 0x23   Alarm on (unused)
+        0x14 0x24   Delete to end of row (clear line)
+        0x14 0x25   Roll up 2 (scroll size)
+        0x14 0x26   Roll up 3 (scroll size)
+        0x14 0x27   Roll up 4 (scroll size)
+        0x14 0x28   Flashes caption on (0.25 seconds once per second)
+        0x14 0x29   Resume direct captioning (start caption text)
+        0x14 0x2A   Text restart (start non-caption text)
+        0x14 0x2B   Resume text display (resume non-caption text)
+        0x14 0x2C   Erase display memory (clear screen)
+        0x14 0x2D   Carriage return (scroll lines up)
+        0x14 0x2E   Erase non displayed memory (clear buffer)
+        0x14 0x2F   End of caption (display buffer)
+        0x17 0x21   Tab offset 1 (add spacing)
+        0x17 0x22   Tab offset 2 (add spacing)
+        0x17 0x23   Tab offset 3 (add spacing)
+
+EIA/CEA-708
+------------
+
+    CDP = Caption Distribution Packet
+
+cdp() {                             // Caption Distribution Packet (CDP)
+        cdp_header()                // Required
+        time_code_section()         // Optional
+        ccdata_section()            // Optional
+        ccsvcinfo_section()         // Optional
+        future_section_1()          // If defined, place here
+        future_section_2()          // If defined, place here
+        cdp_footer()                // Required
+    }
+
+cdp_header()
+    0   CDP_ID 0                                0x296
+    1   CDP_ID 1                                0x269
+    2   cdp_length                              0x22B   = 0x2B = 43
+    3   cdp_framing_rate / rsv(1111)            0x17F   1f=23.976, 2f=24 3f=25 4f=29.97 5f=30 6f=50 7f=59.94 8f=60 
+    4   TaDbSiSsScSeCcRr                        0x143   Ta=timecode, Db=CC_data, Si=service_info, Ss=SI_start
+                                                        Sc=SI_changed Se=SI_end, Ca=caption_active, Rr=reserved
+    5   cdp_counter 0                           0x132   CDP header sequence counter
+    6   cdp_counter 1                           0x2CF   0x32CF
+
+ccdata_section()
+    7   cdp_data_section                        0x272   CC Data Section ID
+    8   111 [cc_count]                          0x1EA   cc_count = 10 -> 10*3 = 30 Words cc_data_pkt
+    9   11111 [cc_valid][cc_type]               0x1FD   cc_valid (1 bits), cc_type 00/01 NTSC 21 field 1/2, 10/11 DTVCC
+   10   cc_data_1                               0x180                                       
+   11   cc_data_2                               0x180
+   12   11111 [cc_valid][cc_type]               0x2FA   cc - invlaid, 10=DTVCC Chanel Packet Data
+   13   cc_data_1                               0x200
+   14   cd_data_2                               0x200
+   15   11111 [cc_valid][cc_type]               0x2FA   cc - invalid
+   ...
+   36   11111 [cc_valid][cc_type]               0x2FA
+   37   cc_data_1                               0x200   = NULL Data
+   38   cc_data_2                               0x200   = NULL Data
+
+NOTE
+    cc_type     00 NTSC line 21 field 1 closed captions
+                01 NTSC line 21 field 2 closed captions
+                10 DTVCC Channel Packet Data
+                11 DTVCC Channel Packet Start
+
+ccsvcinfo_section()
+    x   ccsvcinfo_id                            
+  x+1   1SsScSe[svc_count]                      
+  x+2   111 [cc_service_number]                 
+  x+3   svc_data_byte_1                         = language[0]
+  x+4   svc_data_byte_2                         = language[1]
+  x+5   svc_data_byte_3                         = language[2]
+  x+6   svc_data_byte_4                         [digital_cc == 1] 1 [caption_service_number]
+                                                [digital_cc == 0] 1 1111 [line21_field]
+  x+7   svc_data_byte_5                         [easy_reader] [ wide_aspect_ratio]
+  x+8   svc_data_byte_6
+
+
+ATSC A/65 Bit Stream Syntax for the Caption Service Descriptor
+    reserved                        3       111
+    number_of_services              5
+    for (i = 0 ; i < number_of_service; i++) {
+        language                    8*3     ISO 639.2/B
+        digital_cc                  1
+        reserved                    1       1=708, 0=608
+        if (digital_cc == 0) {
+            reserved                5       11111
+            line21_field            1
+        } else {
+            caption_service_number  6
+        }
+        easy_reader                 1
+        wide_aspct_ratio            1       0=4:3   1=16:9
+        reserved                    14      111111111111111
+    }
+
+
+
+cdp_footer()
+   39   cdp_footer_id                           0x274   CDP footer ID
+   40   cdp_counter 0                           0x132   CDP Header (Footer) Sequecnec Counter
+   41   cdp_counter 1                           0x2cf   = 32CF
+
+
+
+    DTVCC
+    0   [sequence_number][packet_size]
+    S*2 packet_data
+
+
+
+
+
+

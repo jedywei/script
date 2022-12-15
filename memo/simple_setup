@@ -72,6 +72,7 @@ $ sudo vi /etc/hosts
 --------------------------------------------------------------------------
 $ git clone ssh://git@github.com/jedywei/script.git
 $ git clone ssh://git@github.com/jedywei/vim.git .vim
+$ git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
 $ cd .vim; ./gitvundle.sh; cd -
 $ ~/script/dotsetup.sh
         

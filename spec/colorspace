@@ -1,5 +1,18 @@
-Color chromaticity 
--------------------
+Color space
+-----------
+or Color chromaticity 
+See aslo HDR
+
+. Rec 601
+. Rec 709
+. SDR 2020  / Rec.2020
+. HDR10     / Rec.2020      / SMPTE ST 2084 (PQ)                        / meta = SMPET STP 2086
+. HLG       / Rec.2020
+. Dolby Vision 5.0          / ITU-R BT.2100 / SMPEG ST 2084 (PQ)        / meta = Proprietary Dobly Vision metadat (RPU)
+. Dolby Vision 8.1          / Rec.2020      / SMPET ST 2084 (PQ)        / meta = Proprietary Dobly Vision metadat (RPU)
+
+
+
 CIE 1931 Color Space
     - S 420nm - 440 nm   ~ B
     - M 530nm - 540 nm   ~ G
