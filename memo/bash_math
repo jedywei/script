@@ -43,6 +43,12 @@ echo $b         # 16
 a=$((4*5))
 echo $a         # 20
 
+hex=002a        // remove leading zero, and treat the number as hexdecimal
+a=$((16#${hex}))
+
+dec=0026        // remove leading zero, and treat the number as decimal
+a=$((10#${dec}))
+
 
 [length of a variable]
 a='Hello World'
@@ -58,5 +64,8 @@ expr "5 + 4"    # space is required
 expr 5 \* 4     # backslash and space is required
 a=$(expr 10 - 3)
 echo $a         # 7
+
+[awk]
+result=$(awk "BEGIN {printf \"%5.2f\", ${err}/100.0"})
 
 see also bash_bc

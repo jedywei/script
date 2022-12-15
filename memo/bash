@@ -3,7 +3,7 @@ bash help
 
 bash_cheat
 bash_IFS
-bash_arith
+bash_math
 bash_bc
 bash_case
 bash_for
