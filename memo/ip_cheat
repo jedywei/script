@@ -1,0 +1,96 @@
+ip Command Cheat Sheet
+-----------------------
+
+Queries
+-------------------------------------------
+
+addr
+    ip addr                 // show information for all address
+    ip addr show dev em1    // display informaiton only for device em1
+
+
+link
+    ip link                 // show information for all interface
+    ip link show dev em1    // display information only for device em1
+    ip -s link              // display interface statistic
+
+route
+    ip route                // list all of the route entries in the kernel
+    ip route show default   // list default gateway
+
+madrr
+    ip madrr                // display multicast information for all devices
+    ip madrr show dev em1   // display multicast information for device em1
+
+neigh
+    ip neigh                // display neighbour objects
+    ip neigh show dev em1   // show the ARP cache for devcie em1
+
+help 
+    ip help                 // display ip commands and arguments
+    ip addr help            // display addr commands and arguments
+    ip <command> help 
+
+Modifiying Address and Link Properties
+-------------------------------------------
+
+addr add
+    ip addr add 192.168.1.1/24 dev em1          // add address 192.168.1.1/24 to device em1
+addr del
+    ip addr del 192.168.1.1/24 dev em1          // remove address 192.168.1.1/24 from device em1
+
+link set
+    ip link set em1 up
+    ip link set em1 down
+    ip link set em1 mtu 9000
+    ip link set em1 promisc on
+
+Addjusting and View Routes
+-------------------------------------------
+
+route add
+    ip route add default via 192.168.1.1 dev em1    // add defult route for (all addresses) via the local gateway
+                                                    // 192.168.1.1 that can be reached on device em1
+    ip route add 192.168.1.0/24 via 192.168.1.1
+    ip route add 192.168.1.0/24 dev em1
+
+reoute delete
+    ip route delete 192.168.1.0/24 via 192.168.1.1
+
+route replace
+    ip route replace 192.168.1.0/24 dev em1         // replace or add if not defined, a route
+
+route get
+    ip route get 192.168.1.5                        // display the route taken for IP 192.168.1.5
+
+
+Managing the ARP table
+-------------------------------------------
+neigh add
+    ip neigh add 192.168.1.1 lladdr 1:2:3:4:5:6 dev em1
+
+neigh del
+    ip neigh del 192.168.1.1 dev em1
+
+neight replace
+    ip neigh replace 192.168.1.1 lladdr 1:2:3:4:5:6 dev em1
+    
+
+Network Statistic
+--------------------------------------------
+ss 
+    ss -a           // show all sockets (listening and non-listening)
+    ss -e           // show detailed socket information 
+    ss -o           // show timer information
+    ss -n           // do not resolve addresses
+    ss -p           // show process using the socket
+
+
+ethtool
+---------------------------------------------
+ethtool
+    ethtool -g eth0     // display ring buffer for eth0
+    ethtool -i eth0     // display driver information for eth0
+    ethtool -p eth0     // identify eth0 by sight, typically by causing LEDs to blink on the network port
+    ethtool -S eth0     // display network and driver statistic for eth0
+
