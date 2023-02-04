@@ -2,7 +2,12 @@
 #export LANG=en_US.UTF-8
 #expo LC_ALL=en_US.UTF-8
 #
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+if [ -n ${LD_LIBRARY_PATH} ]; then
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/opt/intel/mediasdk/lib
+else
+    export LD_LIBRARY_PATH=/usr/local/lib:/opt/intel/mediasdk/lib
+
+fi
     
 rmswp() {
         ls .*.sw* || return 2

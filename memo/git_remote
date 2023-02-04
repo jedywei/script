@@ -1,0 +1,56 @@
+git remote
+-----------
+Example by libva in githug
+
+// clone a whole project
+$ git clone https://github.com/intel/libva.git
+
+$ cd libva
+
+$ git remote show origin
+* remote origin
+  Fetch URL: https://github.com/intel/libva.git
+  Push  URL: https://github.com/intel/libva.git
+  HEAD branch: master
+  Remote branches:
+    coverity_scan            tracked
+    gh-pages                 tracked
+    master                   tracked
+    revert-583-HierarchyInfo tracked
+    v1.0-branch              tracked
+...
+    v2.17-branch             tracked
+...
+
+// show local branch
+$ git br
+
+// show remote branch
+$ git br -r
+  origin/HEAD -> origin/master
+  origin/coverity_scan
+  origin/gh-pages
+  origin/master
+...
+  origin/v2.17-branch
+...
+
+// more detail by
+$ git br -av
+* master                                  b75818c add VAProfileH264High10
+  remotes/origin/HEAD                     -> origin/master
+  remotes/origin/coverity_scan            ce1960e Merge branch 'v2.0-branch' into master
+  remotes/origin/gh-pages                 c28c0d3 Deploy libva 2.13.0.pre1 code docs to GitHub Pages
+  remotes/origin/master                   b75818c add VAProfileH264High10
+  remotes/origin/revert-583-HierarchyInfo 0e38e79 Revert "Add HierarchicalFlag & hierarchical_level_plus1 for AV1e."
+...
+  remotes/origin/v2.17-branch             df3c584 libva 2.17.0
+..
+
+// create local branch by remote branch
+$ git co -b v2.17 origin/v2.17-branch
+
+// create local branch by tag
+// using gmmlib as example
+$ git co -b v22.3.3 intel-gmmlib-22.3.3
+

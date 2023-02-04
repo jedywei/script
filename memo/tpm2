@@ -1,0 +1,63 @@
+tpm2 commands
+-------------
+
+$ sudo apt install tpm2-tools
+$ sudo apt install tss2
+
+
+// add jedywei to tss group
+sudo usermod -a -G tss jedywei
+
+// version
+$ tpm2 -v
+tool="tpm2" version="5.2" tctis="libtss2-tctildr" tcti-default=tcti-device
+
+
+// enumeration
+$ tpm2_getcap -l
+
+// get commands
+
+// get algorithm
+$ tpm2_getcap algorithms
+rsa:
+  value:      0x1
+  asymmetric: 1
+...
+
+
+
+tpm2_<commands>
+---------------
+nv storeage
+tpm2_nvcertify
+tpm2_nvdefine
+tpm2_nvextend
+tpm2_nvincrement
+tpm2_nvread
+tpm2_nvreadlock
+tpm2_nvreadpublic
+tpm2_nvundefine
+tpm2_nvwrite
+tpm2_nvwritelock
+
+
+pcr
+tpm2_pcrallocate
+tpm2_pcrevent
+tpm2_pcrextend
+tpm2_pcrread
+tpm2_pcrreset
+
+
+rsa
+tpm2_rsadecrypt
+tpm2_rsaencrypt
+
+create
+tpm2_create
+tpm2_createak
+tpm2_createek
+tpm2_createpolicy
+tpm2_createprimary
+t

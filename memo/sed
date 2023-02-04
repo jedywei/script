@@ -34,6 +34,33 @@ sed -e 's/#.*//;/^$/d' test.txt         // remove all commented line and all emp
 sed -E 's/([^:]*).*/\1/' /etc/passwd
 
 
+10 sed commands
+textfile.txt == 
+1 This is a demo text file.
+2 It is an amazing file that will help us all.
+3 The sed command is also great for stream editing.
+4 Want to learn how to use the command?
+5 This is another line in the file.
+6 This is the third general line in the file.
+7 This file is named as textfile.
+8 This is a apple.
+9 This is a orange.
+===
+
+sed -n '3,5p' textfile.txt                  // view a range of lines, -n option == --quiet
+sed -n '3,5d' textfile.txt                  // delete 3~5 lines
+sed -n -e '1,2p' -e '5,6p' textfile.txt     // 1~2 and 3~6
+sed G textfile.txt                          // insert empty lines 
+sed s/originalword/replaceword/g textfile.txt
+sed s/amazing/super/g2 textfile.txt         // replace the second occurence of the word
+sed s/Amazing/super/gi textfile.txt         // ignore case
+sed '2,5s/amazing/super/g' textfile.txt
+sed 's/amazing/super/g;s/command/utility/gi' textfile.txt
+
+
+
+
+
 readelf -d `which ld` | grep libbfd | sed -e 's/.*\[\(.*\)\].*/\1/'
 
 ldd $(which gcc) | grep -e 'ld.*\.so' | awk '{ print $1 }'

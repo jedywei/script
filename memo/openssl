@@ -1,0 +1,122 @@
+openssl usage
+--------------
+
+Generate a 2048 bit RSA key
+
+$ openssl genrsa -des3 -out private.pem 2048
+
+Export the RSA public key to a file
+
+$ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
+
+$ less public.pem
+
+Don not run this, it export the private key
+
+$ openssl rsa -in private.pem -out private_unencrypted.pem -outform PEM
+
+
+// generate digest
+$ openssl dgst -sha256 plain.txt
+SHA2-256(../gatekeeper.c)= 370c5768798ea3a62d4679afbea627ae54a98117ed6fa6aef4ecda6a1b131301
+
+
+
+tpm2 openssl
+
+Installation
+----------------------------------------------------------
+$ sudo apt install tpm2-tools
+$ sudo apt install tss2
+$ sudo apt install libtss2-dev
+$ sudo apt install tpm2-openssl
+
+$ openssl version
+OpenSSL 3.0.2 15 Mar 2022 (Library: OpenSSL 3.0.2 15 Mar 2022)
+
+$ tpm2 -v
+tool="tpm2" version="5.2" tctis="libtss2-tctildr" tcti-default=tcti-device
+
+// add user to tss group
+$ sudo usermod -a -G tss jedywei
+
+// NEED REBOOT !!!!
+
+// check provider
+---------------------------------------------------------
+$ openssl list -providers -provider tpm2
+Providers:
+  tpm2
+    name: TPM 2.0 Provider
+    version:
+    status: active
+
+$ openssl list -public-key-algorithms -provider tpm2
+ Name: OpenSSL RSA method
+	Type: Builtin Algorithm
+	OID: rsaEncryption
+	PEM string: RSA
+ Name: rsa
+	Alias for: rsaEncryption
+...
+Provided:
+ Key Managers:
+  Name: 2.5.8.1.1
+    Type: Provider Algorithm
+    IDs: { 1.2.840.113549.1.1.1, 2.5.8.1.1, RSA, rsaEncryption } @ tpm2
+  Name: 1.2.840.10045.2.1
+    Type: Provider Algorithm
+    IDs: { 1.2.840.10045.2.1, EC, id-ecPublicKey } @ tpm2
+  Name: RSASSA-PSS
+    Type: Provider Algorithm
+    IDs: { 1.2.840.113549.1.1.10, RSA-PSS, RSASSA-PSS, rsassaPss } @ tpm2
+
+$ openssl list -encoders -provider tpm2
+Provided ENCODERs:
+  { 1.2.840.113549.1.1.1, 2.5.8.1.1, RSA, rsaEncryption } @ tpm2 (provider=tpm2,output=der,structure=PrivateKeyInfo)
+  { 1.2.840.113549.1.1.1, 2.5.8.1.1, RSA, rsaEncryption } @ tpm2 (provider=tpm2,output=pem,structure=PrivateKeyInfo)
+...
+
+
+Random number generation
+---------------------------------------------------------------
+$ openssl rand -provider tpm2 -hex 10
+2178802917e3f293265f
+
+// same as
+$ tpm2_getrandom --hex 10
+
+
+evict persist
+---------------------------------------------------------------
+// list persist
+$ tpm2_getcap handles-persistent
+- 0x81000000
+- 0x81000001
+...
+
+// release persist
+$ tpm2_evictcontrol -c 0x81000002
+
+Generate the key using standard TPM2 tools
+--------------------------------------------------------------------------------------------
+$ tpm2_createek -G rsa -c ek_ras.ctx
+$ tpm2_createak -C ek_rsa.ctx -G rsa -g sha256 -s rsassa -c ak_rsa.ctx
+$ tpm2_evictcontrol -c ak_rsa.ctx 0x81000000
+$ tpm2_evictcontrol -c ak_rsa.ctx
+persistent-handle: 0x81000003
+action: persisted
+
+// export public key
+
+$ openssl pkey -provider tpm2 -in handle:0x81000000 -outform PEM -pubout -out testkey.pem
+
+$ openssl rsa -provider tpm2 -in handle:0x81000000 -outform PEM -pubout -out public.pem
+
+
+Generate a 2048 bit RSA key
+---------------------------------------------------------------
+$ openssl genpkey -provider tpm2 -algorithm RSA -pkeyopt bits:1024 -out private.pem
+
+
+
