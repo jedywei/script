@@ -54,3 +54,10 @@ $ git co -b v2.17 origin/v2.17-branch
 // using gmmlib as example
 $ git co -b v22.3.3 intel-gmmlib-22.3.3
 
+
+// create remote branch by local branch
+$ git switch a50
+$ git push -u origin a50
+
+$ git remote show origin
+
