@@ -63,9 +63,9 @@ network:
   renderer: NetworkManager
   ethernets:
     alleths:
-      dhcp4: true
       match:
         name: en*
+      dhcp4: true
     eth0:
       match:
         macaddress: "c4:00:ad:40:4c:44"
