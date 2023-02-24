@@ -1,0 +1,58 @@
+git commit message convention
+------------------------------
+2022/12/02 new by Jedy Wei
+
+1. one issue one commit
+2. message about why & what. 
+3. issue fixed, please add issue (or bug) number
+
+format
+------
+[<scope>] <action>(<>): <subject> [ / <what> ]
+
+for example
+
+[qsvplay] fix(#23320): failed to play bbb_1min.mp if no HDMI output. / Modify twovideo.c and add pull_mode_delay() 
+
+NOTE: <subject> no more than 60 characters, give the resason, why you want to commit the chages. 
+      <what> just mention important matter not all details. 
+
+<scope>
+--------
+qsvplay
+mfpgo
+www
+bay
+...
+
+
+<action>
+--------
+add:        add(<feature> <num>): feature, add new feature. For example add(multiview 1): ...
+done:       done(<feature> <num>/<whole>): feature, down a new feature. For example done(multiview 12/12): ...
+mod:        mod(<feature>): feature, change a feature behavior. after 'done', please use mod instead of add
+fix:        fix(#<issue num>): bug, fix a bug. The issue should be reported on Redmine, otherwise please use mod(). 
+docs:       document, add, modify documents.
+style:      reformat style will not change code behavior. (white-space, formatting, missing semi colon, etc)
+refactor:   refactoring. It doesn't add or change code behavior and also not fix a bug.
+perf:       performance tuning. A code change that improves performance.
+test:       add test program instead of new feature, modifying feature or bug fixed. 
+si:         system integration, such as reorganize source tree, makefile, ....
+rel:        rel(<release number>), package release. for example rel(v1.3-7): ....
+trivia      trivia(debug message), add debugging message, remove debugging message, something is not significant.
+
+
+Examples
+--------
+[mfp-RESTful]  mod (network management): network page is stuck, and failed to start streaming playback after new installation. /
+    Since no default route setting, failed to get ip by execSync('ip route | grep via') 
+
+[mfpgo] docs: updaet user guide 
+[qsvplay] done(multiview 12/12):  ...
+...
+[qsvplay] add(multiview 2): restore layout plane color if no video playback. / lef.c watch qsvplay and restore the plane color
+[qsvplay] add(multiview 1): play audio on focus display. 
+
+
+@see write_ci_message
+
