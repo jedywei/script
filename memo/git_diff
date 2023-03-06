@@ -59,6 +59,13 @@ git format-patch -o ~/patches git-svn..442684d
 #----------------------------------------------------------------------
 git apply --check 001-Fix-cli-showvminfo.patch
 git apply 001-Fix-cli-showvminfo.patch
+git apply --stat 001-Fix-cli-showvminfo.patch
+git apply --stat -p4 001-Fix-cli-showvminfo.patch   
+
+// with -p2, a patch against a/dir/file will be applied directly to file. (default is 1)
+
+patch -p5 --dry-run < ../patches/001-Fix-cli-showvminfo.patch  
+pathc -p5 < ../patches/001-Fix-cli-showvminfo.patch 
 
 
 see also git-format-patch, git-diff
