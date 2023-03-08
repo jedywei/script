@@ -26,3 +26,12 @@ $ dd if=/dev/sdb bs=512 count=$((16781311+1)) conv=noerror,sync | pv -s $((16781
 df
 sudo lsblk -fm
 sudo parte -ls
+
+
+free up space
+-------------
+
+$ sudo apt-get autoremove
+
+$ journalctl --disk-usage
+$ sudo journalctl --vacuum-time=3d
