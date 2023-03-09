@@ -1,0 +1,75 @@
+git_diff
+---------
+
+# diff
+#---------------------------------------------------------------------
+HEAD~n, HEAD^, HEAD, Stage, WD
+
+git diff --cached HEAD^     (HEAD^, Stage)
+git diff --cached HEAD      (HEAD, Stage)
+git diff --cached           == git diff cached HEAD
+git diff                    (Stage, WD)
+git diff head               (HEAD, WD)
+git diff head^              (HEAD^, WD)
+git diff HEAD HEAD~5        (HEAD, HEAD~5)
+git diff --staged           (stage, HEAD)
+
+
+# diff a file with <tag> or <commit>
+#----------------------------------------------------------------------
+git diff <tag> -- <file>
+$ git diff mfpgo_v1.1-0 -- postinst
+git diff <commit> -- <file>
+$ git diff 66204c7c -- postinst
+
+# see changes between two commits
+#---------------------------------------------------------------------- 
+$ git diff master 6ca9bbff
+$ git diff avout_tune develop
+$ git diff HEAD HEAD^
+$ git diff HEAD HEAD~5
+
+NOTE
+HEAD^ == HEAD~1
+master^^ == master~2
+
+# workdir / stage / respository
+#----------------------------------------------------------------------
+$ git diff HEAD             (HEAD -> workdir)
+$ git diff                  (stage -> workdir)
+$ git diff --staged         (HEAD -> stage)
+$ git diff <tag>            (<tag> -> workdir)
+$ git diff b325c            (<commit> -> workdir)
+$ git diff da985 b325c      (<commit> -> <commit>)
+
+
+# show files changes only of a commit
+#----------------------------------------------------------------------
+$ git show --stat --oneline
+$ git show --stat --oneline <commit>
+$ git show --stat --oneline <older commit>..<newer commit>
+
+# format-patch
+#----------------------------------------------------------------------
+git format-patch -o ~/patches git-svn
+git format-patch -o ~/patches git-svn..442684d
+
+
+# apply patch
+#----------------------------------------------------------------------
+git apply --check 001-Fix-cli-showvminfo.patch
+git apply 001-Fix-cli-showvminfo.patch
+git apply --stat 001-Fix-cli-showvminfo.patch
+git apply --stat -p4 001-Fix-cli-showvminfo.patch   
+
+// with -p2, a patch against a/dir/file will be applied directly to file. (default is 1)
+
+patch -p5 --dry-run < ../patches/001-Fix-cli-showvminfo.patch  
+pathc -p5 < ../patches/001-Fix-cli-showvminfo.patch 
+
+
+see also git-format-patch, git-diff
+
+
+
+

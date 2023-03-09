@@ -1,0 +1,47 @@
+basic git command
+------------------
+
+WD -> stage (== index)
+------------
+git add         // git a
+git rm          
+git mv    
+
+git a [--] <file> .. 
+git a --dry-run <file>
+
+git rm --cached <file>          // remove from staged file
+git rm -r <path>                // remove recursive
+
+status & history
+----------------
+git status      // git st
+git log         // git adog
+git show
+
+
+git st -s       // show short status
+git st -b       // show branch information
+
+
+git log <file>
+git log <path>
+
+git log -3 <file>   // last 3 commit about this file updated
+
+git show <commit>
+git show HEAD
+git show HEAD^1         // HEAD - 1
+
+git show --stat --oneline HEAD~5..HEAD          // range <older commit>..<newer commit>
+
+
+repository
+----------
+git commit      // git ci
+git reset
+git checkout    // git co
+git restore
+
+
+

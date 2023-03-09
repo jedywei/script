@@ -1,0 +1,68 @@
+Write a good commit message for your code!
+------------------------------------------
+
+A good commit message should be clear, concise, and informative. 
+
+1. Keep it short and sweet:
+    The subject line of your commit message should be 50 characters or less. This is the 
+    first thing people will see when they look at your commit, so it's important to make 
+    it clear and concise.
+
+2. Use the imperative mood:
+    Your commit message should describe what your code does, not what you did. Use the
+    imperative mood to describe what the code does, such as "Fix a bug" or "Add a feature".
+
+3. Explain why you mode the change:
+    It's important to explain why you made the change, as this will help other people
+    understand the context and reasoning behind your code. This could be as simple as 
+    "Fix a bug that caused the app to crash" or "Add a new feature to improve user experience".
+
+4. Provide more detail in the body:
+    If necessary, provide more details about what your code does, how it works, and any
+    important considerations or dependencies. This can be especially helpful for larger
+    changes that require more explanation. 
+
+
+5. Be consistent:
+    Try to use the same format and style for your commit messages across your project. 
+    This will make it easier for people to read and understand your code. 
+
+
+Ex1
+    Add pagination to search results
+        This commit add pagination to the search result to improve performance and user experience.
+        The pagination is implemented using the 'pagiate' gem and includes tests or ensure
+        functionality and compatibility with other features.
+
+Ex2 
+    Fix typo in login form
+        This commit corrects a spelling mistake in the login form that caused an error message to display 
+        when users tried to sign in. The mistake was located in the form's HTML file and was fixed by 
+        updating the corresponding code.
+
+Ex3
+    Add user authentication feature
+        This commit adds a new feature to the app that requires users to authenticate before accessing 
+        certain pages. The feature is implemented using the devise gem and includes updates to the 
+        database schema, models, and controllers.
+
+Ex4
+    Refactor code for readability
+        This commit refactors the code in several files to improve readability and make it easier 
+        for other developers to understand. The changes include renaming variables, simplifying 
+        code, and adding comments where necessary.
+
+Ex5 
+    Update database schema for new feature
+        This commit updates the app's database schema to support a new feature that allows users to 
+        save their favorite items. The schema changes include new tables and associations, and were 
+        implemented using a migration.
+
+Ex6
+    Revert changes to fix production bug
+        This commit reverts a recent set of changes that caused a critical bug in the app's production 
+        environment. The changes were identified and fixed in a separate branch, and the revert was 
+        tested to ensure it did not cause any new issues.
+
+
+

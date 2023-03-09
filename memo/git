@@ -472,3 +472,12 @@ grep log
 ---------
 git log -g --grep="<pattern>"
 
+
+commit status
+-------------
+// get the list of changed files
+git diff-tree --no-commit-id --name-only -r <commit>
+
+// get the list of all files in a commit
+git ls-tree --name-only -r <commit>
+

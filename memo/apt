@@ -20,6 +20,9 @@ $ apt-get remove <package name>
 $ apt-get purge <package name>              // apt-get remove <package1> <package2>+
 $ apt-get autoremove <package_name>         // remove package and dependencies
 
+$ sudo apt-get --purge remove linux-image-unsigned-6.0.0-060000-generic
+$ sudo apt-get --purge autoremove
+
 Search
 $ apt-cache search <search_term>
 $ apt-cache show <package_name>

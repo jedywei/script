@@ -61,6 +61,8 @@ $ git push -u origin a50
 
 $ git remote show origin
 
+// delete remote branch
+$ git push origin --delete a50
 
 // replace local branch by remote branch
 $ git switch a50
