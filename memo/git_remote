@@ -61,3 +61,8 @@ $ git push -u origin a50
 
 $ git remote show origin
 
+
+// replace local branch by remote branch
+$ git switch a50
+$ git fetch
+$ git reset --hard origin/a50
