@@ -1,0 +1,26 @@
+bash arguments
+---------------
+
+$0              - The name of the bash script
+$1 - $9         - The first 9 arugments to the Bash script. 
+$#              - How many arguments were passed to the Bash script.
+$@              - All the arguments supplied to the Bash script. $0 $1 $2 ...
+$*              - All the arguments supplied to the Bash script. $0$IFS$1$IFC$2 ...
+$?              - The exit status of the most recently run process
+$$              - The PID of the current script
+$!              - The PID of the last background command
+$USER           - The username of the user running the script. 
+$HOSTNAME       - The hostname of the machine the script is running on.
+$SECONDS        - The number of seconds time since script was starte. 
+$RANDOM         - Return a different random number each time is it referred to.
+$LINENO         - Returns the current line number in the Bash script.
+${LINENO}        
+
+
+scale=${2:-1}       // scale=$2, if $2 is not defined, set -1 as default
+
+${varname:-word}        // return word as default, if it is not defined
+${varname:=word}        // varname=word, if varname is not defined
+${varname?message}     // print message, if varname is not defined
+${varname:+word}        // return word, only if varame is defined and is not null; return null otherwise
+

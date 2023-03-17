@@ -1,0 +1,23 @@
+rebase
+------
+
+git rebase
+
+
+
+interactive rebase
+-------------------
+$ git rebase -i
+$ git rebase -i <commit> 
+
+p, pick             = use commit
+r, reword           = use commit, but edit the commit message
+e, edit             = use commit, but stop for amending
+s, squash           = use commit, but meld into previous commit (^)
+f, fixup            = like "squash" but keep only the previous commit's log message
+x, exec <command>   = run command
+b, break            = stop here (continue rebase later with 'git rebase --continue')
+d, drop             = remove commit
+l, label <label>    = label current HEAD with a name
+t, reset <label>    = reset HEAD to a label
+m, merge
