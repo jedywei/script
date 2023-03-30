@@ -24,3 +24,8 @@ ${varname:=word}        // varname=word, if varname is not defined
 ${varname?message}     // print message, if varname is not defined
 ${varname:+word}        // return word, only if varame is defined and is not null; return null otherwise
 
+
+#!/bin/bash
+script_dir=$(dirname $(realpath ${BASH_SOURCE[0]}))
+source ${script_dir}/include.sh
+
