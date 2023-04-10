@@ -2,6 +2,27 @@ git remote
 -----------
 Example by libva in githug
 
+// init a bare respo
+# on vega@v7000:~/github
+$ git init --bare Ruth.git
+
+// rename remote from origin to mac
+$ git remote rename origin mac
+
+// add additional remote
+# git remote add <remote_name> url
+$ git remote add origin ssh://vega@v7000/home/vega/githup/Ruth.git
+
+// reset default upstream
+# git push -u <remote_name> <local_branch_name>
+$ git push -u origin master
+
+
+// clone a whole project from remote without all 
+$ cd ~; mkdir mediaflow; cd mediaflow
+$ git clone --depth 1 ssh://vega@v7000/home/vega/githup/Ruth.git
+
+
 // clone a whole project
 $ git clone https://github.com/intel/libva.git
 
