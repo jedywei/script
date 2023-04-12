@@ -68,11 +68,11 @@ V210                                                   [127:0] x:Y5:Cr4:Y4.x:Cb4
                                                                2:10: 10:10.2: 10:10: 10.2:10: 10:10.2: 10:10: 10
                                                                LE plane x2 422
 
-NV21  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 420
-NV16  =                     =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 422
-NV61                        =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 422
-NV24  =                     =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 444
-NV42  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 444
+NV21  =             =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 420
+NV16  =             =       =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 422
+NV61                =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 422
+NV24  =             =       =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 444
+NV42  =             =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 444
     
 C8__  _PAL8         =       =                           [8:0] color index
 
