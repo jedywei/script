@@ -34,7 +34,7 @@ XR24  _BGR0         =       _XRGB8888       _RGB24      [31:0] x:R:G:B LE * (com
 XB24  _RGB0         =       _XBGR8888                   [31:0] x:B:G:R LE
 RX24  _0BGR         =       _RGBX8888                   [31:0] R:G:B:x LE
 BX24  _0RGB         =       _BGRX8888                   [31:0] B:G:R:x LE
-AR24  _BGRA         =       _ARGB8888       _ARGB32     [31:0] A:R:G:B LE *
+AR24  _BGRA(=_RGB32)=       _ARGB8888       _ARGB32     [31:0] A:R:G:B LE *
 AB24  _RGBA         =       _ABGR8888                   [31:0] A:B:G:R LE
 RA24  _ABGR         =       _RGBA8888                   [31:0] R:G:B:A LE
 BA24  _ARGB         =       _BGRA8888                   [31:0] B:G:R:A LE
