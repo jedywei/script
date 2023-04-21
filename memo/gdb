@@ -105,14 +105,6 @@ Ctrl-\              # send SIGQUIT or
 kill -QUIT $PID
 kill -ABRT $PID
 
-ubuntu gdb core with apport
----------------------------
-cat /var/log/apport.log
-
-ls -al /var/lib/apport/coredump
-
-gdb qsvplay -c /var/lib/apport/coredump/
-
 
 stop apport and enable systemd-coredump
 ---------------------------------------
@@ -139,4 +131,12 @@ sudo coredumpctl debug 5809
 
 # In GDB, the basic thing to get is a stck trace. Ask the developer what else they went.
 (gdb) thread apply all bt
+
+
+ubuntu gdb core with apport
+---------------------------
+$ ulimit -c unlimited
+$ cat /var/log/apport.log
+$ ls -al /var/lib/apport/coredump
+$ gdb qsvplay /var/lib/apport/coredump/
 

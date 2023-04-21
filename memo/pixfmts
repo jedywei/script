@@ -1,17 +1,17 @@
 pixfmts pixel format relative
 ------------------------------
 - 4cc               fourcc  'C','8',' ',' ' will be mark as C8__
-- ffmpeg            AV_PIX_FMT_{name}               / for example AV_PIX_FMT_NV12       != 4cc
-- drm               DRM_FORMAT_{name}               / for example DRM_FORMAT_NV12       ~= 4cc
-- drmbo             DBO_{4CC}                       / for example DBO_NV12              == 4cc
-- vaapi             VA_FOURCC_{4CC}                 / for example VA_FOURCC_NV12        == 4cc
-- mediasdk(mfx)     MFX_FOURCC_{4CC}                / for example MFX_FOURCC_NV12       == 4cc
-- cairo             CAIRO_FORMAT_{name}             / for example CAIRO_FORMAT_ARGB32   != 4cc
-- pxxc              PXX_{4CC}                       / for example PXX_NV12              == 4cc
-- sdl               SDL_PIXELFORMAT_{name}          / for example SDL_PIXELFORMAT_NV12  != 4cc
-- decklink          bmdFormat{bits}{color}          / for example bmdFormat8BitYUV      != 4cc      / pixfmts_decklink
+- ffmpeg            AV_PIX_FMT_{name}               / for example AV_PIX_FMT_NV12       v != 4cc    n != 4cc
+- drm               DRM_FORMAT_{name}               / for example DRM_FORMAT_NV12       v == 4cc    n != 4cc
+- drmbo             DBO_{4CC}                       / for example DBO_NV12              v == 4cc    n == 4cc
+- vaapi             VA_FOURCC_{4CC}                 / for example VA_FOURCC_NV12        v == 4cc    n == 4cc
+- mediasdk(mfx)     MFX_FOURCC_{4CC}                / for example MFX_FOURCC_NV12       v == 4cc    n == 4cc
+- cairo             CAIRO_FORMAT_{name}             / for example CAIRO_FORMAT_ARGB32   v != 4cc    n != 4cc
+- pxxc              PXX_{4CC}                       / for example PXX_NV12              v == 4cc    n == 4cc
+- sdl               SDL_PIXELFORMAT_{name}          / for example SDL_PIXELFORMAT_NV12  v != 4cc    n != 4cc
+- decklink          bmdFormat{bits}{color}          / for example bmdFormat8BitYUV      v != 4cc    n != 4cc    / pixfmts_decklink
 - bqb sdk
-- ndi               NDIlib_FourCC_type_{4CC}        / for ex NDIlib_FourCC_type_NV12    ~= 4cc      / pixfmts_ndi
+- ndi               NDIlib_FourCC_type_{4CC}        / for ex NDIlib_FourCC_type_NV12    v ~= 4cc    n == 4cc    / pixfmts_ndi
 
 
 NOTE:
@@ -19,6 +19,7 @@ NOTE:
 2.  {4CC}   use 4CC name as suffix for naming  pixel format, for example _RG16 for DBO_RGB16
 3.  == 4cc  use MAKE_FOURCC(A,B,C,D) as defination of the format, for example DRM_FORMAT_NV12 == MAKE_FOURCC('N','V','1','2)
 4.  != 4cc  use arbitry number as the defination of the format, for example AV_PIX_FMT_NV12 == 123
+5.  n {name}, v {defined value}
 
 format = MAKE_FOURCC(A,B,C,D)           == (A << 0) | (B << 8) | (C << 16) | (D << 24)
 nv12   = MAKE_FOURCC('N','V','1','2')
@@ -29,6 +30,7 @@ NOTE: _ means ' ', a space character
 ----- ---------     ------- --------------- ----------- --------------------------------------
                                             _A8         [7:0] 8bit alpha
                                             _A1         [0] 1 bit alpha
+C8__  _PAL8         =       =                           [8:0] color index
 RG16  _RGB565       =       _RGB565         _RGB16_565  [15:0] R:G:B=5:6:5 LE   (packed)
 XR24  _BGR0         =       _XRGB8888       _RGB24      [31:0] x:R:G:B LE * (common)
 XB24  _RGB0         =       _XBGR8888                   [31:0] x:B:G:R LE
@@ -38,14 +40,14 @@ AR24  _BGRA(=_RGB32)=       _ARGB8888       _ARGB32     [31:0] A:R:G:B LE *
 AB24  _RGBA         =       _ABGR8888                   [31:0] A:B:G:R LE
 RA24  _ABGR         =       _RGBA8888                   [31:0] R:G:B:A LE
 BA24  _ARGB         =       _BGRA8888                   [31:0] B:G:R:A LE
-XR30                =       _XRGB2101010    _RGB30      [31:0] x:R:G:B=2:10:10:10 LE    
+XR30  _GBRP10LE     =       _XRGB2101010    _RGB30      [31:0] x:R:G:B=2:10:10:10 LE    
 XB30                =       _XBGR2101010                [31:0] x:B:G:R=2:10:10:10 LE    
 AR30                =       _ARGB2101010                [31:0] A:R:G:B=2:10:10:10 LE    
 AB30                =       _ABGR2101010                [31:0] A:B:G:R=2:10:10:10 LE    
-XR4H                =       _XRGB16161616F              [63:0] x:R:G:B=16:16:16:16 LE   
-XB4H                =       _XGBR16161616F              [63:0] x:B:G:R=16:16:16:16 LE   
-AR4H  _BGRA64LE     =       _ARGB16161616F              [63:0] A:R:G:B=16:16:16:16 LE   
-AB4H  _RGBA64LE     =       _ABGR16161616F              [63:0] A:B:G:R=16:16:16:16 LE   
+XR4H  x             =       _XRGB16161616F              [63:0] x:R:G:B=16:16:16:16 LE   IEEE 754 half-precision float
+XB4H  x             =       _XGBR16161616F              [63:0] x:B:G:R=16:16:16:16 LE   =
+AR4H  x             =       _ARGB16161616F              [63:0] A:R:G:B=16:16:16:16 LE   = 
+AB4H  x             =       _ABGR16161616F              [63:0] A:B:G:R=16:16:16:16 LE   = 
 
 
 NV12  =             =       _NV12                       [8:0] Y / [15:0] Cr:Cb  LE      plane x2 420
@@ -64,7 +66,7 @@ P010  _P010LE       =       =                           [15:0] Y:0=10:6 / [31:0]
 P012                =       =                           [15:0] Y:0=12:4 / [31:0] Cr:x:Cb:x=12:4:12:4 LE  plane x2 420
 P016  _P016LE       =       =                           [15:0] Y / [31:0] Cr:Cb=16:16 LE plane x2 420
 
-V210                                                   [127:0] x:Y5:Cr4:Y4.x:Cb4:Y3:Cr2.x:Y2:Cb2:Y1.x:Cr0:Y0:Cb0
+V210  x             x       x                           [127:0] x:Y5:Cr4:Y4.x:Cb4:Y3:Cr2.x:Y2:Cb2:Y1.x:Cr0:Y0:Cb0
                                                                2:10: 10:10.2: 10:10: 10.2:10: 10:10.2: 10:10: 10
                                                                LE plane x2 422
 
@@ -74,5 +76,14 @@ NV61                =       =                           [8:0] Y / [15:0] Cb:Cr  
 NV24  =             =       =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 444
 NV42  =             =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 444
     
-C8__  _PAL8         =       =                           [8:0] color index
+YUV9                        _YUV410                     Y [7:0] 4x4= Cb [7:0] Cr [7:0]  plane x3 410
+YVU9                        _YVY410                     Y [7:0] 4x4= Cr [7:0] Cb [7:0]  plane x3 410
+YU11                        _YUV411                     Y [7:0] 4x1= Cb [7:0] Cr [7:0]  plane x3 411
+YV11                        _YVU411                     Y [7:0] 4x1= Cr [7:0] Cb [7:0]  plane x3 411
+YU12                        _YUV420                     Y [7:0] 2x2= Cb [7:0] Cr [7:0]  plane x3 420
+YV12                        _YVU420                     Y [7:0] 2x2= Cr [7:0] Cb [7:0]  plane x3 420
+YU16                        _YUV422                     Y [7:0] 2x1= Cb [7:0] Cr [7:0]  plane x3 422
+YV16                        _YVU422                     Y [7:0] 2x1= Cr [7:0] Cb [7:0]  plane x3 422
+YU24                        _YUV444                     Y [7:0] 1x1= Cb [7:0] Cr [7:0]  plane x3 444
+YV24                        _YVU444                     Y [7:0] 1x1= Cr [7:0] Cb [7:0]  plane x3 444
 
