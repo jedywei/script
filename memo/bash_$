@@ -1,0 +1,20 @@
+$ prefix
+---------
+
+$var
+${var}
+
+$(command)      
+for example
+$(ls /)
+
+var=$(ls ~)
+
+$((expression)) vs ((expression)
+as 
+(( a = 1 + 4 ))
+if (( a < b ))
+
+echo "The average is $(( (a+b)/2 ))
+
+

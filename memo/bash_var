@@ -55,6 +55,37 @@ $SECONDS        - The number of seconds time since script was starte.
 $RANDOM         - Return a different random number each time is it referred to.
 $LINENO         - Returns the current line number in the Bash script.
 ${LINENO}        
+${LINES}        - The number of lines that fit in your terminal
+${HOME}         - the current user's home directory
+${PS1}          - the format of your shell prompt.
+${PATH}         - A colon-separated list of path that will be searched to find a command.
+${BASH_VERSION}
+${PPID}
+${PWD}
+${UID}
+${COLUMNS}
+
+
+declare variable
+----------------
+declare -a      - Array
+declare -A      - Associative array
+declare -i      - integer
+declare -r      - read only 
+declare -x      - export
+
+$ a=5; a+=2; echo "$a"; unset a
+52
+$ a=5; let a+=2; echo "$a"; unset a
+7
+$ declare -i a=5; a+=2; echo "$a"; unset a
+7
+$ a=5+2; echo "$a"; unset a
+5+2
+$ declare -i a=5+2; echo "$a"; unset a
+7
+
+
 
 [Setting our own variables]
 var=value       # no space allowed between '='

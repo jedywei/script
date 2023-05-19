@@ -64,9 +64,15 @@ $ scp ~/.ssh/id_rsa.pub jedywei@$targetM:~/.ssh
 -------------------------------------------------------------------------
 $ sudo apt install -y git subversion git-svn silversearcher-ag
 
+# modify /etc/needrestart/needrestart.conf
+$nrconf{restart} = 'l';
+
+
+
 $ sudo vi /etc/hosts
 172.17.4.19     mac
 # 192.168.0.201 mac
+172.17.5.11     v7000
 
 4. jedy's github environment
 --------------------------------------------------------------------------
@@ -91,7 +97,9 @@ $ cd -
 5. Ruth project
 --------------------------------------------------------------------------
 $ cd ~; mkdir mediaflow; cd mediaflow
-$ git clone ssh://jedywei@mac/Users/jedywei/github/Ruth.git
+#$ git clone ssh://jedywei@v7000//Users/jedywei/github/Ruth.git
+$ git clone sudo timedatectl set-timezone Asia/Taipei
+ssh://vega@v7000/home/vega/githup/Ruth.git
 $ cd ~; cp script/.projsetup.sh .
 $ vi ~/.projsetup.sh
 
