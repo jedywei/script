@@ -70,11 +70,11 @@ V210  x             x       x                           [127:0] x:Y5:Cr4:Y4.x:Cb
                                                                2:10: 10:10.2: 10:10: 10.2:10: 10:10.2: 10:10: 10
                                                                LE plane x2 422
 
-NV21  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 420
-NV16  =                     =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 422
-NV61                        =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 422
-NV24  =                     =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 444
-NV42  =                     =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 444
+NV21  =             =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 420
+NV16  =             =       =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 422
+NV61                =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 422
+NV24  =             =       =                           [8:0] Y / [15:0] Cr:Cb  LE      plane x2 444
+NV42  =             =       =                           [8:0] Y / [15:0] Cb:Cr  LE      plane x2 444
     
 YUV9                        _YUV410                     Y [7:0] 4x4= Cb [7:0] Cr [7:0]  plane x3 410
 YVU9                        _YVY410                     Y [7:0] 4x4= Cr [7:0] Cb [7:0]  plane x3 410
