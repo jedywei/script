@@ -1,0 +1,12 @@
+Windows Doxygen
+---------------
+
+1. Install doxygen
+https://www.doxygen.nl/download.html
+doxygen-1.9.7-setup.ext All 64 bit versions of Windows 
+
+2. Install Graphviz
+https://www.graphviz.org/download/
+graphviz-8.0.5 (64-bit) EXE installer
+
+
