@@ -89,3 +89,6 @@ $ git push origin --delete a50
 $ git switch a50
 $ git fetch
 $ git reset --hard origin/a50
+
+// add back origin/HEAD
+$ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/master

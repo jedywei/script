@@ -1,0 +1,28 @@
+Prepare bash for Windows Terminal
+----------------------------------
+
+Install Windows Terminal Preview
+---------------------------------
+On Microsoft Store install Windows Terminal Preview
+
+Install Windows Subsystem for Linux
+--------------------------------------
+Run Windows PowerShell with admin
+On the PowerShell
+$ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+answer 'Y' and reboot system
+
+Install Ubuntu
+---------------
+On Microsoft Store install Ubuntu 22.04.2 LTS
+as Windows Subsystem for Linux (WSL)
+Press 'Get' to download
+Press 'Open' to install
+Enter new UNIX username: jedywei
+New password: iamarock
+
+done the Windows Subsystem for Linux with Ubuntu installation
+
+
+
+

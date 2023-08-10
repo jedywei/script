@@ -18,8 +18,8 @@ APT::Periodic::Download-Upgradeable-Packages "0";
 APT::Periodic::AutocleanInterval "0";
 
 
-$ sudo apt install -y linux-image-5.15.0-1010-intel-iotg linux-headers-5.15.0-1010-intel-iotg
-$ sudo apt install -y linux-modules-5.15.0-1010-intel-iotg linux-modules-extra-5.15.0-1010-intel-iotg
+$ sudo apt install -y linux-image-5.15.0-1028-intel-iotg linux-headers-5.15.0-1028-intel-iotg
+$ sudo apt install -y linux-modules-5.15.0-1028-intel-iotg linux-modules-extra-5.15.0-1028-intel-iotg
 $ sudo reboot
 $ uname -a 
 
@@ -38,7 +38,7 @@ $ sudo sh -c 'echo "jedywei ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/jedywe
 $ groups
 jedywei vega adm cdrom sudo audio dip video plugdev render lxd
 
-$ sudo usermod -a -G adm,vega,cdrom,sudo,audio,dip,video,plugdev,render,lxd jedywei
+$ sudo usermod -a -G adm,vega,cdrom,sudo,audio,dip,video,plugdev,render,tss,lxd jedywei
 
 # change hostname
 $ sudo hostnamectl hostname p085
@@ -62,6 +62,10 @@ $ scp ~/.ssh/id_rsa.pub jedywei@$targetM:~/.ssh
 
 # on p085
 -------------------------------------------------------------------------
+// disable needrestart
+$ sudo vi /etc/needrestart/needrestart.conf
+$nrconf{restart} = 'l';
+
 $ sudo apt install -y git subversion git-svn silversearcher-ag
 
 # modify /etc/needrestart/needrestart.conf
@@ -96,10 +100,12 @@ $ cd -
 
 5. Ruth project
 --------------------------------------------------------------------------
+# lsb_release
+$ sudo apt install lsb-core
+$ lsb_release
 $ cd ~; mkdir mediaflow; cd mediaflow
 #$ git clone ssh://jedywei@v7000//Users/jedywei/github/Ruth.git
-$ git clone sudo timedatectl set-timezone Asia/Taipei
-ssh://vega@v7000/home/vega/githup/Ruth.git
+$ git clone ssh://vega@v7000/home/vega/githup/Ruth.git
 $ cd ~; cp script/.projsetup.sh .
 $ vi ~/.projsetup.sh
 
@@ -107,11 +113,7 @@ $ vi ~/.projsetup.sh
 --------------------------------------------------------------------------
 $ locale -a
 $ sudo vi /etc/default/locale
-LC_ALL="en_US.UTF-8"
-LC_CTYPE="en_US.UTF-8"
 LANG="en_US.UTF-8"
-LC_NUMERIC="en_US.UTF-8"
-LC_TIME="en_US.UTF-8"
 
 6-1 timezone
 $ sudo timedatectl set-timezone Asia/Taipei
