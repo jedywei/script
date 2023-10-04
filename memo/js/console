@@ -1,0 +1,36 @@
+'use strict'
+
+console.log('hello world');         // prints: hello world to stdout
+console.log('hello %s', 'world');   // prints: hello world to stdout
+console.error(new Error('Whoops, something bad happended'));
+    // prints error message and stack trace to stderr
+    // Error: Whoops, something bad happened
+    //  at [eval]:5:15
+    //  at Script.ruInThisContext (node:vm:132:18)
+    //  at ...
+
+const name = 'Will Robinson';
+console.warn('Danger ${name}! Danger!');    // prints: Danger Will Robinson! Danger!, to stderr
+
+const out = getStreamSomehow();
+const err = getStreamSomehow();
+const myConsole = new console.Console(out, err);
+myConsole.log('hello world');
+
+console.assert(true, 'does nothing');
+console.assert(false, 'Whoops %s work', "didn't");
+console.assert();       // Assertion failed
+
+console.debug();        // alias console.log()
+
+
+// log, debug format
+%s      String, it converts all values except Object, BigInt and -O.    (object using util.inspect)
+%d      Number, it converts all values excpt Symbol and BigInt
+%%      %
+%i      parseInt(), it parses a <string> and returns an integer except BigInt and Symbol
+%f      parseFloat(), it parses a string and returns a floating-point number except symbol
+%j      JSON, no complicated parsing or translations
+%o      Object, similar to util.inspect()
+%O      Object, similar to %o but without options
+

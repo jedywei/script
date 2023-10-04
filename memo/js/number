@@ -1,0 +1,19 @@
+'use strict'
+
+Number('25');               // return 25
+Number('25.51');            // return 25.51
+Number('25px');             // return NaN
+Number('25.5something');    // return NaN
+
+parseInt('25');             // return 25
+parseInt('25.51');          // return 25
+parseInt('25px');           // return 25
+parseInt('25.5something');  // return 25
+
+
+parseFloat('25');             // return 25
+parseFloat('25.51');          // return 25.51
+parseFloat('25px');           // return 25
+parseFloat('25.5something');  // return 25.5
+
+

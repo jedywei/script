@@ -1,0 +1,45 @@
+'use strict'
+
+const fs = require('fs');
+const path = require('path');
+const zlib = require('zlib');
+
+fs.readFile('/etc/passwd', (err, data) => {
+    if (err) console.error(err);
+    console.log(data.toString());
+});
+
+fs.writeFile('/etc/passwd', 'jedywei: iamarock', (err) => {
+    if (err) throw err;
+    console.log('done');
+});
+
+// use event, streams
+
+const rs = fs.createReadStream(path.join(__dirname, 'sample.txt'));
+const ws = fs.createWriteStrea(path.join(__dirname, 'result.txt'));
+
+rs.on('error', (err) => {
+    console.error(err);
+});
+
+rs.on('data', (chunk) => {
+    ws.write(chunk);
+});
+
+rs.on('end', () => {
+    ws.close();
+});
+
+
+// use pipe
+
+const rs2 = fs.createReadStream(path.join(__dirname, 'sample.txt'));
+const zs = zlib.createGzip();
+const ws2 = fs.createWriteStrea(path.join(__dirname, 'sample.txt.gz'));
+
+rs2.pipe(zs).pipe(ws2);
+rs2.on('en', () => {
+    console.log('zip done');
+});
+
