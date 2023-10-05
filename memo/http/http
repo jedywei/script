@@ -1,0 +1,53 @@
+What is HTTP?
+
+HTTP stands for Hyper Text Transfer Proctocol
+
+HTTP Client <-> Cloud <-> Web Server
+
+HTTP Request / Response
+    1. A client (a browser) sends an HTTP request to the web
+    2. A web server receives the request
+    3. The server runs an application to process the request
+    4. The server returns an HTTP response (output) to the browser
+    5. The client (the browser) receives the response
+
+The HTTP Request Circle
+    1. The browser requests an HTML page. The server returns an HTML file.
+    2. The browser requests a sytle sheet. The server returns a CSS file.
+    3. The browser requests a JPEG image. The server returns a JPEG file.
+    4. The browser requests JavaScript Code. The server returns a JS file.
+    5. The browser requests data. The server returns data (in XML or JSON).
+
+Client: user-agent / browser
+Server: Web Server
+Proxies:
+    - caching (the cache can be public or private, like the browser cache)
+    - filtering (like an antivirus scan or parental controls)
+    - load balancing (to allo multiple servers to serve different requests)
+    - authenticatiion (to control access to different resources)
+    - logging (allowing the storage of historical information)
+
+
+Basic aspects of HTTP
+    - simple
+    - extensible
+    - stateless, but not sessionless
+    
+HTTP Reqeust
+    GET / HTTP/1.1
+    Host: developer.mozilla.org
+    Accept-Language: fr
+
+HTTP Response
+    HTTP/1.1 200 OK
+    Date: Sat, 09 Oct 2010 14:28:02 GMT
+    Server: Apache
+    Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT
+    ETag: "51142bc1-7449-479b075b2891b"
+    Accept-Ranges: bytes
+    Content-Length: 29769
+    Content-Type: text/html
+
+    <!DOCTYPE html>… (here come the 29769 bytes of the requested web page)
+
+

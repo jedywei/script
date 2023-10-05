@@ -5,6 +5,7 @@
 - boolean
 - object
 - function
+- symbol
 
 
 // two special data types
@@ -18,7 +19,10 @@
 - String
 - Number
 - Boolean
+- Map       // - WeakMap
+- Set       // - WeakSet
 - Buffer
+- JSON
 
 
 // Object

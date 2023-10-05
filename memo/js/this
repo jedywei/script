@@ -1,0 +1,28 @@
+What is this?
+
+In JavaScript, the this keyword refers to an object.
+
+Which object depends on how this is being invoked (used or called).
+The this keyword refers to different objects depending on how it is used:
+
+In an object method         ->  this refers to the object (instance)
+Alone                       ->  this refers to the global object.
+In a function               ->  this refers to the global object. 
+In a function (strict mode) ->  this is undefined
+In an event                 ->  this refers to the element that received the event. 
+
+Example
+const person = {
+  firstName: "John",
+  lastName : "Doe",
+  id       : 5566,
+  fullName : function() {
+    return this.firstName + " " + this.lastName;        // this in a Method
+  }
+};
+
+Example
+let x = this;       // alone, refers to the global object
+x == global;        // true
+x == this;          // true
+

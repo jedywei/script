@@ -1,0 +1,176 @@
+class and function constructor
+
+// function constructor
+
+let Person = function (data) {
+  this.name = data.name;
+  this.age = data.age;
+  let profile = `${this.name}(${this.age})`; // 無法在實例中使用
+};
+
+Person.prototype.greet = function () {
+  console.log(`Hello ${this.name}, your age is ${this.age}`);
+};
+
+let Aaron = new Person({ name: 'Aaron', age: 28 });
+let Jackson = new Person({ name: 'Jackson', age: 24 });
+console.log(Aaron); // Person {name: "Aaron", age: 28}
+
+
+// class constroctur
+class Person {
+  constructor (data) {
+    this.name = data.name;
+    this.age = data.age;
+  }
+}
+
+let Aaron = new Person({ name: 'Aaron', age: 28 });
+let Jackson = new Person({ name: 'Jackson', age: 24 });
+console.log(Aaron); // Person {name: "Aaron", age: 28}
+
+// 同樣可以透過 object destructuring 來做到設定預設值
+class Person {
+  constructor({ name, age = 18 } = {}) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+let Aaron = new Person({ name: 'Aaron' });
+let Jackson = new Person({ name: 'Jackson', age: 24 });
+console.log(Aaron); // Person {name: "Aaron", age: 18}
+console.log(Jackson); // Person {name: "Jackson", age: 24}
+
+// Prototype method
+class Student {
+  constructor(firstName, lastName) {
+    // this 指稱的是所建立的 instance
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  // 原型方法
+  getName() {
+    // this 指稱的是所建立的 instance
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+// 類別的實力可以直接使用原型方法
+aaron = new Student('Aaron', 'Chen');
+console.log(aaron.getName()); // Aaron Chen
+
+
+// Static method
+
+// 呼叫靜態方法的第一種方式
+class Bird {
+  constructor({ color = 'red' } = {}) {
+    this.color = color;
+  }
+
+  // 使用 static 以建立 static method，裡面用 this
+  static changeColor(color) {
+    // this 原本指稱的是所建立的 Bird 這個 Class
+    // 但在呼叫這個方法時，使用了 call() 把 this 改成了指定的 instance
+    this.color = color;
+  }
+}
+
+let redBird = new Bird();
+console.log(redBird.color); // red
+// redBird.changeColor('blue')    // redBird.changeColor is not a function
+
+Bird.changeColor.call(redBird, 'blue');
+console.log(redBird.color); // blue
+
+
+// 呼叫靜態方法的第二種方式
+class Bird {
+  constructor({ color = 'red' } = {}) {
+    this.color = color;
+  }
+
+  static changeColor(bird, color) {
+    // this 原本指稱的是所建立的 Bird 這個 Class
+    bird.color = color;
+  }
+}
+
+let redBird = new Bird();
+console.log(redBird.color); // red
+// redBird.changeColor('blue')    // redBird.changeColor is not a function
+
+Bird.changeColor(redBird, 'blue');
+console.log(redBird.color); // blue
+
+
+// Setter and Getter
+class Person {
+  constructor({ firstName, lastName, country = 'Taiwan' } = {}) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.country = country;
+  }
+
+  //  getter method
+  get name() {
+    return this.firstName + ' ' + this.lastName;
+  }
+
+  //  setter method
+  set name(input) {
+    [this.firstName, this.lastName] = input.split(' ');
+  }
+}
+
+let aaron = new Person({ firstName: 'Aaron', lastName: 'Chen' });
+console.log(aaron.name); // 使用 getter method，Aaron Chen
+aaron.name = 'Peter Chen'; // 使用 setter method
+console.log(aaron.name); // Peter Chen
+
+// Subclass
+class Person {
+  constructor({ name, age = 18 } = {}) {
+    this.name = name;
+    this.age = age;
+  }
+
+  dance() {
+    console.log('old dance');
+  }
+}
+
+class Student extends Person {
+  constructor({ name, age, interestLevel = 5 } = {}) {
+    // 因為這是 extends from Person，所以我們必須要在為 instance 賦值前，
+    // 在 Student constructor 裡面呼叫 super function，
+    // 呼叫 super function 的意思就是呼叫 Person 的 constructor function。
+    super({ name, age });
+    this.name = name;
+    this.age = age;
+    this.interestLevel = interestLevel;
+    this.grades = new Map();
+  }
+
+  // 如果 traditional = true，則使用 Person 的 dance()；否則...
+  // 也就是說，subclass 是可以覆蓋 superclass 的 method
+  dance(traditional) {
+    if (traditional) {
+      super.dance(); // 呼叫 Person 的 dance method
+    } else {
+      const dances = ['lyrical', 'tap', 'ballet', 'jaz'];
+      console.log(
+        `${this.name} is doing the ${dances[Math.floor(Math.random() * dances.length)]}!`,
+      );
+    }
+  }
+}
+
+let stevenJ = new Student({ name: 'Steven', age: 22 });
+stevenJ.grades.set('Math', 10);
+stevenJ.dance();
+console.log(stevenJ);
+console.log(`stevenJ's interestLevel is: ${stevenJ.interestLevel}`);
+

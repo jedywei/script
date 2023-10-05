@@ -1,0 +1,51 @@
+
+// The new operator lets developers create an instance of a user-defined object type or 
+// of one of the built-in object types that has a constructor function.
+
+
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+}
+
+const car1 = new Car('Eagle', 'Talon TSi', 1993);
+
+console.log(car1.make);
+// Expected output: "Eagle"
+
+// When a function is called with the new keyword, the function will be used as a constructor. 
+// new will do the following things:
+- Creates a blank, plain JavaScript object, let's call it newInstance
+- Points newInstance's [[Prototype]] to the constructor function's prototype property
+- Executes the constrouctor function with the given arguments, binding newInstance as the 'this'
+- If the constructor function returns a non-primitive, this return value becomes
+    the result of the whole new expression. Otherwise, if the constructor fnction does't return
+    anything or returns a primitive, newInstance is returned instead. 
+
+// Property and prototype
+function Car() {}
+const car1 = new Car();
+const car2 = new Car();
+
+console.log(car1.color);        // undefined
+
+Car.prototype.color = 'original color';
+consloe.log(car1.color);        // 'original color'
+
+car1.color = 'black';
+consloe.log(car1.color);        // 'black'
+
+
+function Car(color) {
+  if (!new.target) {
+    // Called as function.
+    return `${color} car`;
+  }
+  // Called with new.
+  this.color = color;
+}
+
+const a = Car("red"); // a is "red car"
+const b = new Car("red"); // b is `Car { color: "red" }`
+
