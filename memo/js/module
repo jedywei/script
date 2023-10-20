@@ -1,0 +1,24 @@
+
+// module utils.js
+utils.js:
+function add(a, b) {
+ return a + b;
+}
+module.exports = add;
+
+// index.js:
+var add = require('./utils')
+console.log(add(3, 5))
+// 8
+
+
+// ES6
+// utils.js:
+export function add(a, b) {
+ return a + b;
+}
+
+// index.js:
+import {add, PI} from './utils'
+console.log(add(3, 5))
+// 8

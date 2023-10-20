@@ -1,0 +1,48 @@
+
+const sub = function(a, b){ // 宣告 add 為一個匿名方法
+    return a - b;
+};
+
+const mul = (a, b) => {
+    return a * b;
+}
+
+console.log(add(3, 5)); // 輸出 8
+
+console.log(sub(3, 5)); // 輸出 8
+
+console.log(mul(3, 5));
+
+function add(a, b){ // 宣告一個全域的 add 方法, JS funtion hoisting attribute
+    return a + b;
+}
+
+
+
+const add2 = (a, b) => a + b;
+
+console.log(add2(3, 5)); // 輸出 8
+
+
+const inc = x => x + 1;
+
+console.log(inc(3));
+
+
+var arr = [1, 2, 3, 4, 5]
+console.log(
+ arr
+   .filter(function(value) {
+   return value > 1; // 先依照條件過濾
+   }).map(function(value) {
+   return value * 2; // 把剩下的值乘以2
+   })
+)
+// 以前都要這樣寫，看起來就是東西很多很雜
+ES6：
+var arr = [1, 2, 3, 4, 5]
+console.log(
+ arr
+  .filter(value => value > 1);
+  .map(value => value * 2);
+)

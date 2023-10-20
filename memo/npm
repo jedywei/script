@@ -5,10 +5,22 @@ $ man npm
 
 $ npm version
 
+$ npm init
+
 $ npm i <package>           # install
 $ npm un <package>          # uninstall package
 $ npm up <package>          # update package
 
 $ npm list -g --depth=0     # list globally installed package
 $ npm list
+
+$ npm root                  # get local node modules path
+$ npm root -g
+
+$ npm i --save dotenv       # add the dotenv module to the file package.json as well
+
+package.json
+
+package-lock.json
+
 

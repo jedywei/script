@@ -2,6 +2,18 @@ curl - transfer a URL
 
 curl [options] [URL ...]
 
+// show request and response
+curl -v https://www.google.com
+
+// show only response header
+curl --head https://www.google.com
+
+    -s  hides the progress bar
+    -D  dump headers to stdout indicate by -
+    -o /dev/null send output (HTML) to /dev/null
+
+
+
 curl -sS -X GET "http://${mediaflow}/hvs/v1.01/channels"
 curl -sS -X GET "http://${mediaflow}/hvs/v1.01/objects/name?id=${chid}&type=channel"
 curl -sS -X PUT -d "stopped" "http://${mediaflow}/hvs/v1.01/channels/${chid}/state"

@@ -1,0 +1,47 @@
+All CSS rules are made of two components:
+
+SELECTOR        DECLARATION
+#page-header    { font-size: 10px; }
+
+Selector can target
+    - tag names
+    - ID
+    - classes
+    - other
+
+#header p { declaration }       // #header -> ID,  p -> tag
+.comment div { declaration }    // .comment -> class, div -> tag
+li { declaration }              // li -> tag
+
+
+Declaration contain properties and values
+#selector { font-size : 10px; }
+#selector {
+    font-size: 10px;
+    color: red;
+}
+
+
+Inline / Embedded / External Style Sheet
+
+Inline
+    <body>
+        <p style="font-size: 10px"> Hello world</p>
+        <p style="font-size: 10px"> Hello world2</p>
+        <p style="font-size: 10px"> Hello world3</p>
+
+Embedded
+    <head> 
+        ..
+        <style>
+        p { font-size: 10px };
+        </style>
+        ...
+    </head>
+
+External Style Sheet
+    <head>
+        ...
+        <link rel="stylesheet" type="text/css" href="css/sytle.cxx">
+        ...
+    </head>

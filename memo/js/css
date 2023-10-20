@@ -1,0 +1,42 @@
+body {
+    background: #eee;
+}
+
+#content {
+    width: 600px;
+    background: #fff;
+    padding: 20px;
+    padding-top: 0;
+    font-family: calibri;
+    font-size: 18px;
+    color: #444;
+    margin: 0 auto;
+
+    max-height: 270px;
+    overflow: hidden;
+
+    /* set transitions up. */
+    transition: max-height 0.7s;
+}
+
+#content.open {
+    max-height: 1000px;
+
+    /* set transitions up. */
+    transition: max-height 0.7s;
+}
+
+#show-more {
+    background: #1594e5;
+    color: #fff;
+    font-family: calibri;
+    display: block;
+    width: 180px;
+    font-size: 24px;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: center;
+    margin: 20px auto;
+    cursor: pointer;
+}
+

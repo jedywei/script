@@ -1,0 +1,43 @@
+
+var arr = [1, 2, 3]
+var arr2 = [4, 5, 6, …arr]
+
+console.log(arr2)
+// [ 4, 5, 6, 1, 2, 3 ]
+
+
+function add(a, b, c) {
+ return a + b + c
+}
+var arr = [1, 2, 3]
+console.log(add(…arr)) // ...arr 等於展開 arr 就會變成如上述所示
+// 6
+
+var obj1 = {
+ a: 1,
+ b: 2,
+}
+var obj2 = {
+ z: 1
+}
+var obj3 = {
+ …obj1,
+ c: 3
+}
+console.log(obj3)
+// { a: 1, b: 2, c: 3 }
+
+var arr = [1, 2, 3, 4]
+var [first, …rest] = arr //...rest 必須要是最後一個元素
+console.log(first)
+console.log(rest) // ...rest 會把剩餘的都集中。
+// 1
+// [ 2, 3, 4 ]
+var obj = {
+ a: 1,
+ b: 2,
+ c: 3,
+}
+var {a, …obj2} = obj
+console.log(obj2) // 因為 a 已經被配對了，所以剩下的會進去 obj2 裡面。
+// { b: 2, c: 3 }

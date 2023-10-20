@@ -1,0 +1,39 @@
+
+// by ES6:
+const arr = [1, 2, 3, 4]
+let [first, second, third, fourth] = arr
+console.log(second, third)
+
+
+const obj = {
+ name: 'nick',
+ age: 30,
+ address: 'taiwan'
+}
+let {name, age, address} = obj
+console.log(address)
+
+
+const obj = {
+ name: 'nick',
+ age: 30,
+ address: 'taiwan',
+ family: {
+  father: 'hello',
+  mother: 'hi',
+ }
+}
+var {family} = obj // 在這裡變成可以直接把同名的變數拿出來使用
+var {family:{mother}} = obj // 也可以解構物件中的物件的一部分
+console.log(family)
+console.log(mother)
+// { father: 'hello', mother: 'hi' }
+// hi
+
+function test(a, b) {
+ console.log(a)
+}
+test({
+ a: 1,
+ b: 2
+})

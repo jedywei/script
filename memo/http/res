@@ -1,0 +1,83 @@
+HTTP Response Message
+
+HTTP/2 200  OK                                                                                                                          ->  Status line
+date: Fri, 06 Oct 2023 00:42:25 GMT                                                                                                     -
+expires: -1
+cache-control: private, max-age=0
+content-type: text/html; charset=ISO-8859-1
+content-security-policy-report-only: object-src 'none';base-uri 'self';script-src 'nonce-t_0lzYX4mloqZDWnSYuWDA' 'strict-dynamic' '
+p3p: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+server: gws
+x-xss-protection: 0                                                                                                                         headers
+x-frame-options: SAMEORIGIN
+set-cookie: 1P_JAR=2023-10-06-00; expires=Sun, 05-Nov-2023 00:42:25 GMT; path=/; domain=.google.com; Secure
+set-cookie: AEC=Ackid1S-i2PdHTOrQVu6LJQVQHkgptuMlctc4AxUdqEjGIK68RkWF7Q4CPM; expires=Wed, 03-Apr-2024 00:42:25 GMT; path=/; domain=
+set-cookie: NID=511=hTjgpbpyRbo_2iQ_n7sm-XNhL4semBAKWgtw5VNK5s_Xl6IvP-7lN3I4HyKY3CSsDXg19w97YQj7S-Rs-EJvEqNZHScN6EERNuBw22-GTr5FW9B
+alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+accept-ranges: none
+vary: Accept-Encoding                                                                                                                   -
+                                                                                                                                        -> blank line
+<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="zh-TW"><head><meta content="text/html; charset=UTF-8" ht   -  message-body
+var h=this||self;function l(){return void 0!==window.google&&void 0!==window.google.kOPI&&0!==window.google.kOPI?window.google.kOPI:n
+function t(a,b,c,d,k){var e="";-1===b.search("&ei=")&&(e="&ei="+p(d),-1===b.search("&lei=")&&(d=q(d))&&(e+="&lei="+d));d="";var g=-1=
+...
+
+Status Line
+    - HTTP/2        HTTP-Version
+    - 200           Status Code   
+    - OK            Status Message
+
+Status Code
+    1xx             Information response
+        100 Continue
+        101 Switching Protocols
+        102 Processing (WebDAV)
+    2xx             Successful responses
+        200 OK
+        201 Created         // for POST or some PUT request
+        203 Non-Authoritative Information
+        204 No Content
+        205 Reset Content
+        206 Partial Content
+        207 Multi-Status
+        208 Already Reported
+        226 IM Used
+    3xx             Redirection messages
+        300 Multiple Choices
+        301 Moved Permanently
+        302 Found
+        303 See Other
+        304 Not Modified
+        307 Temporary Redirect
+        308 Permanent Redirect
+    4xx             Client error response
+        400 Bad Request
+        401 Unauthorized
+        402 Payment Required
+        403 Forbidden
+        404 Not Found
+        405 Method Not Allowed
+        406 Not Acceptable
+        407 Proxy Authentication Required
+        408 Request Tieout
+        409 Conflict
+        410 Gone
+        411 Length Required
+        412 Precondition Failed
+        413 Payload Too Large
+        414 URI Tool Long
+        415 Unsupported Media Type
+        416 Range Not Satisfiable
+        417 Expectation Failed
+        418 I'm a teapot
+        421 Middirected Request
+        ...
+    5xx             Server error responses
+        500 Internal Server Error
+        501 Not Implemented
+        502 Bad Gateway
+        503 Service Unavailable
+        504 Gateway Timeout
+        505 HTTP Version Not Supported
+        ...
+

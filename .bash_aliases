@@ -165,6 +165,7 @@ fi
 
 alias hi=history
 alias hg='history | ag'
+alias code="/Applications/Visual\ Studio\ Code.app/contents/Resources/app/bin/code"
 export HISTCONTROL=erasedups
 shopt -s histverify
 

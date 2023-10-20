@@ -1,0 +1,79 @@
+Promise/A+
+
+1. 'promise' is an object or function with 'then' method whose behavier conforms to this specification.
+2. 'thenable' is an object or function that defines 'then' method.
+3. 'value' is any legal JavaScript value (including undefined, a thenable, or a promise).
+4. 'exception' is a value that is thrown using the 'throw' statement.
+5. 'reason' is a value that incicates why a promise was rejected.
+
+promise.then(onFulfilled, onRejected)
+promise.then(onFulfilled).catch(onRejected);
+
+'use strict'
+//import RSVP from 'rsvp'
+// const RSVP = require('rsvp');
+
+const dieToss = () => Math.floor(Math.random() * 6) + 1;  
+const tossASix = () => {
+    return new Promise((resolve, reject) => {
+        const n = Math.floor(Math.random() * 6) + 1;
+        if (n != 6) {
+            console.log('toss ...');
+            setTimeout(()=>resolve(n), 2000);
+        } else
+            reject(n);
+    });
+}
+
+const logAndTossAgain = (toss) => {
+    console.log('Tossed a ' + toss + ', need to try again.');
+    return tossASix();   // return a promise
+}
+
+const logSuccess = (toss) => {
+    console.log('Yay, managed to toss a ' + toss + '.');
+}
+
+const logFailure = (toss) => {
+    console.log('Tossed a ' + toss + ". Too bad, couldn't roll a six");
+}
+
+// tossASix()
+//     .then(null, logAndTossAgain)    // Roll first time
+//     .then(null, logAndTossAgain)    // Roll second time
+//     .then(logSuccess, logFailure);  // Roll third and last time
+
+tossASix()
+    .then(logAndTossAgain)    // Roll first time
+    .then(logAndTossAgain)    // Roll second time
+    .then(logFailure)  // Roll third and last time
+    .catch(logSuccess);
+
+
+
+@see myjs/js-beignner/async
+
+
+Promise object
+----------------
+
+const p = new Promise((resolve, reject) => {
+    setTimeout(()=> {       // time elasping function will be done by async
+        resolve('foo');     // above done will conduct 'resolve' to complete
+    }, 300);
+});
+
+p.then((result) => {
+    console.log(value);
+});
+
+
+Promise.all()
+Promise.any()
+Promise.reject()
+Promise.resolve()                                                   // return a Promise
+
+p.then((result)=> { // fulfilment }, (reason)=> { // rejection})    // return a Promise
+p.catch((reason) => { // rejection })                               // return a Promise
+p.finally(() => { // settled (fufilled or rejected)})               // return a Promise
+

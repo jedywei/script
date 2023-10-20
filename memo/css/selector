@@ -1,0 +1,130 @@
+// Targeting Elements / Tags 
+
+p { font-size: 12px; color: red; }
+a { text-decoration: underline; color: blue; }
+span { text-transform: uppercase; }
+h1 { font-size: 32px; }
+div { width: 100%; background-color-gray; }
+
+// Targeting Classes and ID's
+// Classes can be used multiple times on a page
+// ID's can be used only once per page - they are unique!
+
+// on index.html
+    ...
+    <h2 id="content-header">Content</h2>
+    <span> Yo, I'm a span tag</span>
+    <span class="deck"> Yo, I'm a span tag tool</span>
+    <span class="deck"> Yo, I'm a span tag again</span>
+// on style.css
+#content-header {
+    font-size:18px;
+    color: red;
+}
+
+span {
+    display: block;
+    color: blue;
+}
+
+.deck { color: red; }
+
+// Cascade CSS Rule  
+// Specificity   ID > Classes > Elements (tag)
+// IMPORTANT <- Don't use
+p {
+    color: red !important;
+}
+
+#main-content p { color: green; }
+
+
+// Target Multiple Element
+p, span, a, li{
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    font-fimily: Arial;
+}
+
+// Inheritance and Descendants
+<body>
+    <div id="main-content">
+        <h1>title</h1>
+        <h2>Text</h2>
+        <div id="sub-content">
+            <h1>my title </h1>
+            <p>more content</p>
+        </div>
+    </div>
+    <h1>Text</h1>
+</body>
+
+// Interitance , div, h1, h2, and h1 inherit from <body> all style
+
+// Descendants
+#main-content div {   }
+#main-contant h1 {  }       // title and my title 
+#main-contant p {  }
+#main-contant #sub-content p { }
+
+// Child Selector
+#main-content > h1 { }      // only one h1 direct children
+
+// Adjancent Selectors
+#sub-content h1 + p {  }    // more content
+
+// Attribute Selector
+span[class] { }             // elements span with "class" attribute, eg <span class="deck"> 
+div[id] { }                 // elements div with "id" attribute, eg <div id="main-content">
+a[title] { }                // elements a with "title" attribute, eg  <a href ... title="def">
+a[title="abc"] { }          // elements a with "title" attribute, eg  <a href ... title="abf">
+span[class~="deck"]         // elements span with "class" match substring "deck", eg <span class="deck halls">  
+a[href$="pdf"]              // elements a with "href" match suffix "pdf", eg <a href="something.pdf">pdf file</a>
+a[href^="pdf"]              // elements a with "href" match prefix "http", eg <a href="http://www.google.com">pdf file</a>
+
+
+// Pseudo Classes
+// Special keywords that go after selectors
+// - special behavioural states - Dynamic e.g. Hover effects
+//      Whether a link is being hovered over, 
+//      Whether a button is being preessed
+//      Whether a tick box has been checked
+
+a {color: green; }
+a:hover { color: red; }
+a:active { color: orange; }
+a:visited { color: purple; }
+
+// - Advanced structural elements - Structural e.g. parent-child relationships
+//      The 5th <li> tag in a list
+//      The parent tag that has no children
+article p { }               // all elements p under article
+article p: first-child {}   // all first element p under article
+article p: last-child {}    // all last element p under article
+
+
+article p: first-of-type {} // all first element type p under article
+article p: last-of-type {}  // all last element type p under article
+
+
+li:nth-child(1) { }                 // the 1st child
+li:nth-child(2), li:nth-child(7)    // the 2nd and 7th child
+li:nth-child(even) { }              // the even number child
+li:nth-child(odd) { }               // the odd number child
+li:nth-child(3n+1) { }              // the 1,4,7,10, ...
+
+article:nth-of-type(1) { }
+article:nth-of-type(odd) { }
+
+// Combining Selectors
+article.featured-content { }        // element article with class featured-content
+article .featured-content { }       // descand elements of artile with class featured-content
+
+// Universal Selector
+* { }
+article, p, li, ul, div, hi, h2, a { }
+
+
+
+
