@@ -6,26 +6,27 @@ docker
     script/verify-docker.sh
 
 2. Add docker permission
-    $ sudo groupadd docker
-    $ sudo usermod -a -G docker
+    $ sudo /sbin/groupadd docker
+    $ sudo usermod -a -G docker jedywei
     // restart docker
     $ sudo systemctl restart snap.docker.dockerd
 
 3. Commands
-$ docker run --rm -lt -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+    $ docker run --rm -lt -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
 
-$ docker container ls
+    $ docker container ls
 
-$ docker container stop <CONTAINER_ID> 
+    $ docker container stop <CONTAINER_ID> 
 
-$ docker container top <CONTAINER_ID>
-$ docker container stats
+    $ docker container top <CONTAINER_ID>
+    $ docker container stats
 
-$ docker container port <CONTAINER_ID>
+    $ docker container port <CONTAINER_ID>
 
-$ docker container attach <CONTAINER_ID>
+    $ docker container attach <CONTAINER_ID>
 
 
 
-$ docker network ls
+    $ docker network ls
+
 
