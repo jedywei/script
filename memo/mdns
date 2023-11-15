@@ -1,0 +1,10 @@
+mdns / avahi 
+------------
+
+1. Install
+$ sudo apt-get install avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
+
+2. Browse
+$ systemctl status avahi-daemon.service
+$ avahi-browse -rt
+
