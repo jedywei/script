@@ -1,0 +1,28 @@
+debug nodejs by devtool
+
+package.json
+{
+...
+  "scripts": {
+    "debug": "nodemon --inspect ./app.js", 
+    "break": "nodemon --inspect-brk ./app.js", 
+    ...
+  }, 
+...
+}
+
+
+$nodemon --inspect or node --inspect
+
+$npm install -g nodemon -D
+
+
+$npm run debug
+
+Open Google Chrome and type
+about:insepct
+on Remote select target and click 'inspect'
+
+
+NOTE: for typescript
+$node --inspect -r ts-node/register ./app.ts

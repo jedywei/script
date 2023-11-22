@@ -1,9 +1,46 @@
 docker
 ------
 
-$ docker run --rm -lt -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+pull
+-----
+$ docker pull bluenviron/mediamtx:latest
+$ docker pull library/alpine
 
+verify docker
+-------------
+$ docker run hello-world
+
+start
+-----
+$ docker run --rm -it -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+
+$ docker run --rm -it --network=host bluenviron/mediamtx:latest
+
+$ docker run alpine echo "hello world"
+$ docker run alpine df
+$ docker run alpine ls -al 
+$ docker run -it alpine /bin/sh
+$ docker run -it -d alpine
+$ docker ps 
+$ docker exec -it 8603452a6ccf /bin/sh
+
+$ docker container stop 8603452a6ccf
+
+$ docker ps -a
+$ docker container rm 8603452a6ccf
+
+$ docker rmi -f hello-world
+
+image
+-----
+$ docker image ls
+$ docker images
+
+container
+---------
+$ docker ps
 $ docker container ls
+$ docker ps -a
 
 $ docker container stop <CONTAINER_ID> 
 
@@ -14,7 +51,24 @@ $ docker container port <CONTAINER_ID>
 
 $ docker container attach <CONTAINER_ID>
 
-
-
+network
+-------
 $ docker network ls
 
+dockerfile
+----------
+$ vi Dockerfile
+FROM alpine:latest
+RUN apk --update add apache2
+RUN rm -rf /var/cache/apk/*
+ENTRYPOINT ["httpd", "-D", "FOREGROUND"]
+
+$ docker build -t myimage .
+$ docker images
+$ docker run -d -p 8080:80 myimage
+
+$ docker login
+jedywei548
+71susislove
+$ docker build -t jedywei548/myimage .
+$ docker push jedywei548/myimage

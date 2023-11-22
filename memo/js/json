@@ -1,0 +1,2 @@
+const config = { ip: '1234.22.11', port: 3000};
+console.log(JSON.stringify(config));

@@ -12,7 +12,7 @@ console.log(add(3, 5))
 // 8
 
 
-// ES6
+// ES6, Modern Jave Script -------------------------
 // utils.js:
 export function add(a, b) {
  return a + b;
@@ -22,3 +22,48 @@ export function add(a, b) {
 import {add, PI} from './utils'
 console.log(add(3, 5))
 // 8
+
+
+index.js -------------
+import {styleBody, addTitle, contact} from './dom';
+import users, {getPremUsers} from './data';
+
+console.log('index file');
+addTitle('hello ' + contact);
+styleBody();
+
+console.log(users, getPremUsers(users));
+
+data.js -------------
+const users = [
+    { name: 'mario', premium: true },
+    { name: 'luigi', premium: false },
+    { name: 'yoshi', premium: true },
+    { name: 'toad', premium: true },
+    { name: 'peach', premium: false }
+];
+
+// export default users;
+
+const getPremUsers = (users) => {
+    return users?.filter(user => user.premium);
+};
+
+export { getPremUsers, users as default };
+
+dom.js -------------
+console.log('dome file');
+
+const body = document.querySelector('body');
+
+export const styleBody = () => {
+    body.style.background = 'peachpuff';
+};
+
+export const addTitle = (text) => {
+    const title = document.createElement('h1');
+    title.textContent = text;
+    body.appendChild(title);
+};
+
+export const contact = "mario@gmail.com";

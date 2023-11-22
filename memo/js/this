@@ -26,3 +26,11 @@ let x = this;       // alone, refers to the global object
 x == global;        // true
 x == this;          // true
 
+
+Game.prototype.restart = function () {
+    this.clearLocalStorage();
+    const self = this;   // <------ Save reference to 'this', while it’s still this!
+    this.timer = setTimeout(function(){
+        self.clearBoard();    // Oh, OK, I do know who 'self' is!
+    }, 0);
+};

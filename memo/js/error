@@ -1,11 +1,27 @@
 Errors
 
-    - EvalError
-    - SyntaxError
-    - RangeError
-    - ReferenceError
-    - TypeError
-    - URIError
+    - Error
+    - EvalError             / an error has occurred in the eval() function
+    - SyntaxError           / 
+    - RangeError            / a number "out of range" has occurred
+    - ReferenceError        / an illegal reference has occurred
+    - TypeError             / a type error has occurred
+    - URIError              / an error in encodeURI() has occurred
+
+
+    
+err.name
+err.message 
+// err.fileName and err.lineNumber only Firefox for Android supported
+
+    - Customize Error
+    class NotReadyError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message;
+        this.name = "NotReadyError";
+    }
+
 
 
 Example 1 -------------------------------------------------

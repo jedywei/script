@@ -1,0 +1,11 @@
+@babel
+------
+Convert modern javascript (ES6) to all browser support version 
+
+npm install @babel/core @babel/cli --save-dev
+npm install @babel/preset-env --save-dev
+
+.babelrc
+{
+    "presets" : ["@babel/preset-env"],
+}

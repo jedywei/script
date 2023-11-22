@@ -1,0 +1,39 @@
+<body>
+
+    <div>
+        <p>hello, <strong>ninjas</strong></p>
+        <p>my <small>first</small> web <em>page!</em></p>o
+        <a href="https://www.tenetninja.co.uk">the net ninja website</a>
+        <a href="about.html"></a>
+    </div>
+
+    <div>
+        <h1> heading 1</h1>
+        <h2> heading 2</h1>
+        <h3> heading 3</h1>
+        <h4> heading 4</h1>
+    </div>
+
+    <div>
+        <!-- <ul> bullet list <ol> number list -->
+        <ul>
+            <li>yoshi</li>
+            <li>luigi</li>
+            <li>toad</li>
+        </ul>
+    </div>
+
+    <!-- span tag below -->
+    <span>I am a <br>span tag</span>
+
+    <hr>
+
+    <img src="img/ninja.png" alt="picture of a ninja">
+
+    <blockquote cite="http://www.oscarwildesite.com">
+        we are all in the gutter, but some of us are looking at the stars
+    </blockquote>
+
+    <p style="color: orange;">style me :)</p>
+
+</body>

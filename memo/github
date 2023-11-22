@@ -1,0 +1,19 @@
+git clone https://github.com/DPDK/dpdk.git
+git checkout v23.07
+git switch -c v23.07
+
+# shallow to last 5 commits
+git rev-parse HEAD~5 > .git/shallow
+
+
+# Manually remove all other branches, tags and remotes the refers to old commits
+# Prune unreachable objects
+git fsck --unreachable
+git gc --prune=now
+
+
+git clone -b maint-23.08 --depth=1 https://github.com/OpenVisualCloud/Media-Transport-Library.git imtl
+
+
+
+
