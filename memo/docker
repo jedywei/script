@@ -1,5 +1,19 @@
 docker
 ------
+1. Install docker using apt
+    script/setup-docker.sh
+    script/install-docker.sh
+    script/verify-docker.sh
+
+2. Add docker permission
+    $ sudo /sbin/groupadd docker
+    $ sudo usermod -a -G docker jedywei
+    // restart docker
+    $ sudo systemctl restart snap.docker.dockerd
+
+3. Commands
+    $ docker run --rm -lt -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+
 
 pull
 -----
@@ -43,12 +57,10 @@ $ docker container ls
 $ docker ps -a
 
 $ docker container stop <CONTAINER_ID> 
-
 $ docker container top <CONTAINER_ID>
 $ docker container stats
 
 $ docker container port <CONTAINER_ID>
-
 $ docker container attach <CONTAINER_ID>
 
 network
@@ -66,6 +78,7 @@ ENTRYPOINT ["httpd", "-D", "FOREGROUND"]
 $ docker build -t myimage .
 $ docker images
 $ docker run -d -p 8080:80 myimage
+
 
 $ docker login
 jedywei548
