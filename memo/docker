@@ -27,8 +27,10 @@ $ docker run hello-world
 start
 -----
 $ docker run --rm -it -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
-
 $ docker run --rm -it --network=host bluenviron/mediamtx:latest
+$ docker run -p 27017:27017 -d -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=iamarock --name mongodb --net mango-network mongo
+$ docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=iamarock --net mango-network --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongodb mongo-express
+
 
 $ docker run alpine echo "hello world"
 $ docker run alpine df
@@ -44,6 +46,9 @@ $ docker ps -a
 $ docker container rm 8603452a6ccf
 
 $ docker rmi -f hello-world
+
+$ docker rm $(docker ps -aq)
+$ docker rm $(docker ps -aq --filter  status="exited")
 
 image
 -----
@@ -61,11 +66,20 @@ $ docker container top <CONTAINER_ID>
 $ docker container stats
 
 $ docker container port <CONTAINER_ID>
+
+// using c-p c-q to detach container
 $ docker container attach <CONTAINER_ID>
 
 network
 -------
 $ docker network ls
+$ docker network create mongo-network
+
+
+configuration
+-------------
+$ docker inspect bluenviron/mediamtx 
+
 
 dockerfile
 ----------

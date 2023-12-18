@@ -163,9 +163,11 @@ if [[ $- == *i* ]]; then
     source ~/script/prompt.sh
 fi
 
+alias nv=nvim
 alias hi=history
 alias hg='history | ag'
 alias code="/Applications/Visual\ Studio\ Code.app/contents/Resources/app/bin/code"
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 export HISTCONTROL=erasedups
 shopt -s histverify
 

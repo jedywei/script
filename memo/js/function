@@ -54,6 +54,11 @@ JavaScript Functions
         this.name = name;          
         this.age = age;
     }
+
+    Person.prototype.changeName = function (newName) {
+        this.name = newName;
+    }
+
     const john = new Person('John', 30);
 
 7. Higher-Order Functions: These functions accept other functions as arguments or return functions as result.
