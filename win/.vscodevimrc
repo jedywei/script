@@ -1,0 +1,97 @@
+" Highlight searches (use <C-l> to temporarily turn off highlight
+set hlsearch
+" Modelines have historically been a source of security vunerabilities. As
+" such, it may be a good idea to disable them and use the securemodelines
+" script
+"
+" set nomodeline
+
+"-------------------------------------------------------------
+" Usability options 
+"
+" Allow backspacing over autoindent, line breaks and start of insert action
+"set ignorecase
+"set smartcase
+set backspace=indent,eol,start
+set number
+set numberwidth=4
+set autoindent
+set nostartofline
+set ruler
+"set laststatus=2
+set confirm
+set visualbell
+" And reset the terminal code for the visual bell. If visuallbell is set, and
+" this line is also included, vim will neither flash nor beep. If visualbell
+" is unset, this does nothing.
+set t_vb=
+set mouse=
+" set mouse=a
+set pastetoggle=<F10>
+set incsearch
+set scrolloff=5
+
+"----------------------------------------------------------------------
+" Identation options 
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set laststatus=2
+
+" Key Mappings {{{ 1
+"----------------------------------------------------------------------------------------
+" Map <C-L> (redraw screen) to also turn off search highlighting utnil the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+nnoremap zH     zt
+nnoremap zL     zb
+nnoremap zM     z.
+
+
+" Buffer <- ->
+nnoremap <C-A-Right> :bnext<CR>
+nnoremap <C-A-Left> :bprev<CR>
+inoremap <C-A-Right> <ESC>:bnext<CR>
+inoremap <C-A-Left> <Esc>:bprev<CR>
+
+
+" Backspace and Del to enter insert mode
+"nnoremap <silent><BS> i<BS>
+nnoremap <silent><Del> i<Del>
+
+" Cursor Movement
+" insert mode arrow key has been defined above at YCM
+inoremap <Left> <Esc><Left>
+inoremap <Right> <Esc><Right>
+inoremap <Down> <Esc>gj
+inoremap <Up> <Esc>gk
+inoremap <S-Left> <Left>
+inoremap <S-Right> <Right>
+inoremap <S-Up> <Up>
+inoremap <S-Down> <Down>
+noremap <S-Left> <Left>
+noremap <S-Right> <Right>
+noremap <S-Up> <Up>
+noremap <S-Down> <Down>
+nnoremap <Down> gj
+nnoremap <Up> gk
+
+" Word movement 
+inoremap <A-Left> <Esc>B
+inoremap <A-Right> <Esc>W
+nnoremap <A-Left> B
+nnoremap <A-Right> W
+
+" move between last editor
+inoremap <C-Up> <Esc>g;
+inoremap <C-Down> <Esc>g,
+nnoremap <C-Up> g;
+nnoremap <C-Down> g,
+" inoremap <C-Up> <PageUp>
+" inoremap <C-Down> <PageDown>
+" nnoremap <C-Up> <PageUp>
+" nnoremap <C-Down> <PageDown>
+nnoremap <silent> s :w<CR>
+noremap  <C-s> :wa<CR>
+noremap! <C-s> <C-o>:wa<CR>
+

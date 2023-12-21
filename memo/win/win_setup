@@ -22,6 +22,7 @@ windows setup
     -  C:\Program Files\PowerShell\7\pwsh.exe
 
 3. openssh
+----------------------------------------
     - on powershell
     - Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
     - Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
@@ -41,6 +42,7 @@ windows setup
 
 
 4. openssh default powershell  
+----------------------------------------
       # set powershell as default shell     <--- BETTER
       - New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\powershell\7\pwsh.exe" -PropertyType String -Force
 
@@ -51,7 +53,8 @@ windows setup
       Subsystem   powershell  c:/progra~1/powershell/7/pwsh.exe -sshs -NoLogo -NoProfile
 
 
-    #windows ssh without password
+ssh /  #windows ssh without password
+---------------------------------------
       - cd ~/.ssh
       - scp ~/.ssh/id_rsa* I@172.17.4.166:/C:/Users/I/.ssh
       - cp id_rsa.pub authorized_keys
@@ -67,6 +70,7 @@ windows setup
       ... 
 
 5. install git
+---------------------------------------
     # On windows desktop
     - https://git-scm.com/download/win
         64-bit Git for Windows Setup.
@@ -74,6 +78,12 @@ windows setup
     PS> winget install --id Git.Git -e --source winget
 
     posh-git
+
+install svn
+---------------------------------------
+    TortoiseSVN
+    # On windos desktop 
+    - https://sourceforge.net/projects/tortoisesvn/files/1.14.5/Application/TortoiseSVN-1.14.5.29465-x64-svn-1.14.2.msi/
 
 
 6. install nvm
@@ -90,4 +100,24 @@ windows setup
       > .exit
       - npm 
 
+7. hosts
+-----------------------------------------------------------
+$ vi C:\WINDOWS\system32\drivers\etc\hosts
+172.17.5.11     v7000
+192.168.0.201   mac
+
+8. alias
+-----------------------------------------------------------
+Get-Variable profile | Format-List
+...
+Value       : C:\Users\jedy.wei\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+...
+
+
+9. project
+-----------------------------------------------------------
+thsvr
+    $ cd ~
+    $ mkdir bavm
+    $ git clone ssh://vega@v7000/home/vega/githup/thsvr.git
 
