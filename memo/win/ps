@@ -1,0 +1,59 @@
+powershell script
+------------------
+
+Output
+-------
+Write-Host "output to terminal directly"
+Write-Output "output to next cmdlet, if no next cmdlet output to terminal"
+Write-Warning "warning message"
+Write-Debug "debug mesage"
+Write-Error "error message"
+
+
+Call other script
+------------------
+& "$PSScriptRoot\other.ps1"
+
+Set Veriable
+------------
+$ver=node -p "require('../app/package.json').version"
+
+
+Pipe and Write to a file
+------------------------
+$define | Set-Content version.def
+
+Command Line Parameters
+------------------------
+Param($thsvr_xml, $node, $appwd)
+
+
+Function
+---------
+function WriteXmlToScreen([xml]$xml)
+{
+    $StringWriter = New-Object System.IO.StringWriter;
+    $XmlWriter = New-Object System.Xml.XmlTextWriter $StringWriter;
+    $XmlWriter.Formatting = "indented";
+    $xml.WriteTo($XmlWriter);
+    $XmlWriter.Flush();
+    $StringWriter.Flush();
+    Write-Output $StringWriter.ToString();
+}
+
+Create a file
+-------------
+Net-Item D:\temp\test\test.txt
+Set-Content D:\temp\test\test.tx 'Welcome to Tutorials'
+
+XML
+---
+$real_thsvr_xml=(Resolve-Path ${thsvr_xml})
+[xml]$thsvr_xmlDoc=(Get-Content ${real_thsvr_xml})
+$thsvr_xmlDoc.service.executable=${node}
+$XPath="/service/env[@name='DATA_PATH']
+$nodes=$thsvr_xmlDoc.SelectNodes($XPath)
+nodes | % { $_.SetAttributes("value", "${datapath}") }
+WriteXmlToScreen $thsvr_xmlDoc
+$thsvr_xmlDoc.Save($real_thsvr_xml)
+

@@ -1,0 +1,41 @@
+install msys2
+-------------
+
+run msys2 ucrt64
+// Synchronizing package databases
+$ pacman -Syu
+
+
+// list all package
+$ packman -Q
+
+// install make
+$ pacman -S base-devel
+
+// install toolchain
+$ pacman -S mingw-w64-x86_64-toolchain
+
+// install cmake
+$ pacman -S mingw-w64-x86_64-cmake
+$ pacman -S mingw-w64-x86_64-extra-cmake-modules
+
+// install python
+$ pacman -S python
+$ pacman -S mingw-w64-x86_64-python-pip
+$ pacman -S mingw-w64-x86_64-python-wheel
+
+
+// install vim
+$ pacman -S vim
+$ pacman -S mingw-w64-x86_64-neovim
+
+// install meson
+$ pacman -S mingw-w64-x86_64-python3
+$ pacman -S mingw-w64-x86_64-meson
+
+// search something
+$ pacman -Ss <something>
+
+// compare python3 and mingw-w64-x86_64-python3
+$ pacman -Qi python3
+$ pacman -Qi mingw-w64-x86_64-python3

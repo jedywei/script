@@ -1,0 +1,23 @@
+visual studio 2019 installation
+--------------------------------
+vs2019
+    - download -> https://visualstudio.microsoft.com/zh-hant/vs/older-downloads/#visual-studio-2019-and-other-products
+
+select
+    visual studio 2019 commuity
+
+visuall studio installer
+    Individual components 
+        - Windows 10 SDK (10.0.20348.0)
+~ 19.6GB
+
+  > inherited include directories
+    - $(VC_IncludePath) = 
+    - $(WindowsSDK_IncludePath)
+
+Path for Windows SDK
+    - C:\Program Files(x86)\Windows Kits\10\Include\10.0.20348.0\winrt ...
+
+
+install WDK
+    - download - https://go.microsoft.com/fwlink/?linkid=2164149

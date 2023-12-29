@@ -1,0 +1,32 @@
+CMake
+------
+
+CMakeLists.txt
+# coment banner
+cmake_minimum_required(VERSION 3.1)
+project(hello)
+add_executeable(hello hello.c)
+
+
+$ mkdir build && cd build
+$ cmake .. && cd ..
+
+// Build a CMake build system
+$ cmake -B build
+$ cmake -S src
+$ cmake -B build -S src
+
+// Specify a build system generator
+// defult Visual Studio 16 2019
+$ cmake -B build -G ninja
+
+
+// build the project
+$ cmake --build  build
+
+// Install a Project
+$ cmake --install build
+
+
+
+

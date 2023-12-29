@@ -18,6 +18,15 @@ openssh
              Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
          }    
 
+check openssh install
+------------------------
+$ Get-WindowsCapability -Online | where Name -like '*SSH*'
+Name  : OpenSSH.Client~~~~0.0.1.0
+State : Installed                
+                                 
+Name  : OpenSSH.Server~~~~0.0.1.0
+State : Installed                
+
 
 openssh default powershell  
 ------------------------------
@@ -29,6 +38,26 @@ openssh default powershell
       ... 
       #Subsystem      sftp    sftp-server.exe   
       Subsystem   powershell  c:/progra~1/powershell/7/pwsh.exe -sshs -NoLogo -NoProfile
+
+$ Get-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell
+
+openssh default powershell with vs2019 environment
+---------------------------------------------------
+$ ./2019.ps1
+
+
+check firewall rule
+--------------------
+$ Get-NetFirewallRule -Name *ssh*  
+Name                          : OpenSSH-Server-In-TCP
+DisplayName                   : OpenSSH SSH Server (sshd)
+Description                   : Inbound rule for OpenSSH SSH Server (sshd)
+DisplayGroup                  : OpenSSH Server
+Group                         : OpenSSH Server
+Enabled                       : True
+...
+
+$ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' ` -Enabled True -Direction Inbound -Protocol TCP ` -Action Allow -LocalPort 22
 
 
 ssh without password

@@ -121,3 +121,9 @@ thsvr
     $ mkdir bavm
     $ git clone ssh://vega@v7000/home/vega/githup/thsvr.git
 
+vega3003
+    $ git svn clone https://172.20.12.184/svn/pacific/projects/VEGA33XX/VEGA3003/tags/v1.0/xdma
+    $ git svn clone https://172.20.12.184/svn/pacific/projects/VEGA33XX/VEGA3003/tags/v1.0/vega3003_sdk
+    $ git svn clone https://172.20.12.184/svn/pacific/projects/VEGA33XX/VEGA3003/tags/v1.0/dshow
+    $ git svn clone https://172.20.12.184/svn/pacific/projects/VEGA33XX/VEGA3003/tags/v1.0/v3k_tools
+   

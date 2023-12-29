@@ -1,0 +1,46 @@
+if statement
+------------
+
+# if statement
+if ( $a -eq 1 ) {
+    $b = "Red"
+} elseif ( $a -eq 2 ) {
+    $b = "Blue"
+} else {
+    $b = "Green"
+}
+
+Write-Host $b
+
+# switch statement
+$a = 1
+switch ($a)
+{
+    1   { $b = "Red" }
+    2   { $b = "Blue" }
+    3   { $b = "Green" }
+    default { $b = "Unknown" }
+}
+Write-Host $b
+
+# Compare operators
+-eq     
+-ceq        # case sensitive comparisio
+-ne         # !=
+-gt         # > 
+-lt         # < 
+-ge         # >=
+-le         # <=
+-like       # use "*" as a wildcard character
+-notlike
+-containts
+-notcontaints
+-in         # in a list
+-notin      # not in a list
+
+# logial operators
+-not        # !
+-and        # &&
+-or         # ||
+
+
