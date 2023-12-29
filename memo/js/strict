@@ -1,0 +1,51 @@
+'use strict'
+
+x=3.14;     // using a variable, without declaring it, is not allowed
+
+x= {p1:10, p2:20};  // using an object, without declaring it, is not allowed
+
+let x = 3.14;
+delete x;           // deleting a variable (or object) is not allowed.
+
+function x(p1, p2) {};
+delete x;           // deletig a function is not allowed
+
+function x(p1, p2) {};      // deuplicating a parameter name is not allowed
+
+let x = 010;        // octal numeric literals are not allowed
+
+lex x = '\010';     // octal escape characters are not allowed
+
+const obj = {};
+Object.defineProperty(obj, "x", {value: 0, writable: false});
+obj.x = 3.14;       // writing to a read-only property is not allowed
+
+const obj = { get x() { return 0 } };
+obj.x = 3.14;       // writing to a get-only property is not allowed
+
+delete Object.prototype;    // Deleting an undeletable property is not allowed
+
+let eval = 3.14;        // The word eval cannot be used as a variable
+
+let arguments = 3.14;   // The word arguments cannot be used as variable
+
+with (Math){x = cos(2)};    // The with statement is not allowed
+
+eval("x = 2");
+alert(x);               // For security reasons, eval() is not allowed to create variables in the scope from which it was called
+
+eval("var x = 2");      // In strict mode, eval() can not declare a variable using the var keyword
+eval("let x = 2");      // In strict mode, eval() can not declare a variable using the let keyword
+
+function myFunction() {
+    alert(this);        // This keyword in functions behaves differently in strick mode, it erfers to the object that 
+                        // call the functions. 
+                        // If the object is not specified, functions in strict mode will return undefined
+                        //  and function in normal mode will return the golbal object (window):
+}
+
+// keyword reserved for future
+// implements, inteface, let, package, private, protected, public, static, yield
+
+
+

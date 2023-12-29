@@ -1,20 +1,101 @@
 docker
 ------
+1. Install docker using apt
+    script/setup-docker.sh
+    script/install-docker.sh
+    script/verify-docker.sh
 
-$ docker run --rm -lt -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+2. Add docker permission
+    $ sudo /sbin/groupadd docker
+    $ sudo usermod -a -G docker jedywei
+    // restart docker
+    $ sudo systemctl restart snap.docker.dockerd
 
+3. Commands
+    $ docker run --rm -lt -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+
+
+pull
+-----
+$ docker pull bluenviron/mediamtx:latest
+$ docker pull library/alpine
+
+verify docker
+-------------
+$ docker run hello-world
+
+start
+-----
+$ docker run --rm -it -v /tmp/where:/opt/where -e DEVICE=$DEVICE --device $DEVICE --group-add 110 --cap-add SYS_ADMIN -p 8080:8080 <dockerfile>
+$ docker run --rm -it --network=host bluenviron/mediamtx:latest
+$ docker run -p 27017:27017 -d -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=iamarock --name mongodb --net mango-network mongo
+$ docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=iamarock --net mango-network --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongodb mongo-express
+
+
+$ docker run alpine echo "hello world"
+$ docker run alpine df
+$ docker run alpine ls -al 
+$ docker run -it alpine /bin/sh
+$ docker run -it -d alpine
+$ docker ps 
+$ docker exec -it 8603452a6ccf /bin/sh
+
+$ docker container stop 8603452a6ccf
+
+$ docker ps -a
+$ docker container rm 8603452a6ccf
+
+$ docker rmi -f hello-world
+
+$ docker rm $(docker ps -aq)
+$ docker rm $(docker ps -aq --filter  status="exited")
+
+image
+-----
+$ docker image ls
+$ docker images
+
+container
+---------
+$ docker ps
 $ docker container ls
+$ docker ps -a
 
 $ docker container stop <CONTAINER_ID> 
-
 $ docker container top <CONTAINER_ID>
 $ docker container stats
 
 $ docker container port <CONTAINER_ID>
 
+// using c-p c-q to detach container
 $ docker container attach <CONTAINER_ID>
 
-
-
+network
+-------
 $ docker network ls
+$ docker network create mongo-network
 
+
+configuration
+-------------
+$ docker inspect bluenviron/mediamtx 
+
+
+dockerfile
+----------
+$ vi Dockerfile
+FROM alpine:latest
+RUN apk --update add apache2
+RUN rm -rf /var/cache/apk/*
+ENTRYPOINT ["httpd", "-D", "FOREGROUND"]
+
+$ docker build -t myimage .
+$ docker images
+$ docker run -d -p 8080:80 myimage
+
+
+$ docker login
+jedywei548
+71susislove
+$ docker build -t jedywei548/myimage .
+$ docker push jedywei548/myimage

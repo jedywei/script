@@ -1,0 +1,145 @@
+// NOTE
+Don't use Arrow Functions for
+  1. Object methods
+  2. Prototypes
+  3. Contrutors
+  4. Event handlers
+
+JavaScript Functions
+1. Function Declatrations
+    
+    function add(a,b) {
+        return a+b;
+    }
+
+    aync function add(a,b) ...
+
+2. Function Expressions
+    const subtract = function (a, b) {
+        return a-b;
+    }
+
+    const subtract = async function(a, b) ...
+
+3. Arrow Functions: (ES6)
+    const multiply = (a, b) => a * b;
+    const multiply = (a, b) => {
+        return a * b;
+    }
+
+    const multiply = async(a, b) => a * b; 
+
+4. Anonymous Functions: Functions without a name are called anonymous functions. 
+    are often used as 1. callback functions or 2. immediated invoked function expression (IIFE).
+    const result = function (x, y) {
+        return x * y;
+    }(3, 4);        // <-- IIFE
+
+    const result = async function (x, y) { ...
+
+5. Generator Functions
+    function* fibonacci() {
+        let a = 0, b = 1;
+        while(true) {
+            yield a;
+            [a, b] = [b, a + b];
+        }
+    }
+
+    async function* fibonacci() { ...
+
+6. Constructor Functions: These function are used to create objects based on a blueprint(constructor) and
+        are typically invoked with the 'new' keyword.
+    function Person(name, age) {
+        this.name = name;          
+        this.age = age;
+    }
+
+    Person.prototype.changeName = function (newName) {
+        this.name = newName;
+    }
+
+    const john = new Person('John', 30);
+
+7. Higher-Order Functions: These functions accept other functions as arguments or return functions as result.
+        Examples include 'map', 'filter', and 'reduce'.
+    const numbers = [1, 2, 3, 4, 5];
+    const doubled = numbers.map((num) => num * 2);
+
+8. Named Function Exmpressions: Functions defined as expressions can also have names for better stack traces in debugging.
+    const factorial = function factorial(n) {
+        if (n <= 1) return 1;
+        return n * factorial(n-1);
+    }
+
+9. Factory Functions:: used for creating and returning objects. (without 'new' keyword)
+    function createPerson(name, age) {
+        const person = {};
+        person.name = name;
+        person.age = age;
+        person.sayHello = function {} {
+            return `Hello, my name is ${person.name} and I am ${person.ages} years old.`;
+        };
+        return person;
+    }
+
+    const john = createPerson('John', 30);
+    john.sayHello();
+
+10. Object Method: 
+    const person = {
+        firstName: 'John',
+        lastName: 'Doe',
+        fullName: function() {
+            return this.firstName + ' ' + this.lastName;
+        }
+    };
+
+        fullName: async function() { 
+              ... 
+        } 
+
+    Method Shorthand
+    const person = {
+        firstName: 'John',
+        lastName: 'Doe',
+        fullName() {
+            return this.firstName + ' ' + this.lastName;
+        }
+    };
+    // Not async method shorthand, use standard way
+
+        
+11. Class Constuctor
+    class Person {
+        constructor (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        sayHallo() {
+            return `Hello, my name is ${this.name} and I am ${this.ages} years old.`;
+        }
+    }
+
+    const john = new Person('John', 30);
+
+
+12. Event Handler
+    const button = document.getElementById('myButton');
+    button.addEventListener('click', function(event) {      // Don't use Arrow here () => { 
+        // Event handler function 
+        console.log('Button clicked!', event.type, event.target);
+    });
+
+
+13. Prototype Methods
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.sayHello = function() {    // Don't use Arrow here () => {
+        return `Hello, my name is ${this.name} and I am ${this.ages} years old.`;
+    }
+    const john = new Person('John', 30);
+    john.sayHello();
+

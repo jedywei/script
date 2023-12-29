@@ -1,0 +1,47 @@
+const chunksToJson = async function* (chunks) {
+    let jstr = '';
+    for await(const data of chunks) {
+        jstr += data.toString();
+        if (isJSON(jstr)) {
+            yield JSON.parse(jstr);
+            jstr = '';
+        }
+    }
+
+    if (jstr.length > 0)
+        yield JSON.parse(jstr);
+}
+
+
+export const takeSnapshotByVega = (id, width, height, fno, effect) => {
+    const outfile = path.join(ss.thumbnailPath, id, fno + '.jpg');
+    const args = [
+        `-in=${ss.ssChannel}`,
+        `-size=${width}x${height}`,
+        `-tx=${id}`,
+        `-out=${outfile}`,
+        `-timeout=${ss.ssTimeout}`
+    ];
+
+    if (effect)
+        args.push(`-effect=${effect}`);
+
+    const v3kss = spawn(ss.v3kSS, args);
+    const jobjs =  chunksToJson(v3kss.stdout);
+    // console.log(spawnInstance);
+    return jobjs;
+}
+
+// use asynch generator
+const jobjs = takeSnapshotByVega(ss.tsID, 720, 480, 27, 2);
+// console.log(jobjs);
+let jobj, jdone;
+({ value: jobj, done: jdone } = await jobjs.next());
+// console.log(jobj);
+// console.log(jdone);
+expect(jobj.status).toBe(201);
+expect(jobj.op).toBe('snapshot');
+expect(jobj.tx).toBe('0016c04c6f68');
+expect(jobj.timestamp).toMatch(/[0-9]+:[0-9]+:[0-9]+\.[0-9]+/)
+expect(jobj.file).toBe('27.jpg');
+expect(jdone).toBeFalsy();

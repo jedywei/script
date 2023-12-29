@@ -1,0 +1,41 @@
+jQuery
+- Version 3.7.1   #2023/10/19
+- Download
+    npm install jquery
+- Using jQuery with a CDN
+    - 3.7.1 minified - https://code.jquery.com/jquery-3.7.1.min.js
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    - 3.7.1 slim     - https://code.jquery.com/jquery-3.7.1.slim.min.js
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+NOTE slim excludes the ajax and effects modules
+
+
+DOM Traversal and Manipulation
+    $("button.continue").html(Next Step...");
+
+Event Handing
+    const hiddenBox = $("#banner-message");
+    $("#button-container button").on("click", (event) => { hiddenBox.show(); });
+
+Ajax
+    $.ajax({
+        url: "/api/getWeather", 
+        data: {
+            zipcode: 97201
+        }, 
+        success: (reslut) => {
+            #("#weather-temp").html("<strong>" + result + "</strong> degress");
+        }
+    });
+
+
+Example
+myPara2 = $('#content p:last-child');
+myPara2.addClass('test');
+myPara2.fadeOut();
+myPara2.fadeIn();
+myPara2.css({position: "relative", color: "red"});
+myPara2.animate({left : "50px"});
+myPara2.text();
+

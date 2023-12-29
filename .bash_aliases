@@ -122,6 +122,10 @@ h() {
         echo -e "\x1B[38;5;220m"
         cat ~/script/memo/contents
         echo -e "\x1B[0m"
+    elif [ -d ~/script/memo/$1 ]; then
+        echo -e "\x1B[38;5;220m"
+        ls ~/script/memo/$1
+        echo -e "\x1B[0m"
     else 
         echo -e "\x1B[38;5;255m"
         cat ~/script/memo/$1
@@ -129,17 +133,6 @@ h() {
     fi
 }
 
-hh() {
-    if [ $# == 0 ]; then
-        echo -e "\x1B[38;5;220m"
-        cat ~/script/memo/contents | less
-        echo -e "\x1B[0m"
-    else 
-        echo -e "\x1B[38;5;255m"
-        cat ~/script/memo/$1 | less
-        echo -e "\x1B[0m"
-    fi
-}
 
 
 spec() {
@@ -170,8 +163,11 @@ if [[ $- == *i* ]]; then
     source ~/script/prompt.sh
 fi
 
+alias nv=nvim
 alias hi=history
 alias hg='history | ag'
+alias code="/Applications/Visual\ Studio\ Code.app/contents/Resources/app/bin/code"
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 export HISTCONTROL=erasedups
 shopt -s histverify
 

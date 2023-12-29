@@ -187,20 +187,43 @@ $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
 // password iam1Rock
 
 
-5.19.0-50-gerenic
+
+# onevpl
+----------------------------------------------------------------------
 $ export kver=5.19.0-50-generic
 $ sudo apt-get install linux-image-$kver linux-modules-$kver linux-headers-$kver linux-modules-extra-$kver
 
-$ wget -qO - https://repositories.intel.com/graphics/intel-graphics.key | \ 
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+sudo update-grub
+
+sudo reboot
+
+wget -qO - https://repositories.intel.com/graphics/intel-graphics.key | \
    sudo gpg --dearmor --output /usr/share/keyrings/intel-graphics.gpg
-$ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/graphics/ubuntu jammy flex" | \
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/graphics/ubuntu jammy flex" | \
    sudo tee /etc/apt/sources.list.d/intel-gpu-jammy.list
+sudo apt-get update
 
-$ sudo apt-get install intel-i915-dkms xpu-smi intel-platform-cse-dkms intel-platform-vsec-dkms
+sudo apt-get install intel-i915-dkms xpu-smi intel-platform-cse-dkms intel-platform-vsec-dkms
+apt info intel-i915-dkms
+sudo reboot
 
-$ apt info intel-i915-dkms
-Package: intel-i915-dkms
-Version: 1.23.5.19.230406.21.5.17.0.1034+i38-1
+sudo apt-get install -y \
+  intel-opencl-icd intel-level-zero-gpu level-zero \
+  intel-media-va-driver-non-free libmfx1 libmfxgen1 libvpl2 \
+  libegl-mesa0 libegl1-mesa libegl1-mesa-dev libgbm1 libgl1-mesa-dev libgl1-mesa-dri \
+  libglapi-mesa libgles2-mesa-dev libglx-mesa0 libigdgmm12 libxatracker2 mesa-va-drivers \
+  mesa-vdpau-drivers mesa-vulkan-drivers va-driver-all vainfo hwinfo clinfo
 
+sudo apt-get install -y \
+  libigc-dev intel-igc-cm libigdfcl-dev libigfxcmrt-dev level-zero-dev
 
+switch to onevpl
+-----------------
+git co -b onevpl origin/onevpl
 
+mask ubuntu sleep mode
+-----------------------
+$ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+$ systemctl status sleep.target

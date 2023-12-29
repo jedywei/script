@@ -1,0 +1,21 @@
+Electron
+--------
+Electron (formerly known as Atom Shell[5]) is a free and open-source software framework developed and maintained
+by OpenJS Foundation.[6] The framework is designed to create desktop applications using web technologies (mainly 
+HTML, CSS and JavaScript, although other technologies such as front-end frameworks and Web Assembly are possible) 
+that are rendered using a version of the Chromium browser engine and a back end using the Node.js runtime 
+environment.[7] It also uses various APIs to enable functionality such as native integration with Node.js services 
+and an inter-process communication module.
+
+Electron
+Node
+Chromium
+V8
+JavaScript
+
+HTML(Chromium) <=> JavaScript <=> API(Node.js/V8) <=> OS、Hardware
+
+-> 
+https://jonny-huang.github.io/angular/training/18_electron/
+
+

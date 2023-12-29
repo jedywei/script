@@ -1,0 +1,46 @@
+Regular Expressions
+
+Syntax
+/<pattern>/<modifiers>
+
+
+modifiers
+    i           Perform case-insensitive matching
+    g           Perform a global match (find all matches rather than stopping afer the first match)
+    m           Perform multiline matching
+
+
+Patterns
+
+[]  - find a range of characters
+    [abc]       a, b, or c
+    [0-9]       digit 0 ~ 9
+    (x|y)       x, or y
+
+Metacharacter
+    \d          find a digit
+    \s          find a whitespace character
+    \b          find a match at the beginning of a word like this \bWORD, or end of a word like this: WORD\b
+    \uXXXX      find the unicode character (xxxx is hexadecimal number)
+
+Quantifiers
+    n+          at least one 'n'
+    n*          zero or more of 'n'
+    n?          zero or one 'n'
+
+const pattern = /e/;
+pattern.text('This best things in life are free!'); // return true or fasle
+
+const obj = /e/.exec("The best things in life are free!");
+console.log("Found " + obj[0] + " in position " + obj.index + " in the text: " + obj.input);
+// Found e in position 2 in the text: The best things in life are free!
+
+let text = "Visit W3Schools";
+let n = text.search(/w3schools/i);
+// n == 6
+
+let text = "Visit Microsoft!";
+let result = text.replace("Microsoft", "W3Schools");
+
+
+

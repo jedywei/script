@@ -1,0 +1,105 @@
+
+// primitive datatypes
+- string
+- number
+- boolean
+- object
+- function
+- symbol
+
+
+// two special data types
+- null
+- undefined
+
+// Objects
+- Object
+- Date
+- Array
+- String
+- Number
+- Boolean
+- Map       // - WeakMap
+- Set       // - WeakSet
+- Buffer
+- JSON
+
+
+// Object
+let employee = {
+    name: 'Soy', 
+    age: 40, 
+    department: 'Software'
+};
+
+util.inspect(employee)
+
+
+// Array
+let arr1 = new Array();
+let arr2 = [];
+let arr3 = ['apple', 'banana', 'pear', 'orange'];
+for (let i = 0; i < arr3.length; i++) {
+    console.log(arr3[i]);
+}
+
+
+// funciton
+function msg(name) {
+    console.log("hello " + name);
+}
+msg(John);
+
+let f1 = function() {
+    console.log('hello');
+    return tru;
+}
+
+// buffer
+let b = new Buffer(4096);
+let str = '';
+
+
+// typeof
+console.log(typeof 10);
+console.log(typeof 'hello');
+console.log(typeof function() { let x = 20; });
+
+typeof "John"                 // Returns "string" 
+typeof 3.14                   // Returns "number"
+typeof NaN                    // Returns "number"
+typeof false                  // Returns "boolean"
+typeof [1,2,3,4]              // Returns "object"
+typeof {name:'John', age:34}  // Returns "object"
+typeof new Date()             // Returns "object"
+typeof function () {}         // Returns "function"
+typeof myCar                  // Returns "undefined" *
+typeof null                   // Returns "object"
+typeof undefined              // Returns "undefined"
+
+// undefined, null and empty values
+undefined indicates the absence of value    (identifier)
+null indicates the absense of an object     (keyword)
+
+undefined
+    - return statement with no value
+    - accessing a nonexistent object property
+    - a variable declaration without initialization (let x; )
+    - many method, suchas Array.prototype.find(), Mpa.prototype.get()
+        return undefined when no element is found
+
+let car;            // value is undefined, type is undefined
+car = undefined;    // value is undefined, type is undefined
+
+let car = '';       // value is '', the type is 'string'
+
+null === undefined  // false
+null == undefined   // true
+
+const cars = ['Saab', 'Volvo', 'BMW'];
+(cars instanceof Array)         // true
+(cars instanceof Object)        // true
+(cars instanceof String)        // false
+(cars instanceof Number)        // false
+
+

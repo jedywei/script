@@ -1,0 +1,63 @@
+Content negotiation
+    
+In HTTP, content negotiation is the mechanism that is used for serving differnt representions of a resource. 
+
+    1. Specific HTTP headers by the client (server-driven negotiation or proative negotiation), which is the 
+        standard way of negotiating a specific kind of resource. 
+    2. The 300 (Multiple Choices) or 406 (Not Acceptable), 415 (Unsupported Media Type) HTTP response codes
+        by server (agent-driven negotiation or reactive negotiation), that are used as fallback mechanisms.
+
+
+                                                    fr / de         - URLa
+                                                    text/html       - URLb
+Client      ----------> URL --------->  Server      text/pdf        - URLc
+                                                    gzip            - URLd
+                                                    br              - URLe
+
+Server-driven content negotation
+    - Accept
+    - Accept-Encoding
+    - Accept-Language
+    - User-Agent
+
+Example
+Client Send
+    GET /URL HTTP/1.1
+    Accept: txt/*
+    Accept-Language: en
+    Accept-Encoding: br, gzip; q=1.0
+
+Server Response
+    HTTP/1.1 200 OK
+    Content-Location: /URLe
+    Content-Type: text/htel
+    Content-Language: en
+    Content-Encoding: br
+
+
+Agent-driver negotiation
+
+Example
+Client Send
+    GET /URL HTTP/1.1
+    Accept: txt/*
+    Accept-Language: en
+    Accept-Encoding: br, gzip; q=1.0
+
+Server Response
+    HTTP/1.1 300 Multiple Choices
+
+Clent Send
+    GET /URLe HTTP/1.1
+    Accept: txt/*
+    Accept-Language: en
+    Accept-Encoding: br, gzip; q=1.0
+
+Server Response
+    HTTP/1.1 200 OK
+    Content-Location: /URLe
+    Content-Type: text/htel
+    Content-Language: en
+    Content-Encoding: br
+
+

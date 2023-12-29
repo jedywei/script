@@ -1,0 +1,43 @@
+// Scope deftermines the accessibility (visibility) of variables
+
+// JavaScript has 3 types of scope
+
+- Block scope
+- Function scope
+- Global scope
+
+
+// Block Scope
+// Variables declared (by let, const) inside a {} block cannot be accessed from outside the block:
+{
+    let x = 2;
+}
+x = 3;      // x can NOT be used here
+
+
+// Variables declared (by var) inside a {} block CAN be accessed from outside the block:
+{
+    var x = 2;
+}
+x = 3;      // x CAN be used here
+
+// Local Scope = Function Scope
+//  Local variables are created when a function starts, and deleted when the function is completed
+
+carName = 'Ford';        // code here can NOT use carName
+
+function myFunction() {
+    let carName = "Volvo";
+
+    carName = "Toyota";     // code here can use carName
+}
+
+carName = 'Honda';      // code here can NOT use carName
+
+
+// Glabol Scope
+let carName = 'Ford';
+
+function myFunction() {
+    carName = 'Volvo';
+}

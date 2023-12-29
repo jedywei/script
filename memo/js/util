@@ -1,0 +1,58 @@
+'use strict'
+
+const util = require('util');
+
+// util.inherits
+function MyStream() {
+    events.EventEmitter.call(this);
+}
+
+util.inherits(MyStream, events.EventEmitter);
+MyStream.prototype.write = (data) => {
+    this.emit('data', data);
+}
+
+let stream = new MyStream();
+console.log(stream instanceof events.EventEmitter);         // true
+console.log(MyStream.super_ === events.EventEmitter);        // true
+
+stream.on('data', (data) => {
+    console.log('Received data: [' + data + ']');
+});
+stream.write("It works!");  // Received data: [It works!]
+
+
+// others
+util.debug('synchronous output message on stderr');
+util.log('timestamped message');
+console.log(util.inspect(obj, true, 3));
+util.isArray([]);   // return true
+util.isArray({});   // return false
+util.isRegExp(/some regexp/);   // return ture
+util.isRegExp(new RegExp('another regexp'));    // return true
+util.isRegExp({});  // return false
+util.isDate(new Date());    // true, Date object
+util.isDate(Date());        // false, Date string
+util.isError(new Error());  // true
+util.isError(new TypeError());  // true
+util.isError({ name: 'Error', message : 'an error occurred' })  // false
+
+
+// system
+util.getSystemErrorName(err.errno);
+
+
+// util.format
+util.format('%s:%s', 'foo');                    // 'foo:%s'
+util.format('%s;%s', 'foo', 'bar, 'baz');       // foo:bar baz
+util.format(1, 2, 3);                           // '1 2 3'
+
+%s      String, it converts all values except Object, BigInt and -O.    (object using util.inspect)
+%d      Number, it converts all values excpt Symbol and BigInt
+%%      %
+%i      parseInt(), it parses a <string> and returns an integer except BigInt and Symbol
+%f      parseFloat(), it parses a string and returns a floating-point number except symbol
+%j      JSON, no complicated parsing or translations
+%o      Object, similar to util.inspect()
+%O      Object, similar to %o but without options
+

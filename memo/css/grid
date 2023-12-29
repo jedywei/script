@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background: #f5f5f5;
+}
+
+/* NOTE: CSS comment /* ... */,  but not //  */
+/* HTML comment <!-- comment here --> */
+.container {
+    max-width: 960px;
+    margin: 100px auto;         // top left bottom right
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 100px 200px 100px;
+    // grid-template-columns: 30% 40% 30%
+    // grid-template-columns: 1fr 2fr 2fr
+    // grid-template-columns: repeat(3, 1fr);
+    // grid-template-rows:
+    // grid-gap
+    column-gap: 10px;
+    row-gap: 10px;
+    // gap: 10px;
+    // grid-auto-rows
+    grid-auto-rows: minmax(100px, auto);    // min: 100px ~ max: auto
+    // grid-auto-columns
+    // grid-template-areas
+    // justify-content
+    // align-items
+    align-itmes: start;             // end;
+
+}
+
+.item {
+    background: steelblue;
+    color: #fff;
+    font-size: 20px;
+    padding: 20px;
+    border: skyblue 1px solid;
+}
+
+.item:nth-of-type(2) {
+    height: 100px;
+    width: 100px;
+    align-self: center;
+    justify-self: center;
+}
+
+.item:nth-of-type(1) {
+    background: #000;
+    // grid-column: 1 / span 2;
+    grid-column-start: 1; 
+    grid-column-end: 3;
+}
+
+.item:nth-of-type(3) {
+    background: #333;
+    grid-row: 2 / 4;
+}
+
+@media (max-width: 500px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}

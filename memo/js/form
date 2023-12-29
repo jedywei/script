@@ -1,0 +1,12 @@
+const myForm = document.forms.myForm;
+myForm.name
+myForm.name.value
+myForm.colour
+
+myForm.name.onfocus = () => {
+    myForm.name.style.border="4px solid pink";
+}
+
+myForm.name.onblur = () => {
+    myForm.name.style.border="none";
+}

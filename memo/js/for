@@ -1,0 +1,46 @@
+
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
+
+// Loop Scope
+var i = 5;
+for (var i = 0; i < 10; i++) {
+    // some code    
+}
+// Here i is 10
+
+let i = 5;
+for (let i = 0; i < 10; i++) {
+    // some code
+}
+// Here i is 5
+
+
+let aa = ['aa', 'bb', 'cc', 'dd', 'ee'];
+for (let v of aa) {
+    console.log('-->' + i + '=' + aa[i]);
+}
+
+let language = 'JavaScript';
+let text = '';
+for (let c of language) {
+   text += c; 
+}
+
+// Do not use for in over an Array, if the index order is important.
+for (let v in aa ) {
+    console.log('-->' + i + '=' + aa[i]);
+}
+
+aa.forEach((element, index, array) => {
+    console.log('--> [%s] is %s', index, element);
+}
+
+const person = {fname:"John", lname:"Doe", age:25};
+let text = '';
+for (key in person) {
+    text += person[x];
+}
+
+

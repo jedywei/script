@@ -1,0 +1,79 @@
+HTTP Request Message
+
+GET /p/a/t/h?query=string#hash HTTP/1.1                                         <-  Request
+Host: developer.mozilla.org                                                     -
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/108.0.0.0              Header
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9
+Accept-Encoding: gzip, defalte, br
+Accept-Language: fr
+Cookie: BIDUPSID=9af0d8098aadf; PSTM=13498082; BD_UPN=08123p98                  _
+                                                                                    Blank Line
+{ 'abc' : 100, 'def' : 433 }                                                        Body
+
+Content-MD5: '7895bf4b8828b55ceaf47747b4bca667'                                     Trailer
+
+Method  
+ireq.method
+oreq.method
+    GET         retrieve data
+    POST        submits an entity
+    PUT         replaces entity by request payload
+    PATCH       applies partial modification to an entity
+    DELETE      deletes the specified entity
+
+    HEAD, CONNECT, OPTIONS, TRACE
+
+Path see req.url
+ireq.url
+oreq.path
+oreq.host
+oreq.protocol
+    /p/a/t/h?query=string#hash
+
+Version of Protocol 
+ireq.httpVersion
+    HTTP/1.1
+
+    1.0         1996
+    1.1         1999
+    2.0         2015
+    3.0         2018
+
+
+Headers
+ireq.headers
+// Prints something like:
+
+{ 
+   'user-agent': 'curl/7.22.0',
+   host: '127.0.0.1:8000',
+   accept: '*/*' 
+}
+
+ireq.rawHeaders
+// Prints something like:
+
+[   
+   'user-agent',
+   'this is invalid because there can be only one',
+   'User-Agent',
+   'curl/7.22.0',
+   'Host',
+   '127.0.0.1:8000',
+   'ACCEPT',
+   '*/*' 
+]
+
+oreg.hasHeader()
+oreq.maxHeadersCount
+oreq.getHeader(name)
+oreq.getHeaderNames()
+oreq.getHeaders()
+oreq.getRawHeaderNames()
+oreq.setHeader(name, value)
+oreq.removeHeader(name)
+
+Body
+oreq.write(chunk, callback)
+oreq.end(chunk, callback)

@@ -1,0 +1,44 @@
+init ------------------------
+npm init cors
+
+on app.js -------------------
+import express from 'express';
+import cors from 'cors';
+
+const app = express();
+const httpServer = http.createServer(app);
+
+
+// case 1
+app.use(
+    cors({
+      origin: 'http://localhost:1250',
+      credentials: true,
+    }),
+);
+
+// case 2
+const corsOptions = {
+    origin: [
+        'http://www.example.com', 
+        'http://localhost:8080', 
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders; ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+
+// case 3
+const corsAll = { 
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+};
+
+app.use(cors(corsAll));
+
+
+
+

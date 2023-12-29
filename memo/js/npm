@@ -1,0 +1,23 @@
+package-lock.json           // don't modifiy it by yourself
+package.json
+    dependencies:       Packages required by your application in production mode
+    devDependencies:    Packages that are only needed for local development and testing
+
+
+npm help install
+npm install
+npm i <package> --save-dev
+npm i <package> -D
+npm i <package>
+npm i <package> -g
+
+npm ls
+
+npm uninstall <package>
+npm un <package>
+
+npm v create-react-app
+npx create-react-app@next sandbox
+cd sandbox
+npm start
+

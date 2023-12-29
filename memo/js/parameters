@@ -1,0 +1,57 @@
+Function Parameters and Arguments
+
+function functionName(parameter1, parameter2, parameter3) {
+  // code to be executed
+}
+
+// Function parameters are the names listed in the function definition.
+// Function arguments are the real values passed to (and received by) the function.
+
+Parameter Rules
+    1. JavaScript function definition do not specify data types for parameters.
+    2. JavaScript functions do not perform type checking on the passed arguments.
+    3. JavaScript functions do not check the number of arguments received.
+
+
+Default Parameters
+    If a function is called with missing arguments (less than declared), the missing
+    values are set to 'undefined'.
+
+function myFunction(x, y = 10) {
+  return x + y;
+}
+myFunction(5);
+
+
+Function Rest Parameter
+    The rest parameter (...) allows a function to treat an indefinite number of arguments as an array:
+
+function sum(...args) {
+  let sum = 0;
+  for (let arg of args) sum += arg;
+  return sum;
+}
+
+let x = sum(4, 9, 16, 25, 29, 100, 66, 77);
+
+
+The Argument Object
+    JavaScript functions have a built-in object called the arguments object.
+
+x = findMax(1, 123, 500, 115, 44, 88);
+
+function findMax() {
+  let max = -Infinity;
+  for (let i = 0; i < arguments.length; i++) {
+    if (arguments[i] > max) {
+      max = arguments[i];
+    }
+  }
+  return max;
+}
+
+
+
+Arguments are Passed by Value
+Objects are Passed by Reference
+

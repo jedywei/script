@@ -1,0 +1,26 @@
+let user = {
+    name: 'crystal', 
+    ag: 30, 
+    email: 'crystal@thenetninja.co.uk',
+    location: 'berlin', 
+    blogs: ['why mac & chees rules', '10 things to make with marmit'], 
+    login: function() {
+        console.log('the user logged in');
+    },
+    logout: function() {
+        console.log('the user logged out');
+    }
+    logBlogs: function() {
+        console.log('this user has written the following blogs:');
+        this.blogs.forEach(blog => {
+            console.log(blog);
+        });
+        console.log(this);          // this is 'user' which is the method owner
+    },
+    logArrowBlogs: () => {
+        console.log(this);          // this is 'window' which the one invoke the method 
+    }
+};
+
+user.login();
+user.logout();

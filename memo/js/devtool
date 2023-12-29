@@ -1,0 +1,12 @@
+devtool hits
+------------
+
+folder color
+    - blue      - regular folder, not contains any source maps file
+    - orange    - folder contains files have source maps attached (.less/.css or .ts/.js)
+resource color
+    - yellow    - JS
+    - violet    - CSS & Fonts
+    - green     - Images
+    - grey      - HTML
+

@@ -1,0 +1,37 @@
+block element
+-------------
+div 
+p   pre
+h1 - h6 
+hr 
+dd  dl  dt
+li  ol  ul
+fieldset
+figcaption  figure  
+canvas  video
+table tfoot
+main nav section article aside 
+header footer blockquote address 
+form
+noscript
+
+
+inline element
+--------------
+a   abbr    acronym
+b   bdo     big     br  button 
+cite    code    
+dfn
+em
+i   img     input
+kbd
+lable
+map
+object  output
+q
+samp    script  select  small   span    strong  sub sup
+textarea    time    tt  var
+
+
+
+

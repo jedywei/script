@@ -1,0 +1,232 @@
+inno setup
+----------
+
+download
+-----------------------
+download: https://jrsoftware.org/isinfo.php
+stable release: 6.0
+    -> innosetup-6.2.2.exe
+
+
+example
+-----------------------
+[Setup]
+#define AppName "ThumbnailServer"
+#define AppPublisher "Advantech"
+#define AppVersion "0.7.2"
+#define url "https://www.advantech.com"
+
+AppId={#AppName}
+AppName={#AppName}
+AppPublisher={#AppPublisher}
+AppVersion={#AppVersion}
+AppPublisherURL={#url}
+AppSupportURL={#url}
+PrivilegesRequired=admin
+DefaultDirName={userappdata}\{#AppPublisher}\{#AppName}
+ArchitecturesInstallIn64BitMode=x64
+OutputBaseFilename={#AppName}-{#AppVersion} Setup
+SetupLogging= yes
+VersionInfoVersion={#AppVersion}
+LicenseFile=../LICENSE.txt
+DisableDirPage=no
+
+[Dirs]
+Name: "{userappdata}\Advantech\ThumbnailServer\data"
+
+[Files]
+Source: "..\front"; DestDir: "{app}/app"; Flags: ignoreversion recursesubdirs
+Source: "..\src"; DestDir: "{app}/app"; Flags: ignoreversion recursesubdirs
+Source: "..\package.json"; DestDir: "{app}/app"; Flags: ignoreversion
+Source: "..\package-lock.json"; DestDir: "{app}/app"; Flags: ignoreversion
+Source: "..\config.conf"; DestDir: "{app}/data"; Flags: ignoreversion
+Source: "BIN\node.exe"; DestDir: "{app}/BIN"; Flags: ignoreversion
+Source: "BIN\WinSW-x64.exe"; DestDir: "{app}/BIN"; DestName: "THSVR_SVC.exe"; Flags: ignoreversion
+Source: "THSVR_SVC.xml"; DestDir: "{app}/BIN"; Flags: ignoreversion
+// Source: "../readme_user.txt"; DestDir: "{app}"; DestName: "readme.txt"; Flags: ignoreversion
+Source: "set-configs.ps1"; DestDir: "{tmp}"
+
+[Run]
+// patching services' wrappers XML
+Filename: "powershell.exe"; \
+  Parameters: "-ExecutionPolicy Bypass -command ""& '{tmp}\set-configs.ps1' -thsvr_xml '{app}\BIN\THSVR_SVC.xml' -node '{app}\BIN\node.exe' -br_thsvr_port '{code:GetTHSVRPort}' -br_api_addr '{code:GetAPIAddr}' -br_api_port '{code:GetAPIPort}' -appwd '{app}\app' -appjs '{app}\app\src\app.js' -datapath '{userappdata}\Advantech\ThumbnailServer\data' """; \
+  WorkingDir: {app}; Flags: runhidden; \
+  StatusMsg: "Configuring Services' Wrappers...";
+// creating both services
+Filename: {sys}\sc.exe; Parameters: "create ""thsvr"" DisplayName=""Advantech Thumbnail Server"" type= own start= auto binPath= ""{app}\BIN\THSVR_SVC.exe""" ; Flags: runhidden; \
+  StatusMsg: "Creating Thumbnail Server Service...";
+Filename: {sys}\sc.exe; Parameters: "failure ""thsvr"" reset=0 actions=restart/5000/restart/5000/restart/5000" ; Flags: runhidden;
+Filename: {sys}\sc.exe; Parameters: "description ""thsvr"" ""Runs the Node.js web server for the Thumbnail Server application"""; Flags: runhidden;
+// starting both services
+Filename: {sys}\sc.exe; Parameters: "start ""thsvr"" " ; Flags: runhidden; \
+  StatusMsg: "Starting Thumbnail Service...";
+// Adding Firewall rules for both services
+Filename: {sys}\netsh.exe; Parameters: "advfirewall firewall add rule name=""thsvr"" dir=in action=allow program=""{app}\BIN\node.exe"" enable=yes profile=private " ; Flags: runhidden; \
+  StatusMsg: "Adding Firewall Rules for thsvr service...";
+
+[UninstallRun]
+// deleting bavm service
+Filename: {sys}\sc.exe; Parameters: "stop ""thsvr"""; RunOnceId: "StopTHSVRSVC"; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "delete ""thsvr"""; RunOnceId: "DelTHSVRSVC"; Flags: runhidden
+// deleting firewall rules
+Filename: {sys}\netsh.exe; Parameters: "advfirewall firewall delete rule name=""thsvr""" ;RunOnceId: "DelTHSVRFW"; Flags: runhidden;
+
+[Code]
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+  ResultCode: Integer;
+begin
+  Log('PrepareToInstall() called');
+
+  // Stop and delete old Thumbnail Server service if it exists (from an older installation, 1.13 or older)
+  if Exec(ExpandConstant('{sys}\sc.exe'), 'stop "Thumbnail Server"', '', SW_HIDE,
+     ewWaitUntilTerminated, ResultCode) then
+  begin
+    // handle success if necessary; ResultCode contains the exit code
+    Log('Thumbnail Server service stopped');
+  end
+  else begin
+    // handle failure if necessary; ResultCode contains the error code
+    Log('Thumbnail Server service doesn''t exist or couldn''t be stopped. Return Code: '+ IntToStr(ResultCode));
+  end;
+  if Exec(ExpandConstant('{sys}\sc.exe'), 'delete "Thumbnail Server"', '', SW_HIDE,
+     ewWaitUntilTerminated, ResultCode) then
+  begin
+    // handle success if necessary; ResultCode contains the exit code
+    Log('Thumbnail Server service deleted');
+  end
+  else begin
+    // handle failure if necessary; ResultCode contains the error code
+    Log('Thumbnail Server service doesn''t exist or couldn''t be deleted. Return Code: '+ IntToStr(ResultCode));
+  end;
+
+  // Remove old firewall rules if they exist (from an older installation, 1.13 or older)
+  if Exec(ExpandConstant('{sys}\netsh.exe'), 'advfirewall firewall delete rule name="Thumbnail Server"', '', SW_HIDE,
+     ewWaitUntilTerminated, ResultCode) then
+  begin
+    // handle success if necessary; ResultCode contains the exit code
+    Log('Thumbnail Server duplicate FW Rule removed');
+  end
+  else begin
+    // handle failure if necessary; ResultCode contains the error code
+    Log('Thumbnail Server FW rule doesn''t exist, there is no version 1.13 or older installed. Return Code: '+ IntToStr(ResultCode));
+  end;
+
+  // Stop thsvr service
+  if Exec(ExpandConstant('{sys}\sc.exe'), 'stop "thsvr"', '', SW_HIDE,
+     ewWaitUntilTerminated, ResultCode) then
+  begin
+    // handle success if necessary; ResultCode contains the exit code
+    Log('thsvr service stopped');
+  end
+  else begin
+    // handle failure if necessary; ResultCode contains the error code
+    Log('thsvr service doesn''t exist or couldn''t be stopped. Return Code: '+ IntToStr(ResultCode));
+  end;
+
+  // Remove bavm firewall rule
+  if Exec(ExpandConstant('{sys}\netsh.exe'), 'advfirewall firewall delete rule name="thsvr"', '', SW_HIDE,
+     ewWaitUntilTerminated, ResultCode) then
+  begin
+    // handle success if necessary; ResultCode contains the exit code
+    Log('thsvr duplicate FW Rule removed');
+  end
+  else begin
+    // handle failure if necessary; ResultCode contains the error code
+    Log('thsvr FW rule doesn''t exist, this is most probably a fresh install. Return Code: '+ IntToStr(ResultCode));
+  end;
+end;
+
+{ Custom ports wizard page }
+
+var
+  ConfigPage: TInputQueryWizardPage;
+
+function GetTHSVRPort(Value: string): string;
+begin
+  Result := ConfigPage.Values[0];
+end;
+
+function GetAPIAddr(Value: string): string;
+begin
+  Result := ConfigPage.Values[1];
+end;
+
+function GetAPIPort(Value: string): string;
+begin
+  Result := ConfigPage.Values[2];
+end;
+
+procedure InitializeWizard;
+begin
+  { Create the page }
+  ConfigPage :=
+    CreateInputQueryPage(
+      wpLicense, 'Custom Settings', 'FTP Ports',
+      'Please specify the ports to be used by the application, then click Next. Make sure the selected ports are not used by another application.');
+  { Add items (False means it's not a password edit) }
+  ConfigPage.Add('Thumbnail Server Port:', False);
+  ConfigPage.Add('SDVoE API IP Address:', False);
+  ConfigPage.Add('SDVoE API Port:', False);
+  { Set initial values (optional) }
+  ConfigPage.Values[0] := ExpandConstant('1250');
+  ConfigPage.Values[1] := ExpandConstant('127.0.0.1');
+  ConfigPage.Values[2] := ExpandConstant('8080');
+end;
+
+function IsPortInvalid(PortNumber: Integer): Boolean;
+begin
+  Result := ((PortNumber < 1) or (PortNumber > 65535));
+end;
+
+function NextButtonClick(CurPageID: Integer): Boolean;
+var
+  ServerPort : String;
+  ServerPortInt: Integer;
+  ApiPort : String;
+  ApiPortInt: Integer;
+begin
+  Result := True;
+  if CurPageID = ConfigPage.ID then
+  begin
+    ServerPort := ConfigPage.Values[0];
+    StringChangeEx(ServerPort, ' ', '', True);
+    ApiPort := ConfigPage.Values[2];
+    StringChangeEx(ApiPort, ' ', '', True);
+    ServerPortInt := StrToIntDef(ServerPort, -1);
+    ApiPortInt := StrToIntDef(ApiPort, -1);
+    if (IsPortInvalid(ServerPortInt)) then
+    begin
+      if (IsPortInvalid(ApiPortInt)) then
+      begin
+        MsgBox('The ports are invalid. Please enter numbers between 1 and 65535.', mbError, MB_OK);
+        WizardForm.ActiveControl := ConfigPage.Edits[0];
+        Result := False;
+      end
+      else
+      begin
+        MsgBox('The BlueRiver AV Manager port is invalid. Please enter a number between 1 and 65535.', mbError, MB_OK);
+        WizardForm.ActiveControl := ConfigPage.Edits[0];
+        Result := False;
+      end
+    end
+    else
+    begin
+      if (IsPortInvalid(ApiPortInt)) then
+      begin
+        MsgBox('The SDVoE API port is invalid. Please enter a number between 1 and 65535.', mbError, MB_OK);
+        WizardForm.ActiveControl := ConfigPage.Edits[0];
+        Result := False;
+      end
+      else
+      begin
+        if (ServerPortInt = ApiPortInt) then
+        begin
+          MsgBox('The SDVoE API port cannot be the same as the BlueRiver AV Manager port. Please use a different port.', mbError, MB_OK);
+          WizardForm.ActiveControl := ConfigPage.Edits[0];
+          Result := False;
+        end
+      end
+    end
+  end
+end;

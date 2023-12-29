@@ -1,0 +1,61 @@
+
+Array literals
+Boolean literals
+Numberic literals
+Object literals
+RegExp literals
+String literals
+
+// Array literals
+const coffees = ["French Roast", "Colombian", "Kona"];
+const fish = ["Lion", , "Angel"];           // NOTE, second item is 'empty', fish[1] will return undefined
+console.log(fish);
+        // [ 'Lion', <1 empty item>, 'Angel' ]
+let list = ["home", /* empty */, "school", /* empty */, ];
+
+
+// Boolean literals
+true
+false
+
+// Numberic literals
+-123.4
+123.4
+
+
+// Int literals
+0, 117, 123456789123456789n             (decimal, base 10)
+015, 0001, 0o777777777777n              (octal, base 8)
+0x1123, 0x00111, 0x123456789ABCDEFn     (hexadecimal, "hex" or base 16)
+0b11, 0b0011, 0b11101001010101010101n   (binary, base 2)
+
+// Floating-point literals
+3.1415926
+.123456789
+3.1E+12
+.1e-23
+
+// Object literals
+const sales = "Toyota";
+function carTypes(name) {
+  return name === "Honda" ? name : `Sorry, we don't sell ${name}.`;
+}
+const car = { myCar: "Saturn", getCar: carTypes("Honda"), special: sales };
+
+const car = { manyCars: { a: "Saab", b: "Jeep" }, 7: "Mazda" };
+console.log(car.manyCars.b); // Jeep
+console.log(car[7]); // Mazda
+
+const obj = {
+  // __proto__
+  __proto__: theProtoObj,
+  // Shorthand for 'handler: handler'
+  handler,
+  // Methods
+  toString() {
+    // Super calls
+    return "d " + super.toString();
+  },
+  // Computed (dynamic) property names
+  ["prop_" + (() => 42)()]: 42,
+};
