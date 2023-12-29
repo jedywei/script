@@ -1,0 +1,126 @@
+PowerShell Verb
+---------------
+
+Common verbs
+-------------
+Add         a
+Clear       cl
+Close       cs
+Copy        cp
+Enter       et
+Exit        ex
+Find        fd
+Format      f
+Get         g
+Hide        h
+Join        j
+Lock        lk
+Move        m
+New         n
+Open        op
+Optimize    om
+Pop         pop
+Push        pu
+Remove      r
+Rename      rn
+Reset       rs
+Resize      rz
+Search      sr
+Select      sc
+Set         s
+Show        sh
+Skip        sk
+Split       sl
+Step        st
+Switch      sw
+Undo        un
+Unlock      uk
+Watch       wc
+
+
+Communications Verbs
+--------------------
+Connect     cc
+Disconect   dc
+Read        rd
+Receive     rc
+Send        sd
+Write       wr
+
+
+Data Verbs
+----------
+Backup      ba
+Checkpoint  ch
+Compare     cr
+Compress    cm
+Convert     cv
+ConvertFrom cf
+ConvertTo   ct
+Dismount    dm
+Edit        ed
+Expand      en
+Export      ep
+Group       gp
+Import      ip
+Initialize  in
+Limit       l
+Merge       mg
+Mount       mt
+Out         o
+Publish     pb
+Restore     rr
+Save        sv
+Sync        sy
+Unpublish   ub
+Update      ud
+
+Diagnostic Verbs
+----------------
+Debug       db
+Measure     ms
+Ping        pi
+Repair      rp
+Resolve     rv
+Test        t   
+Trace       tr
+
+Lifecycle Vrebs
+---------------
+Approve     ap
+Assert      as
+Build       bd
+Complete    cp
+Confirm     cn
+Deny        dn
+Deploy      dp
+Disable     d
+Enable      e
+Install     is
+Invoke      i
+Register    rg
+Request     rq
+Restart     rt
+Resume      ru
+Start       sa
+Stop        sp
+Submit      sb
+Suspend     ss
+Uninstall   us
+Unregister  ur
+Wait        w
+
+Security Verbs
+--------------
+Block       bl
+Grant       gr
+Protect     pt
+Revoke      rk
+Unblock     ul
+Unprotect   up
+
+Ohter Verbs
+--------------
+Use         u
+
+

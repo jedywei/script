@@ -4,6 +4,7 @@ Simple Setup
 1. sudo without password
 --------------------------------------------------------------------------
 sudo sh -c 'echo "jedywei ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/jedywei'
+sudo sh -c 'echo "vega ALL=(ALL:ALL)  NOPASSWD:ALL" > /etc/sudoers.d/vega'
 
 2. update apt database and full-upgrade
 --------------------------------------------------------------------------
@@ -184,4 +185,22 @@ CipherString = DEFAULT:@SECLEVEL=1
 $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
 // username jedy.wei
 // password iam1Rock
+
+
+5.19.0-50-gerenic
+$ export kver=5.19.0-50-generic
+$ sudo apt-get install linux-image-$kver linux-modules-$kver linux-headers-$kver linux-modules-extra-$kver
+
+$ wget -qO - https://repositories.intel.com/graphics/intel-graphics.key | \ 
+   sudo gpg --dearmor --output /usr/share/keyrings/intel-graphics.gpg
+$ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/graphics/ubuntu jammy flex" | \
+   sudo tee /etc/apt/sources.list.d/intel-gpu-jammy.list
+
+$ sudo apt-get install intel-i915-dkms xpu-smi intel-platform-cse-dkms intel-platform-vsec-dkms
+
+$ apt info intel-i915-dkms
+Package: intel-i915-dkms
+Version: 1.23.5.19.230406.21.5.17.0.1034+i38-1
+
+
 
