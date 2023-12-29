@@ -187,10 +187,11 @@ $ svn ls https://batman.advantech.com.tw/svn/scm/ncg/pool/video_clips/branches
 // password iam1Rock
 
 
+
 # onevpl
 ----------------------------------------------------------------------
-export kver=5.19.0-50-generic
-sudo apt-get install linux-image-$kver linux-modules-$kver linux-headers-$kver linux-modules-extra-$kver
+$ export kver=5.19.0-50-generic
+$ sudo apt-get install linux-image-$kver linux-modules-$kver linux-headers-$kver linux-modules-extra-$kver
 
 GRUB_DEFAULT=saved
 GRUB_SAVEDEFAULT=true
