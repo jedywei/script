@@ -8,4 +8,10 @@ $ scp ~/.ssh/id_rsa I@172.17.4.166:/C:/Users/I/.ssh
 $ scp ~/.ssh/id_rsa.pub I@172.17.4.166:/C:/Users/I/.ssh
 
 #git command
-$ scp ~/.gitconfig I@172.17.4.166:C:/Users/I/
+$ scp ~/.gitconfig I@172.17.4.166:/C:/Users/I/
+
+
+On windows
+scp c:\Users\Jedy.Wei\.vimrc    jedywei@mac:~
+scp jedywei@mac:~/.vimrc c:\Users\Jedy.Wei
+

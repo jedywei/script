@@ -1,4 +1,8 @@
 Task Manager
 Device Manager
 Services
+Resource Monitor
+Variable                // Edit the system environment variable
+regedit                 // Registry Editor
+
 

@@ -1,0 +1,62 @@
+Windows Path Environment Variable
+-----------------------------------
+%SystemRoot%\System32
+%SystemRoot%
+%SystemRoot%\System32\Wbem
+%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;
+C:\Program Files (x86)\Windows Live\Shared
+C:\Program Files\dotnet\;
+C:\Program Files\Git\cmd;
+C:\Program Files\doxygen\bin;
+C:\Program Files\Graphviz\bin;
+C:\ProgramData\nvm;
+C:\Program Files\nodejs;
+C:\Program Files\VEGA_3003\sdk\dll;
+C:\Program Files\TortoiseSVN\bin;
+D:\tools\vcpkg
+
+
+
+
+2024/01/01
+----------
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\\Extensions\Microsoft\IntelliCode\CLI;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x86;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\VCPackages;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\bin\Roslyn;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Team Tools\Performance Tools;
+C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;
+C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\devinit;
+C:\Program Files (x86)\Windows Kits\10\bin\10.0.20348.0\x86;
+C:\Program Files (x86)\Windows Kits\10\bin\x86;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\\MSBuild\Current\Bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\;
+c:\program files\powershell\7;
+C:\Windows\System32\OpenSSH\;
+----------------
+## System PATH
+C:\Windows\system32;
+C:\Windows;
+C:\Windows\System32\Wbem;
+C:\Windows\System32\WindowsPowerShell\v1.0\;
+C:\Program Files (x86)\Windows Live\Shared;
+-----------------
+C:\Program Files\dotnet\;
+C:\Program Files\Git\cmd;
+C:\Program Files\doxygen\bin;
+C:\Program Files\Graphviz\bin;
+C:\ProgramData\nvm;
+C:\Program Files\nodejs;
+C:\Program Files\VEGA_3003\sdk\dll;
+C:\Program Files\TortoiseSVN\bin;
+D:\tools\vcpkg
+------------------
+C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\Linux\bin\ConnectionManagerExe
+

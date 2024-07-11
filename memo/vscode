@@ -1,9 +1,19 @@
 
 
+See Also
+    - VSCode Extension 
+    https://ithelp.ithome.com.tw/users/20108634/ironman/3815?page=1
+
+
 Extension -----------------
 Live Server
 Material Icon Theme
 Monokai++
 Vim
 
+
+settings.json -------------
+  - VS Code is highly customizable due to the extent of changeable settings. 
+  - User Settings
+  - Workspace Settings
 

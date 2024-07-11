@@ -1,20 +1,110 @@
 CMake
 ------
 
+CMake workflow
+---------------
+    1. Add a CMakeLists.txt under the project
+    2. cmake -B build       // configure a out-of-source 'build' to the project by CMakeLists.txt 
+        - build/CMakeCache.txt          // configuration result
+        - build/CMakeFiles/             // CMakeFile folder
+        - build/cmake_install.cmake     // cmake for installation
+        - build/CMakeOutput.log         // log
+
 CMakeLists.txt
+---------------
 # coment banner
 cmake_minimum_required(VERSION 3.1)
 project(hello)
+
 add_executeable(hello hello.c)
 
+# variable setting and usage
+set(SOURCES a.cpp b.cpp c.cpp e.cpp)
+message(${SOURCES})
 
+foreach (src ${SOURCES})
+    message(${src})
+endforeach()
+# project relative settings
+find_package(<package name> REQUIRED)
+add_sub_directories(<source folder>
+add_executeable(<target> ${SOURCES})
+add_library(<target> [STATIC|SHARED|MODULE] ${SOURCES})
+
+# compliing relative settings
+target_link_libraries(<target> PRIVATE|PUBLIC|INTERFACE ${LIBRARY})
+target_include_directory(<target> PRIVATE|PUBLIC|INTERFACE ${DIRS})
+target_compile_options(<target> PRIVATE|PUBLIC|INTERFACE ${OPTIONS})
+target_compile_definitions(<target> PRIVATE|PUBIC|INTERFACE ${DEFINITION})
+
+# property scope
+PRIVATE                     INTERFACE                           PUBLIC
+-----------------------     --------------------------------    ---------------
+INCLUDE_DIREECTORIES        INTERFACE_INCLUDE_DIREECTORIES      both
+LINK_LIBRARIES              INTERFACE_LINK_LIBRARIES
+COMPILE_DEFINITIONS         INTERFACE_COMPILE_DEFINITIONS
+COMPILE_OPTIONS             INTERFACE_COMPILE_OPTIONS
+
+# scripting command example
+option(DOWNLOAD_MNIST "Download the MNIST dataset from the internet" ON)
+if (DOWNLOAD_MNIST)
+  message(STATUS "Downloading MNIST dataset")
+  execute_process(
+    COMMAND python ${CMAKE_CURRENT_LIST_DIR}/../tools/download_mnist.py
+      -d ${CMAKE_BINARY_DIR}/data
+    ERROR_VARIABLE DOWNLOAD_ERROR)
+  if (DOWNLOAD_ERROR) # 如果執行發生錯誤會為 true
+    message(FATAL_ERROR "Error downloading MNIST dataset: ${DOWNLOAD_ERROR}")
+  endif()
+endif()
+
+# macro and function
+cmake_minimum_required(VERSION 2.8)
+macro(mac_print msg)
+    set(mac "macro")
+    message("${mac}: ${msg}")
+endmacro(mac_print)
+
+function(func_print msg)
+    set (func "func")
+    message("${func}: ${msg}")
+endfunction(func_print)
+
+mac_print("test macro")
+message("check var in macro: ${mac}")
+func_print("test function")
+message("check var in function: ${func}")
+
+# install
+install(TARGETS ${proj_name} DESTINATION bin)
+install(TARGETS bay LIBRARY DESTINATION lib)
+install(FILES liba.h libb.h DESTINATION include)
+
+# find_package
+    - find module mode package
+    - find config-file package
+find_package(Qt4 4.7.0 REQUIRED)        # CMake provide a Qt4 find-module by FindQt4.cmake
+find_package(Qt5Core 5.1.0 REQUIRED)    # Qt provides a Qt5 package config file by Qt5CoreConfig.cmake
+find_package(LibXml2 REQUIRED)          # Use pkg-config via the LibXml2 find-module
+find_package(Qt5Core 5.1.0 CONFIG REQUIRED)
+find_package(jsoncpp CONFIG REQUIREC)   # @see vcpkg and vcpkg.json to get more information
+find_package(Qt4 4.7.0 MODULE REQUIRED)
+    # search CMAKE_PREFIX_PATH 
+
+#variables
+CMAKE_INSTALL_PREFIX -  The variable default to /usr/local on Linux and C:/Program Files/${PROJECT_NAME} on Windows
+
+
+Commands
+---------
 $ mkdir build && cd build
 $ cmake .. && cd ..
 
 // Build a CMake build system
 $ cmake -B build
 $ cmake -S src
-$ cmake -B build -S src
+$ cmake -B build -S src -DCMAKE_BUILD_TYPE=Release -G Ninja
+$ cmake -B build -DDCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 // Specify a build system generator
 // defult Visual Studio 16 2019
@@ -23,10 +113,18 @@ $ cmake -B build -G ninja
 
 // build the project
 $ cmake --build  build
+$ cmake --build . -- /t:Rebuild /p:Configuration=Release /p:Platform=x64
+$ cmake --build build --clean-first  
+$ cmake --build build --trace
 
 // Install a Project
 $ cmake --install build
 
 
+// debug
+$ camke --system-information
+$ cmake -LA                        // dump cmake cache variables
+$ cmake --help-variable CMAKE_INSTALL_PREFIX
+$ cmake --help-variable-list
 
 

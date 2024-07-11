@@ -5,9 +5,89 @@ vcpkg
     - Easy integration with your build system (including and linking library).
     - Support for cross-compilation of dependencies.
 
-1. install vcpkg itself
-    $ git clone https://github.com/Microsoft/vcpkg.git
-    $ ./vcpkg/bootstrap-vcpkg.bat
+See Also
+ - 用 vcpkg 安裝 C 或 C++ library
+   https://opensourcedoc.com/windows-programming/use-vcpkg-to-install-gtk-on-windows/
 
-2. 
+
+1. install vcpkg itself
+PS> cd d:/
+PS> mkdir tools; cd tools
+PS> git clone https://github.com/Microsoft/vcpkg.git
+PS> ./vcpkg/bootstrap-vcpkg.bat
+PS> setx VCPKG_ROOT "D:\tools\vcpkg" /M
+// add VCPKG_ROOT to system path variable
+
+2. integrate with powershell
+PS> cd $VCPKG
+PS> ./vcpkg itegrate powershell
+
+
+3. Using vcpkg with CMake
+cmake -B [build directory] -S . -DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake
+
+4. Using vcpkg with MSBuild / Visual Studio
+PS> cd $VCPKG
+PS> ./vcpkg integrate install
+
+
+5. example
+d:/project/mytest/fmt
+  5-1. On CMakeLists.txt
+    find_package(fmt REQUIRED)
+    target_link_libraries(vcpkg_test PRIVATE fmt::fmt)
+  5-2. vkpkg.json
+    ...
+    "builtin-baseline": "83972272512ce4ede5fc3b2ba98f6468b179f192"  
+
+    NOTE: how to get builtin-baseline
+    PS> cd d:/tools/vcpkg
+    PS> git rev-parse HEAD
+    PS> git show 83972272512ce4ede5fc3b2ba98f6468b179f192:versions/baseline.json
+
+  5-3. settings.json
+    "cmake.configureArgs" : ["-DCMAKE_TOOLCHAIN_FILE:d:\\tools\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"]
+  5-4. // CONFIG
+    PS> cmake -B build -DCMAKE_TOOLCHAIN_FILE=d:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake
+    // or ninja config
+    PS> cmake -B build -DCMAKE_TOOLCHAIN_FILE=d:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja
+    // or add following to CMakeLists.txt
+    add_definitions(-DCMAKE_TOOLCHAIN_FILE=d:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake 
+                    -DVCPKG_TARGET_TRIPLET=x64-windows
+                    -DCMAKE_GENERATOR_PLATFORM=x64)
+    PS> cmake -B build
+
+
+  5-5. // build
+    PS> cmake --build build
+    PS> cmake --build build --config Relese
+    PS> cmake --build build --config Debug
+
+6. commands
+PS> cd $VCPKG
+PS> vcpkg list
+PS> vcpkg search jsoncpp
+PS> vcpkg install jsoncpp --triplet=x64-windows
+PS> vcpkg install jsoncpp:x64-windows
+PS> vcpkg remove jsoncpp
+... 
+jsoncpp provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(jsoncpp CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE JsonCpp::JsonCpp)
+
+jsoncpp provides pkg-config modules:
+
+    # A C++ library for interacting with JSON
+    jsoncpp
+PS> vcpkg list
+
+PS> vcpkg search curl
+
+
+defines for CMake
+-DCMAKE_TOOLCHAIN_FILE="D:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake"
+-DVCPKG_TARGET_TRIPLET=x64-windows
+-DCMAKE_GENERATOR_PLATFORM=x64
 

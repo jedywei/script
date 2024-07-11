@@ -21,3 +21,30 @@ Path for Windows SDK
 
 install WDK
     - download - https://go.microsoft.com/fwlink/?linkid=2164149
+
+Path for Windows WDK (DDK_INC_PATH)
+    - C:\Program Files (x86)\Windows Kits\10\Include\10.0.20348.0\km
+
+uninstall WDK
+    - Open Setting / Type 'Remove'  and select 'Add or remove programs'
+    - Uninstall 'Windos Driver Kit'
+    - Restart PC
+
+vs2022
+    - download -> 
+
+
+Powershell integrate 'x64 Native Tools Command Prompt for vS 2019'
+file C:\Users\jedy.wei\Documents\PowerShell\vs2019.ps1
+# x64 Native Tools Command Prompt for vs2019
+$a = New-Object -ComObject Scripting.FileSystemObject
+$f = $a.GetFile("C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll")
+$DEV_SHELL=$f.ShortPath
+#Write-Output $DEV_SHELL
+Import-Module ("$DEV_SHELL")
+Enter-VsDevShell 16ba435c
+cd d:\Project
+
+file C:\Users\jedy.wei\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+...
+& "$PSScriptRoot\vs2019.ps1"

@@ -62,10 +62,41 @@ git apply 001-Fix-cli-showvminfo.patch
 git apply --stat 001-Fix-cli-showvminfo.patch
 git apply --stat -p4 001-Fix-cli-showvminfo.patch   
 
+NOTE: if get error like
+error: patch failed: core/diningroom/qsv/twovideo.c:1491
+error: core/diningroom/qsv/twovideo.c: patch does not apply
+try 
+$ git apply --3way ~/patches/0001-mfp-mfp_device.conf-change-schema-from-decoder-to-dr.patch
+
+
 // with -p2, a patch against a/dir/file will be applied directly to file. (default is 1)
 
 patch -p5 --dry-run < ../patches/001-Fix-cli-showvminfo.patch  
 pathc -p5 < ../patches/001-Fix-cli-showvminfo.patch 
+
+
+NOTE: if File to patch: prompt
+diff --git a/include/linux/pm_qos.h b/include/linux/pm_qos.h
+index 0f65d36..ff59753 100644
+--- a/include/linux/pm_qos.h
+1. You have to be in the top-level directory of a kernel source tree. The -p1 option will strip one 
+    path component from the file names, so that a/include/linux/pm_qos.h will be treated as 
+    include/linux/pm_qos.h. This is a relative path which has to resolve from your current working 
+    directory.
+2. The file include/linux/pm_qos.h has to exist in the version of the kernel that you're trying to patch.
+
+
+check another branch file
+-------------------------
+$ git co origin/onevpl -- asus-hdmi.conf
+
+clean up *.rej and *.orig
+--------------------------
+$ cd <PROJ_ROOT>
+$ find . -name '*.orig'
+$ find . -name '*.rej'
+$ git clean -e '!*.orig' -i
+
 
 
 see also git-format-patch, git-diff

@@ -26,7 +26,7 @@ co - checkout
 up - update
 ci - commit
 add - add file or add folder
-mv - rename
+mv - rename / moves afile from one directory to another (or renames it)
 st - status
 revert -
 info - 
@@ -34,11 +34,12 @@ resolved -
 diff -
 export -
 cp - create a branch
-import - 
+import - the svn import command commites an unversioned tree of files into a repository
 log - 
 lock -
-unlock -
-delete -
+unlock - 
+delete - delete a file from your working copy of the repository
+admincreate - admincreate command creates a new, empty repository
 
 ? - New
 A - Add file

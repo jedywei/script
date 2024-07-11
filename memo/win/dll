@@ -1,0 +1,12 @@
+dll
+----
+
+dll search order
+----------------
+1. The %SystemRoot%\system32
+2. The .exe fie directory
+3. The current directory
+4. The %SystemRoot% directory
+5. The directory in the PATH environment variable
+
+
