@@ -12,6 +12,10 @@ $ sudo apt update                               // only update package index /et
 $ sudo apt list available-upgrade
 $ sudo apt full-upgrade                         // install the newest versions of all packages by /etc/apt/sources.list
 
+
+NOTE: if get error such as 'E: Unable to locate package <packagename>'. it need to update pakcage cache
+$ sudo apt update && sudo apt update -y
+
 disalbe automatic upgrade
 $ cat /etc/apt/apt.conf.d/20auto-upgrades
 APT::Periodic:Upate-Package-Lists "0";
