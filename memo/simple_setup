@@ -157,6 +157,28 @@ $ cd ~/mediaflow/Ruth
 $ ./scripts/install_all_packages.sh
 $ make
 
+## for onevpl
+$ cp ~/mediaflow/Ruth/script/onevpl.mk ~/.onevpl.mk
+## remove the last line 'inclue ~/.onevpl.mk'
+$ vi ~/.onevpl.mk
+ONEVPL:=y
+MEDIASDK:=n
+FFMPEG_VER:=6.0
+ifeq ($(FFMPEG_VER),6.0)
+CFLAGS += -DFFMPEG_VER=6
+endif
+
+
+## for mediasdk
+ONEVPL:=n
+MEDIASDK:=y
+FFMPEG_VER:=6.0
+ifeq ($(FFMPEG_VER),6.0)
+CFLAGS += -DFFMPEG_VER=6
+endif
+
+
+
 
 9. enter multi-user.target (Optional)
 --------------------------------------------------------------------------
