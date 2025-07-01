@@ -80,7 +80,7 @@ $nrconf{restart} = 'l';
 
 $ sudo vi /etc/hosts
 172.17.4.19     mac
-# 192.168.0.201 mac
+# 192.168.0.200 mac
 172.17.5.11     v7000
 
 4. jedy's github environment

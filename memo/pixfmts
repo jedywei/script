@@ -52,6 +52,7 @@ AB4H  x             =       _ABGR16161616F              [63:0] A:B:G:R=16:16:16:
 
 NV12  =             =       _NV12                       [8:0] Y / [15:0] Cr:Cb  LE      plane x2 420
 YUYV  _YUYV422      =       _YUYV                       [31:0] Cr0:Y1:Cb0:Y0=8:8:8:8 LE 422
+YUY2  == YUYV                                           YUY2 和YUYV 是同一種 YUV 格式 
 YVYU                =       _YVYU                       [31:0] Cb0:Y1:Cr0:Y0=8:8:8:8 LE 422
 UYVY  _UYVY422      =       _UYVY                       [31:0] Y1:Cr0:Y0:Cb0=8:8:8:8 LE 422
 VYUY                =       _VYUY                       [31:0] Y1:Cb0:Y0:Cr0=8:8:8:8 LE 422
