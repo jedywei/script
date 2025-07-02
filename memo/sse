@@ -1,0 +1,102 @@
+Intel SSE instruction
+---------------------
+
+
+Intrinsics Guide
+-----------------
+-> https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html
+or 
+google intel intrinsics
+
+
+Naming and Usage Syntax
+-----------------------
+_mm_<intrin_op>_<suffix>
+
+<suffix>            s       single-precision floating
+                    d       double-precision floating
+                    i128    signed 128-bit integer
+                    i64     signed 64-bit integer
+                    u64     unsigned 64-bit integer
+                    i32     signed 32-bit integer
+                    u32     unsigned 32-bit integer
+                    i16     signed 16-bit integer
+                    u16     unsigned 16-bit integer
+                    i8      signed 8-bit integer
+                    u8      unsigned 8-bit integer
+    
+                    denote
+                    p       packed
+                    ep      extened packed
+                    s       scalar
+
+__m128d
+
+
+intrin_op
+----------
+Packed Blending intrinics // SSE4
+
+__m128 _mm_blend_ps(__m128 v1, __m128 v2, int mask)            // single precision float using constant mask
+__m128d _mm_blend_pd(__m128d v1, __m128d v2, int mask)         // double precision float using constant mask
+__m128 _mm_blendv_ps(__m128 v1, __m128 v2, __m128 v3)          // single precision float using veriable mask 
+__m128d _mm_blendv_pd(__m128d v1, __m128d v2, __m128d v3)      // double precision float using veriable mask 
+__m128i _mm_blendv_epi8(__m128i v1, __m128i v2, __m128 mask)   // single byte integer using veriable mask 
+__m128i _mm_blend_epi16(__m128i v1, __m128i v2, int mask)      // 16bit integer using constant mask 
+
+
+_mm_blendv_epi8
+    
+    dst[7:0] = mask[7] ? v2[7:0] : v1[7:0]
+    dst[15:8] = mask[15] ? v2[15:8] : v1[15:8]
+    ...
+    dst[127:120] = mask[127] ? v2[127:120] : v1[127:120]
+
+_mm_blend_epi16
+
+    dst[15:0] = mask[0] ? v2[15:0] : v1[15:0]
+    dst[31:16] = mask[1] ? v2[31:16] : v1[31:16]
+    ...
+    dst[127:112] = mask[7] ? v2[127:112] : v1[127:112]
+
+
+Shuffle Intrinsics  // SSSE3
+
+__m128i _mm_shuffle_epi8(__m128i v1, __m128i s);               // Shuffle bytes from v1 according to constant of s 
+__m64 _mm_shuffle_pi8(__m64 v1, __m64 s);                      // Shuffle bytes from v1 according to constant of s 
+
+_mm_shufulte_epi8(__m128i v1, __m128i s)
+
+    if (s[7:0] & 0x80) {
+        dst[7:0] = 0;
+    } else {
+        dst[7:0] = v1[s[3:0]];
+    }
+    if (s[15:8] & 0x80) {
+        dst[15:8] = 0;
+    } else {
+        dst[15:8] = v1[s[11:8]];
+    }
+    ...
+    if (s[127:120] & 0x80) {
+        dst[127:120] = 0;
+    } else {
+        dst[127:120] = v1[s[123:120]];
+    }
+
+
+gcc
+---
+gcc -O3 -msse2 -mssse3 -msse4.1 -mavx2 -m64         // NOTE -mssse3      3 sss + 1 e
+
+
+include
+-------
+#include <immintrin.h>      // SSE, SSE2
+#include <tmmintrin.h>      // SSE3 
+#include <smmintrin.h>      // SSE4 
+#include <emmintrin.h>      // half-float convertsioin intrinisc
+
+
+
+
