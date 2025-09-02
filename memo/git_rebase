@@ -21,3 +21,16 @@ d, drop             = remove commit
 l, label <label>    = label current HEAD with a name
 t, reset <label>    = reset HEAD to a label
 m, merge
+
+
+modify the rebase file
+:w
+:q
+
+reset HEAD to a commit
+-----------------------
+git reset --soft <commit hash>          // keep modified
+git reset --hard <commit hash>          // move HEAD to <commit hash> and don't keep any file
+                                        // after reset --hard, i can use 'git pull' to get the update from remote server 
+
+
