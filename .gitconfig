@@ -96,6 +96,8 @@
     co=checkout
     st=status
     last=log -l HEAD
+    ######
+    ls = ls-files
     #####
     uncommit=reset HEAD~
     undo=reset --soft HEAD^

@@ -68,6 +68,9 @@ $ git br -av
   remotes/origin/v2.17-branch             df3c584 libva 2.17.0
 ..
 
+// before create local branch need to fetch commits from remote repo
+$ git fetch 
+
 // create local branch by remote branch
 $ git co -b v2.17 origin/v2.17-branch
 

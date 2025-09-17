@@ -1,0 +1,68 @@
+squash
+------
+Combine multiple commites into a single commit. It's often to used to clean up your commit history before merging a branch.
+Keeps histroy tidy
+
+SOP
+---
+
+// on feature branch for exampe json-c
+$ git commit -squash  <master commit>
+
+// give a commit message like
+[json-c] squash (json-c windows and posix library and add jobj-api wrappter to make json-c usage easily)
+
+$ git switch master
+
+$ git rebase json-c
+
+$ git branch -D json-c
+
+$ git push
+
+// now master and origin/master will be updated
+// and leave a origin/json-c remote branch
+// you keep the remote branch a while, until you don't need it again
+// remove remote branch
+$ git push origin --delete json-c
+
+
+** Verify Deletion 
+
+$ git fetch --prune         // cleans up old remote-tracking branches
+$ git br -r                 // to list remote branches
+
+Explain
+--------
+$ git rebase -i <master commit>
+
+or 
+$ git comit --squash <master commit>
+
+- mark commits with squash (or just s), which tells Gits to merge that commit into the one before it.
+
+The result
+- You get a single commit with all the changes, and you can rewrite the commit message to summarize everything. 
+
+Example
+Before squash:
+
+    - commit A  - add feature
+    - commit B  - fix bug in feature
+    - commit c  - improve feature message
+
+After squash:
+    
+    - commit A' - (squash) add features with fixes and improvemens
+
+
+After squash, only the squashed commit stays in the branch history.
+    - To get the detailed commits back:
+    - Use git reflog (local).
+    - Or check the original branch / pull request (remote).
+
+
+
+
+
+
