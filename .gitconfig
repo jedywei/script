@@ -1,7 +1,7 @@
 [user]
-    name=Jedy Wei
     email=jedy.wei@advantech.com.tw
-    username=jedy.wei
+	username = jedywei
+	name = JedyWei
 [core]
     editor=vim
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -95,6 +95,7 @@
     ######
     co=checkout
     st=status
+    ss=show --stat
     last=log -l HEAD
     ######
     ls = ls-files
