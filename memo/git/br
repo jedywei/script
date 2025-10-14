@@ -1,0 +1,54 @@
+branch
+------
+
+# List branch, remote and all
+#----------------------------------------------------------
+git br
+git br -r
+git br -a 
+git br -d <branch>
+git br -D <branch>
+
+# List branch and upstream binding
+#---------------------------------------------------------
+git br -vv
+
+# switch branch
+#---------------------------------------------------------
+git co <branch>         == git switch <branch>
+git co -b <new branch>  // create new branch
+
+
+# merge or rebase branch 
+#---------------------------------------------------------
+git merge <commit>
+git merge <branch>
+git rebase <branch>
+
+track remote branch
+--------------------
+# 1
+git co -b sf origin/serverfix
+# 2
+git co sf
+git br -u origin/serverfix
+
+remove remote branch
+----------------------
+$ git push jedy --delete jedy/json-c-0-15       // both
+$ git br -rd jedy/json-c-0-15                   // delete only local
+
+# push all branch to remote
+#---------------------------------------------------------
+git push origin --all
+
+# fetch all branch from remote
+#---------------------------------------------------------
+git fetch --all
+
+# pull all branch from remote. 
+# NOTE: pull will fetch and then merge 
+#--------------------------------------------------------
+git pull -all
+
+

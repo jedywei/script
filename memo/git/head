@@ -1,0 +1,71 @@
+HEAD
+-----
+
+Both commit nodes B and C are parents of commit node A. 
+Parent commits are ordered left-to-right.
+
+G   H   I   J
+ \ /     \ /
+  D   E   F
+   \  |  / \
+    \ | /   |
+     \|/    |
+      B     C
+       \   /
+        \ /
+         A
+
+Parent      B is A 1st parent, C is A 2nd parent, ...
+
+<rev>^N     select the n-th immediated parent of mrege commit rev
+            e.g. B=A^1, C=A^2
+<rev>~N     goes backward n parents from rev, selecting the FIRST parent each time
+            e.g. B=A~1, D=A~2, G=A~3
+HEAD~N      e.g. HEAD~ == HEAD~1,  HEAD~2       
+
+NOTE: <rev> can be  
+  1. refer pointer, such as HEAD
+  2. branch, such as master, origin/master, json-c
+  3. tag, such as v1.12, v2.01
+  4. hash, commit hash, such 75e7e8a, 64a46d4
+
+$ git adog
+*   0a92ac1 (HEAD -> main, tag: A) A
+|\
+| * 00d2fb2 (tag: C) C
+| |
+|  \
+*-. | 75e7e8a (tag: B) B
+|\ \|
+| | *   f3fe76f (tag: F) F
+| | |\
+| | | * c193a93 (tag: J) J
+| | * 27c9a4e (tag: I) I
+| * 63a46d4 (tag: E) E
+*   d209203 (tag: D) D
+|\
+| * ff7985a (tag: H) H
+* 365f7d0 (tag: G) G
+
+A =      = A^0
+B = A^   = A^1     = A~1
+C = A^2
+D = A^^  = A^1^1   = A~2
+E = B^2  = A^^2
+F = B^3  = A^^3
+G = A^^^ = A^1^1^1 = A~3
+H = D^2  = B^^2    = A^^^2  = A~2^2
+I = F^   = B^3^    = A^^3^
+J = F^2  = B^3^2   = A^^3^2
+
+move HEAD to F
+----------------------------
+$ git co f3fe76f                // move HEAD to F
+$ git co -b F f3fe76f           // move HEAD to F and also create F branch
+
+
+move HEAD back to master
+-------------------------
+$ git co master
+
+

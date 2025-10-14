@@ -1,0 +1,8 @@
+tag
+----
+
+# push tag to remote site
+#---------------------------------------------------------
+git push --tags
+git push origin <tag_name>
+

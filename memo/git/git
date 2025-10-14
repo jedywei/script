@@ -166,11 +166,11 @@ git push origin <tag_name>
 #rebase and merge
 #----------------------------------------------------------
 git rebase          // 不要對你的 repo 外有副本的 Branch 執行 rebase 
-$ git co a_branch
+$ git switch a_branch
 $ git rebase master
 
 git merge           // rebase 比 merge 好在重整成線性的commited history 
-$ git co master
+$ git switch master
 $ git merge a_branch
 
 ~/.gitignore

@@ -1,0 +1,53 @@
+undo action
+-----------
+
+
+$git reflog         // The reflog is an ordered list of the commits that HEAD has pointed to: 
+                    // it's undo history for your repo. 
+
+
+# Working directory
+#---------------------------------------------------------------------
+WD - working directory /  (untracked files, or changes not staged for commit)
+Stage - staging area (changed to be committed)
+Repo - repository (commited)
+
+WD      -> Stage    git add
+Stage   -> Repo     git commit
+Stage   -> WD       git reset / git rm --cached / git restore --stage
+Repo    -> WD       git checkout
+Repo    -> Nothing  git reset --hard HEAD~5    (5 older than HEAD)
+Repo    -> Stage    git reset --soft HEAD^     (== git commit --amend) 
+Repo    -> WD       git reset -- HEAD^         (== git reset --mixed HEAD^ )
+
+--          the committed files will put back to WD (it's same as --mixed, but --mixed option id deprecated)
+                HEAD / Stage  / WD (NC)
+--soft      the committed files put back to Stage
+                HEAD / Stage (NC) / WD (NC)
+--hard      the committed files throw away
+                HEAD / Stage / WD
+
+
+git uncommit        == reset HEAD~          => Repo  -> WD       
+git undo            == reset --soft HEAD^   => Repo  -> Stage
+git unstage         == reset HEAD --        => Stage -> WD
+
+
+
+undo pull
+----------
+
+$ git pull              
+
+// 後悔，想退回 pull 之前的狀態
+
+$ git reflog
+// output like 
+bb3139b... HEAD@{0}: pull : Fast forward
+01b34fa... HEAD@{1}: clone: from ...name...
+
+$ git reset --hard       == git reset --hard 01b34fa  == git reset --hard HEAD^
+
+
+
+
